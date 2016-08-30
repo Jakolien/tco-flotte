@@ -29,6 +29,14 @@ var scenarios = ["mittel"]
 	this.inflationsrate = fleet_params.inflationsrate * 100
 	this.discount_rate = fleet_params.discount_rate * 100
 	this.limited = false
+	this.leasing = false
+	this.leasing_rate = 0
+	this.leasing_downpayment = 0
+	this.leasing_endpayment = 0
+	this.leasing_includes_insurance = false
+	this.leasing_includes_tax = false
+	this.leasing_includes_service = false
+	this.leasing_residual_value = 0
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
 
 	for(var prop in params) {
@@ -160,10 +168,6 @@ var scenarios = ["mittel"]
 				if (this.energy_type == "hybrid-benzin" || this.energy_type == "hybrid-diesel"){
 					this.getConsumption(this.energy_type)
 				}
-
-				// if (this.energy_type == "hybrid-diesel" && this.mileage == 10000 && this.acquisition_year == 2016 && scenario == "mittel" && this.holding_time == 4){
-				// 	console.log (this.energy_type, this.share_electric, my_consumption, fuel_consumption)
-				// }
 
 				//computes difference
 				advantage_2d_user = fuel_consumption - my_consumption
@@ -409,6 +413,22 @@ var scenarios = ["mittel"]
 		this.fixed_costs.car_tax = this.fixed_costs_car_tax
 		this.fixed_costs.check_up = this.fixed_costs_check_up
 		this.fixed_costs.insurance = this.fixed_costs_insurance
+
+		// Special case for leasing, which can include insurance etc.
+		if (this.leasing_includes_insurance) {
+			this.fixed_costs.insurance = 0
+			this.fixed_costs_insurance = 0
+		}
+		if (this.leasing_includes_tax) {
+			this.fixed_costs.car_tax = 0
+			this.fixed_costs_car_tax = 0
+		}
+		if (this.leasing_includes_service) {
+			this.fixed_costs.check_up = 0
+			this.fixed_costs_check_up = 0
+		}
+
+		// Adds up all fixed costs
 		this.fixed_costs.total = this.fixed_costs.car_tax + this.fixed_costs.check_up + this.fixed_costs.insurance
 		this.fixed_costs_total = this.fixed_costs.car_tax + this.fixed_costs.check_up + this.fixed_costs.insurance
 	}
@@ -548,6 +568,11 @@ var scenarios = ["mittel"]
 			}
 		}
 
+	}
+
+	this.getLeasingRate = function() {
+		this.leasing_residual_value = - this.residual_value
+		return (this.acquisition_price + this.residual_value - this.leasing_downpayment - this.leasing_endpayment) / (this.holding_time * 12)
 	}
 
 	this.getYearlyCosts = function(scenario, year){
@@ -778,6 +803,7 @@ var scenarios = ["mittel"]
 		this.getEnergyCosts()
 		this.getAmortization()
 		this.getResidualValue(this.residual_value_method)
+		this.leasing_rate = this.getLeasingRate()
 
 		//Rounds all visible values to 2 decimal places
 		this.fuel_consumption = this.fuel_consumption
@@ -787,9 +813,6 @@ var scenarios = ["mittel"]
 		this.maintenance_costs_inspection = Math.round(this.maintenance_costs_inspection * 100)/100
 		this.maintenance_costs_tires = Math.round(this.maintenance_costs_tires * 100)/100
 		this.lubricant_costs = Math.round(this.lubricant_costs * 100)/100
-		this._2016_elec_price = Math.round(this._2016_elec_price * 100)/100
-		this._2016_diesel_price = Math.round(this._2016_diesel_price * 100)/100
-		this._2016_benzin_price = Math.round(this._2016_benzin_price * 100)/100
 		this.residual_value_fixed = Math.round(this.residual_value_fixed * 100)/100
 		this.fuel_consumption = Math.round(this.fuel_consumption * 100)/100
 		this.acquisition_price = Math.round(this.acquisition_price)
