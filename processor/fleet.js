@@ -292,6 +292,16 @@ var Fleet = function(params) {
 		"diesel": 3.15
 	}
 
+	// CO2 produced when the vehicle is produced
+	// Values here are temporary
+	this.fleet_presets.CO2_from_manufacturing = {
+		"benzin": {"klein": 66.6, "mittel": 108.5,"groß": 137.8},
+		"diesel": {"klein": 105.33, "mittel": 193.19,"groß": 227.01, "LNF1": 293.63, "LNF2": 390.59},
+		"hybrid-benzin": {"klein": 23, "mittel": 38,"groß": 48},
+		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 79},
+		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5}
+	}
+
 	// Calculation of the residual values
 	this.fleet_presets.restwert_constants = {
 		"a": 0.97948,
@@ -525,15 +535,19 @@ var Fleet = function(params) {
 		}
 	}
 
+	// Initializes the object that will contain the groups
+	this.groups = {}
+
 	// Computes the TCO values for each vehicle group
 	for (group in params.groups) {
 		console.log(group, params.groups[group])
 		num_of_vehicles = params.groups[group].num_of_vehicles
 
 		// Creates the corresponding vehicle group
-		current_group = new vehicle_group.VehicleGroup(this.fleet_presets, params.groups[group])
+		this.groups[group] = new vehicle_group.VehicleGroup(this.fleet_presets, params.groups[group])
+		current_group = this.groups[group]
 		this.params.groups[group].TCO = {
-			"CO2": current_group.CO2 * num_of_vehicles,
+			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group].energy_type][params.groups[group].car_type] * num_of_vehicles,
 			"mileage": current_group.mileage * num_of_vehicles,
 			"car_type": current_group.car_type,
 			"energy_type": current_group.energy_type,
@@ -564,8 +578,8 @@ var Fleet = function(params) {
 		"cost_by_car_type": {},
 		"cost_by_energy_type": {},
 		"CO2_by_car_type": {},
-		"CO2_by_energy_type": {}
-		// CO2 by phase to be added when the data has arrived
+		"CO2_by_energy_type": {},
+		"CO2_by_phase": {}
 	}
 
 	// Computes the TCO values for the whole fleet
@@ -594,6 +608,12 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.variable_costs += group.TCO.variable_costs
 		this.TCO.cost_by_position.energy_costs += group.TCO.energy_costs
 		this.TCO.cost_by_position.charging_infrastructure += group.TCO.charging_infrastructure
+
+		// CO2 by phase
+		this.TCO.CO2_by_phase = {
+			"CO2_from_driving": group.TCO.CO2 - this.fleet_presets.CO2_from_manufacturing[group.energy_type][group.car_type] * group.num_of_vehicles,
+			"CO2_from_manufacturing": this.fleet_presets.CO2_from_manufacturing[group.energy_type][group.car_type] * group.num_of_vehicles
+		}
 
 		// Costs and CO2 by car type
 		if (group.car_type in this.TCO.CO2_by_car_type) {
@@ -625,12 +645,12 @@ myFleet = new Fleet({
 		"fleet_vars": {"charging_option_cost": 10000, "maintenance_costs_charger": 0, "evolution_hydrocarbon_price_until_2050": 20},
 		"groups": {
 			"group1": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 1, "second_user_yearly_mileage": 10000},
-			"group2": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 3},
-			"group3": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
-			"groupX": {"energy_type": "diesel", "car_type": "groß", "num_of_vehicles": 5},
-			"group4": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
-			"group5": {"energy_type": "diesel", "car_type": "klein", "num_of_vehicles": 10}
+			// "group2": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 3},
+			// "group3": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
+			// "groupX": {"energy_type": "diesel", "car_type": "groß", "num_of_vehicles": 5},
+			// "group4": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
+			// "group5": {"energy_type": "diesel", "car_type": "klein", "num_of_vehicles": 10}
 		}
 	});
 
-console.log(myFleet.TCO)
+console.log(myFleet.TCO.CO2_by_phase)

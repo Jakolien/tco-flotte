@@ -571,8 +571,8 @@ var scenarios = ["mittel"]
 	}
 
 	this.getLeasingRate = function() {
-		this.leasing_residual_value = - this.residual_value
-		return (this.acquisition_price + this.residual_value - this.leasing_downpayment - this.leasing_endpayment) / (this.holding_time * 12)
+		this.leasing_residual_value = - this.residual_value["mittel"]
+		return Math.round((this.acquisition_price + this.residual_value["mittel"] - this.leasing_downpayment - this.leasing_endpayment) / (this.holding_time * 12))
 	}
 
 	this.getYearlyCosts = function(scenario, year){
