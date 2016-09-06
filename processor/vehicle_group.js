@@ -1,5 +1,16 @@
+in_array = function(needle, haystack) {
+    var i = haystack.length;
+    while (i--) {
+        if (haystack[i] == needle) {
+            return true;
+        }
+    }
+    return false;
+}
+
 var VehicleGroup = function(fleet_params, params) {
-var scenarios = ["mittel"]
+	var scenarios = ["mittel"]
+	var additional_energy_types = ["long_distance_train","short_distance_train","car_sharing","rental_car","bike","plane"]
 	this.energy_type = "BEV"
 	this.car_type = "klein"
 	this.electricity_consumption = 0
@@ -824,10 +835,24 @@ var scenarios = ["mittel"]
 		this.getTCOByHoldingTime()
 		this.getTCO()
 	}
-	this.computeCosts()
 
-	if (this.limited == false){
-		this.computeTotals()
+	// Checks if this is a special group
+	if (in_array(this.energy_type, additional_energy_types)) {
+		// Cleans some of the properties of this special group
+		this.car_type = "single_size"
+		this.num_of_vehicles = 1
+		this.TCO_simplified.net_cost = this.mileage * eval("fleet_params."+ this.energy_type +"_cost_per_km")
+		this.TCO_simplified.charging_infrastructure = 0
+		this.TCO_simplified.energy_costs = 0
+		this.TCO_simplified.variable_costs = 0
+		this.TCO_simplified.fixed_costs = 0
+		this.CO2 = this.mileage * eval("fleet_params."+ this.energy_type +"_CO2_per_km")
+	} else {
+	// Proceeds to the regular calculations
+		this.computeCosts()
+			if (this.limited == false){
+				this.computeTotals()
+			}
 	}
 }
 

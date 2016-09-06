@@ -19,6 +19,20 @@ var Fleet = function(params) {
 		}
 	}
 
+	// Variables of the special groups
+	this.fleet_presets.long_distance_train_CO2_per_km = .1
+	this.fleet_presets.long_distance_train_cost_per_km = .9
+	this.fleet_presets.short_distance_train_CO2_per_km = .05
+	this.fleet_presets.short_distance_train_cost_per_km = .7
+	this.fleet_presets.car_sharing_CO2_per_km = 1
+	this.fleet_presets.car_sharing_cost_per_km = .2
+	this.fleet_presets.rental_car_CO2_per_km = 1
+	this.fleet_presets.rental_car_cost_per_km = 2
+	this.fleet_presets.bike_CO2_per_km = 0
+	this.fleet_presets.bike_cost_per_km = 0
+	this.fleet_presets.plane_CO2_per_km = 100
+	this.fleet_presets.plane_cost_per_km = 1.5
+
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 0.015		// That's 1.5% per year
 	this.fleet_presets.exchange_rate    = 1.25 		// How many $ for 1 €
@@ -146,7 +160,7 @@ var Fleet = function(params) {
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
 	this.fleet_presets.charging_option_price = {}
-	this.fleet_presets.lademöglichkeiten = { 
+	this.fleet_presets.charging_options = { 
 		"Keine": { "acquisition": 0, "maintenance": 0},
 		"Wallbox 3.7kW": { "acquisition": 350, "maintenance": 15},
 		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
@@ -299,7 +313,13 @@ var Fleet = function(params) {
 		"diesel": {"klein": 105.33, "mittel": 193.19,"groß": 227.01, "LNF1": 293.63, "LNF2": 390.59},
 		"hybrid-benzin": {"klein": 23, "mittel": 38,"groß": 48},
 		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 79},
-		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5}
+		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5},
+		"long_distance_train": {"single_size": 0},
+		"short_distance_train": {"single_size": 0},
+		"car_sharing": {"single_size": 0},
+		"rental_car": {"single_size": 0},
+		"bike": {"single_size": 0},
+		"plane": {"single_size": 0}
 	}
 
 	// Calculation of the residual values
@@ -458,11 +478,11 @@ var Fleet = function(params) {
 
 	this.setChargingOptionPrice = function(year) {
 		// Decrease in price is 5%/year
-		this.fleet_presets.charging_option_cost = this.fleet_presets.lademöglichkeiten[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2014);
+		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2014);
 	}
 
 	this.setChargingOptionMaintenance = function() {
-		this.fleet_presets.maintenance_costs_charger = this.fleet_presets.lademöglichkeiten[this.fleet_presets.charging_option]["maintenance"];
+		this.fleet_presets.maintenance_costs_charger = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"];
 	}
 
 	// Returns the price of the battery in E/kwh
@@ -540,7 +560,7 @@ var Fleet = function(params) {
 
 	// Computes the TCO values for each vehicle group
 	for (group in params.groups) {
-		console.log(group, params.groups[group])
+		
 		num_of_vehicles = params.groups[group].num_of_vehicles
 
 		// Creates the corresponding vehicle group
@@ -616,12 +636,25 @@ var Fleet = function(params) {
 		}
 
 		// Costs and CO2 by car type
-		if (group.car_type in this.TCO.CO2_by_car_type) {
-			this.TCO.CO2_by_car_type[group.car_type] += group.TCO.CO2
-			this.TCO.cost_by_car_type[group.car_type] += group.TCO.total_costs
-		} else {
-			this.TCO.CO2_by_car_type[group.car_type] = group.TCO.CO2
-			this.TCO.cost_by_car_type[group.car_type] = group.TCO.total_costs
+		if (group.car_type == "single_size") {
+			// Special groups
+			if (group.energy_type in this.TCO.CO2_by_car_type) {
+				this.TCO.CO2_by_car_type[group.energy_type] += group.TCO.CO2
+				this.TCO.cost_by_car_type[group.energy_type] += group.TCO.total_costs
+			} else {
+				this.TCO.CO2_by_car_type[group.energy_type] = group.TCO.CO2
+				this.TCO.cost_by_car_type[group.energy_type] = group.TCO.total_costs
+			}
+
+		}else{
+			// Normal groups
+			if (group.car_type in this.TCO.CO2_by_car_type) {
+				this.TCO.CO2_by_car_type[group.car_type] += group.TCO.CO2
+				this.TCO.cost_by_car_type[group.car_type] += group.TCO.total_costs
+			} else {
+				this.TCO.CO2_by_car_type[group.car_type] = group.TCO.CO2
+				this.TCO.cost_by_car_type[group.car_type] = group.TCO.total_costs
+			}
 		}
 
 		// Costs and CO2 by energy type
@@ -641,16 +674,14 @@ var Fleet = function(params) {
 
 }
 
+module.exports = Fleet
+
+console.log("Welcome to the eFleet computation engine!")
+
 myFleet = new Fleet({
-		"fleet_vars": {"charging_option_cost": 10000, "maintenance_costs_charger": 0, "evolution_hydrocarbon_price_until_2050": 20},
+		"fleet_vars": {},
 		"groups": {
-			"group1": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 1, "second_user_yearly_mileage": 10000},
-			// "group2": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 3},
-			// "group3": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
-			// "groupX": {"energy_type": "diesel", "car_type": "groß", "num_of_vehicles": 5},
-			// "group4": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 10},
-			// "group5": {"energy_type": "diesel", "car_type": "klein", "num_of_vehicles": 10}
+			"group1": {"energy_type": "long_distance_train", "car_type": "single_size", "num_of_vehicles": 1},
+			"group2": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 3},
 		}
 	});
-
-console.log(myFleet.TCO.CO2_by_phase)
