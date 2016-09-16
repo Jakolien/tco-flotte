@@ -560,6 +560,12 @@ var Fleet = function(params) {
 
 	// Computes the TCO values for each vehicle group
 	for (group in params.groups) {
+
+		// In case forgotten
+		if (params.groups[group].num_of_vehicles == undefined) { params.groups[group].num_of_vehicles = 1 }
+
+		// For special groups
+		if (params.groups[group].energy_type == "short_distance_train" || params.groups[group].energy_type == "plane" || params.groups[group].energy_type == "long_distance_train" || params.groups[group].energy_type == "car_sharing" || params.groups[group].energy_type == "rental_car" || params.groups[group].energy_type == "bike") { params.groups[group].car_type = "single_size" }
 		
 		num_of_vehicles = params.groups[group].num_of_vehicles
 
@@ -608,8 +614,10 @@ var Fleet = function(params) {
 
 		// Total mileage
 		this.TCO.mileage += group.TCO.mileage
-		// Total number of vehicles
-		this.TCO.num_of_vehicles += group.num_of_vehicles
+		// Total number of vehicles increases if it's not a special group
+		if (!(group.energy_type == "short_distance_train" || group.energy_type == "plane" || group.energy_type == "long_distance_train" || group.energy_type == "car_sharing" || group.energy_type == "rental_car" || group.energy_type == "bike")){
+			this.TCO.num_of_vehicles += group.num_of_vehicles
+		}
 		// Total cost
 		this.TCO.total_costs += group.TCO.total_costs
 		// Total CO2
@@ -677,11 +685,3 @@ var Fleet = function(params) {
 module.exports = Fleet
 
 console.log("Welcome to the eFleet computation engine!")
-
-myFleet = new Fleet({
-		"fleet_vars": {},
-		"groups": {
-			"group1": {"energy_type": "long_distance_train", "car_type": "single_size", "num_of_vehicles": 1},
-			"group2": {"energy_type": "benzin", "car_type": "klein", "num_of_vehicles": 3},
-		}
-	});
