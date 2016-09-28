@@ -1,0 +1,9 @@
+.main__fleet {
+  margin-top:$spacer * 2;
+
+  &__header {
+    color:white;
+    border:0;
+    @include gradient-directional( #D78570, lighten(#D78570, 20%) );
+  }
+}

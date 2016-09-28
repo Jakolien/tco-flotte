@@ -9,7 +9,7 @@
     </a>
     <div uib-collapse="$ctrl.isCollapsed" class="collapse navbar-toggleable-xs pull-sm-right">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in $ctrl.menu" ui-sref-active="active" class="nav-item">
+        <li ng-repeat="item in $ctrl.menu" ui-sref-active-eq="active" class="nav-item">
           <a ui-sref="{{ item.state }}" class="nav-link">
             {{ item.title }}
           </a>
