@@ -1,0 +1,44 @@
+<div class="container account__login">
+  <div class="card card-block">
+    <div class="card-title">
+      <h1>Login</h1>
+    </div>
+    <div class="card-text">
+      <form class="form" name="form" ng-submit="vm.login(form)" novalidate>
+
+        <div class="form-group">
+          <label>Username</label>
+
+          <input type="text" name="username" class="form-control" ng-model="vm.user.username" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+
+          <input type="password" name="password" class="form-control" ng-model="vm.user.password" required>
+        </div>
+
+        <div class="form-group has-error">
+          <p class="help-block text-danger" ng-show="form.username.$error.required && form.password.$error.required && vm.submitted">
+             Please enter your username and password.
+          </p>
+          <p class="help-block text-danger" ng-show="form.email.$error.email && vm.submitted">
+             Please enter a valid email.
+          </p>
+
+          <p class="help-block text-danger">{{ vm.errors.login }}</p>
+        </div>
+
+        <div>
+          <button class="btn btn-primary btn-lg btn-login" type="submit">
+            Login
+          </button>
+          <a class="btn btn-link btn-lg btn-register" ui-sref="signup">
+            Sign up
+          </a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

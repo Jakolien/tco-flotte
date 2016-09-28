@@ -1,0 +1,15 @@
+.navbar {
+
+  & &-brand {
+    float:none;
+    img {
+      display: inline-block;
+    }
+  }
+
+  &-nav {
+    .nav-item + .nav-item {
+      margin-left: 1.5rem;
+    }
+  }
+}

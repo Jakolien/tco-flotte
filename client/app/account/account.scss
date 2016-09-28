@@ -1,0 +1,22 @@
+.account {
+
+  &__login, &__settings, &__signup {
+
+    .card {
+      margin:auto;
+      margin-top:$spacer * $line-height-base;
+      max-width: 440px;
+
+      .card-title {
+        text-transform: uppercase;
+        text-align: center;
+        h1 {
+          margin:0 0 2 * $spacer * $line-height-base 0;
+          font-size:1.4rem;
+          font-weight: bolder;
+          color:$brand-primary;
+        }
+      }
+    }
+  }
+}

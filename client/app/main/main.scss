@@ -1,0 +1,92 @@
+.main {
+  &__welcome {
+    padding-top:$spacer;
+    color: white;
+
+    &:before {
+      content:"";
+      background: $brand-primary;
+      background-size:cover;
+      position: fixed;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:-1;
+    }
+
+    &__block {
+      margin:auto;
+      padding:$spacer * 5 0;
+      max-width: 660px;
+
+      &__heading {
+        font-weight: bolder;
+
+        &__lighter {
+          font-weight: 200;
+        }
+      }
+
+      &__intro, &__actions {
+        margin-top:$spacer * 2;
+      }
+
+      &__actions {
+
+        .btn.btn-success {
+          border-radius: 1em * $line-height-base;
+          border:0;
+          box-shadow: 0 2px 4px 3px rgba(black, .1);
+        }
+
+        .btn.btn-link {
+          font-weight: 200;
+        }
+      }
+    }
+
+    &__context {
+      margin:$spacer * 2 auto;
+      padding:50px;
+      padding-top:50px + 30px;
+      max-width:660px + 50px;
+      background: white;
+      color:$body-color;
+      box-shadow: 0 2px 4px 3px rgba(black, .1);
+      position: relative;
+      font-weight: 200;
+
+      &__logos {
+        margin-bottom:$spacer * 2;
+        position: relative;
+
+        &:before {
+          content:"";
+          position: absolute;
+          left:50%;
+          top:0;
+          bottom:0;
+          width:2px;
+          margin-left: -1px;
+          background: lighten($brand-primary, 30%);
+        }
+        img {
+          display: block;
+          margin:auto;
+        }
+      }
+
+      &:after {
+        content:"";
+        position: absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:30px;
+        box-shadow: 0 -2px 2px 0 rgba(black, .1) inset;
+        @include gradient-directional( lighten($brand-primary, 10%), lighten($brand-primary, 20%) );
+      }
+    }
+  }
+}
