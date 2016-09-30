@@ -7,8 +7,8 @@ import controller from './main.controller';
 export default angular.module('oekoFlotteApp.main', [uiRouter])
   .config(routing)
   .component('main', {
-    template: require('./main.html'),
-    controller: controller,
-    controllerAs: 'main'
+    controller,
+    controllerAs: 'main',
+    template: require('./main.html')
   })
   .name;

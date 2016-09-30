@@ -38,8 +38,8 @@ export function Modal($rootScope, $uibModal) {
          * @param  {String} name   - name or info to show on modal
          * @param  {All}           - any additional args are passed straight to del callback
          */
-        return function() {
-          var args = Array.prototype.slice.call(arguments);
+        return function(...rest) {
+          var args = Array.prototype.slice.call(rest);
           var name = args.shift();
           var deleteModal;
 

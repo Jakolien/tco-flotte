@@ -19,6 +19,7 @@ import {
 import _Auth from '../components/auth/auth.module';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
+import dynamicInput from '../components/dynamic-input/dynamic-input.service';
 import util from '../components/util/util.module';
 import main from './main/main.component';
 import mainFleets from './main/fleets/fleets.component';
@@ -42,7 +43,8 @@ angular.module('oekoFlotteApp', [
   mainFleets,
   mainVisualization,
   constants,
-  util
+  util,
+  dynamicInput
 ])
 .config(routeConfig)
 .run(function($rootScope, $location, Auth) {

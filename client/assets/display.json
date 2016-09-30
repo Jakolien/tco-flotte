@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1",
+    "name": "mileage",
+    "type": "bar",
+    "usage": "both",
+    "leasingconditions": null
+  },
+  {
+    "id": "2",
+    "name": "CO2",
+    "type": "bar",
+    "usage": "both",
+    "leasingconditions": null
+  },
+  {
+    "id": "3",
+    "name": "net_cost",
+    "type": "bar",
+    "usage": "both",
+    "leasingconditions": null
+  },
+  {
+    "id": "4",
+    "name": "num_of_vehicles",
+    "type": "bar",
+    "usage": "both",
+    "leasingconditions": null
+  },
+  {
+    "id": "5",
+    "name": "CO2_per_km",
+    "type": "bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "6",
+    "name": "net_cost_per_km",
+    "type": "bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "7",
+    "name": "net_cost_by_group",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "8",
+    "name": "CO2_by_group",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "9",
+    "name": "cost_by_position",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": "TRUE"
+  },
+  {
+    "id": "10",
+    "name": "mileage_by_group",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "11",
+    "name": "net_cost_by_car_type",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "12",
+    "name": "net_cost_by_energy_type",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "13",
+    "name": "CO2_by_car_type",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "14",
+    "name": "CO2_by_energy_type",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  },
+  {
+    "id": "15",
+    "name": "CO2_by_phase",
+    "type": "stacked_bar",
+    "usage": "report",
+    "leasingconditions": null
+  }
+]
