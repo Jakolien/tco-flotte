@@ -5,6 +5,6 @@ export default function($stateProvider) {
   $stateProvider
     .state('main.visualization', {
       url: 'visualization',
-      template: '<visualization></visualization>'
+      component: 'visualization'
     });
 }

@@ -5,6 +5,6 @@ export default function($stateProvider) {
   $stateProvider
     .state('main.fleets', {
       url: 'fleets',
-      template: '<fleets></fleets>'
+      component: 'fleets'
     });
 }

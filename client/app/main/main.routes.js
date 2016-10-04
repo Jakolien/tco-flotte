@@ -5,6 +5,13 @@ export default function routes($stateProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    template: '<main></main>'
+    component: 'main',
+    resolve: {
+      settings: function($http) {
+        'ngInject'
+        // Get settings
+        return $http.get('assets/settings.json').then( (res)=> res.data )
+      }
+    }
   });
 }

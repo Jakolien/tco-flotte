@@ -17,10 +17,10 @@ import {
 } from './app.config';
 
 import _Auth from '../components/auth/auth.module';
+import dynamicInput from '../components/dynamic-input/dynamic-input.module';
+import util from '../components/util/util.module';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
-import dynamicInput from '../components/dynamic-input/dynamic-input.service';
-import util from '../components/util/util.module';
 import main from './main/main.component';
 import mainFleets from './main/fleets/fleets.component';
 import mainVisualization from './main/visualization/visualization.component';

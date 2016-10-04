@@ -1,0 +1,9 @@
+.container.main__fleet
+  .row
+    .col-sm-8
+      .card
+        .card-header.main__fleet__header
+          h3 Create the first group of vehicles
+          .lead  Through regular and organized vehicle use scheduling.
+        form.card-block
+          div(ng-repeat='input in $ctrl.inputs')  {{ input.meta.label }}

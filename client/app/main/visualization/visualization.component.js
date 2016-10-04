@@ -13,8 +13,7 @@ export class VisualizationComponent {
 export default angular.module('oekoFlotteApp.main.visualization', [uiRouter])
   .config(routes)
   .component('visualization', {
-    template: require('./visualization.html'),
-    controller: VisualizationComponent,
-    controllerAs: 'visualizationCtrl'
+    template: require('./visualization.pug'),
+    controller: VisualizationComponent
   })
   .name;
