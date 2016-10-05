@@ -1,0 +1,14 @@
+.main__fleets__groups {
+
+  max-width: 660px;
+  margin:auto;
+  margin-top:$spacer*2;
+
+  &__input {
+
+    &__title {
+      font-weight:bold;
+      font-size:1em;
+    }
+  }
+}

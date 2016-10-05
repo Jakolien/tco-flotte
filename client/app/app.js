@@ -20,6 +20,7 @@ import navbar            from '../components/navbar/navbar.component';
 import footer            from '../components/footer/footer.component';
 import main              from './main/main.component';
 import mainFleets        from './main/fleets/fleets.component';
+import mainFleetsGroups  from './main/fleets/groups/groups.component';
 import mainVisualization from './main/visualization/visualization.component';
 import account           from './account';
 import constants         from './app.constants';
@@ -42,6 +43,7 @@ angular.module('oekoFlotteApp', [
   footer,
   main,
   mainFleets,
+  mainFleetsGroups,
   mainVisualization,
   constants,
   util,

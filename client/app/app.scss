@@ -2,11 +2,23 @@
 
 $brand-primary:#437D8F;
 $body-color: #444;
+
+$view-bg:mix($brand-primary, white, 5);
+$view-border:darken($view-bg, 10);
+
+$card-bg: lighten($view-bg, 10);
+$card-cap-bg: darken($view-bg, 10);
+$card-border-color: $view-border;
+
+
 $custom-control-checked-indicator-bg: $brand-primary;
 $custom-control-focus-indicator-box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem mix($brand-primary, white);
+
 $enable-shadows: true;
 $enable-rounded: false;
 $enable-gradients: false;
+$enable-flex: true;
+
 $fa-font-path: '/assets/fonts/font-awesome/';
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -47,6 +59,7 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 /* inject:scss */
 @import 'account/account';
 @import 'main/fleets/fleets';
+@import 'main/fleets/groups/groups';
 @import 'main/main';
 @import 'main/visualization/visualization';
 @import '../components/footer/footer';

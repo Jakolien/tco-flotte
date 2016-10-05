@@ -21,8 +21,13 @@ User.find({}).remove()
 
 Fleet.find({}).remove()
   .then( ()=> {
-    Fleet.create({
+    Fleet.create([{
       name: 'Fleet 1',
+      active: true,
+      fleet_vars: {},
+        groups: {}
+    },{
+      name: 'Fleet 2',
       active: true,
       fleet_vars: {},
       groups: {
@@ -30,9 +35,24 @@ Fleet.find({}).remove()
           "energy_type": "benzin",
           "car_type": "klein",
           "num_of_vehicles": 1
+        },
+        "Group B": {
+          "energy_type": "benzin",
+          "car_type": "klein",
+          "num_of_vehicles": 1
+        },
+        "Group C": {
+          "energy_type": "benzin",
+          "car_type": "klein",
+          "num_of_vehicles": 1
         }
       }
-    }).then(() => {
+    }, {
+      name: 'Fleet 3',
+      active: true,
+      fleet_vars: {},
+      groups: {}
+    }]).then(() => {
       console.log('finished populating fleets');
     });
   });
