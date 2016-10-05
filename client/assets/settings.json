@@ -713,7 +713,7 @@
     "default": null,
     "hashelp": false,
     "interval": 1,
-    "hasslider": false,
+    "hasslider": true,
     "canbeonxaxis": true,
     "shownonthelist": true,
     "importancerank": 5,
@@ -1383,6 +1383,28 @@
     "editable": false,
     "context": "VehicleGroup",
     "name": "leasing_residual_value",
+    "specialgroup": null
+  },
+  {
+    "id": "53",
+    "label": "Number of vehicules in this group",
+    "description": null,
+    "unit": null,
+    "group": "Vehicle details",
+    "values": "0..100",
+    "default": null,
+    "hashelp": false,
+    "interval": 1,
+    "hasslider": true,
+    "canbeonxaxis": false,
+    "shownonthelist": false,
+    "importancerank": 51,
+    "specifictoenergytype": null,
+    "preliminary": true,
+    "parentid": null,
+    "editable": true,
+    "context": "VehicleGroup",
+    "name": "number",
     "specialgroup": null
   }
 ]

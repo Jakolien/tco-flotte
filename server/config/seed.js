@@ -5,9 +5,10 @@
 
 'use strict';
 import User from '../api/user/user.model';
+import Fleet from '../api/fleet/fleet.model';
 
 User.find({}).remove()
-  .then(() => {
+  .then( ()=> {
     User.create({
       provider: 'local',
       username: 'test',
@@ -15,5 +16,23 @@ User.find({}).remove()
     })
     .then(() => {
       console.log('finished populating users');
+    });
+  });
+
+Fleet.find({}).remove()
+  .then( ()=> {
+    Fleet.create({
+      name: 'Fleet 1',
+      active: true,
+      fleet_vars: {},
+      groups: {
+        "Group A": {
+          "energy_type": "benzin",
+          "car_type": "klein",
+          "num_of_vehicles": 1
+        }
+      }
+    }).then(() => {
+      console.log('finished populating fleets');
     });
   });

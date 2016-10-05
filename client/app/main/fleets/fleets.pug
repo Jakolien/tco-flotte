@@ -1,9 +1,41 @@
 .container.main__fleet
   .row
-    .col-sm-8
+    .col-sm-4.push-sm-8
+      ul.list-unstyled
+        li(ng-repeat="fleet in $ctrl.fleets track by $index")
+          | {{ fleet }}
+    .col-sm-8.pull-sm-4
       .card
         .card-header.main__fleet__header
           h3 Create the first group of vehicles
-          .lead  Through regular and organized vehicle use scheduling.
-        form.card-block
-          div(ng-repeat='input in $ctrl.inputs')  {{ input.meta.label }}
+          .lead Through regular and organized vehicle use scheduling.
+        form.card-block(ng-submit="$ctrl.createGroup()")
+          fieldset.form-group(ng-repeat='input in $ctrl.inputs')
+            div(ng-switch=":: input.getType()")
+              div(ng-switch-when="enum")
+                .main__fleet__input.main__fleet__input--select.custom-controls-stacked
+                  legend.main__fleet__input__title {{ input.meta.label }}
+                  label.custom-control.custom-radio(ng-repeat="value in $ctrl.getInputValues(input).range track by $index")
+                    input(type="radio", required, name="{{ input.meta.name }}", ng-value="value", ng-model="$ctrl.group[input.meta.name]").custom-control-input
+                    span.custom-control-indicator
+                    span.custom-control-description
+                      | &nbsp;{{ value | translate }}
+                      span.text-muted.small(uib-tooltip="{{ value + '-tooltip' | translate }}", ng-show="input.meta.hashelp")
+                        =" "
+                        i.fa.fa-info
+              div(ng-switch-when="interval")
+                .main__fleet__input.main__fleet__input--select.custom-controls-stacked(ng-if=":: !input.meta.hasslider")
+                  legend.main__fleet__input__title {{ input.meta.label }}
+                  label.custom-control.custom-radio(ng-repeat="value in $ctrl.getInputValues(input).range track by $index")
+                    input(type="radio", required, name="{{ input.meta.name }}", ng-value="value", ng-model="$ctrl.group[input.meta.name]").custom-control-input
+                    span.custom-control-indicator
+                    span.custom-control-description
+                      | &nbsp;{{ value | translate }}
+                      span.text-muted.small(uib-tooltip="{{ value + '-tooltip' | translate }}", ng-show="input.meta.hashelp")
+                        =" "
+                        i.fa.fa-info
+                .main__fleet__input.main__fleet__input--slider(ng-if=":: input.meta.hasslider")
+                  legend.main__fleet__input__title {{ input.meta.label }}
+                  div(ng-init="$ctrl.group[input.meta.name] = $ctrl.getInputValues(input).value")
+                    rzslider(rz-slider-model="$ctrl.group[input.meta.name]", rz-slider-options="$ctrl.getInputValues(input)")
+          button.btn.btn-primary(type="submit") Create

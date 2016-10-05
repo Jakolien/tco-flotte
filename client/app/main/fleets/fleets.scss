@@ -6,4 +6,12 @@
     border:0;
     @include gradient-directional( #D78570, lighten(#D78570, 20%) );
   }
+
+  &__input {
+
+    &__title {
+      font-weight:bold;
+      font-size:1em;
+    }
+  }
 }

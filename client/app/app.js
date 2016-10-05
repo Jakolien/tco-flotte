@@ -1,41 +1,42 @@
 'use strict';
 
-import angular from 'angular';
-// import ngAnimate from 'angular-animate';
-import ngCookies from 'angular-cookies';
-import ngResource from 'angular-resource';
-import ngSanitize from 'angular-sanitize';
-
-import uiRouter from 'angular-ui-router';
+import angular     from 'angular';
+import ngAnimate   from 'angular-animate';
+import ngCookies   from 'angular-cookies';
+import ngResource  from 'angular-resource';
+import ngSanitize  from 'angular-sanitize';
+import uiRouter    from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-// import ngMessages from 'angular-messages';
-// import ngValidationMatch from 'angular-validation-match';
+import ngTranslate from 'angular-translate';
+import ngSlider    from 'angularjs-slider';
+import restangular from 'restangular'
 
-
-import {
-  routeConfig
-} from './app.config';
-
-import _Auth from '../components/auth/auth.module';
-import dynamicInput from '../components/dynamic-input/dynamic-input.module';
-import util from '../components/util/util.module';
-import navbar from '../components/navbar/navbar.component';
-import footer from '../components/footer/footer.component';
-import main from './main/main.component';
-import mainFleets from './main/fleets/fleets.component';
+import { routeConfig }   from './app.config';
+import auth              from '../components/auth/auth.module';
+import dynamicInput      from '../components/dynamic-input/dynamic-input.module';
+import fleets            from '../components/fleets/fleets.module';
+import util              from '../components/util/util.module';
+import navbar            from '../components/navbar/navbar.component';
+import footer            from '../components/footer/footer.component';
+import main              from './main/main.component';
+import mainFleets        from './main/fleets/fleets.component';
 import mainVisualization from './main/visualization/visualization.component';
-import account from './account';
-import constants from './app.constants';
+import account           from './account';
+import constants         from './app.constants';
 
 import './app.scss';
 
 angular.module('oekoFlotteApp', [
   ngCookies,
+  ngAnimate,
   ngResource,
   ngSanitize,
   uiRouter,
   uiBootstrap,
-  _Auth,
+  ngTranslate,
+  ngSlider,
+  'restangular',
+  auth,
   account,
   navbar,
   footer,
@@ -44,7 +45,8 @@ angular.module('oekoFlotteApp', [
   mainVisualization,
   constants,
   util,
-  dynamicInput
+  dynamicInput,
+  fleets
 ])
 .config(routeConfig)
 .run(function($rootScope, $location, Auth) {

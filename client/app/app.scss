@@ -2,6 +2,8 @@
 
 $brand-primary:#437D8F;
 $body-color: #444;
+$custom-control-checked-indicator-bg: $brand-primary;
+$custom-control-focus-indicator-box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem mix($brand-primary, white);
 $enable-shadows: true;
 $enable-rounded: false;
 $enable-gradients: false;
@@ -9,6 +11,8 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~font-awesome/scss/font-awesome';
+@import '~angularjs-slider/dist/rzslider';
+
 /**
  * App-wide Styles
  */
@@ -20,6 +24,25 @@ $fa-font-path: '/assets/fonts/font-awesome/';
   padding: 0.2em 0;
 }
 
+.rzslider .rz-bar,
+.rzslider .rz-pointer {
+  background:$brand-primary;
+}
+
+.rzslider .rz-pointer.rz-active:after {
+  background:mix($brand-primary, white);
+}
+.rzslider .rz-bubble {
+  color: $body-color;
+  font:inherit;
+}
+
+.rzslider .rz-bubble.rz-limit {
+  font:inherit;
+  color:mix($brand-primary, white);
+}
+
+
 // Component styles are injected through gulp
 /* inject:scss */
 @import 'account/account';
@@ -27,6 +50,5 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 @import 'main/main';
 @import 'main/visualization/visualization';
 @import '../components/footer/footer';
-@import '../components/modal/modal';
 @import '../components/navbar/navbar';
 /* endinject */

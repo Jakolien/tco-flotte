@@ -7,15 +7,20 @@ nav.navbar.navbar-dark.bg-primary.navbar-full
     .collapse.navbar-toggleable-xs.pull-sm-right(uib-collapse='$ctrl.isCollapsed')
       ul.nav.navbar-nav
         li.nav-item(ng-repeat='item in $ctrl.menu', ui-sref-active-eq='active')
-          a.nav-link(ui-sref='{{ item.state }}') {{ item.title }}
+          a.nav-link(ui-sref='{{ item.state }}')
+            | {{ item.title }}
         li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a.nav-link(ui-sref='signup') Sign up
+          a.nav-link(ui-sref='signup')
+            | Sign up
         li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-          a.nav-link(ui-sref='login') Login
+          a.nav-link(ui-sref='login')
+            | Login
         li.nav-item(ng-show='$ctrl.isLoggedIn()')
-          p.nav-link  Hello {{ $ctrl.getCurrentUser().username }}
+          p.nav-link
+            | Hello {{ $ctrl.getCurrentUser().username }}
         li.nav-item(ng-show='$ctrl.isLoggedIn()', ui-sref-active='active')
           a.nav-link(ui-sref='settings')
             span.fa.fa-cog
         li.nav-item(ng-show='$ctrl.isLoggedIn()')
-          a.nav-link(ui-sref='logout') Logout
+          a.nav-link(ui-sref='logout')
+            | Logout

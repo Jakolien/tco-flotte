@@ -2,7 +2,7 @@
 import _ from 'lodash';
 
 /*@ngInject*/
-export default function DynamicInputService(DYNAMIC_INPUT) {
+export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
   var FIELD_INTERVAL = /(-?\w+)\.\.(-?\w+)/;
   var FIELD_ENUM = /,\w?/g;
   var FIELD_BOOLEAN = /boolean/;
@@ -17,10 +17,11 @@ export default function DynamicInputService(DYNAMIC_INPUT) {
 
     constructor(meta, subset = {}) {
       // Methods binded to that class' instance
-      this.getType = bind(this.getType, this);
-      this.getValues = bind(this.getValues, this);
-      this.setSubset = bind(this.setSubset, this);
-      this.setMeta = bind(this.setMeta, this);
+      this.getType = this.getType.bind(this);
+      this.getValues = this.getValues.bind(this);
+      this.setSubset = this.setSubset.bind(this);
+      this.setMeta = this.setMeta.bind(this);
+      this.translate = this.translate.bind(this);
       // Set meta and subset
       this.setMeta(meta);
       this.setSubset(subset);
@@ -59,7 +60,8 @@ export default function DynamicInputService(DYNAMIC_INPUT) {
           ceil,
           step,
           value: this.meta.default || (floor + ceil) / 2,
-          range: _.range(floor, ceil + step, step)
+          range: _.range(floor, ceil + step, step),
+          translate: this.translate
         };
       case DYNAMIC_INPUT.FIELD_ENUM:
         range = _.map(this.meta.values.split(','), function(v) {
@@ -74,9 +76,17 @@ export default function DynamicInputService(DYNAMIC_INPUT) {
             }
           }
         }
-        return { range };
+        return { range, translate: this.translate };
       case DYNAMIC_INPUT.FIELD_BOOLEAN:
-        return { range: [true, false] };
+        return { range: [true, false], translate: this.translate };
+      }
+    }
+
+    translate(value) {
+      if( this.meta.unit === undefined || this.meta.unit === null ) {
+        return value;
+      } else {
+        return value + ' ' + $translate.instant(this.meta.unit);
       }
     }
 
