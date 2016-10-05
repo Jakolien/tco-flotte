@@ -1,4 +1,4 @@
-in_array = function(needle, haystack) {
+var in_array = function(needle, haystack) {
     var i = haystack.length;
     while (i--) {
         if (haystack[i] == needle) {
@@ -100,7 +100,7 @@ var VehicleGroup = function(fleet_params, params) {
 		} else {
 			return amount
 		}
-	}	
+	}
 
 	this.getResidualValue = function(method){
 		for (var i in scenarios) {
@@ -134,7 +134,8 @@ var VehicleGroup = function(fleet_params, params) {
 											})
 				var residual_value_ratio = temp_vehicle.residual_value["mittel"] / temp_vehicle.acquisition_price
 
-				delete temp_vehicle
+				// delete temp_vehicle // Deleting variable is forbidden in strict mode!
+        temp_vehicle = null;
 
 				this.residual_value[scenario] = this.acquisition_price * residual_value_ratio
 
@@ -237,8 +238,10 @@ var VehicleGroup = function(fleet_params, params) {
 				}
 
 
-				delete temp_vehicle_benzin
-				delete temp_vehicle_diesel
+				// delete temp_vehicle_benzin  // Deleting variable is forbidden in strict mode!
+        temp_vehicle_benzin = null;
+				// delete temp_vehicle_diesel  // Deleting variable is forbidden in strict mode!
+        temp_vehicle_diesel = null;
 
 			} else if (method == "Methode 3"){
 				// Creates temp diesel machine to get the residual value
@@ -262,8 +265,8 @@ var VehicleGroup = function(fleet_params, params) {
 											limited: true
 										})
 				this.residual_value[scenario] = temp_vehicle.residual_value["mittel"]
-				delete temp_vehicle
-
+				// delete temp_vehicle // Deleting variable is forbidden in strict mode!
+        temp_vehicle = null
 			}
 		}
 
@@ -390,9 +393,9 @@ var VehicleGroup = function(fleet_params, params) {
 	this.getFixedCosts = function() {
 
 		if (this.energy_type.indexOf("hybrid") > -1) {
-			energy_type = this.energy_type.split("-")[1]
+			var energy_type = this.energy_type.split("-")[1]
 		} else {
-			energy_type = this.energy_type
+			var energy_type = this.energy_type
 		}
 
 		if (this.energy_type == "BEV" && this.acquisition_year >= 2021) {
@@ -637,7 +640,7 @@ var VehicleGroup = function(fleet_params, params) {
 
 	this.getYearlyCO2 = function(year){
 
-		co2 = 0;
+		var co2 = 0;
 
 		if (this.energy_type == "BEV") {
 			if (this.energy_source == "strom_mix") {
@@ -667,7 +670,7 @@ var VehicleGroup = function(fleet_params, params) {
 
 	this.initCosts = function(scenario){
 		// Acquisition and one-off costs
-		costs = {}
+		var costs = {}
 		costs["vehicle_basis_cost"] = Math.round(this.price.basis_price + this.price.battery_price[scenario])
 
 		costs["charging_infrastructure"] = Math.round(this.charging_option_cost)
@@ -751,6 +754,7 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getTCOByHoldingTime = function(){
+    var costs, co2;
 
 		for (var i in scenarios) {
 			var scenario = scenarios[i];

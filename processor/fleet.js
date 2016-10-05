@@ -13,7 +13,7 @@ var Fleet = function(params) {
 	this.fleet_presets.electro_fleet_size = 0
 
 	// Calculates the number of electric vehicles
-	for (group_name in params.groups) {
+	for (var group_name in params.groups) {
 		if (!(params.groups[group_name].hasOwnProperty("energy_type")) || params.groups[group_name].energy_type == "BEV" || params.groups[group_name].energy_type == "hybrid-benzin" || params.groups[group_name].energy_type == "hybrid-diesel") {
 			this.fleet_presets.electro_fleet_size += params.groups[group_name].num_of_vehicles
 		}
@@ -42,7 +42,7 @@ var Fleet = function(params) {
 	this.fleet_presets.sonder_afa = false			// special accounting rule to increase amortization for electro vehicles in the first year deactivated by default
 	this.fleet_presets.praemie = true 			    // Cash bonus activated by default
 	this.fleet_presets.praemie_bev = 4000
-	this.fleet_presets.praemie_hybrid = 3000           
+	this.fleet_presets.praemie_hybrid = 3000
 
 	// Energy prices in € per Liter and cents per kWh
 	this.energy_known_prices = {
@@ -84,7 +84,7 @@ var Fleet = function(params) {
 				"start_year": 2031,
 				"end_year": 2050,
 				"rate": -.0058
-			},	
+			},
 		]
 	}
 
@@ -146,7 +146,7 @@ var Fleet = function(params) {
 	this.fleet_presets.entladetiefe = 0.8
 	this.fleet_presets.reichweite = 150 			// km
 	this.fleet_presets.batteriepreise = {			// in € per kWh
-		"2014": 400.0,	
+		"2014": 400.0,
 		"2015": 380.0,
 		"2016": 350.0,
 		"2017": 300.0,
@@ -160,13 +160,13 @@ var Fleet = function(params) {
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
 	this.fleet_presets.charging_option_price = {}
-	this.fleet_presets.charging_options = { 
+	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
 		"Wallbox 3.7kW": { "acquisition": 350, "maintenance": 15},
 		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
 		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330},
 		"Ladesäule 43.6kW": { "acquisition": 15250, "maintenance": 1600},
-		"Ladesäule 100 kW DC": { "acquisition": 48500, "maintenance": 4600}	
+		"Ladesäule 100 kW DC": { "acquisition": 48500, "maintenance": 4600}
 	}
 
 	// Variables for evolution of energy consumption in % of reduction per decade
@@ -257,7 +257,7 @@ var Fleet = function(params) {
 				"reparatur": 34.6,
 				"reifen": 32.4,
 				"sonstige": 0
-			}  
+			}
 		},
 		"diesel": {
 			"klein": {
@@ -289,7 +289,7 @@ var Fleet = function(params) {
 				"reparatur": 41,
 				"reifen": 26,
 				"sonstige": 0
-			}      
+			}
 		}
 	}
 
@@ -427,7 +427,7 @@ var Fleet = function(params) {
 		var starting_price = this.fleet_presets.nettolistenpreise;
 
 		if (energy_type != "BEV" && energy_type.indexOf("hybrid") == -1) {
-			for (type in starting_price["benzin"]) {
+			for (var type in starting_price["benzin"]) {
 				if (energy_type != "benzin") {starting_price[energy_type][type] = {};}
 				starting_price[energy_type][type]["2014"] = starting_price["benzin"][type]["2014"] + this.getPriceSurcharge(energy_type, type, year);
 			}
@@ -461,12 +461,12 @@ var Fleet = function(params) {
 			var surcharge_decrease_2020 = -.5;
 			var yearly_surcharge_deacrease = Math.pow((1 + surcharge_decrease_2020), (1/6)) - 1;
 			for (var i = 2015; i<=2020; i++){ // Automates the fill out of surcharge
-				for (type in surcharge) {
+				for (var type in surcharge) {
 					surcharge[type][i] = surcharge[type][i - 1] * (1 + yearly_surcharge_deacrease);
 				}
 			}
 			for (var i = 2021; i<=2049; i++){ // Automates the fill out of surcharge
-				for (type in surcharge) {
+				for (var type in surcharge) {
 					surcharge[type][i] = surcharge[type]["2020"];
 				}
 			}
@@ -500,11 +500,11 @@ var Fleet = function(params) {
 		for (var year in this.fleet_presets.co2_emissions["strom_mix"]){
 			estimates[year] = this.fleet_presets.co2_emissions["strom_mix"][year]
 		}
-		
+
 		for (var year = 2012; year<=2050; year++){
 			if (year < 2020) {
 			    estimates[year] = estimates["2012"] + (estimates["2020"] - estimates["2012"]) / 8 * (year - 2012)
-			} 
+			}
 			else if (year in this.fleet_presets.co2_emissions["strom_mix"]){
 				estimates[year] = estimates[year]
 			}
@@ -516,13 +516,13 @@ var Fleet = function(params) {
 		}
 
 		this.fleet_presets.CO2_from_electricity_mix = estimates
-		
+
 	}
 
 	// Initializes the object that will hold every aquisition prices
-	for (i in energy_types) {
+	for (var i in energy_types) {
 		this.fleet_presets.raw_acquisition_price[energy_types[i]] = {}
-		for (j in car_types) {
+		for (var j in car_types) {
 			// Makes sure that we don't compute a forbidden combination, like benzin and LNF1
 			if (!((car_types[j] == "LNF1" || car_types[j] == "LNF2") && (energy_types[i] == "benzin" || energy_types[i] == "hybrid-diesel" || energy_types[i] == "hybrid-benzin"))){
 				this.fleet_presets.raw_acquisition_price[energy_types[i]][car_types[j]] = {}
@@ -534,7 +534,7 @@ var Fleet = function(params) {
 	}
 
 	// Initializes the battery prices
-	for (k = year_min; k< year_max; k++) {
+	for (var k = year_min; k< year_max; k++) {
 		this.setBatteryPricePerKWh(k)
 	}
 
@@ -559,19 +559,19 @@ var Fleet = function(params) {
 	this.groups = {}
 
 	// Computes the TCO values for each vehicle group
-	for (group in params.groups) {
+	for(var group in params.groups) {
 
 		// In case forgotten
 		if (params.groups[group].num_of_vehicles == undefined) { params.groups[group].num_of_vehicles = 1 }
 
 		// For special groups
 		if (params.groups[group].energy_type == "short_distance_train" || params.groups[group].energy_type == "plane" || params.groups[group].energy_type == "long_distance_train" || params.groups[group].energy_type == "car_sharing" || params.groups[group].energy_type == "rental_car" || params.groups[group].energy_type == "bike") { params.groups[group].car_type = "single_size" }
-		
-		num_of_vehicles = params.groups[group].num_of_vehicles
+
+		var num_of_vehicles = params.groups[group].num_of_vehicles
 
 		// Creates the corresponding vehicle group
 		this.groups[group] = new vehicle_group.VehicleGroup(this.fleet_presets, params.groups[group])
-		current_group = this.groups[group]
+		var current_group = this.groups[group]
 		this.params.groups[group].TCO = {
 			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group].energy_type][params.groups[group].car_type] * num_of_vehicles,
 			"mileage": current_group.mileage * num_of_vehicles,
@@ -609,8 +609,8 @@ var Fleet = function(params) {
 	}
 
 	// Computes the TCO values for the whole fleet
-	for (group_name in params.groups) {
-		group = params.groups[group_name]
+	for (var group_name in params.groups) {
+		var group = params.groups[group_name]
 
 		// Total mileage
 		this.TCO.mileage += group.TCO.mileage
@@ -629,7 +629,7 @@ var Fleet = function(params) {
 		this.TCO.CO2_by_group[group_name] = group.TCO.CO2
 		// Mileage by group
 		this.TCO.mileage_by_group[group_name] = group.TCO.mileage
-		
+
 		// Costs by position
 		this.TCO.cost_by_position.net_acquisition_cost += group.TCO.net_acquisition_cost
 		this.TCO.cost_by_position.fixed_costs += group.TCO.fixed_costs
