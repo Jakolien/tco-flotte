@@ -11,19 +11,20 @@ import ngTranslate from 'angular-translate';
 import ngSlider    from 'angularjs-slider';
 import restangular from 'restangular'
 
-import { routeConfig }   from './app.config';
-import auth              from '../components/auth/auth.module';
-import dynamicInput      from '../components/dynamic-input/dynamic-input.module';
-import fleets            from '../components/fleets/fleets.module';
-import util              from '../components/util/util.module';
-import navbar            from '../components/navbar/navbar.component';
-import footer            from '../components/footer/footer.component';
-import main              from './main/main.component';
-import mainFleets        from './main/fleets/fleets.component';
-import mainFleetsGroups  from './main/fleets/groups/groups.component';
-import mainVisualization from './main/visualization/visualization.component';
-import account           from './account';
-import constants         from './app.constants';
+import { routeConfig }      from './app.config';
+import auth                 from '../components/auth/auth.module';
+import dynamicInput         from '../components/dynamic-input/dynamic-input.module';
+import fleets               from '../components/fleets/fleets.module';
+import util                 from '../components/util/util.module';
+import navbar               from '../components/navbar/navbar.component';
+import footer               from '../components/footer/footer.component';
+import main                 from './main/main.component';
+import mainFleets           from './main/fleets/fleets.component';
+import mainFleetsGroups     from './main/fleets/groups/groups.component';
+import mainFleetsGroupsEdit from './main/fleets/groups/edit/edit.component';
+import mainVisualization    from './main/visualization/visualization.component';
+import account              from './account';
+import constants            from './app.constants';
 
 import './app.scss';
 
@@ -44,6 +45,7 @@ angular.module('oekoFlotteApp', [
   main,
   mainFleets,
   mainFleetsGroups,
+  mainFleetsGroupsEdit,
   mainVisualization,
   constants,
   util,

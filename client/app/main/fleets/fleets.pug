@@ -18,7 +18,15 @@
           ul.list-unstyled.row
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.all()")
               .main__fleets__view__groups__item
-                h4.main__fleets__view__groups__item__heading {{ group.name }}
+                h4.main__fleets__view__groups__item__heading
+                  div {{ group.name }}
+                  div.small.text-muted {{ group.insights.mileage | number }} km/year
+                .main__fleets__view__groups__item__footer
+                  span.pull-xs-right
+                    a(ui-sref="main.fleets.groups.edit({group: $index })")
+                      i.fa.fa-edit
+                      | &nbsp;Edit
+                  strong {{ group.vars.num_of_vehicles }} vehicle(s)
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12
               .main__fleets__view__groups__item.main__fleets__view__groups__item--link
                 a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
