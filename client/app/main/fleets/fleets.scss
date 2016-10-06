@@ -3,15 +3,15 @@
   $view-bg:mix($brand-primary, white, 5);
   $view-border:darken($view-bg, 10);
 
+  & > .row {
+    margin:$spacer * 2;
+  }
+
   &__header {
     color:white;
     padding:$spacer * 2;
     margin-bottom:$spacer * 2;
     background: lighten($brand-primary, 15);
-  }
-
-  .row {
-    margin:$spacer * 2;
   }
 
   &__list {
@@ -67,11 +67,16 @@
   }
 
   &__view {
-    min-height:300px;
     background:$view-bg;
     border-color: $view-border;
 
     &__groups {
+
+      margin-bottom: -2 * $spacer;
+
+      & > .row {
+        margin:$spacer * 2;
+      }
 
       &__item {
         overflow: hidden;
@@ -129,7 +134,7 @@
             height:2em;
             line-height:2em;
             width:2em;
-            background: $link-color;  
+            background: $link-color;
             color:white;
             border-radius:1em;
             margin-bottom:1em;

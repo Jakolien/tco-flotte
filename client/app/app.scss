@@ -54,6 +54,9 @@ $fa-font-path: '/assets/fonts/font-awesome/';
   color:mix($brand-primary, white);
 }
 
+.card {
+  @include box-shadow(0 2px 10px 0 $card-border-color);
+}
 
 // Component styles are injected through gulp
 /* inject:scss */

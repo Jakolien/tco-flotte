@@ -8,6 +8,9 @@
                                     ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
           a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: $index })")
             | {{ fleet.name }}
+      button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
+        i.fa.fa-plus-circle
+        | &nbsp;A a fleet
     .col-xs.main__fleets__view.card
       ui-view
         .main__fleets__view__groups
@@ -18,4 +21,4 @@
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12
               .main__fleets__view__groups__item.main__fleets__view__groups__item--link
                 a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
-                  | Add group of vehicles
+                  | Add a group of vehicles

@@ -39,7 +39,7 @@ class LikeArray {
 class FleetGroups extends LikeArray { }
 
 class Fleet {
-  constructor(vars) {
+  constructor(vars = {}) {
     angular.extend(this, vars);
     // Create nested groups (if any)
     if( angular.isArray(this.groups) ) {

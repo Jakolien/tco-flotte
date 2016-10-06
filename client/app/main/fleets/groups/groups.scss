@@ -1,8 +1,9 @@
 .main__fleets__groups {
+  padding:$spacer * 2 $spacer * 3;
 
-  max-width: 660px;
-  margin:auto;
-  margin-top:$spacer*2;
+  &__header {
+    padding-bottom:$spacer;
+  }
 
   &__input {
 
