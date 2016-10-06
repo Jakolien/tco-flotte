@@ -41,12 +41,11 @@ class FleetGroups extends LikeArray { }
 class Fleet {
   constructor(vars = {}) {
     angular.extend(this, vars);
+    // Count fleets instances
+    ++fleetNameCounter;
     // Create nested groups (if any)
     if( angular.isArray(this.groups) ) {
       this.groups = new FleetGroups(...this.groups);
-    // Convert groups from object (if any)
-    } else if( angular.isObject(this.groups) ) {
-      this.groups = new FleetGroups(..._.values(this.groups));
     // Create an empty list of groups
     } else {
       this.groups = new FleetGroups();
@@ -58,7 +57,6 @@ class Fleet {
   }
 
   static uniqueName() {
-    ++fleetNameCounter;
     return `Fleet ${fleetNameCounter}`
   }
 }

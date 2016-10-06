@@ -66,10 +66,11 @@ function handleFleetProcessor(res) {
     if( Object.prototype.toString.call(hash) === '[object Array]' ) {
       // Map the array to process fleets one by one
       result = _.map(hash, function(entity) {
-        return _.extend(entity, new FleetProcessor(entity));
+        return _.extend(entity.toObject(), new FleetProcessor(entity));
       });
     } else {
-      result = _.extend(hash, new FleetProcessor(hash) );
+      delete hash.groups;
+      result = _.extend(hash.toObject(), new FleetProcessor(hash) );
     }
     return result;
   };
@@ -85,7 +86,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Fleets
 export function index(req, res) {
-  return Fleet.find().exec()
+  return Fleet.find().sort( { name: 1 } ).exec()
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

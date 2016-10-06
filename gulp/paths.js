@@ -1,5 +1,6 @@
-export const clientPath = 'client';
-export const serverPath = 'server';
+export const clientPath    = 'client';
+export const serverPath    = 'server';
+export const processorPath = 'processor';
 export const paths = {
     client: {
         assets: `${clientPath}/assets/**/*`,

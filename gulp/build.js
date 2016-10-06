@@ -18,7 +18,7 @@ import {protractor, webdriver_update} from 'gulp-protractor';
 import {Instrumenter} from 'isparta';
 import webpack from 'webpack-stream';
 import makeWebpackConfig from '../webpack.make';
-import {paths, clientPath, serverPath} from './paths';
+import {paths, clientPath, serverPath, processorPath} from './paths';
 
 var plugins = gulpLoadPlugins();
 var config;
@@ -266,7 +266,7 @@ gulp.task('start:client', cb => {
 gulp.task('start:server', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'development';
     config = require(`../${serverPath}/config/environment`);
-    nodemon(`-w ${serverPath} ${serverPath}`)
+    nodemon(`-w ${serverPath} -w ${processorPath} ${serverPath}`)
         .on('log', onServerLog);
 });
 

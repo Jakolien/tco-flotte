@@ -4,7 +4,7 @@ export default function($stateProvider) {
   'ngInject';
   $stateProvider
     .state('main.fleets', {
-      url: 'fleets',
+      url: 'fleets/:fleet',
       component: 'fleets',
       params: {
         fleet: {

@@ -13,7 +13,6 @@ var Fleet = function(params) {
 
 	// Calculates the number of electric vehicles
 	params.groups.forEach(function(group) {
-		console.log(group)
 		if (!(group.vars.hasOwnProperty("energy_type")) ||
 					group.vars.energy_type == "BEV" ||
 					group.vars.energy_type == "hybrid-benzin" ||
@@ -599,7 +598,7 @@ var Fleet = function(params) {
 			"total_costs": (current_group.TCO_simplified.net_cost + current_group.TCO_simplified.fixed_costs + current_group.TCO_simplified.variable_costs + current_group.TCO_simplified.energy_costs + current_group.TCO_simplified.charging_infrastructure) * num_of_vehicles
 		}
 	}, this);
-
+	
 	// Initializes the TCO values for the whole fleet
 	this.TCO = {
 		"mileage": 0,

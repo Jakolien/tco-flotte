@@ -7,7 +7,8 @@
         li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
                                     ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
           a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: $index })")
-            | {{ fleet.name }}
+            div {{ fleet.name }}
+            div.text-muted.small {{ fleet.groups.length() }} group(s)
       button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
         i.fa.fa-plus-circle
         | &nbsp;A a fleet
@@ -17,7 +18,7 @@
           ul.list-unstyled.row
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.all()")
               .main__fleets__view__groups__item
-                h4.main__fleets__view__groups__item__heading Group {{ $index }}
+                h4.main__fleets__view__groups__item__heading {{ group.name }}
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12
               .main__fleets__view__groups__item.main__fleets__view__groups__item--link
                 a.main__fleets__view__groups__item__add-group(ui-sref=".groups")

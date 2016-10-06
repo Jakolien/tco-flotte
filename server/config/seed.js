@@ -24,34 +24,43 @@ Fleet.find({}).remove()
     Fleet.create([{
       name: 'Fleet 1',
       active: true,
-      fleet_vars: {},
-        groups: {}
+      vars: {},
+      groups: [
+        {
+          name: "Group A",
+          vars: {
+            "energy_type": "benzin",
+            "car_type": "klein",
+            "num_of_vehicles": 1
+          },
+        },
+        {
+          name: "Group B",
+          vars: {
+            "energy_type": "benzin",
+            "car_type": "klein",
+            "num_of_vehicles": 1
+          },
+        },
+        {
+          name: "Group C",
+          vars: {
+            "energy_type": "benzin",
+            "car_type": "klein",
+            "num_of_vehicles": 1
+          }
+        }
+      ]
     },{
       name: 'Fleet 2',
       active: true,
-      fleet_vars: {},
-      groups: {
-        "Group A": {
-          "energy_type": "benzin",
-          "car_type": "klein",
-          "num_of_vehicles": 1
-        },
-        "Group B": {
-          "energy_type": "benzin",
-          "car_type": "klein",
-          "num_of_vehicles": 1
-        },
-        "Group C": {
-          "energy_type": "benzin",
-          "car_type": "klein",
-          "num_of_vehicles": 1
-        }
-      }
+      vars: {},
+      groups: []
     }, {
       name: 'Fleet 3',
       active: true,
-      fleet_vars: {},
-      groups: {}
+      vars: {},
+      groups: []
     }]).then(() => {
       console.log('finished populating fleets');
     });

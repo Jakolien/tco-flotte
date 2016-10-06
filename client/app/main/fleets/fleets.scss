@@ -43,6 +43,12 @@
         color:inherit;
         display: block;
         padding:$spacer;
+        &:hover {
+          text-decoration: none;
+          div:first-child {
+            text-decoration: underline;;            
+          }
+        }
       }
 
       &--active {

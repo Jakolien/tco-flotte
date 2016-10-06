@@ -14,9 +14,9 @@ export default function routes($stateProvider) {
       },
       all: function(fleets, Restangular) {
         'ngInject'
-        return Restangular.all('fleets').getList().then(function(all) {
-          return _.map(all, fleets.create);
-          //return _.map(all, angular.noop);
+        return fleets.length() ? fleets : Restangular.all('fleets').getList().then(function(all) {
+          _.each(all, fleets.create);
+          return fleets;
         });
       }
     }
