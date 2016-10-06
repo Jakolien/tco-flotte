@@ -693,18 +693,3 @@ var Fleet = function(params) {
 module.exports = Fleet
 
 console.log("Welcome to the eFleet computation engine!")
-myFleet = new Fleet({
-    vars: {},
-    groups: [
-        {
-          name: "group_name1",
-          vars: {"num_of_vehicles": 1, "energy_type": "benzin", "car_type": "klein"}
-        },
-        {
-          name: "group_name2",
-          vars: {"num_of_vehicles": 2, "energy_type": "BEV", "car_type": "klein"}
-        }
-    ]
-})
-
-console.log(myFleet)
