@@ -104,7 +104,8 @@ var VehicleGroup = function(fleet_params, params) {
 
 	this.getResidualValue = function(method){
 		for (var i in scenarios) {
-			var scenario = scenarios[i]
+			var scenario = scenarios[i], advantage_2d_user, fuel_consumption,
+                     temp_vehicle_diesel, temp_vehicle_benzin;
 
 			if (this.energy_type == "diesel" || this.energy_type == "benzin"){
 				this.residual_value[scenario] = Math.exp(fleet_params.restwert_constants["a"]) 										  // Constant
