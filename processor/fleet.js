@@ -20,18 +20,20 @@ var Fleet = function(params) {
 	}
 
 	// Variables of the special groups
-	this.fleet_presets.long_distance_train_CO2_per_km = .1
+	this.fleet_presets.long_distance_train_CO2_per_km = 0.041
 	this.fleet_presets.long_distance_train_cost_per_km = .9
-	this.fleet_presets.short_distance_train_CO2_per_km = .05
+	this.fleet_presets.short_distance_train_CO2_per_km = 0.069
 	this.fleet_presets.short_distance_train_cost_per_km = .7
-	this.fleet_presets.car_sharing_CO2_per_km = 1
+	this.fleet_presets.car_sharing_CO2_per_km = 0.077
 	this.fleet_presets.car_sharing_cost_per_km = .2
-	this.fleet_presets.rental_car_CO2_per_km = 1
+	this.fleet_presets.rental_car_CO2_per_km = 0.181
 	this.fleet_presets.rental_car_cost_per_km = 2
-	this.fleet_presets.bike_CO2_per_km = 0
+	this.fleet_presets.bike_CO2_per_km = 0.0042
 	this.fleet_presets.bike_cost_per_km = 0
-	this.fleet_presets.plane_CO2_per_km = 100
+	this.fleet_presets.plane_CO2_per_km = 0.196
 	this.fleet_presets.plane_cost_per_km = 1.5
+	this.fleet_presets.planebusiness_CO2_per_km = 0.366
+	this.fleet_presets.planebusiness_cost_per_km = 3.5
 
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 0.015		// That's 1.5% per year
