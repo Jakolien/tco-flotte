@@ -9,13 +9,12 @@ var year_max = 2050
 
 var Fleet = function(params) {
 	this.fleet_presets = {}
-	this.params = params
 	this.fleet_presets.electro_fleet_size = 0
 
 	// Calculates the number of electric vehicles
 	for (var group_name in params.groups) {
-		if (!(params.groups[group_name].hasOwnProperty("energy_type")) || params.groups[group_name].energy_type == "BEV" || params.groups[group_name].energy_type == "hybrid-benzin" || params.groups[group_name].energy_type == "hybrid-diesel") {
-			this.fleet_presets.electro_fleet_size += params.groups[group_name].num_of_vehicles
+		if (!(params.groups[group_name].vars.hasOwnProperty("energy_type")) || params.groups[group_name].vars.energy_type == "BEV" || params.groups[group_name].vars.energy_type == "hybrid-benzin" || params.groups[group_name].vars.energy_type == "hybrid-diesel") {
+			this.fleet_presets.electro_fleet_size += params.groups[group_name].vars.num_of_vehicles
 		}
 	}
 
@@ -342,33 +341,33 @@ var Fleet = function(params) {
 		this.evolution_hydrocarbon_price_until_2050 = this.energy_prices_evolution["hydrocarbon"][0]["rate"] * 100.0
 
 		// Finds out if the evolution rate has been changed by the user
-		if (params.fleet_vars.hasOwnProperty("evolution_elec_price_until_2020")) {
-			this.evolution_elec_price_until_2020 = params.fleet_vars["evolution_elec_price_until_2020"]
-			this.energy_prices_evolution["strom"][0]["rate"] = params.fleet_vars["evolution_elec_price_until_2020"] / 100.0
+		if (params.vars.hasOwnProperty("evolution_elec_price_until_2020")) {
+			this.evolution_elec_price_until_2020 = params.vars["evolution_elec_price_until_2020"]
+			this.energy_prices_evolution["strom"][0]["rate"] = params.vars["evolution_elec_price_until_2020"] / 100.0
 		}
-		if (params.fleet_vars.hasOwnProperty("evolution_elec_price_until_2030")) {
-			this.evolution_elec_price_until_2030 = params.fleet_vars["evolution_elec_price_until_2030"]
-			this.energy_prices_evolution["strom"][1]["rate"] = params.fleet_vars["evolution_elec_price_until_2030"] / 100.0
+		if (params.vars.hasOwnProperty("evolution_elec_price_until_2030")) {
+			this.evolution_elec_price_until_2030 = params.vars["evolution_elec_price_until_2030"]
+			this.energy_prices_evolution["strom"][1]["rate"] = params.vars["evolution_elec_price_until_2030"] / 100.0
 		}
-		if (params.fleet_vars.hasOwnProperty("evolution_elec_price_until_2050")) {
-			this.evolution_elec_price_until_2050 = params.fleet_vars["evolution_elec_price_until_2050"]
-			this.energy_prices_evolution["strom"][2]["rate"] = params.fleet_vars["evolution_elec_price_until_2050"] / 100.0
+		if (params.vars.hasOwnProperty("evolution_elec_price_until_2050")) {
+			this.evolution_elec_price_until_2050 = params.vars["evolution_elec_price_until_2050"]
+			this.energy_prices_evolution["strom"][2]["rate"] = params.vars["evolution_elec_price_until_2050"] / 100.0
 		}
-		if (params.fleet_vars.hasOwnProperty("evolution_hydrocarbon_price_until_2050")) {
-			this.evolution_hydrocarbon_price_until_2050 = params.fleet_vars["evolution_hydrocarbon_price_until_2050"]
-			this.energy_prices_evolution["hydrocarbon"][0]["rate"] = params.fleet_vars["evolution_hydrocarbon_price_until_2050"] / 100.0
+		if (params.vars.hasOwnProperty("evolution_hydrocarbon_price_until_2050")) {
+			this.evolution_hydrocarbon_price_until_2050 = params.vars["evolution_hydrocarbon_price_until_2050"]
+			this.energy_prices_evolution["hydrocarbon"][0]["rate"] = params.vars["evolution_hydrocarbon_price_until_2050"] / 100.0
 		}
-		if (params.fleet_vars.hasOwnProperty("_2016_elec_price")) {
-			this.fleet_presets._2016_elec_price = params.fleet_vars["_2016_elec_price"]
-			this.energy_known_prices["BEV"][2016] = params.fleet_vars["_2016_elec_price"]
+		if (params.vars.hasOwnProperty("_2016_elec_price")) {
+			this.fleet_presets._2016_elec_price = params.vars["_2016_elec_price"]
+			this.energy_known_prices["BEV"][2016] = params.vars["_2016_elec_price"]
 		}
-		if (params.fleet_vars.hasOwnProperty("_2016_diesel_price")) {
-			this.fleet_presets._2016_diesel_price = params.fleet_vars["_2016_diesel_price"]
-			this.energy_known_prices["diesel"][2016] = params.fleet_vars["_2016_diesel_price"]
+		if (params.vars.hasOwnProperty("_2016_diesel_price")) {
+			this.fleet_presets._2016_diesel_price = params.vars["_2016_diesel_price"]
+			this.energy_known_prices["diesel"][2016] = params.vars["_2016_diesel_price"]
 		}
-		if (params.fleet_vars.hasOwnProperty("_2016_benzin_price")) {
-			this.fleet_presets._2016_benzin_price = params.fleet_vars["_2016_benzin_price"]
-			this.energy_known_prices["benzin"][2016] = params.fleet_vars["_2016_benzin_price"]
+		if (params.vars.hasOwnProperty("_2016_benzin_price")) {
+			this.fleet_presets._2016_benzin_price = params.vars["_2016_benzin_price"]
+			this.energy_known_prices["benzin"][2016] = params.vars["_2016_benzin_price"]
 		}
 
 		for (var i in energy_types) {
@@ -551,9 +550,9 @@ var Fleet = function(params) {
 	this.setEnergyPrices()
 
 	// Updates the variables in case the Fleet receives user-input variables
-	for(var prop in params.fleet_vars) {
-    if( params.fleet_vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) ) {
-			this.fleet_presets[prop] = params.fleet_vars[prop]
+	for(var prop in params.vars) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) ) {
+			this.fleet_presets[prop] = params.vars[prop]
 		}
 	}
 
@@ -561,21 +560,27 @@ var Fleet = function(params) {
 	this.groups = {}
 
 	// Computes the TCO values for each vehicle group
-	for(var group in params.groups) {
+	for(var group_id in params.groups) {
+
+		var group_name = params.groups[group_id]["name"]
+		this.groups[group_id] = {}
 
 		// In case forgotten
-		if (params.groups[group].num_of_vehicles == undefined) { params.groups[group].num_of_vehicles = 1 }
+		if (params.groups[group_id].vars.num_of_vehicles == undefined) { params.groups[group_id].vars.num_of_vehicles = 1 }
 
 		// For special groups
-		if (params.groups[group].energy_type == "short_distance_train" || params.groups[group].energy_type == "plane" || params.groups[group].energy_type == "long_distance_train" || params.groups[group].energy_type == "car_sharing" || params.groups[group].energy_type == "rental_car" || params.groups[group].energy_type == "bike") { params.groups[group].car_type = "single_size" }
+		if (params.groups[group_id].vars.energy_type == "short_distance_train" || params.groups[group_id].vars.energy_type == "plane" || params.groups[group_id].vars.energy_type == "long_distance_train" || params.groups[group_id].vars.energy_type == "car_sharing" || params.groups[group_id].vars.energy_type == "rental_car" || params.groups[group_id].vars.energy_type == "bike" || params.groups[group_id].vars.energy_type == "businessplane") { params.groups[group_id].vars.car_type = "single_size" }
 
-		var num_of_vehicles = params.groups[group].num_of_vehicles
+		var num_of_vehicles = params.groups[group_id].vars.num_of_vehicles
 
 		// Creates the corresponding vehicle group
-		this.groups[group] = new vehicle_group.VehicleGroup(this.fleet_presets, params.groups[group])
-		var current_group = this.groups[group]
-		this.params.groups[group].TCO = {
-			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group].energy_type][params.groups[group].car_type] * num_of_vehicles,
+		this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, params.groups[group_id])
+		this.groups[group_id]["vars"] = params.groups[group_id].vars
+		this.groups[group_id]["name"] = group_name
+		var current_group = this.groups[group_id]["insights"]
+		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles
+		this.groups[group_id]["insights"].TCO = {
+			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group_id].vars.energy_type][params.groups[group_id].vars.car_type] * num_of_vehicles,
 			"mileage": current_group.mileage * num_of_vehicles,
 			"car_type": current_group.car_type,
 			"energy_type": current_group.energy_type,
@@ -611,69 +616,70 @@ var Fleet = function(params) {
 	}
 
 	// Computes the TCO values for the whole fleet
-	for (var group_name in params.groups) {
-		var group = params.groups[group_name]
+	for (var group_id in params.groups) {
+		var group_insights = this.groups[group_id]["insights"]
+		var group_name = params.groups[group_id]["name"]
 
 		// Total mileage
-		this.TCO.mileage += group.TCO.mileage
+		this.TCO.mileage += group_insights.TCO.mileage
 		// Total number of vehicles increases if it's not a special group
-		if (!(group.energy_type == "short_distance_train" || group.energy_type == "plane" || group.energy_type == "long_distance_train" || group.energy_type == "car_sharing" || group.energy_type == "rental_car" || group.energy_type == "bike")){
-			this.TCO.num_of_vehicles += group.num_of_vehicles
+		if (!(group_insights.energy_type == "short_distance_train" || group_insights.energy_type == "plane" || group_insights.energy_type == "long_distance_train" || group_insights.energy_type == "car_sharing" || group_insights.energy_type == "rental_car" || group_insights.energy_type == "bike")){
+			this.TCO.num_of_vehicles += group_insights.num_of_vehicles
 		}
 		// Total cost
-		this.TCO.total_costs += group.TCO.total_costs
+		this.TCO.total_costs += group_insights.TCO.total_costs
 		// Total CO2
-		this.TCO.CO2 += group.TCO.CO2
+		this.TCO.CO2 += group_insights.TCO.CO2
 
 		// Net cost by group
-		this.TCO.cost_by_group[group_name] = group.TCO.total_costs
+		this.TCO.cost_by_group[group_name] = group_insights.TCO.total_costs
 		// CO2 by group
-		this.TCO.CO2_by_group[group_name] = group.TCO.CO2
+		this.TCO.CO2_by_group[group_name] = group_insights.TCO.CO2
 		// Mileage by group
-		this.TCO.mileage_by_group[group_name] = group.TCO.mileage
+		this.TCO.mileage_by_group[group_name] = group_insights.TCO.mileage
 
 		// Costs by position
-		this.TCO.cost_by_position.net_acquisition_cost += group.TCO.net_acquisition_cost
-		this.TCO.cost_by_position.fixed_costs += group.TCO.fixed_costs
-		this.TCO.cost_by_position.variable_costs += group.TCO.variable_costs
-		this.TCO.cost_by_position.energy_costs += group.TCO.energy_costs
-		this.TCO.cost_by_position.charging_infrastructure += group.TCO.charging_infrastructure
+		this.TCO.cost_by_position.net_acquisition_cost += group_insights.TCO.net_acquisition_cost
+		this.TCO.cost_by_position.fixed_costs += group_insights.TCO.fixed_costs
+		this.TCO.cost_by_position.variable_costs += group_insights.TCO.variable_costs
+		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
+		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
 
 		// CO2 by phase
 		this.TCO.CO2_by_phase = {
-			"CO2_from_driving": group.TCO.CO2 - this.fleet_presets.CO2_from_manufacturing[group.energy_type][group.car_type] * group.num_of_vehicles,
-			"CO2_from_manufacturing": this.fleet_presets.CO2_from_manufacturing[group.energy_type][group.car_type] * group.num_of_vehicles
+			"CO2_from_driving": group_insights.TCO.CO2 - this.fleet_presets.CO2_from_manufacturing[group_insights.energy_type][group_insights.car_type] * group_insights.num_of_vehicles,
+			"CO2_from_manufacturing": this.fleet_presets.CO2_from_manufacturing[group_insights.energy_type][group_insights.car_type] * group_insights.num_of_vehicles
 		}
 
 		// Costs and CO2 by car type
-		if (group.car_type == "single_size") {
+		if (group_insights.car_type == "single_size") {
 			// Special groups
-			if (group.energy_type in this.TCO.CO2_by_car_type) {
-				this.TCO.CO2_by_car_type[group.energy_type] += group.TCO.CO2
-				this.TCO.cost_by_car_type[group.energy_type] += group.TCO.total_costs
+			if (group_insights.energy_type in this.TCO.CO2_by_car_type) {
+				this.TCO.CO2_by_car_type[group_insights.energy_type] += group_insights.TCO.CO2
+				this.TCO.cost_by_car_type[group_insights.energy_type] += group_insights.TCO.total_costs
 			} else {
-				this.TCO.CO2_by_car_type[group.energy_type] = group.TCO.CO2
-				this.TCO.cost_by_car_type[group.energy_type] = group.TCO.total_costs
+				this.TCO.CO2_by_car_type[group_insights.energy_type] = group_insights.TCO.CO2
+				this.TCO.cost_by_car_type[group_insights.energy_type] = group_insights.TCO.total_costs
 			}
 
 		}else{
 			// Normal groups
-			if (group.car_type in this.TCO.CO2_by_car_type) {
-				this.TCO.CO2_by_car_type[group.car_type] += group.TCO.CO2
-				this.TCO.cost_by_car_type[group.car_type] += group.TCO.total_costs
+			if (group_insights.car_type in this.TCO.CO2_by_car_type) {
+				this.TCO.CO2_by_car_type[group_insights.car_type] += group_insights.TCO.CO2
+				this.TCO.cost_by_car_type[group_insights.car_type] += group_insights.TCO.total_costs
 			} else {
-				this.TCO.CO2_by_car_type[group.car_type] = group.TCO.CO2
-				this.TCO.cost_by_car_type[group.car_type] = group.TCO.total_costs
+				this.TCO.CO2_by_car_type[group_insights.car_type] = group_insights.TCO.CO2
+				this.TCO.cost_by_car_type[group_insights.car_type] = group_insights.TCO.total_costs
 			}
 		}
 
 		// Costs and CO2 by energy type
-		if (group.energy_type in this.TCO.CO2_by_energy_type) {
-			this.TCO.CO2_by_energy_type[group.energy_type] += group.TCO.CO2
-			this.TCO.cost_by_energy_type[group.energy_type] += group.TCO.total_costs
+		if (group_insights.energy_type in this.TCO.CO2_by_energy_type) {
+			this.TCO.CO2_by_energy_type[group_insights.energy_type] += group_insights.TCO.CO2
+			this.TCO.cost_by_energy_type[group_insights.energy_type] += group_insights.TCO.total_costs
 		} else {
-			this.TCO.CO2_by_energy_type[group.energy_type] = group.TCO.CO2
-			this.TCO.cost_by_energy_type[group.energy_type] = group.TCO.total_costs
+			this.TCO.CO2_by_energy_type[group_insights.energy_type] = group_insights.TCO.CO2
+			this.TCO.cost_by_energy_type[group_insights.energy_type] = group_insights.TCO.total_costs
 		}
 
 	}
@@ -687,3 +693,18 @@ var Fleet = function(params) {
 module.exports = Fleet
 
 console.log("Welcome to the eFleet computation engine!")
+myFleet = new Fleet({
+    vars: {},
+    groups: [
+        {
+          name: "group_name1",
+          vars: {"num_of_vehicles": 1, "energy_type": "benzin", "car_type": "klein"}
+        },
+        {
+          name: "group_name2",
+          vars: {"num_of_vehicles": 2, "energy_type": "BEV", "car_type": "klein"}
+        }
+    ]
+})
+
+console.log(myFleet)

@@ -17,19 +17,28 @@ Users can modify variables that are related to a specific vehicle group or to th
 
 A new Fleet object accepts a single parameter, which is a Javascript object formated as follows:
 
+
 ```
 {
-	"fleet_vars": {},
-	"groups": {
-		"group_name1": {"num_of_vehicles": 2},
-		"group_name2": {"num_of_vehicles": 1}
-	}
+    vars: {},
+    groups: [
+        {
+          name: "group_name1",
+          vars: {"num_of_vehicles": 1},
+          insights: { "energy_prices": [] }
+        },
+        {
+          name: "group_name2",
+          vars: {"num_of_vehicles": 2},
+          insights: { "energy_prices": [] }
+        }
+    ]
 }
 ```
 
 For each vehicle group, `num_of_vehicles`, `car_type` and `energy_type` are mandatory. Other keys can be added ; they are the variables listed [in this spreadsheet](https://docs.google.com/spreadsheets/d/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/edit#gid=0) whose value for the column "Context" is "VehicleGroup".
 
-For the `fleet_vars` object, the key-value pairs that can be added are the variables listed in the same spreadsheet whose value for the column "Context" is "Fleet".
+For the `vars` object, the key-value pairs that can be added are the variables listed in the same spreadsheet whose value for the column "Context" is "Fleet".
 
 #### Visualizations
 

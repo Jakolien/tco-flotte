@@ -10,7 +10,7 @@ var in_array = function(needle, haystack) {
 
 var VehicleGroup = function(fleet_params, params) {
 	var scenarios = ["mittel"]
-	var additional_energy_types = ["long_distance_train","short_distance_train","car_sharing","rental_car","bike","plane"]
+	var additional_energy_types = ["long_distance_train","short_distance_train","car_sharing","rental_car","bike","plane", "businessplane"]
 	this.energy_type = "BEV"
 	this.car_type = "klein"
 	this.electricity_consumption = 0
