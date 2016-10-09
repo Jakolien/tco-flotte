@@ -10,6 +10,7 @@ import uiBootstrap from 'angular-ui-bootstrap';
 import ngTranslate from 'angular-translate';
 import ngSlider    from 'angularjs-slider';
 import restangular from 'restangular'
+import stickyfill  from 'Stickyfill/dist/stickyfill';
 
 import { routeConfig }      from './app.config';
 import auth                 from '../components/auth/auth.module';
@@ -18,6 +19,7 @@ import fleets               from '../components/fleets/fleets.module';
 import util                 from '../components/util/util.module';
 import navbar               from '../components/navbar/navbar.component';
 import footer               from '../components/footer/footer.component';
+import sticky               from '../components/sticky/sticky.module';
 import main                 from './main/main.component';
 import mainFleets           from './main/fleets/fleets.component';
 import mainFleetsGroups     from './main/fleets/groups/groups.component';
@@ -42,6 +44,7 @@ angular.module('oekoFlotteApp', [
   account,
   navbar,
   footer,
+  sticky,
   main,
   mainFleets,
   mainFleetsGroups,

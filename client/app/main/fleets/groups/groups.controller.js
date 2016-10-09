@@ -4,7 +4,7 @@ import angular from 'angular';
 
 export default class FleetsGroupsComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $translate) {
+  constructor(DynamicInput, $translate, $state) {
     // Only allow preliminary inputs
     this.inputs = _.filter(this.settings, { preliminary: true });
     // Instanciate a DynamicInput using the settings
@@ -14,7 +14,7 @@ export default class FleetsGroupsComponent {
     // Cached input's values
     this._inputValues = {};
     // Dependancies available in instance
-    angular.extend(this, { $translate });
+    angular.extend(this, { $translate, $state });
     // Bind methods with this instance
     this.getInputValues = this.getInputValues.bind(this);
     this.createGroup = this.createGroup.bind(this);
@@ -31,6 +31,11 @@ export default class FleetsGroupsComponent {
   }
 
   createGroup() {
-    return this.fleet.groups.create(angular.copy(this.group));
+    this.fleet.groups.create({
+      vars: angular.copy(this.group),
+      name: 'Group ' + (this.fleet.groups.length() + 1)
+    });
+    // Go to the parent state
+    this.$state.go('^');
   }
 }

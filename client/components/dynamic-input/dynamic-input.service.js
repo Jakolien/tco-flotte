@@ -7,12 +7,6 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
   var FIELD_ENUM = /,\w?/g;
   var FIELD_BOOLEAN = /boolean/;
 
-  function bind(fn, me) {
-    return function(...args) {
-      return Reflect.apply(fn, me, args);
-    };
-  }
-
   class DynamicInput {
 
     constructor(meta, subset = {}) {
@@ -22,21 +16,19 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
       this.setSubset = this.setSubset.bind(this);
       this.setMeta = this.setMeta.bind(this);
       this.translate = this.translate.bind(this);
+      this.isVisible = this.isVisible.bind(this);
       // Set meta and subset
       this.setMeta(meta);
       this.setSubset(subset);
     }
-
     setMeta(meta) {
       this.meta = meta;
       return this.meta;
     }
-
     setSubset(subset = {}) {
       this.subset = subset;
       return this.subset;
     }
-
     getValues(subset = this.subset) {
       var EXCEPTION;
       var ceil;
@@ -81,7 +73,6 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
         return { range: [true, false], translate: this.translate };
       }
     }
-
     translate(value) {
       if( this.meta.unit === undefined || this.meta.unit === null ) {
         return value;
@@ -89,7 +80,6 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
         return value + ' ' + $translate.instant(this.meta.unit);
       }
     }
-
     getType() {
       switch (true) {
       case !this.meta.editable:
@@ -102,7 +92,25 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
         return DYNAMIC_INPUT.FIELD_BOOLEAN;
       }
     }
-
+    isParentActive(subset = this.subset) {
+      return _.isEmpty(this.meta.parentname) || subset[this.meta.parentname];
+    }
+    matchEnergyType(subset = this.subset) {
+      return !this.isSpecificToEnergyType() || this.isEnergyType(subset);
+    }
+    isSpecificToEnergyType() {
+      return !_.isEmpty(this.meta.energytype);
+    }
+    isEnergyType(subset = this.subset) {
+      return this.energyTypes().indexOf(subset.energy_type) > -1;
+    }
+    energyTypes() {
+      let types = (this.meta.energytype || '').split(',');
+      return _.map(types, type=> _.trim(type, ' "\''));
+    }
+    isVisible(subset = this.subset) {
+      return this.isParentActive(subset) && this.matchEnergyType(subset);
+    }
   }
 
   return DynamicInput;

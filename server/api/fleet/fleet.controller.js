@@ -10,9 +10,9 @@
 
 'use strict';
 
-import _              from 'lodash';
-import jsonpatch      from 'fast-json-patch';
-import Fleet          from './fleet.model';
+import _         from 'lodash';
+import jsonpatch from 'fast-json-patch';
+import Fleet     from './fleet.model';
 // Process fleet object
 import FleetProcessor from '../../../processor/fleet.js'
 
@@ -86,7 +86,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Fleets
 export function index(req, res) {
-  return Fleet.find().sort( { name: 1 } ).exec()
+  return Fleet.find().sort( { _id: 1 } ).exec()
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -98,6 +98,30 @@ export function show(req, res) {
     .then(handleEntityNotFound(res))
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Gets a single Fleet from the DB
+export function groups(req, res) {
+  return Fleet.findById(req.params.id).exec()
+    .then(handleEntityNotFound(res))
+    .then(handleFleetProcessor(res))
+    .then(fleet=> fleet.groups)
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+export function addGroup(req, res) {
+  return Fleet.findById(req.params.id).exec()
+    .then(handleEntityNotFound(res))
+    .then(function(fleet) {
+      // Add the group
+      fleet.groups.push(req.body);
+      // Save the entity
+      fleet.save()
+        .then(handleFleetProcessor(res))
+        .then(respondWithResult(res));
+    })
     .catch(handleError(res));
 }
 
@@ -114,7 +138,6 @@ export function upsert(req, res) {
     delete req.body._id;
   }
   return Fleet.findOneAndUpdate({_id: req.params.id}, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
-
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

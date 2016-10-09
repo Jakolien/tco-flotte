@@ -8,13 +8,19 @@ export default class FleetsComponent {
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state });
     // No group yet
-    if( this.fleet.groups.length() === 0 ) {
+    if( this.fleet && this.fleet.empty() ) {
       // Redirect to the child state to create group
-      $state.go('main.fleets.groups', { fleet: $stateParams.fleet || 0 });
+      $state.go('main.fleets.groups', { fleet: this.fleet._id });
     }
   }
 
   createFleet() {
-    this.$state.go('main.fleets', { fleet: this.fleets.push() - 1 });
+    let nextFleetIndex = this.fleets.length();
+    // Create an empty fleet
+    this.fleets.create().$promise.then(function(fleet) {
+      // Redirect to that fleet
+      this.$state.go('main.fleets', { fleet: fleet._id });
+      return fleet;
+    }.bind(this));
   }
 }

@@ -1,3 +1,35 @@
 .main__fleets__groups__edit {
-  
+  &__header {
+    padding-bottom:$spacer;
+  }
+
+  label i.fa {
+    color:$text-muted;
+    padding-left:.5em;
+  }
+
+  &__context {
+
+    font-size:0.9em;
+
+    &__heading {
+      cursor: pointer;
+      z-index:100;
+      padding:$spacer;
+      margin:0;
+      color:white;
+      font-weight:300;
+      @include gradient-directional($brand-primary, darken($brand-primary, 20), 90deg);
+
+      i.fa {
+        margin-right:$spacer;
+        padding-right:$spacer;
+        border-right:1px solid darken($brand-primary, 10);
+      }
+    }
+
+    &:not(:last-child) &__heading {
+      border-bottom:1px solid darken($brand-primary, 10);
+    }
+  }
 }

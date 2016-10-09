@@ -1,2 +1,43 @@
-div
-  pre {{ $ctrl.group | json }}
+.main__fleets__groups__edit
+  .main__fleets__groups__edit__header
+    h3 {{ $ctrl.fleet.name }} - {{ $ctrl.group.name }}
+  .row
+    .col-md-5.push-md-7.push-lg-6.text-muted
+      | As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles. Through regular and organized vehicle use scheduling, the electrical and conventional vehicles can be easily shared between employees to improve cost-effectiveness.
+    .col-md-7.col-lg-6.pull-md-5
+      form.card
+        .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes')
+          h5.main__fleets__groups__edit__context__heading(sticky='', ng-click="context.open = !context.open")
+            i.fa.fa-caret-down(ng-show="context.open")
+            i.fa.fa-caret-up(ng-hide="context.open")
+            | &nbsp;{{ context.title | translate }}
+          .card-block(ng-show="context.open")
+              fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible($ctrl.values)')
+                label.row
+                  .col-lg-5
+                    | {{ input.meta.label | translate }}
+                    span(uib-tooltip-html="input.meta.description | translate", ng-show="input.meta.description")
+                      i.fa.fa-info
+                  .col-lg-7
+                    div(ng-switch=":: input.getType()")
+                      div.custom-control.custom-checkbox(ng-switch-when="boolean")
+                        input.custom-control-input(type="checkbox",
+                          ng-model="$ctrl.values[input.meta.name]")
+                        span.custom-control-indicator
+                      div(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
+                        select.form-control(
+                          ng-options="val as (val | translate) for val in $ctrl.getInputValues(input).range",
+                          ng-model="$ctrl.values[input.meta.name]")
+                        span.input-group-addon(ng-show="input.meta.unit")
+                          | {{ input.meta.unit | translate }}
+                      div(ng-switch-when="interval", ng-class="{ 'input-group': input.meta.unit }")
+                        input.form-control(type="number",
+                          min="{{ $ctrl.getInputValues(input).floor }}",
+                          max="{{ $ctrl.getInputValues(input).ceil }}",
+                          step="{{ $ctrl.getInputValues(input).step != 1 ? $ctrl.getInputValues(input).step : 'any' }}",
+                          ng-model="$ctrl.values[input.meta.name]")
+                        span.input-group-addon(ng-show="input.meta.unit")
+                          | {{ input.meta.unit | translate }}
+                      div(ng-switch-default)
+                        strong {{ $ctrl.values[input.meta.name] | number:2 }}
+                        span &nbsp;{{ input.meta.unit | translate }}

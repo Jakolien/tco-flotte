@@ -13,8 +13,14 @@ var GroupSchema = new mongoose.Schema({
 var FleetSchema = new mongoose.Schema({
   name: String,
   active: Boolean,
-  vars: mongoose.Schema.Types.Mixed,
-  groups: [GroupSchema]
+  vars: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  groups: {
+    type: [GroupSchema],
+    default: []
+  }
 }, {
   minimize: false,
   versionKey: 'revision'
