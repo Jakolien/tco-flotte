@@ -7,11 +7,15 @@ import ngResource  from 'angular-resource';
 import ngSanitize  from 'angular-sanitize';
 import uiRouter    from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
-import ngTranslate from 'angular-translate';
 import ngSlider    from 'angularjs-slider';
 import restangular from 'restangular'
 import stickyfill  from 'Stickyfill/dist/stickyfill';
 import colorpicker from 'angular-bootstrap-colorpicker';
+// Angular translate deps
+import ngTranslate       from 'angular-translate';
+import ngTranslateFiles  from 'angular-translate-loader-static-files';
+import ngTranslateCookie from 'angular-translate-storage-cookie';
+import ngTranslateLocal  from 'angular-translate-storage-local';
 
 import { routeConfig }      from './app.config';
 import auth                 from '../components/auth/auth.module';

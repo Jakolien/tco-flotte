@@ -7,6 +7,10 @@ export default function routes($stateProvider) {
     url: '/',
     component: 'main',
     resolve: {
+      language: function($translate) {
+        'ngInject'
+        return $translate.onReady();
+      },
       settings: function($http) {
         'ngInject'
         // Get settings
