@@ -20,10 +20,15 @@ var FleetSchema = new mongoose.Schema({
   groups: {
     type: [GroupSchema],
     default: []
-  }
+  },
+  self: {}
 }, {
   minimize: false,
   versionKey: 'revision'
+})
+
+FleetSchema.virtual('self.link').get(function () {
+  return `/api/fleets/${this._id}`
 });
 
 export default mongoose.model('Fleet', FleetSchema);

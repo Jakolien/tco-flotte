@@ -83,7 +83,7 @@ export default class EditComponent {
       angular.extend(context.destination, _.pick(context._values, changed));
     }
     // Save the fleet!
-    this.fleet.put();
+    this.fleet.update();
     // And redirect to the fleet
     this.$state.go('main.fleets');
   }

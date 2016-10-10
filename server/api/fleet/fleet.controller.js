@@ -60,19 +60,21 @@ function handleEntityNotFound(res) {
 }
 
 function handleFleetProcessor(res) {
+  function prepare(entity) {
+    // Extend the existing fleet object with a processed fleet
+    let fleet = _.extend(entity.toObject({ virtuals: true }), new FleetProcessor(entity));
+    // Return the new fleet
+    return fleet;
+  }
   return function(hash) {
-    var result = null;
-    // Several entities within an array
+    // Given hash is not an array
     if( Object.prototype.toString.call(hash) === '[object Array]' ) {
       // Map the array to process fleets one by one
-      result = _.map(hash, function(entity) {
-        return _.extend(entity.toObject(), new FleetProcessor(entity));
-      });
+      return _.map(hash, prepare);
     } else {
-      delete hash.groups;
-      result = _.extend(hash.toObject(), new FleetProcessor(hash) );
+      // Prepare the hash directly
+      return prepare(hash);
     }
-    return result;
   };
 }
 
@@ -81,6 +83,12 @@ function handleError(res, statusCode) {
   return function(err) {
     console.log(err);
     res.status(statusCode).send(err);
+  };
+}
+
+function findFleet(id) {
+  return function() {
+    return Fleet.findById(id).exec();
   };
 }
 
@@ -118,7 +126,7 @@ export function addGroup(req, res) {
       // Add the group
       fleet.groups.push(req.body);
       // Save the entity
-      fleet.save()
+      return fleet.save()
         .then(handleFleetProcessor(res))
         .then(respondWithResult(res));
     })
@@ -137,7 +145,8 @@ export function upsert(req, res) {
   if(req.body._id) {
     delete req.body._id;
   }
-  return Fleet.findOneAndUpdate({_id: req.params.id}, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Fleet.findOneAndUpdate({_id: req.params.id}, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true, new: true}).exec()
+    .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -150,6 +159,7 @@ export function patch(req, res) {
   return Fleet.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
+    .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

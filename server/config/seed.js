@@ -33,7 +33,13 @@ Fleet.find({}).remove()
             "car_type": "klein",
             "num_of_vehicles": 1
           },
-        },
+        }
+      ]
+    },{
+      name: 'Fleet 2',
+      active: true,
+      vars: {},
+      groups: [
         {
           name: "Group B",
           vars: {
@@ -51,11 +57,6 @@ Fleet.find({}).remove()
           }
         }
       ]
-    },{
-      name: 'Fleet 2',
-      active: true,
-      vars: {},
-      groups: []
     }, {
       name: 'Fleet 3',
       active: true,

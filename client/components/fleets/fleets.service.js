@@ -66,10 +66,10 @@ export default function fleetsService(Restangular) {
           let promise = fleet.api().all('groups').post(group);
           // Transform the result of the promise
           promise.then(function(f) {
-            // We update the fleet insight
-            fleet.insights = f.insights;
+            // We update the fleet
+            fleet.initialize(f);
             // And return the new group
-            angular.extend(promise.$object, f.groups.slice(-1)[0]);
+            angular.extend(promise.$object, fleet.groups.slice(-1)[0]);
           });
           super.push(promise.$object);
         }
@@ -81,8 +81,6 @@ export default function fleetsService(Restangular) {
   class Fleet {
     initialize(vars = {}) {
       angular.extend(this, vars);
-      // Bind method
-      this.empty = this.empty.bind(this);
       // Create nested groups (if any)
       if( angular.isArray(this.groups) ) {
         this.groups = new FleetGroups(this, ...this.groups);
@@ -90,6 +88,7 @@ export default function fleetsService(Restangular) {
       } else {
         this.groups = new FleetGroups(this);
       }
+      return this;
     }
     constructor(vars = {}) {
       // Count fleets instances
@@ -102,12 +101,19 @@ export default function fleetsService(Restangular) {
       if( vars.$promise ) {
         vars.$promise.then(this.initialize);
       }
+      // Bind method
+      this.empty = this.empty.bind(this);
     }
     api() {
       return Restangular.one('fleets', this._id);
     }
     empty() {
       return !this.groups || !this.groups.length || !this.groups.length();
+    }
+    update() {
+      this.save().then(function(vars) {
+        this.initialize(vars);
+      }.bind(this));
     }
     static uniqueName() {
       return `Fleet ${fleetNameCounter}`

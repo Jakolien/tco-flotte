@@ -10,5 +10,5 @@ export function routeConfig($urlRouterProvider, $locationProvider, $uibTooltipPr
   $uibTooltipProvider.options({appendToBody: true});
   // Configure restangular
   RestangularProvider.setBaseUrl('/api');
-  RestangularProvider.setRestangularFields({ id: "_id" });
+  RestangularProvider.setRestangularFields({ id: "_id",  selfLink: 'self.link' });
 }
