@@ -6,7 +6,8 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
   var FIELD_INTERVAL = /(-?\w+)\.\.(-?\w+)/;
   var FIELD_ENUM = /,\w?/g;
   var FIELD_BOOLEAN = /boolean/;
-  var FIELD_STRING = /(string)|(color)/;
+  var FIELD_STRING = /string/;
+  var FIELD_COLOR = /color/;
 
   class DynamicInput {
 
@@ -93,6 +94,8 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
         return DYNAMIC_INPUT.FIELD_BOOLEAN;
       case this.meta.values.match(FIELD_STRING) !== null:
         return DYNAMIC_INPUT.FIELD_STRING;
+      case this.meta.values.match(FIELD_COLOR) !== null:
+        return DYNAMIC_INPUT.FIELD_COLOR;
       }
     }
     isParentActive(subset = this.subset) {

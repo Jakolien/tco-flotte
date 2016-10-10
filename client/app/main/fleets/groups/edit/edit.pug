@@ -53,9 +53,18 @@
                           | {{ input.meta.unit | translate }}
                       div(ng-switch-when="string")
                         input.form-control(type="text",
-                        name="{{ input.meta.name }}",
-                        ng-model="$ctrl.gs(context, input.meta.name)",
-                        ng-model-options="{ getterSetter: true }")
+                          name="{{ input.meta.name }}",
+                          ng-model="$ctrl.gs(context, input.meta.name)",
+                          ng-model-options="{ getterSetter: true }")
+                        span.input-group-addon(ng-show="input.meta.unit")
+                          | {{ input.meta.unit | translate }}
+                      div(ng-switch-when="color")
+                        input.form-control(type="text",
+                          name="{{ input.meta.name }}",
+                          data-color="{{ $ctrl.gs(context, input.meta.name)() }}",
+                          colorpicker="",
+                          ng-model="$ctrl.gs(context, input.meta.name)",
+                          ng-model-options="{ getterSetter: true }")
                       div(ng-switch-default)
                         strong {{ context.values[input.meta.name] | number:2 }}
                         span &nbsp;{{ input.meta.unit | translate }}

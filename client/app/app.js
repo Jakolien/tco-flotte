@@ -11,6 +11,7 @@ import ngTranslate from 'angular-translate';
 import ngSlider    from 'angularjs-slider';
 import restangular from 'restangular'
 import stickyfill  from 'Stickyfill/dist/stickyfill';
+import colorpicker from 'angular-bootstrap-colorpicker';
 
 import { routeConfig }      from './app.config';
 import auth                 from '../components/auth/auth.module';
@@ -40,6 +41,7 @@ angular.module('oekoFlotteApp', [
   ngTranslate,
   ngSlider,
   'restangular',
+  'colorpicker.module',
   auth,
   account,
   navbar,

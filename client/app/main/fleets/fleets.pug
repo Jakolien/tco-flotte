@@ -19,8 +19,9 @@
             li.col-lg-2.col-md-3.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.all() track by $index")
               .main__fleets__view__groups__item
                 h4.main__fleets__view__groups__item__heading
-                  div {{ group.name }}
-                  div.small.text-muted {{ group.insights.mileage | number }} km/year
+                  | {{ group.vars.group_name || group.name }}
+                  .small.text-muted {{ group.insights.mileage | number }} km/year
+                  .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                 .main__fleets__view__groups__item__footer
                   span.pull-xs-right
                     a(ui-sref="main.fleets.groups.edit({group: $index })")
