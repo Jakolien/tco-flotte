@@ -53,6 +53,7 @@ var VehicleGroup = function(fleet_params, params) {
 	for(var prop in params) {
     if( params.hasOwnProperty(prop) && this.hasOwnProperty(prop) ) {
 			this[prop] = params[prop]
+			
 		}
 	}
 

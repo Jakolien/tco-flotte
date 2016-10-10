@@ -579,7 +579,8 @@ var Fleet = function(params) {
 		var num_of_vehicles = group.vars.num_of_vehicles;
 
 		// Creates the corresponding vehicle group
-		this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group)
+		this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars)
+
 		this.groups[group_id]["vars"] = group.vars
 		this.groups[group_id]["name"] = group_name
 		var current_group = this.groups[group_id]["insights"]
