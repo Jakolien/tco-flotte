@@ -4,12 +4,19 @@ export default function routes($stateProvider) {
   'ngInject';
 
   $stateProvider.state('main', {
-    url: '/',
+    url: '/?language',
     component: 'main',
+    params: {
+      language: null
+    },
     resolve: {
-      language: function($translate) {
+      language: function($translate, $stateParams) {
         'ngInject'
-        return $translate.onReady();
+        return $translate.onReady().then(function() {
+          if($stateParams.language !== null) {
+            $translate.use($stateParams.language);
+          }
+        });
       },
       settings: function($http) {
         'ngInject'

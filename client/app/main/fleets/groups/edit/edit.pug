@@ -21,7 +21,7 @@
           .card-block(ng-show="context.open")
               fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible(context._values)')
                 label.row
-                  .col-form-label.col-lg-5
+                  .col-lg-5(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
                     | {{ input.meta.label | translate }}
                     span(uib-tooltip-html="input.meta.description | translate", ng-show="input.meta.description")
                       i.fa.fa-info
