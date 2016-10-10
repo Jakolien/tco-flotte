@@ -8,6 +8,13 @@
     padding-left:.5em;
   }
 
+  &__sidebar {
+
+    &.sticky {
+      top:$spacer;
+    }
+  }
+
   &__context {
 
     font-size:0.9em;
@@ -19,17 +26,19 @@
       margin:0;
       color:white;
       font-weight:300;
-      @include gradient-directional($brand-primary, darken($brand-primary, 20), 90deg);
+      @include gradient-directional($brand-success, lighten($brand-success, 10), 90deg);
 
       i.fa {
         margin-right:$spacer;
         padding-right:$spacer;
-        border-right:1px solid darken($brand-primary, 10);
+        border-right:1px solid lighten($brand-success, 10);
       }
     }
 
     &:not(:last-child) &__heading {
-      border-bottom:1px solid darken($brand-primary, 10);
+      border-bottom:1px solid lighten($brand-success, 10);
     }
+
   }
+
 }

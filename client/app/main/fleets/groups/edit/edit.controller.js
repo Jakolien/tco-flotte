@@ -1,14 +1,31 @@
 export default class EditComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $translate) {
+  constructor(DynamicInput, $state) {
     // Instanciate a DynamicInput using the settings
     this.inputs = _.map(this.settings, meta=> new DynamicInput(meta));
     // Input's context
     this.contextes = [
-      { name:"Group", open: false, title: "General information" },
-      { name:"VehicleGroup", open: true, title: "Variables for all vehicles in this group" },
-      { name:"Fleet", open: false, title: "Variables for all vehicles in this fleet" },
-      { name:"Company", open: false, title: "Variables for all vehicles in this company" }
+      {
+        name: "VehicleGroupCommon",
+        open: true,
+        title: "General information",
+        values: this.group.vars,
+        destination: this.group.vars
+      },
+      {
+        name: "VehicleGroup",
+        open: false,
+        title: "Variables for all vehicles in  this group",
+        values:  this.group.insights,
+        destination: this.group.vars
+      },
+      {
+        name: "Fleet",
+        open: false,
+        title: "Variables for all vehicles in  this fleet",
+        values:  this.fleet.vars,
+        destination: this.fleet.vars
+      }
     ];
     // Add inputs
     for(let context of this.contextes) {
@@ -17,11 +34,13 @@ export default class EditComponent {
     }
     // Cached input's values
     this._inputValues = {};
-    this.values = angular.copy(this.group.insights);
     // Bind methods with this instance
-    // this.getInputValues = this.getInputValues.bind(this);
-    // Dependancies available in instance
-    angular.extend(this, { $translate });
+    this.getInputValues = this.getInputValues.bind(this);
+    this.changedValues = this.changedValues.bind(this);
+    this.hasChanged = this.hasChanged.bind(this);
+    this.save = this.save.bind(this);
+    // Dependancies injected in the instance
+    angular.extend(this, { $state });
   }
 
   getInputValues(input) {
@@ -31,5 +50,55 @@ export default class EditComponent {
       this._inputValues[input.meta.id] = input.getValues();
     }
     return this._inputValues[input.meta.id]
+  }
+
+  gs(context, name) {
+    let self = this;
+    // Dump values inside the value object
+    if(!context._dump) {
+      // Copy the object to avoid modifying references
+      context._values = angular.copy(context.values);
+      // We must save the original version to detect changes
+      context._dump = angular.copy(context.values);
+      // All changed variables will be saved here
+      context._changed = {};
+    }
+    return function(value) {
+      if(value !== undefined) {
+        // Mark the value as changed
+        context._changed[name] = context._dump[name] !== value;
+        // Input values
+        context._values[name] = value;
+      }
+      return context._values[name];
+    }
+  }
+
+  save() {
+    // For each context object, we extend the destination object
+    for(let context of this.contextes) {
+      // Get all variables that changes in this context
+      let changed = this.changedValues([context]);
+      // To do so, we must pick only the value that changed
+      angular.extend(context.destination, _.pick(context._values, changed));
+    }
+    // Save the fleet!
+    this.fleet.put();
+    // And redirect to the fleet
+    this.$state.go('main.fleets');
+  }
+
+  changedValues(contextes = this.contextes) {
+    // All changed values
+    let changed = {}
+    // Merge changed values
+    for(let context of contextes) {
+      angular.extend(changed, context._changed);
+    }
+    return _.chain(changed).pickBy(v=> v).keys().value();
+  }
+
+  hasChanged() {
+    return this.changedValues().length;
   }
 }
