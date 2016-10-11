@@ -1,10 +1,14 @@
 var vehicle_group = require('./vehicle_group');
-var extend = require("xtend");
+var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"]
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"]
 var charging_options = ["Keine","Wallbox 3.7kW","Wallbox bis 22kW","Ladesäule 22kW"]
 var year_min = 2014
 var year_max = 2050
+// Special groups energy type
+export const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
+                         'car_sharing',  'rental_car', 'bike',
+                         'plane', 'businessplane'];
 
 
 var Fleet = function(params) {
@@ -12,8 +16,13 @@ var Fleet = function(params) {
 	this.fleet_presets.electro_fleet_size = 0
 
 	// Calculates the number of electric vehicles
-	params.groups.forEach(function(group) {
-		if (!(group.vars.hasOwnProperty("energy_type")) ||
+	params.groups.forEach(function(group, i) {
+		// For better compatibility with Mongoose nested object
+		if( group.hasOwnProperty("toObject") ) {
+			group = params.groups[i] = group.toObject();
+		}
+
+		if(!(group.vars.hasOwnProperty("energy_type")) ||
 					group.vars.energy_type == "BEV" ||
 					group.vars.energy_type == "hybrid-benzin" ||
 					group.vars.energy_type == "hybrid-diesel") {
@@ -318,14 +327,13 @@ var Fleet = function(params) {
 		"diesel": {"klein": 105.33, "mittel": 193.19,"groß": 227.01, "LNF1": 293.63, "LNF2": 390.59},
 		"hybrid-benzin": {"klein": 23, "mittel": 38,"groß": 48},
 		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 79},
-		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5},
-		"long_distance_train": {"single_size": 0},
-		"short_distance_train": {"single_size": 0},
-		"car_sharing": {"single_size": 0},
-		"rental_car": {"single_size": 0},
-		"bike": {"single_size": 0},
-		"plane": {"single_size": 0}
-	}
+		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5}
+	};
+
+	// Add special groups
+	SG_ENERGY_TYPES.forEach(function(group) {
+		this.fleet_presets.CO2_from_manufacturing[group] = {"single_size": 0};
+	}, this);
 
 	// Calculation of the residual values
 	this.fleet_presets.restwert_constants = {
@@ -564,28 +572,22 @@ var Fleet = function(params) {
 	this.groups = new Array(params.groups.length);
 	// Computes the TCO values for each vehicle group
 	params.groups.forEach(function(group, group_id) {
-		var group_name = group.name;
-		this.groups[group_id] = {};
-
 		// In case forgotten
-		if (group.vars.num_of_vehicles == undefined) {
-			group.vars.num_of_vehicles = 1;
+		if(group.vars.num_of_vehicles == undefined) {
+			group.vars.num_of_vehicles = group.vars.num_of_vehicles || 1;
 		}
-
 		// For special groups
-		if (group.vars.energy_type == "short_distance_train" || group.vars.energy_type == "plane" || group.vars.energy_type == "long_distance_train" || group.vars.energy_type == "car_sharing" || group.vars.energy_type == "rental_car" || group.vars.energy_type == "bike" || group.vars.energy_type == "businessplane") {
+		if( SG_ENERGY_TYPES.indexOf(group.vars.energy_type) > -1 ) {
 			group.vars.car_type = "single_size";
 		}
 
 		var num_of_vehicles = group.vars.num_of_vehicles;
-
+		// Copy just some values
+		this.groups[group_id] = _.pick(group, ['_id', 'vars', 'name', 'special']);
 		// Creates the corresponding vehicle group
-		this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars)
+		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
 
-		this.groups[group_id]["vars"] = group.vars
-		this.groups[group_id]["name"] = group_name
-		var current_group = this.groups[group_id]["insights"]
-		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles
+		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
 			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group_id].vars.energy_type][params.groups[group_id].vars.car_type] * num_of_vehicles,
 			"mileage": current_group.mileage * num_of_vehicles,
@@ -600,7 +602,7 @@ var Fleet = function(params) {
 			"total_costs": (current_group.TCO_simplified.net_cost + current_group.TCO_simplified.fixed_costs + current_group.TCO_simplified.variable_costs + current_group.TCO_simplified.energy_costs + current_group.TCO_simplified.charging_infrastructure) * num_of_vehicles
 		}
 	}, this);
-	
+
 	// Initializes the TCO values for the whole fleet
 	this.TCO = {
 		"mileage": 0,
@@ -628,9 +630,10 @@ var Fleet = function(params) {
 		// Total mileage
 		this.TCO.mileage += group_insights.TCO.mileage
 		// Total number of vehicles increases if it's not a special group
-		if (!(group_insights.energy_type == "short_distance_train" || group_insights.energy_type == "plane" || group_insights.energy_type == "long_distance_train" || group_insights.energy_type == "car_sharing" || group_insights.energy_type == "rental_car" || group_insights.energy_type == "bike")){
+		if( SG_ENERGY_TYPES.indexOf(group_insights.energy_type) === -1 ) {
 			this.TCO.num_of_vehicles += group_insights.num_of_vehicles
 		}
+
 		// Total cost
 		this.TCO.total_costs += group_insights.TCO.total_costs
 		// Total CO2
@@ -695,6 +698,4 @@ var Fleet = function(params) {
 
 }
 
-module.exports = Fleet
-
-console.log("Welcome to the eFleet computation engine!")
+export default Fleet;

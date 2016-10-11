@@ -2,15 +2,15 @@ FROM mhart/alpine-node:6.7
 
 # System deps
 RUN apk add --update --no-cache make gcc g++ git python build-base
-RUN npm -s -g install gulp@3.9.1
+RUN npm -s -g install gulp@3.9.1 yarnpkg
 
 # Creates workdir
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
-ADD package.json .
-RUN npm -s install
+ADD package.json yarn.lock ./
+RUN yarn
 # Copy package sources
 ADD . .
 

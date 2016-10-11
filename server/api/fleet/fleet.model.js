@@ -1,13 +1,28 @@
 'use strict';
 
 import mongoose from 'mongoose';
+import _        from 'lodash';
+// Process fleet object
+import FleetProcessor    from '../../../processor/fleet.js'
+// Those energy types must be present in at least one group by fleet
+import {SG_ENERGY_TYPES} from '../../../processor/fleet.js'
 
 var GroupSchema = new mongoose.Schema({
   name: String,
-  vars: mongoose.Schema.Types.Mixed
+  vars: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  }
 }, {
   minimize: false,
-  skipVersioning: true
+  skipVersioning: true,
+  toObject: {
+    virtuals: true
+  }
+});
+
+GroupSchema.virtual('special').get(function () {
+  return SG_ENERGY_TYPES.indexOf(this.vars.energy_type) > -1;
 });
 
 var FleetSchema = new mongoose.Schema({
@@ -29,6 +44,43 @@ var FleetSchema = new mongoose.Schema({
 
 FleetSchema.virtual('self.link').get(function () {
   return `/api/fleets/${this._id}`
+});
+
+
+// Add special groups
+FleetSchema.pre('validate', function (next) {
+  // Groups must be exists
+  this.groups = this.groups || [];
+  // Those 7 energy_types must exist in a group
+  for(let type of SG_ENERGY_TYPES) {
+    // Retrocompatibility with lodash -_-
+    let some = _.someBy || _.some;
+    // No group contains this energy type!
+    if(!some(this.groups, g=> (g.vars || {}).energy_type === type)) {
+      // Create the group!
+      this.groups.push({
+        name: type,
+        vars: {
+          energy_type: type,
+          num_of_vehicles: 0
+        }
+      })
+    }
+  }
+  next();
+});
+
+// The fleet must be used by the FleetProcessor
+FleetSchema.pre('validate', function (next) {
+  try {
+    // We try to create an instance of fleet processor
+    new FleetProcessor(this);
+    // Everything is ok, just continue
+    next();
+  } catch (e) {
+    // If the instanciation raise an error, we must propage it
+    next(Error('The given Fleet object is not valid: ' + e.message));
+  }
 });
 
 export default mongoose.model('Fleet', FleetSchema);
