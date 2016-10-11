@@ -163,6 +163,7 @@ var Fleet = function(params) {
 	this.fleet_presets.maintenance_costs_charger = ""
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
+	this.fleet_presets.charging_option_num = 1
 	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},

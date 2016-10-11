@@ -20,8 +20,8 @@ var VehicleGroup = function(fleet_params, params) {
 	this.reichweite = 150
 	this.energy_source = fleet_params.energy_source
 	this.electro_fleet_size = fleet_params.electro_fleet_size
-	this.charging_option_cost = fleet_params.charging_option_cost / this.electro_fleet_size
-	this.maintenance_costs_charger = fleet_params.maintenance_costs_charger / this.electro_fleet_size
+	this.charging_option_cost = (fleet_params.charging_option_cost * fleet_params.charging_option_num) / this.electro_fleet_size
+	this.maintenance_costs_charger = (fleet_params.maintenance_costs_charger * fleet_params.charging_option_num) / this.electro_fleet_size
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
@@ -319,7 +319,7 @@ var VehicleGroup = function(fleet_params, params) {
 			this.maintenance_costs_repairs = params["maintenance_costs_repairs"]
 		}
 		if (params.hasOwnProperty("maintenance_costs_charger")) {
-			this.maintenance_costs_charger = params["maintenance_costs_charger"] / this.electro_fleet_size
+			this.maintenance_costs_charger = (params["maintenance_costs_charger"] * fleet_params.charging_option_num) / this.electro_fleet_size
 		}
 
 		this.maintenance_costs_total = this.maintenance_costs_tires + this.maintenance_costs_inspection + this.maintenance_costs_repairs;
@@ -345,9 +345,6 @@ var VehicleGroup = function(fleet_params, params) {
 
 				this.price.basis_price = fleet_params.raw_acquisition_price[this.energy_type][this.car_type][this.acquisition_year]
 				this.price.battery_price[scenario] = this.getBatteryPrice(scenario)
-				if (params.hasOwnProperty("charging_option_cost")) {
-					this.charging_option_cost = params["charging_option_cost"]  / this.electro_fleet_size
-				}
 				this.acquisition_price = this.price.basis_price + this.price.battery_price["mittel"]
 				if (params.hasOwnProperty("acquisition_price")) {
 					this.acquisition_price = params["acquisition_price"]
