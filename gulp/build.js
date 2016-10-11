@@ -444,6 +444,7 @@ gulp.task('build', cb => {
             'copy:assets',
             'copy:fonts:dist',
             'copy:server',
+            'copy:processor',
             'webpack:dist'
         ],
         'revReplaceWebpack',
@@ -455,7 +456,7 @@ gulp.task('clean:dist', () => del([`${paths.dist}/!(.git*|.openshift|Procfile)**
 gulp.task('build:images', () => {
     return gulp.src(paths.client.images)
         .pipe(plugins.imagemin([
-            plugins.imagemin.optipng({optimizationLevel: 5}),
+            //plugins.imagemin.optipng({optimizationLevel: 5}),
             plugins.imagemin.jpegtran({progressive: true}),
             plugins.imagemin.gifsicle({interlaced: true}),
             plugins.imagemin.svgo({plugins: [{removeViewBox: false}]})
@@ -516,6 +517,10 @@ gulp.task('copy:fonts:dist', () => {
 gulp.task('copy:assets', () => {
     return gulp.src([paths.client.assets, '!' + paths.client.images])
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`));
+});
+gulp.task('copy:processor', () => {
+    return gulp.src(paths.processor.scripts, {cwdbase: true})
+        .pipe(gulp.dest(`${paths.dist}`));
 });
 
 gulp.task('copy:server', () => {

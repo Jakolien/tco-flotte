@@ -27,6 +27,11 @@ export const paths = {
           unit: [`${serverPath}/**/*.spec.js`, 'mocha.global.js']
         }
     },
+    processor: {
+      scripts: [
+        `${processorPath}/**/!(*.spec|*.integration).js`
+      ]
+    },
     karma: 'karma.conf.js',
     dist: 'dist'
 };

@@ -72,6 +72,7 @@
     "eslint": "^2.12.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "google-spreadsheet": "^2.0.3",
     "grunt": "^1.0.1",
     "grunt-build-control": "^0.7.0",
     "gulp": "^3.9.1",
@@ -124,6 +125,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "^0.11.1",
     "proxyquire": "^1.0.1",
+    "pug-html-loader": "^1.0.8",
     "raw-loader": "^0.5.1",
     "run-sequence": "^1.1.0",
     "sass-loader": "^4.0.1",
@@ -136,8 +138,7 @@
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-stream": "^3.2.0",
-    "wrench": "^1.5.9",
-    "pug-html-loader": "^1.0.8"
+    "wrench": "^1.5.9"
   },
   "engines": {
     "node": "^6.2.2",

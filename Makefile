@@ -1,5 +1,5 @@
 DOCKER_NAME := oeko-flotte
-HEROKU_APP := oeko-flotte
+APP := oeko-flotte
 
 run:
 	gulp serve
@@ -7,8 +7,8 @@ run:
 build:
 	gulp build
 
-deploy:
-	heroku container:push -a ${HEROKU_APP}
+deploy: build-docker tag-docker
+	docker push registry.heroku.com/$(APP)/web
 
 packages:
 	npm install
@@ -20,6 +20,9 @@ prune:
 
 build-docker:
 	docker build -t $(DOCKER_NAME) .
+
+tag-docker:
+	docker tag $(DOCKER_NAME) registry.heroku.com/$(APP)/web
 
 save-docker: build-docker
 	docker save $(DOCKER_NAME) > $(DOCKER_NAME).tar
