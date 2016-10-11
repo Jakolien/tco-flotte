@@ -5,10 +5,13 @@ export default function fleetsService(Restangular) {
   'ngInject';
   // Counter for fleets unique name
   var fleetNameCounter = 0;
+  // Symbol keys for private attributes
+  const _array = Symbol('_fleet');
+  const _fleet = Symbol('_fleet');
 
   class LikeArray {
     constructor(...rest) {
-      this._array = new Array(...rest);
+      this[_array] = new Array(...rest);
       // Bind methods to this instance
       this.all     = this.all.bind(this);
       this.get     = this.get.bind(this);
@@ -19,29 +22,29 @@ export default function fleetsService(Restangular) {
       this.length  = this.length.bind(this);
     }
     all() {
-      return this._array;
+      return this[_array];
     }
     push(...rest) {
-      return this._array.push(...rest);
+      return this[_array].push(...rest);
     }
     slice(...rest) {
-      return this._array.slice(...rest);
+      return this[_array].slice(...rest);
     }
     length() {
-      return this._array.length;
+      return this[_array].length;
     }
 
     get(id_or_index) {
       if( isNaN(id_or_index) ) {
         // Search by id
-        return _.find(this._array, {_id: id_or_index});
+        return _.find(this[_array], {_id: id_or_index});
       } else {
         // search by index
-        return this._array[id_or_index];
+        return this[_array][id_or_index];
       }
     }
     indexOf(...rest) {
-      return this._array.indexOf(...rest);
+      return this[_array].indexOf(...rest);
     }
     create(vars = {}) {
       var length = this.push(vars);
@@ -54,14 +57,14 @@ export default function fleetsService(Restangular) {
       // Call parents
       super(...rest);
       // Set fleet!
-      this._fleet = fleet;
+      this[_fleet] = fleet;
     }
     push(...rest) {
       for(let group of rest) {
         if(group.insights) {
           super.push(group);
         } else {
-          let fleet = this._fleet;
+          let fleet = this[_fleet];
           // We add the new group
           let promise = fleet.api().all('groups').post(group);
           // Transform the result of the promise

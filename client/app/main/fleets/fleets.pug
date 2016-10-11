@@ -11,7 +11,7 @@
             div.text-muted.small {{ fleet.groups.length() }} group(s)
       button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
         i.fa.fa-plus-circle
-        | &nbsp;A a fleet
+        | &nbsp;{{ 'A a fleet' | translate }}
     .col-xs.main__fleets__view.card
       ui-view
         .row
@@ -32,6 +32,39 @@
               li.col-lg-4.col-md-6.col-sm-12.col-xs-12
                 .main__fleets__view__groups__item.main__fleets__view__groups__item--link
                   a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
-                    | Add a group of vehicles
-          .col-md-4.main__fleets__view__compare
+                    | {{ 'Add a group of vehicles' | translate }}
+
+          .col-md-4.main__fleets__view__compare(ng-init="$ctrl.compareWith = $ctrl.anotherFleet()")
             h4.main__fleets__view__compare__heading Fleet data
+            form
+              .form-group
+                label(for="input-compare-with") Compare with
+                select.form-control(ng-options="fleet as fleet.name disable when fleet == $ctrl.fleet for fleet in $ctrl.fleets.all()", ng-model="$ctrl.compareWith", id="input-compare-with")
+                  option(value="") ⎼⎼
+            div(ng-if="$ctrl.compareWith")
+              .main__fleets__view__compare__section
+                h6.main__fleets__view__compare__section__heading {{ 'Total kilometers' | translate }}
+                .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
+                  .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.mileage)")
+                    .main__fleets__view__compare__section__bar__fill__name
+                      | {{ fleet.name }}
+                  .main__fleets__view__compare__section__bar__value
+                    | {{ $ctrl.mileage(fleet) | number }} km/year
+                .main__fleets__view__compare__section__unequal.text-warning(ng-show="$ctrl.arefleetsUnequal($ctrl.mileage)")
+                  i.fa.fa-warning
+                  =" "
+                  strong {{ $ctrl.biggest($ctrl.mileage).name }}
+                  =" "
+                  | has {{ $ctrl.delta($ctrl.mileage) | number }} km/year more than
+                  =" "
+                  strong {{ $ctrl.smallest($ctrl.mileage).name }}
+                  ="."
+
+              .main__fleets__view__compare__section
+                h6.main__fleets__view__compare__section__heading {{ 'Total vehicles' | translate }}
+                .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
+                  .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.vehicles)")
+                    .main__fleets__view__compare__section__bar__fill__name
+                      | {{ fleet.name }}
+                  .main__fleets__view__compare__section__bar__value
+                    | {{ $ctrl.vehicles(fleet) | number }}
