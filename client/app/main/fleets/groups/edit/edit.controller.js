@@ -2,7 +2,7 @@ export default class EditComponent {
   /*@ngInject*/
   constructor(DynamicInput, $state) {
     // Settings must match with the group
-    this.settings = _.filter(this.settings, { special: this.group.special });
+    this.settings = _.filter(this.settings, s=> s.special === null || s.special === this.group.special);
     // Instanciate a DynamicInput using the settings
     this.inputs = _.map(this.settings, meta=> new DynamicInput(meta));
     // Input's context

@@ -62,7 +62,8 @@ FleetSchema.pre('validate', function (next) {
         name: type,
         vars: {
           energy_type: type,
-          num_of_vehicles: 0
+          num_of_vehicles: 0,
+          mileage: 0
         }
       })
     }

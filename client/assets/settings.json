@@ -825,7 +825,7 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "mileage",
-    "special": false
+    "special": null
   },
   {
     "id": "4",

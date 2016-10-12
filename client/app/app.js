@@ -1,16 +1,16 @@
 'use strict';
 
-import angular     from 'angular';
-import ngAnimate   from 'angular-animate';
-import ngCookies   from 'angular-cookies';
-import ngResource  from 'angular-resource';
-import ngSanitize  from 'angular-sanitize';
-import uiRouter    from 'angular-ui-router';
-import uiBootstrap from 'angular-ui-bootstrap';
-import ngSlider    from 'angularjs-slider';
-import restangular from 'restangular'
-import stickyfill  from 'Stickyfill/dist/stickyfill';
-import colorpicker from 'angular-bootstrap-colorpicker';
+import angular       from 'angular';
+import ngAnimate     from 'angular-animate';
+import ngCookies     from 'angular-cookies';
+import ngResource    from 'angular-resource';
+import ngSanitize    from 'angular-sanitize';
+import uiBootstrap   from 'angular-ui-bootstrap';
+import uiRouter      from 'angular-ui-router';
+import ngSlider      from 'angularjs-slider';
+import restangular   from 'restangular'
+import stickyfill    from 'Stickyfill/dist/stickyfill';
+import colorpicker   from 'angular-bootstrap-colorpicker';
 // Angular translate deps
 import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
@@ -40,10 +40,10 @@ angular.module('oekoFlotteApp', [
   ngAnimate,
   ngResource,
   ngSanitize,
-  uiRouter,
-  uiBootstrap,
   ngTranslate,
   ngSlider,
+  uiBootstrap,
+  uiRouter,
   'restangular',
   'colorpicker.module',
   auth,
@@ -62,16 +62,45 @@ angular.module('oekoFlotteApp', [
   fleets
 ])
 .config(routeConfig)
-.run(function($rootScope, $location, Auth) {
+.run(function($transitions, $location, Auth, $rootScope, $timeout, $state) {
   'ngInject';
   // Redirect to login if route requires auth and you're not logged in
-  $rootScope.$on('$stateChangeStart', function(event, next) {
+  $transitions.onSuccess({}, function(transition) {
+
+    function getTitleResolvable(comp) {
+      // comp is a Transition
+      if(angular.isFunction(comp.getResolveTokens)) {
+        return comp.getResolveTokens().find( r=> r === '$title');
+      // comp is a PathNode
+      } else {
+        return comp.resolvables.find( r=> r.token === '$title');
+      }
+    }
+
+    // Resolve breadcrumbs.
+    function bc(pathNode) {
+      let titleResolvable = getTitleResolvable(pathNode);
+      return !titleResolvable ? null : {
+        title: titleResolvable.data,
+        state: pathNode.state,
+        href: $state.href(pathNode.state)
+      };
+    }
+    // Resolve title.
+    $rootScope.$title = getTitleResolvable(transition) ? transition.getResolveValue('$title') : undefined;
+    // Build breadcrumbs
+    $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
+
     Auth.isLoggedIn(function(loggedIn) {
-      if(next.authenticate && !loggedIn) {
+      if(transition.targetState().authenticate && !loggedIn) {
         $location.path('/login');
       }
     });
-  });
+	});
+
+	function getTitleValue(title) {
+		return angular.isFunction(title) ? title() : title;
+	}
 });
 
 angular.element(document)

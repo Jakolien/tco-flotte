@@ -10,6 +10,10 @@ export default function($stateProvider) {
         group: function($stateParams, fleet) {
           'ngInject'
           return fleet.groups.get($stateParams.group);
+        },
+        $title: function(group) {
+          'ngInject'
+          return group.name;
         }
       }
     });

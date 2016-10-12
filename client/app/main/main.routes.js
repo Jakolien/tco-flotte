@@ -7,7 +7,9 @@ export default function routes($stateProvider) {
     url: '/?language',
     component: 'main',
     params: {
-      language: null
+      language: {
+        value: null
+      }
     },
     resolve: {
       language: function($translate, $stateParams) {

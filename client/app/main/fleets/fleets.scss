@@ -12,6 +12,22 @@
     padding:$spacer * 2;
     margin-bottom:$spacer * 2;
     background: lighten($brand-primary, 15);
+
+    &__breadcrumbs {
+      font-size:1.6em;
+      li {
+        display: inline-block;
+
+        a:after {
+          content:"❭";
+          color:rgba($link-color, .30);
+          padding:0 $spacer;
+        }
+        a:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   &__list {
@@ -105,6 +121,7 @@
 
         &--special {
           background:darken($view-bg, 10);
+          font-size:.9em;
         }
         &--special &__heading {
           background: darken($view-bg, 20);
@@ -118,8 +135,8 @@
           left:0;
           right:0;
           margin:0;
-          padding: .8rem .1rem;
-          font-size: .8em;
+          padding: .8em .1em;
+          font-size: .9em;
           text-transform: uppercase;
           background: darken($view-bg, 10);
           font-weight: normal;

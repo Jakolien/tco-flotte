@@ -21,7 +21,13 @@ var prepareRows = function(rows) {
     }
     // Convert values to boolean
     for(let k of BOOL_FIELDS) {
-      if(exists(k)) row[k] = (row[k] || '').toLowerCase()[0] === 't';
+      if(exists(k)) {
+        if(row[k] === '') {
+          row[k] = null
+        } else  {
+          row[k] = (row[k] || '').toLowerCase()[0] === 't';
+        }
+      }
     }
     // Convert values to number
     for(let k of NUMBER_FIELDS) {

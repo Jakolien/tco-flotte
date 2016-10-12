@@ -12,6 +12,10 @@ export default function($stateProvider) {
         }
       },
       resolve: {
+        $title: function(fleet) {
+          'ngInject'
+          return fleet.name;
+        },
         fleet: function($stateParams, fleets) {
           'ngInject'
           return $stateParams.fleet ? fleets.get($stateParams.fleet) : fleets.initial();
