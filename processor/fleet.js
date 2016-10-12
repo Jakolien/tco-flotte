@@ -585,7 +585,6 @@ var Fleet = function(params) {
 		this.groups[group_id] = _.pick(group, ['_id', 'vars', 'name', 'special']);
 		// Creates the corresponding vehicle group
 		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
-		console.log(params.groups[group_id].name, params.groups[group_id].vars.car_type)
 
 		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
