@@ -1,15 +1,14 @@
 var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
-var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"]
-var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"]
-var charging_options = ["Keine","Wallbox 3.7kW","Wallbox bis 22kW","Ladesäule 22kW"]
-var year_min = 2014
-var year_max = 2050
+var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
+var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
+var charging_options = ["Keine","Wallbox 3.7kW","Wallbox bis 22kW","Ladesäule 22kW"];
+var year_min = 2014;
+var year_max = 2050;
 // Special groups energy type
-export const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
+const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
                          'car_sharing',  'rental_car', 'bike',
                          'plane', 'businessplane'];
-
 
 var Fleet = function(params) {
 	this.fleet_presets = {}
@@ -698,4 +697,6 @@ var Fleet = function(params) {
 
 }
 
-export default Fleet;
+// Available from outisde
+module.exports = Fleet;
+module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
