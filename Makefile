@@ -29,3 +29,9 @@ save-docker: build-docker
 
 bundle-docker: save-docker
 	gzip $(DOCKER_NAME).tar
+
+config-env:
+	$(eval CONFIG := $(shell heroku config -s -a ${APP} | awk '{print "-e " $$0 }') )
+
+run-docker: config-env
+	docker run ${CONFIG} --user=root --dns=8.8.8.8  -p 3003:3000 -it ${DOCKER_NAME}
