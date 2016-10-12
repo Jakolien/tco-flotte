@@ -585,6 +585,7 @@ var Fleet = function(params) {
 		this.groups[group_id] = _.pick(group, ['_id', 'vars', 'name', 'special']);
 		// Creates the corresponding vehicle group
 		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
+		console.log(params.groups[group_id].name, params.groups[group_id].vars.car_type)
 
 		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
@@ -651,7 +652,6 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.variable_costs += group_insights.TCO.variable_costs
 		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
 		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
-
 		// CO2 by phase
 		this.TCO.CO2_by_phase = {
 			"CO2_from_driving": group_insights.TCO.CO2 - this.fleet_presets.CO2_from_manufacturing[group_insights.energy_type][group_insights.car_type] * group_insights.num_of_vehicles,
