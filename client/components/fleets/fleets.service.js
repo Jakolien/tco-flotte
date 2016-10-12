@@ -8,6 +8,8 @@ export default function fleetsService(Restangular) {
   // Symbol keys for private attributes
   const _array = Symbol('_fleet');
   const _fleet = Symbol('_fleet');
+  const KEYS_BLACKLIST = ['fleet_presets', 'energy_known_prices',
+                          'insights', 'TCO', 'energy_prices_evolution'];
 
   class LikeArray {
     constructor(...rest) {
@@ -24,27 +26,32 @@ export default function fleetsService(Restangular) {
     all() {
       return this[_array];
     }
+    filter(filter) {
+      return _.filter(this.all(), filter);
+    }
     push(...rest) {
-      return this[_array].push(...rest);
+      return this.all().push(...rest);
     }
     slice(...rest) {
-      return this[_array].slice(...rest);
+      return this.all().slice(...rest);
     }
-    length() {
-      return this[_array].length;
+    delete(item) {
+      return _.remove(this.all(), item);
     }
-
+    length(filter = null) {
+      return filter === null ? this.all().length : this.filter(filter).length;
+    }
     get(id_or_index) {
       if( isNaN(id_or_index) ) {
         // Search by id
-        return _.find(this[_array], {_id: id_or_index});
+        return _.find(this.all(), {_id: id_or_index});
       } else {
         // search by index
-        return this[_array][id_or_index];
+        return this.all()[id_or_index];
       }
     }
-    indexOf(...rest) {
-      return this[_array].indexOf(...rest);
+    indexOf(item) {
+      return this.all().indexOf(item);
     }
     create(vars = {}) {
       var length = this.push(vars);
@@ -58,6 +65,13 @@ export default function fleetsService(Restangular) {
       super(...rest);
       // Set fleet!
       this[_fleet] = fleet;
+    }
+    nextName() {
+      return 'Group ' + ( this.filter({ special: false }).length + 1 )
+    }
+    delete(group) {
+      this[_fleet].api().one('groups', group._id).remove();
+      return super.delete(group);
     }
     push(...rest) {
       for(let group of rest) {
@@ -96,16 +110,19 @@ export default function fleetsService(Restangular) {
     constructor(vars = {}) {
       // Count fleets instances
       ++fleetNameCounter;
-      // Bind initialize method
+      // Bind methods
       this.initialize = this.initialize.bind(this);
+      this.update = this.update.bind(this);
+      this.update = this.update.bind(this);
+      this.clean = this.clean.bind(this);
+      this.empty = this.empty.bind(this);
+      this.api = this.api.bind(this);
       // Initialize vars
       this.initialize(vars);
       // We may be awaiting a promise to be resolved
       if( vars.$promise ) {
         vars.$promise.then(this.initialize);
       }
-      // Bind method
-      this.empty = this.empty.bind(this);
     }
     api() {
       return Restangular.one('fleets', this._id);
@@ -117,6 +134,20 @@ export default function fleetsService(Restangular) {
       this.save().then(function(vars) {
         this.initialize(vars);
       }.bind(this));
+    }
+    clean() {
+      // Clean the fleet
+      let cleaned = _.pickBy(this.plain(), function(value, key) {
+          return KEYS_BLACKLIST.indexOf(key) === -1;
+      });
+      // Clean its groups
+      cleaned.groups = _.map(cleaned.groups, function(group) {
+        return _.pickBy(group, function(value, key) {
+            return KEYS_BLACKLIST.indexOf(key) === -1;
+        });
+      });
+      // Return a new restangularized element
+      return Restangular.restangularizeElement(null, cleaned);
     }
     static uniqueName() {
       return `Fleet ${fleetNameCounter}`

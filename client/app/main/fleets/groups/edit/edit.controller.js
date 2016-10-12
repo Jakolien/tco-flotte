@@ -1,20 +1,22 @@
 export default class EditComponent {
   /*@ngInject*/
   constructor(DynamicInput, $state) {
+    // Settings must match with the group
+    this.settings = _.filter(this.settings, { special: this.group.special });
     // Instanciate a DynamicInput using the settings
     this.inputs = _.map(this.settings, meta=> new DynamicInput(meta));
     // Input's context
     this.contextes = [
       {
         name: "VehicleGroupCommon",
-        open: true,
+        open: !this.group.special,
         title: "General information",
         values: this.group.vars,
         destination: this.group.vars
       },
       {
         name: "VehicleGroup",
-        open: false,
+        open: this.group.special,
         title: "Variables for all vehicles in  this group",
         values:  this.group.insights,
         destination: this.group.vars
@@ -38,6 +40,8 @@ export default class EditComponent {
     this.getInputValues = this.getInputValues.bind(this);
     this.changedValues = this.changedValues.bind(this);
     this.hasChanged = this.hasChanged.bind(this);
+    this.duplicate = this.duplicate.bind(this);
+    this.delete = this.delete.bind(this);
     this.save = this.save.bind(this);
     // Dependancies injected in the instance
     angular.extend(this, { $state });
@@ -85,6 +89,21 @@ export default class EditComponent {
     // Save the fleet!
     this.fleet.update();
     // And redirect to the fleet
+    this.$state.go('main.fleets');
+  }
+
+  duplicate() {
+    this.fleet.groups.create({
+      vars: angular.copy(this.group.vars),
+      name: this.fleet.groups.nextName()
+    });
+    // Go to the parent state
+    this.$state.go('main.fleets');
+  }
+
+  delete() {
+    this.fleet.groups.delete(this.group);
+    // Go to the parent state
     this.$state.go('main.fleets');
   }
 

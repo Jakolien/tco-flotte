@@ -4,22 +4,32 @@
   form.row(ng-submit="$ctrl.save()", novalidate)
     .col-md-5.push-md-7.push-lg-6
       .main__fleets__groups__edit__sidebar(sticky)
-        p.text-muted As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles.
-        p
-          button.btn.btn-primary.btn-lg(type="submit", ng-disabled="!$ctrl.hasChanged()")
-            | Save changes
-          =" "
-          a.btn.btn-secondary.btn-lg(ui-sref="main.fleets")
-            | Cancel
+        .card
+          .card-block.text-muted
+            | As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles.
+          .card-footer.main__fleets__groups__edit__sidebar__footer
+            .pull-right
+              button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
+                i.fa.fa-fw.fa-files-o
+                | &nbsp;Duplicate
+              =" | "
+              button.btn.btn-link(type="button", ng-click="$ctrl.delete()", ng-if="!$ctrl.group.special")
+                i.fa.fa-fw.fa-trash
+                span.sr-only Delete
+            button.btn.btn-primary(type="submit", ng-disabled="!$ctrl.hasChanged()")
+              | Save changes
+            =" "
+            a.btn.btn-link(ui-sref="main.fleets")
+              | Cancel
     .col-md-7.col-lg-6.pull-md-5
       .card
-        .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes')
+        .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes', ng-show="context.inputs.length")
           h5.main__fleets__groups__edit__context__heading(sticky='', ng-click="context.open = !context.open")
             i.fa.fa-caret-down(ng-show="context.open")
             i.fa.fa-caret-up(ng-hide="context.open")
             | &nbsp;{{ context.title | translate }}
           .card-block(ng-show="context.open")
-              fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible(context._values)')
+              fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible(context._values || context.values)')
                 label.row
                   .col-lg-5(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
                     | {{ input.meta.label | translate }}

@@ -8,7 +8,7 @@ export default class FleetsComponent {
     // Bind method to this instance
     this.createFleet = this.createFleet.bind(this);
     this.compareStyle = this.compareStyle.bind(this);
-    this.anotherFleet = this.anotherFleet.bind(this);    
+    this.anotherFleet = this.anotherFleet.bind(this);
     this.biggest = this.biggest.bind(this);
     this.smallest = this.smallest.bind(this);
     this.delta = this.delta.bind(this);
@@ -16,7 +16,7 @@ export default class FleetsComponent {
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state });
     // No group yet
-    if( this.fleet && this.fleet.empty() ) {
+    if( this.fleet && this.fleet.groups.filter({ special: false }).length === 0 ) {
       // Redirect to the child state to create group
       $state.go('main.fleets.groups', { fleet: this.fleet._id });
     }
@@ -40,11 +40,11 @@ export default class FleetsComponent {
   }
 
   mileage(fleet) {
-    return fleet.TCO.mileage;
+    return (fleet.TCO || {}).mileage;
   }
 
   vehicles(fleet) {
-    return fleet.TCO.num_of_vehicles;
+    return (fleet.TCO || {}).num_of_vehicles;
   }
 
   anotherFleet() {

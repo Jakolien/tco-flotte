@@ -13,6 +13,11 @@
     &.sticky {
       top:$spacer;
     }
+
+    &__footer {
+      background: inherit;
+      white-space: nowrap;
+    }
   }
 
   &__context {

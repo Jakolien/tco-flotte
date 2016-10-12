@@ -39,8 +39,8 @@ export default function(app) {
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
   app.use(shrinkRay());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false, limit: '5mb' }));
+  app.use(bodyParser.json({ limit: '5mb' }));
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());

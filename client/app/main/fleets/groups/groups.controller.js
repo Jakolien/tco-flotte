@@ -6,7 +6,7 @@ export default class FleetsGroupsComponent {
   /*@ngInject*/
   constructor(DynamicInput, $translate, $state) {
     // Only allow preliminary inputs
-    this.inputs = _.filter(this.settings, { preliminary: true });
+    this.inputs = _.filter(this.settings, { preliminary: true, special: false });
     // Instanciate a DynamicInput using the settings
     this.inputs = _.map(this.inputs, meta => new DynamicInput(meta));
     // The new group we have to create
@@ -33,7 +33,7 @@ export default class FleetsGroupsComponent {
   createGroup() {
     this.fleet.groups.create({
       vars: angular.copy(this.group),
-      name: 'Group ' + (this.fleet.groups.length() + 1)
+      name: this.fleet.groups.nextName()
     });
     // Go to the parent state
     this.$state.go('^');

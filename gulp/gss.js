@@ -8,7 +8,7 @@ import Gss  from 'google-spreadsheet';
 import {paths, clientPath, serverPath} from './paths';
 
 let GSSID = '1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc';
-let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist', 'preliminary', 'editable', 'relative'];
+let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist', 'preliminary', 'editable', 'relative', 'special'];
 let NUMBER_FIELDS = ['importancerank', 'interval']
 let UNWANTED_FIELDS = ['_xml', '_links'];
 

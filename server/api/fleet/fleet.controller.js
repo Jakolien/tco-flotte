@@ -133,6 +133,20 @@ export function addGroup(req, res) {
     .catch(handleError(res));
 }
 
+export function destroyGroup(req, res) {
+  return Fleet.findById(req.params.id).exec()
+    .then(handleEntityNotFound(res))
+    .then(function(fleet) {
+      // Remove the group
+      fleet.groups.remove(req.params.group);
+      // Save the entity
+      return fleet.save()
+        .then(handleFleetProcessor(res))
+        .then(respondWithResult(res));
+    })
+    .catch(handleError(res));
+}
+
 // Creates a new Fleet in the DB
 export function create(req, res) {
   return Fleet.create(req.body)
