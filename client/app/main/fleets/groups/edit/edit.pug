@@ -8,12 +8,12 @@
           .card-block.text-muted
             | As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles.
           .card-footer.main__fleets__groups__edit__sidebar__footer
-            .pull-right
+            .pull-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                 i.fa.fa-fw.fa-files-o
                 | &nbsp;Duplicate
               =" | "
-              button.btn.btn-link(type="button", ng-click="$ctrl.delete()", ng-if="!$ctrl.group.special")
+              button.btn.btn-link(type="button", ng-click="$ctrl.delete()")
                 i.fa.fa-fw.fa-trash
                 span.sr-only Delete
             button.btn.btn-primary(type="submit", ng-disabled="!$ctrl.hasChanged()")
