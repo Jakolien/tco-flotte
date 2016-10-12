@@ -39,6 +39,9 @@ import constants            from './app.constants';
 
 import './app.scss';
 
+// Export for others scripts to use
+[window.c3, window.d3] = [c3, d3];
+
 angular.module('oekoFlotteApp', [
   ngCookies,
   ngAnimate,

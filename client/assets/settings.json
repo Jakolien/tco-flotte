@@ -20,7 +20,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "charging_option",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "56",
@@ -43,7 +44,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "chargin_option_num",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "8",
@@ -66,7 +68,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "unternehmenssteuersatz",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "9",
@@ -89,7 +92,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "abschreibungszeitraum",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "10",
@@ -112,7 +116,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "sonder_afa",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "16",
@@ -135,7 +140,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "maintenance_costs_charger",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "28",
@@ -158,7 +164,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "energy_source",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "33",
@@ -181,7 +188,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "praemie",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "35",
@@ -204,7 +212,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "inflationsrate",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "36",
@@ -227,7 +236,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "_2016_benzin_price",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "37",
@@ -250,7 +260,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "_2016_diesel_price",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "38",
@@ -273,7 +284,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "_2016_elec_price",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "39",
@@ -296,7 +308,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "evolution_hydrocarbon_price_until_2050",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "40",
@@ -319,7 +332,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "evolution_elec_price_until_2020",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "41",
@@ -342,7 +356,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "evolution_elec_price_until_2030",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "42",
@@ -365,7 +380,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "evolution_elec_price_until_2050",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "44",
@@ -388,7 +404,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "charging_option_cost",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "45",
@@ -411,7 +428,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "cash_bonus_amount",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "46",
@@ -434,7 +452,8 @@
     "editable": true,
     "context": "Fleet",
     "name": "discount_rate",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "53",
@@ -457,7 +476,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "long_distance_train_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "54",
@@ -480,7 +500,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "long_distance_train_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "55",
@@ -503,7 +524,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "short_distance_train_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "56",
@@ -526,7 +548,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "short_distance_train_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "57",
@@ -549,7 +572,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "car_sharing_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "58",
@@ -572,7 +596,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "car_sharing_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "59",
@@ -595,7 +620,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "rental_car_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "60",
@@ -618,7 +644,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "rental_car_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "61",
@@ -641,7 +668,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "bike_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "62",
@@ -664,7 +692,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "bike_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "63",
@@ -687,7 +716,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "plane_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "64",
@@ -710,7 +740,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "plane_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "63",
@@ -733,7 +764,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "planebusiness_CO2_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "64",
@@ -756,7 +788,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "planebusiness_cost_per_km",
-    "special": true
+    "special": true,
+    "report": null
   },
   {
     "id": "1",
@@ -779,7 +812,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "acquisition_year",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "2",
@@ -802,7 +836,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "holding_time",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "3",
@@ -825,7 +860,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "mileage",
-    "special": null
+    "special": null,
+    "report": "Summary"
   },
   {
     "id": "4",
@@ -848,7 +884,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "energy_type",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "5",
@@ -871,7 +908,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "car_type",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "7",
@@ -894,7 +932,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "fuel_consumption",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "11",
@@ -917,7 +956,8 @@
     "editable": false,
     "context": "VehicleGroup",
     "name": "maintenance_costs_total",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "12",
@@ -940,7 +980,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "maintenance_costs_repairs",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "13",
@@ -963,7 +1004,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "maintenance_costs_inspection",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "14",
@@ -986,7 +1028,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "maintenance_costs_tires",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "15",
@@ -1009,7 +1052,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "traffic",
-    "special": false
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "20",
@@ -1032,7 +1076,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "electricity_consumption",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "21",
@@ -1055,7 +1100,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "share_electric",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "22",
@@ -1078,7 +1124,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "second_charge",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "23",
@@ -1101,7 +1148,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "reichweite",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "24",
@@ -1124,7 +1172,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "residual_value_method",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "25",
@@ -1147,7 +1196,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "second_user_holding_time",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "26",
@@ -1170,7 +1220,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "second_user_yearly_mileage",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "27",
@@ -1193,7 +1244,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "max_battery_charges",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "29",
@@ -1216,7 +1268,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "fixed_costs_car_tax",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "30",
@@ -1239,7 +1292,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "fixed_costs_insurance",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "31",
@@ -1262,7 +1316,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "fixed_costs_check_up",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "32",
@@ -1285,7 +1340,8 @@
     "editable": false,
     "context": "VehicleGroup",
     "name": "fixed_costs_total",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "34",
@@ -1308,7 +1364,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "acquisition_price",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "43",
@@ -1331,7 +1388,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "residual_value_fixed",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "47",
@@ -1354,7 +1412,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "leasing",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "48",
@@ -1377,7 +1436,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "leasing_rate",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "49",
@@ -1400,7 +1460,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "leasing_includes_insurance",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "50",
@@ -1423,7 +1484,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "leasing_includes_tax",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "51",
@@ -1446,7 +1508,8 @@
     "editable": true,
     "context": "VehicleGroup",
     "name": "leasing_includes_service",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "52",
@@ -1469,7 +1532,8 @@
     "editable": false,
     "context": "VehicleGroup",
     "name": "leasing_residual_value",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "53",
@@ -1492,7 +1556,8 @@
     "editable": true,
     "context": "VehicleGroupCommon",
     "name": "num_of_vehicles",
-    "special": false
+    "special": false,
+    "report": "Summary"
   },
   {
     "id": "54",
@@ -1515,7 +1580,8 @@
     "editable": true,
     "context": "VehicleGroupCommon",
     "name": "group_color",
-    "special": false
+    "special": false,
+    "report": null
   },
   {
     "id": "55",
@@ -1538,6 +1604,7 @@
     "editable": true,
     "context": "VehicleGroupCommon",
     "name": "group_name",
-    "special": false
+    "special": false,
+    "report": null
   }
 ]

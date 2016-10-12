@@ -4,104 +4,119 @@
     "name": "mileage",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "2",
     "name": "CO2",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "3",
     "name": "net_cost",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": false
   },
   {
     "id": "4",
     "name": "num_of_vehicles",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "5",
     "name": "CO2_per_km",
     "type": "bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "6",
     "name": "net_cost_per_km",
     "type": "bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": false
   },
   {
     "id": "7",
     "name": "net_cost_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": false
   },
   {
     "id": "8",
     "name": "CO2_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "9",
     "name": "cost_by_position",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": "TRUE"
+    "leasingconditions": "TRUE",
+    "enable": true
   },
   {
     "id": "10",
     "name": "mileage_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "11",
     "name": "net_cost_by_car_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": false
   },
   {
     "id": "12",
     "name": "net_cost_by_energy_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": false
   },
   {
     "id": "13",
     "name": "CO2_by_car_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "14",
     "name": "CO2_by_energy_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   },
   {
     "id": "15",
     "name": "CO2_by_phase",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null
+    "leasingconditions": null,
+    "enable": true
   }
 ]

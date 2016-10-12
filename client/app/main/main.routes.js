@@ -27,6 +27,11 @@ export default function routes($stateProvider) {
           return _.sortBy(res.data, 'importancerank');
         });
       },
+      display: function($http) {
+        'ngInject'
+        // Get display
+        return $http.get('assets/display.json').then( res=> res.data);
+      },
       all: function(fleets, Restangular) {
         'ngInject'
         // return fleets.length() ? fleets.initial() : fleets.create().$promise;

@@ -1,1 +1,28 @@
-.container This is the visualization view.
+.main__visualization
+  .container
+    .row
+      .col-md-3.push-md-9
+        ul.list-unstyled.main__visualization__sidebar
+          li(ng-repeat="meta in $ctrl.settings")
+            a(href="") {{ meta.label | translate }}
+
+      .col-md.pull-md-3
+        .main__visualization__view
+          .main__visualization__view__section(ng-repeat="chart in :: $ctrl.charts")
+            h3.main__visualization__view__section__heading
+              | {{ chart.meta.name | translate }}
+            c3chart(bindto-id="chart-{{$index}}")
+              chart-column(column-id="x",
+                           column-values="{{ :: $ctrl.columnNames(chart.meta) }}")
+              chart-column(ng-repeat="group in chart.groups",
+                           column-id="bar-{{ $index }}",
+                           column-name="{{ :: $ctrl.columnNames(group, chart.meta) }}",
+                           column-color="silver",
+                           column-values="{{ :: $ctrl.columnValues(group, chart.meta) }}",
+                           column-type="bar")
+              chart-bar(ratio="0.8")
+              chart-legend(show-legend="false")
+              chart-axes(values-x="x")
+              chart-axis
+                chart-axis-x(axis-position="outer-center",
+                             axis-type="category")
