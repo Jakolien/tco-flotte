@@ -42,8 +42,8 @@ var Fleet = function(params) {
 	this.fleet_presets.bike_cost_per_km = 0
 	this.fleet_presets.plane_CO2_per_km = 0.196
 	this.fleet_presets.plane_cost_per_km = 1.5
-	this.fleet_presets.planebusiness_CO2_per_km = 0.366
-	this.fleet_presets.planebusiness_cost_per_km = 3.5
+	this.fleet_presets.businessplane_CO2_per_km = 0.366
+	this.fleet_presets.businessplane_cost_per_km = 3.5
 
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 0.015		// That's 1.5% per year
