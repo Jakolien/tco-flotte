@@ -45,7 +45,7 @@
               li.col-lg-3.col-md-4.col-sm-6.col-xs-6(ng-repeat="group in $ctrl.fleet.groups.filter({ special: true }) track by $index")
                 .main__fleets__view__groups__item.main__fleets__view__groups__item--special
                   h4.main__fleets__view__groups__item__heading
-                    | {{ group.vars.group_name || group.name }}
+                    | {{ (group.vars.group_name || group.name) | translate }}
                     .small.text-muted {{ group.insights.mileage | number }} km/year
                     .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                   .main__fleets__view__groups__item__footer

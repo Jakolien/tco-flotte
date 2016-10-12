@@ -16,6 +16,10 @@ import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
 import ngTranslateCookie from 'angular-translate-storage-cookie';
 import ngTranslateLocal  from 'angular-translate-storage-local';
+// C3 angular
+import c3 from 'c3';
+import d3 from 'd3';
+import ngC3 from 'c3-angular';
 
 import { routeConfig }      from './app.config';
 import auth                 from '../components/auth/auth.module';
@@ -46,6 +50,7 @@ angular.module('oekoFlotteApp', [
   uiRouter,
   'restangular',
   'colorpicker.module',
+  'gridshore.c3js.chart',
   auth,
   account,
   navbar,
