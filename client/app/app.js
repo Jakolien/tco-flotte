@@ -24,21 +24,23 @@ import 'c3-angular';
 // Export for others scripts to use
 [window.c3, window.d3] = [c3, d3];
 
-import { routeConfig }      from './app.config';
-import auth                 from '../components/auth/auth.module';
-import dynamicInput         from '../components/dynamic-input/dynamic-input.module';
-import fleets               from '../components/fleets/fleets.module';
-import util                 from '../components/util/util.module';
-import navbar               from '../components/navbar/navbar.component';
-import footer               from '../components/footer/footer.component';
-import sticky               from '../components/sticky/sticky.module';
-import main                 from './main/main.component';
-import mainFleets           from './main/fleets/fleets.component';
-import mainFleetsGroups     from './main/fleets/groups/groups.component';
-import mainFleetsGroupsEdit from './main/fleets/groups/edit/edit.component';
-import mainVisualization    from './main/visualization/visualization.component';
-import account              from './account';
-import constants            from './app.constants';
+import { routeConfig } from './app.config';
+import auth            from '../components/auth/auth.module';
+import dynamicInput    from '../components/dynamic-input/dynamic-input.module';
+import fleetsService   from '../components/fleets/fleets.module';
+import util            from '../components/util/util.module';
+import navbar          from '../components/navbar/navbar.component';
+import footer          from '../components/footer/footer.component';
+import sticky          from '../components/sticky/sticky.module';
+import main            from './main/main.component';
+import fleets          from './main/fleets/fleets.component';
+import roups           from './main/fleets/groups/groups.component';
+import edit            from './main/fleets/groups/edit/edit.component';
+import visualization   from './main/visualization/visualization.component';
+import chart           from './main/visualization/chart/chart.component';
+import print           from './print/print.component';
+import account         from './account';
+import constants       from './app.constants';
 
 import './app.scss';
 
@@ -62,14 +64,14 @@ angular.module('oekoFlotteApp', [
   footer,
   sticky,
   main,
-  mainFleets,
-  mainFleetsGroups,
-  mainFleetsGroupsEdit,
-  mainVisualization,
-  constants,
+  fleets,
+  roups,
+  edit,
+  visualization,
+  chart,
   util,
   dynamicInput,
-  fleets
+  fleetsService
 ])
 .config(routeConfig)
 .run(function($transitions, $location, Auth, $rootScope, $timeout, $state) {

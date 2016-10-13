@@ -14,28 +14,4 @@
 
       .col-md.pull-md-3
         .main__visualization__view
-          .main__visualization__view__graph.card(ng-repeat="chart in :: $ctrl.charts",
-                                                 id="{{ chart.meta.name }}")
-            h3.main__visualization__view__graph__heading.card-block(sticky="")
-              | {{ chart.meta.name | translate }}
-            .main__visualization__view__graph__c3
-              c3chart(bindto-id="chart-{{$index}}")
-                chart-column(column-id="x",
-                             column-values="{{ :: $ctrl.columnNames($ctrl.fleets.all()) }}")
-                chart-column(ng-repeat="group in chart.groups",
-                             column-id="{{ :: group.id }}",
-                             column-name="{{ :: group.label }}",
-                             column-values="{{ :: group.values }}",
-                             column-type="bar")
-                chart-bar(ratio="0.8")
-                selection(enabled="false")
-                chart-group(group-values="{{ :: chart.groupsIds().join(',') }}")
-                chart-legend(show-legend="true")
-                chart-colors(color-function="$ctrl.colors(chart)")
-                chart-tooltip(show-tooltip="false")
-                chart-grid(show-y="true")
-                chart-axes(values-x="x")
-                chart-axis
-                  chart-axis-x-tick(tick-outer="false")
-                  chart-axis-x(axis-position="outer-center",
-                               axis-type="category")
+          chart(ng-repeat="chart in :: $ctrl.charts", meta="chart.meta")

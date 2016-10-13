@@ -1,0 +1,24 @@
+.main__visualization__chart.card(id="{{ $ctrl.chart.meta.name }}")
+  h3.main__visualization__chart__heading.card-block(sticky="")
+    | {{ $ctrl.chart.meta.name | translate }}
+  .main__visualization__chart__c3
+    c3chart(bindto-id="chart-{{ $ctrl.meta.name }}")
+      chart-column(column-id="x",
+                   column-values="{{ :: $ctrl.columnNames() }}")
+      chart-column(ng-repeat="group in $ctrl.chart.groups",
+                   column-id="{{ :: group.id }}",
+                   column-name="{{ :: group.label }}",
+                   column-values="{{ :: group.values }}",
+                   column-type="bar")
+      chart-bar(ratio="0.8")
+      selection(enabled="false")
+      chart-group(group-values="{{ :: $ctrl.chart.groupsIds().join(',') }}")
+      chart-legend(show-legend="true")
+      chart-colors(color-function="$ctrl.colors($ctrl.chart)")
+      chart-tooltip(show-tooltip="false")
+      chart-grid(show-y="true")
+      chart-axes(values-x="x")
+      chart-axis
+        chart-axis-x-tick(tick-outer="false")
+        chart-axis-x(axis-position="outer-center",
+                     axis-type="category")
