@@ -11,6 +11,9 @@
           ul.list-unstyled
             li(ng-repeat="meta in $ctrl.display", du-scrollspy="{{ meta.name }}")
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
+          a.btn.btn-link(href="/api/fleets/print")
+            i.fa.fa-print.fa-fw
+            | Print
 
       .col-md.pull-md-3
         .main__visualization__view

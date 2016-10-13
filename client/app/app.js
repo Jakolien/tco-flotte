@@ -69,6 +69,7 @@ angular.module('oekoFlotteApp', [
   edit,
   visualization,
   chart,
+  print,
   util,
   dynamicInput,
   fleetsService

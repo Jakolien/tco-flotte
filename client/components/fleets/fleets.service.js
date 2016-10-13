@@ -41,6 +41,9 @@ export default function fleetsService(Restangular) {
     length(filter = null) {
       return filter === null ? this.all().length : this.filter(filter).length;
     }
+    empty() {
+      this[_array] = [];
+    }
     get(id_or_index) {
       if( isNaN(id_or_index) ) {
         // Search by id

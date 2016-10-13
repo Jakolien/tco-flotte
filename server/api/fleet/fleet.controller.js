@@ -14,7 +14,10 @@ import _         from 'lodash';
 import jsonpatch from 'fast-json-patch';
 import Fleet     from './fleet.model';
 // Process fleet object
-import FleetProcessor from '../../../processor/fleet.js'
+import FleetProcessor from '../../../processor/fleet.js';
+import Nightmare from 'nightmare';
+
+var nightmare = Nightmare();
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -98,6 +101,19 @@ export function index(req, res) {
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
+}
+
+// Print a list of Fleets in pdf
+export function print(req, res) {
+  let url = req.protocol + '://' + req.get('host');
+  nightmare.goto(url + '/#/print')
+    .wait(3000)
+    .pdf(null, { landscape: true, pageSize: 'A4', printBackground: true }, function(err, buffer) {
+      res.type('pdf');
+      res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
+      res.send(buffer);
+    })
+    .run();
 }
 
 // Gets a single Fleet from the DB

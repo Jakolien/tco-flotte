@@ -1,0 +1,19 @@
+.print {
+  padding:$spacer;
+
+  &__chart {
+
+    height:100vh;
+    position: relative;
+
+    .card {
+      margin:0;
+      margin-top:10vh;
+    }
+
+    .c3 {
+      height: 60vh;
+    }
+
+  }
+}

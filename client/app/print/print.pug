@@ -1,1 +1,4 @@
-div This is the print view.
+.print
+  .row
+    .print__chart.col-xs-6(ng-repeat="meta in :: $ctrl.display")
+      chart(meta="meta")

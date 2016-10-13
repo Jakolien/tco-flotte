@@ -9,6 +9,9 @@ export default angular.module('oekoFlotteApp.print', [uiRouter])
   .config(routes)
   .component('print', {
     controller,
-    template: require('./print.pug')
+    template: require('./print.pug'),
+    bindings: {
+      display: '<'
+    }
   })
   .name;

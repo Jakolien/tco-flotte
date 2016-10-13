@@ -34,6 +34,7 @@ export default function routes($stateProvider) {
       },
       all: function(fleets, Restangular) {
         'ngInject'
+        fleets.empty();
         // return fleets.length() ? fleets.initial() : fleets.create().$promise;
         return Restangular.all('fleets').getList().then(function(all) {
           _.each(all, fleets.create);
