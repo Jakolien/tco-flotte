@@ -1,28 +1,41 @@
 .main__visualization
+  .main__header
+    ol.list-inline.main__header__breadcrumbs
+      li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }",)
+        a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
+        span(ng-if="$last") {{ crumb.title }}
   .container
     .row
       .col-md-3.push-md-9
-        ul.list-unstyled.main__visualization__sidebar
-          li(ng-repeat="meta in $ctrl.settings")
-            a(href="") {{ meta.label | translate }}
+        .main__visualization__sidebar(sticky="")
+          ul.list-unstyled
+            li(ng-repeat="chart in $ctrl.charts", du-scrollspy="{{ chart.meta.name }}")
+              a(href="#{{ chart.meta.name }}", du-smooth-scroll="") {{ chart.meta.name | translate }}
 
       .col-md.pull-md-3
         .main__visualization__view
-          .main__visualization__view__section(ng-repeat="chart in :: $ctrl.charts")
-            h3.main__visualization__view__section__heading
+          .main__visualization__view__graph.card(ng-repeat="chart in :: $ctrl.charts",
+                                                 id="{{ chart.meta.name }}")
+            h3.main__visualization__view__graph__heading.card-block(sticky="")
               | {{ chart.meta.name | translate }}
-            c3chart(bindto-id="chart-{{$index}}")
-              chart-column(column-id="x",
-                           column-values="{{ :: $ctrl.columnNames(chart.meta) }}")
-              chart-column(ng-repeat="group in chart.groups",
-                           column-id="bar-{{ $index }}",
-                           column-name="{{ :: $ctrl.columnNames(group, chart.meta) }}",
-                           column-color="silver",
-                           column-values="{{ :: $ctrl.columnValues(group, chart.meta) }}",
-                           column-type="bar")
-              chart-bar(ratio="0.8")
-              chart-legend(show-legend="false")
-              chart-axes(values-x="x")
-              chart-axis
-                chart-axis-x(axis-position="outer-center",
-                             axis-type="category")
+            .main__visualization__view__graph__c3
+              c3chart(bindto-id="chart-{{$index}}")
+                chart-column(column-id="x",
+                             column-values="{{ :: $ctrl.columnNames($ctrl.fleets.all()) }}")
+                chart-column(ng-repeat="group in chart.groups",
+                             column-id="{{ :: group.id }}",
+                             column-name="{{ :: group.label }}",
+                             column-values="{{ :: group.values }}",
+                             column-type="bar")
+                chart-bar(ratio="0.8")
+                selection(enabled="false")
+                chart-group(group-values="{{ :: chart.groupsIds().join(',') }}")
+                chart-legend(show-legend="true")
+                chart-colors(color-function="$ctrl.colors(chart)")
+                chart-tooltip(show-tooltip="false")
+                chart-grid(show-y="true")
+                chart-axes(values-x="x")
+                chart-axis
+                  chart-axis-x-tick(tick-outer="false")
+                  chart-axis-x(axis-position="outer-center",
+                               axis-type="category")

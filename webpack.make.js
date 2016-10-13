@@ -202,8 +202,11 @@ module.exports = function makeWebpackConfig(options) {
             include: [
                 path.resolve(__dirname, 'client/app/app.scss')
             ]
-
-
+        }, {
+          // JSON LOADER
+          // Reference: https://github.com/webpack/json-loader
+          test: /\.json$/,
+          loader: 'json'
         }]
     };
 

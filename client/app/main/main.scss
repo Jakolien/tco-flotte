@@ -89,4 +89,28 @@
       }
     }
   }
+
+  &__header {
+    color:white;
+    padding:$spacer * 2;
+    margin-bottom:$spacer * 2;
+    background: lighten($brand-primary, 15);
+
+    &__breadcrumbs {
+      font-size:1.6em;
+      li {
+        display: inline-block;
+
+        a:after {
+          content:"❭";
+          color:rgba($link-color, .30);
+          padding:0 $spacer;
+        }
+        a:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
 }

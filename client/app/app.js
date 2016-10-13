@@ -8,9 +8,10 @@ import ngSanitize    from 'angular-sanitize';
 import uiBootstrap   from 'angular-ui-bootstrap';
 import uiRouter      from 'angular-ui-router';
 import ngSlider      from 'angularjs-slider';
-import restangular   from 'restangular'
 import stickyfill    from 'Stickyfill/dist/stickyfill';
-import colorpicker   from 'angular-bootstrap-colorpicker';
+import duScroll      from 'angular-scroll';
+import 'angular-bootstrap-colorpicker';
+import 'restangular';
 // Angular translate deps
 import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
@@ -19,7 +20,9 @@ import ngTranslateLocal  from 'angular-translate-storage-local';
 // C3 angular
 import c3 from 'c3';
 import d3 from 'd3';
-import ngC3 from 'c3-angular';
+import 'c3-angular';
+// Export for others scripts to use
+[window.c3, window.d3] = [c3, d3];
 
 import { routeConfig }      from './app.config';
 import auth                 from '../components/auth/auth.module';
@@ -39,8 +42,6 @@ import constants            from './app.constants';
 
 import './app.scss';
 
-// Export for others scripts to use
-[window.c3, window.d3] = [c3, d3];
 
 angular.module('oekoFlotteApp', [
   ngCookies,
@@ -51,6 +52,7 @@ angular.module('oekoFlotteApp', [
   ngSlider,
   uiBootstrap,
   uiRouter,
+  duScroll,
   'restangular',
   'colorpicker.module',
   'gridshore.c3js.chart',

@@ -5,7 +5,8 @@
     "type": "bar",
     "usage": "both",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "2",
@@ -13,7 +14,8 @@
     "type": "bar",
     "usage": "both",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "3",
@@ -21,7 +23,8 @@
     "type": "bar",
     "usage": "both",
     "leasingconditions": null,
-    "enable": false
+    "enable": false,
+    "bygroup": false
   },
   {
     "id": "4",
@@ -29,7 +32,8 @@
     "type": "bar",
     "usage": "both",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "5",
@@ -37,7 +41,8 @@
     "type": "bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "6",
@@ -45,7 +50,8 @@
     "type": "bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": false
+    "enable": false,
+    "bygroup": false
   },
   {
     "id": "7",
@@ -53,7 +59,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": false
+    "enable": false,
+    "bygroup": true
   },
   {
     "id": "8",
@@ -61,7 +68,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": true
   },
   {
     "id": "9",
@@ -69,7 +77,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": "TRUE",
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "10",
@@ -77,7 +86,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": true
   },
   {
     "id": "11",
@@ -85,7 +95,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": false
+    "enable": false,
+    "bygroup": false
   },
   {
     "id": "12",
@@ -93,7 +104,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": false
+    "enable": false,
+    "bygroup": false
   },
   {
     "id": "13",
@@ -101,7 +113,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "14",
@@ -109,7 +122,8 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   },
   {
     "id": "15",
@@ -117,6 +131,7 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": null,
-    "enable": true
+    "enable": true,
+    "bygroup": false
   }
 ]

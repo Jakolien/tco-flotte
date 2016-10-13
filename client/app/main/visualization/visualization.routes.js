@@ -5,6 +5,9 @@ export default function($stateProvider) {
   $stateProvider
     .state('main.visualization', {
       url: 'visualization',
-      component: 'visualization'
+      component: 'visualization',
+      resolve: {
+        $title: ()=> 'Visualize your fleets'
+      }
     });
 }

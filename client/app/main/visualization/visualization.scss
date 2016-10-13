@@ -1,3 +1,85 @@
 .main__visualization {
-  padding-top:$spacer;
+
+  &__sidebar {
+    text-transform: capitalize;
+
+    &.sticky {
+      top:$spacer;
+    }
+
+    li {
+      font-size:.9em;
+      padding:0 $spacer;
+      border-left:3px solid transparent;
+
+      a {
+        color:$text-muted;
+        margin-bottom:.1em;
+        display: block;
+      }
+
+      &.active {
+        font-weight: bold;
+        border-left:3px solid $link-color;
+
+        a {
+          color: $link-color;
+        }
+      }
+    }
+  }
+
+  &__view {
+
+    &__graph {
+      margin-bottom:$spacer * 4;
+      background: mix($card-border-color, $card-bg, 15);
+
+      &__heading {
+        z-index:100;
+        text-transform: capitalize;
+        background:$card-bg;
+        border-bottom:$card-border-color 1px solid;
+        font-size: 1.2em;
+      }
+
+      &__c3 {
+        padding:$spacer;
+
+        .c3 {
+          &, .c3-legend-item {
+            font-family: $font-family-base;
+            font-size:1em;
+          }
+
+          .c3-lines {
+            stroke:$card-border-color !important;
+          }
+
+          .c3-axis {
+            text {
+              fill: $text-muted;
+              color: $text-muted;
+            }
+
+            line, path {
+              stroke: $text-muted;
+
+            }
+
+            &-y .domain, &-y .tick line {
+              stroke: transparent;
+              fill: transparent;
+            }
+          }
+
+          .c3-ygrid, .c3-axis-x .domain, .c3-axis-x .tick line {
+            stroke:$card-border-color;
+          }
+
+        }
+      }
+
+    }
+  }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
-import mongoose from 'mongoose';
-import _        from 'lodash';
+import mongoose    from 'mongoose';
+import _           from 'lodash';
 // Process fleet object
 import FleetProcessor    from '../../../processor/fleet.js'
 // Those energy types must be present in at least one group by fleet
@@ -46,7 +46,6 @@ FleetSchema.virtual('self.link').get(function () {
   return `/api/fleets/${this._id}`
 });
 
-
 // Add special groups
 FleetSchema.pre('validate', function (next) {
   // Groups must be exists
@@ -82,6 +81,18 @@ FleetSchema.pre('validate', function (next) {
     // If the instanciation raise an error, we must propage it
     next(Error('The given Fleet object is not valid: ' + e.message));
   }
+});
+
+// Create colors
+FleetSchema.pre('validate', function (next) {
+  let colors = require('../../config/environment/shared').colors;
+  this.groups.forEach( function(group, i) {
+    // Add color only for group without color
+    if(group.vars && !group.vars.group_color) {
+      group.vars.group_color = "#" + colors[ i % colors.length ].replace('#', '');
+    }
+  });
+  next();
 });
 
 export default mongoose.model('Fleet', FleetSchema);

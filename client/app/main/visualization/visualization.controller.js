@@ -4,34 +4,43 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets) {
+  constructor(fleets, appConfig) {
     // Dependancies available in instance
-    angular.extend(this, { fleets });
+    angular.extend(this, { fleets, appConfig });
     // Filter enabled display
     this.display = _.filter(this.display, { enable: true});
     // Create chart object
-    this.charts = _.map(this.display, function(meta) {
+    this.charts = _.map(this.display, function(meta, id) {
       return {
         meta,
-        groups: this.groups(meta)
+        groups: this.groups(meta),
+        groupsIds: function() {
+          return _.map(this.groups, 'id')
+        }
       }
     }.bind(this));
-    console.log(this.charts, fleets.get(0));
+    this.colors = this.colors.bind(this);
   }
-  columnNames(group, meta){
-    return _.map(this.fleets.all(), 'name').join(",");
+  columnNames(subset){
+    return _.map(subset, k=> k.name || k).join(",");
   }
-  columnColors(group, meta){
-    return 'silver';
+  colors(chart) {
+    return function(color, d) {
+      // Find the color id
+      let id = (d.id || d) * 1 % this.appConfig.colors.length;
+      // Get the id from the color array
+      return this.appConfig.colors[id];
+
+    }.bind(this);
   }
-  columnValues(group, meta){
+  columnValues(groupName, meta){
     return this.tco().map(function(value) {
       if(!value[meta.name]) {
-        return 0
-      } else if(group === '^') {
+        return 0;
+      } else if(groupName === '^') {
         return value[meta.name];
       } else {
-        return value[meta.name][group];
+        return value[meta.name][groupName];
       }
     }).join(",");
   }
@@ -47,11 +56,25 @@ export default class VisualizationComponent {
       return []
     } else if( angular.isObject(value) ) {
       // Returns its keys
-      return _.map( _.keys(value), function(name) {
-        return name
-      });
+      return _.map( _.keys(value), function(name, id) {
+        return {
+          name,
+          id,
+          label: name,
+          color: '#666',
+          values: this.columnValues(name, meta)
+        };
+      }.bind(this));
     } else {
-      return ['^'];
+      return [
+        {
+          id: 0,
+          name: '^',
+          label: meta.name,
+          color: '#666',
+          values: this.columnValues('^', meta)
+        }
+      ];
     }
   }
 }

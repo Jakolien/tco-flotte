@@ -1,6 +1,6 @@
 .main__fleets
-  .main__fleets__header
-    ol.list-inline.main__fleets__header__breadcrumbs
+  .main__header
+    ol.list-inline.main__header__breadcrumbs
       li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }")
         a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
         span(ng-if="$last") {{ crumb.title }}

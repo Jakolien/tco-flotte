@@ -11,7 +11,8 @@ let GSSID = '1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc';
 let NUMBER_FIELDS = ['importancerank', 'interval']
 let UNWANTED_FIELDS = ['_xml', '_links'];
 let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist',
-                   'preliminary', 'editable', 'relative', 'special', 'enable'];
+                   'preliminary', 'editable', 'relative',
+                   'bygroup', 'special', 'enable'];
 
 var prepareRows = function(rows) {
   return _.map(rows, function(row) {
