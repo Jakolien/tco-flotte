@@ -9,9 +9,9 @@
       .col-md-3.push-md-9
         .main__visualization__sidebar(sticky="")
           ul.list-unstyled
-            li(ng-repeat="chart in $ctrl.charts", du-scrollspy="{{ chart.meta.name }}")
-              a(href="#{{ chart.meta.name }}", du-smooth-scroll="") {{ chart.meta.name | translate }}
+            li(ng-repeat="meta in $ctrl.display", du-scrollspy="{{ meta.name }}")
+              a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
 
       .col-md.pull-md-3
         .main__visualization__view
-          chart(ng-repeat="chart in :: $ctrl.charts", meta="chart.meta")
+          chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
