@@ -81,10 +81,11 @@ module.exports = function makeWebpackConfig(options) {
             // Filename for non-entry points
             // Only adds hash in build mode
             chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
+
         };
+
+
     }
-
-
 
     if(TEST) {
         config.resolve = {
@@ -131,6 +132,7 @@ module.exports = function makeWebpackConfig(options) {
     // Initialize module
     config.module = {
         preLoaders: [],
+        noParse: [/html2canvas/,],
         loaders: [{
             // JS LOADER
             // Reference: https://github.com/babel/babel-loader

@@ -4,7 +4,7 @@
     "name": "mileage",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -13,7 +13,7 @@
     "name": "CO2",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -22,7 +22,7 @@
     "name": "net_cost",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": false,
     "bygroup": false
   },
@@ -31,7 +31,7 @@
     "name": "num_of_vehicles",
     "type": "bar",
     "usage": "both",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -40,7 +40,7 @@
     "name": "CO2_per_km",
     "type": "bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -49,7 +49,7 @@
     "name": "net_cost_per_km",
     "type": "bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": false,
     "bygroup": false
   },
@@ -58,7 +58,7 @@
     "name": "net_cost_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": false,
     "bygroup": true
   },
@@ -67,7 +67,7 @@
     "name": "CO2_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": true
   },
@@ -76,7 +76,7 @@
     "name": "cost_by_position",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": "TRUE",
+    "leasingconditions": true,
     "enable": true,
     "bygroup": false
   },
@@ -85,7 +85,7 @@
     "name": "mileage_by_group",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": true
   },
@@ -94,7 +94,7 @@
     "name": "net_cost_by_car_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": false,
     "bygroup": false
   },
@@ -103,7 +103,7 @@
     "name": "net_cost_by_energy_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": false,
     "bygroup": false
   },
@@ -112,7 +112,7 @@
     "name": "CO2_by_car_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -121,7 +121,7 @@
     "name": "CO2_by_energy_type",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   },
@@ -130,7 +130,7 @@
     "name": "CO2_by_phase",
     "type": "stacked_bar",
     "usage": "report",
-    "leasingconditions": null,
+    "leasingconditions": false,
     "enable": true,
     "bygroup": false
   }
