@@ -14,7 +14,9 @@
   &__c3 {
     padding:$spacer;
 
-    .c3 {
+    .c3 {      
+      pointer-events:none;
+
       &, .c3-legend-item {
         font-family: $font-family-base;
         font-size:1em;

@@ -1,5 +1,5 @@
 .print {
-  padding:$spacer;
+  padding:0 $spacer;
 
   &__chart {
 
@@ -9,10 +9,12 @@
     .card {
       margin:0;
       margin-top:10vh;
+      overflow: hidden;
     }
 
     .c3 {
-      height: 60vh;
+      pointer-events:none;
+      height: 50vh;
     }
 
   }

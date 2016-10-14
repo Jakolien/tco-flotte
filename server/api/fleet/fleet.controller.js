@@ -17,7 +17,7 @@ import Fleet     from './fleet.model';
 import FleetProcessor from '../../../processor/fleet.js';
 import Nightmare from 'nightmare';
 
-var nightmare = Nightmare();
+var nightmare = Nightmare({ width: 1050 });
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -105,13 +105,29 @@ export function index(req, res) {
 
 // Print a list of Fleets in pdf
 export function print(req, res) {
-  let url = req.protocol + '://' + req.get('host');
+  // Display elements
+  let display = require('../../../client/assets/display.json');
+  // Only activated elements
+  display = _.filter(display, { enable: true });
+  // In development, assets are generated through a proxy on port 3000
+  let url = req.protocol + '://' + req.get('host').replace(/:\d+/, ':3000');
+  // We open the print view
   nightmare.goto(url + '/#/print')
+    // Wait a small delay to let angular render the page
     .wait(3000)
-    .pdf(null, { landscape: true, pageSize: 'A4', printBackground: true }, function(err, buffer) {
-      res.type('pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
-      res.send(buffer);
+    // Then print the PDF
+    .pdf(null, {
+      landscape: true,
+      pageSize: 'A4',
+      printBackground: true
+    }, function(err, buffer) {
+      if(!err) {
+        res.type('pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
+        res.send(buffer);
+      } else {
+        handleError(res)(err);
+      }
     })
     .run();
 }

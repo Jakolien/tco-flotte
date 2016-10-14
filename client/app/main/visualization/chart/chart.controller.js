@@ -15,7 +15,6 @@ export default class ChartComponent {
         return _.map(this.groups, 'id')
       }
     };
-
     this.colors = this.colors.bind(this);
     this.columnNames = this.columnNames.bind(this);
     this.columnValues = this.columnValues.bind(this);

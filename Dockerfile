@@ -1,7 +1,10 @@
-FROM mhart/alpine-node:6.7
+FROM node:6.7
 
-# System deps
-RUN apk add --update --no-cache make gcc g++ git python build-base
+# Node/NPM deps
+RUN apt-get update && apt-get install -y build-essential libssl-dev git python
+# For Electron
+RUN apt-get update && apt-get install -y libgtk2.0-0 libgconf-2-4 libasound2 libxtst6 libxss1 libnss3 xvfb
+
 RUN npm -s -g install gulp@3.9.1 yarnpkg
 
 # Creates workdir
@@ -19,4 +22,7 @@ RUN gulp build
 
 ENV NODE_ENV production
 EXPOSE 3000
-CMD ["node", "dist/server/app.js"]
+
+# We use a starting script since Heroku can't manage ENTRYPOINT correctly
+RUN chmod +x ./entrypoint.sh
+CMD ["./entrypoint.sh", "node", "dist/server/app.js"]
