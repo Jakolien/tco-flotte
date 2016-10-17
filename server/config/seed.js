@@ -61,7 +61,16 @@ Fleet.find({}).remove()
       name: 'Fleet 3',
       active: true,
       vars: {},
-      groups: []
+      groups: [
+        {
+          name: "Yolo",
+          vars: {
+            "energy_type": "benzin",
+            "car_type": "klein",
+            "num_of_vehicles": 13
+          },
+        }
+      ]
     }]).then(() => {
       console.log('finished populating fleets');
     });

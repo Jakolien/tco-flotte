@@ -2,7 +2,8 @@
 set -e
 
 # Start Xvfb
-Xvfb -ac -screen scrn 1200x850x24 :9.0 &
+Xvfb -ac -screen scrn 1024x768x24 :9.0 &
 export DISPLAY=:9.0
+export DEBUG=nightmare*
 
-exec "$@"
+node dist/server/app.js

@@ -1,38 +1,41 @@
+import _ from 'lodash';
+import angular from 'angular';
+
 export default class EditComponent {
   /*@ngInject*/
   constructor(DynamicInput, $state) {
     // Settings must match with the group
-    this.settings = _.filter(this.settings, s=> s.special === null || s.special === this.group.special);
+    this.settings = _.filter(this.settings, s => s.special === null || s.special === this.group.special);
     // Instanciate a DynamicInput using the settings
-    this.inputs = _.map(this.settings, meta=> new DynamicInput(meta));
+    this.inputs = _.map(this.settings, meta => new DynamicInput(meta));
     // Input's context
     this.contextes = [
       {
-        name: "VehicleGroupCommon",
+        name: 'VehicleGroupCommon',
         open: !this.group.special,
-        title: "General information",
+        title: 'General information',
         values: this.group.vars,
         destination: this.group.vars
       },
       {
-        name: "VehicleGroup",
+        name: 'VehicleGroup',
         open: this.group.special,
-        title: "Variables for all vehicles in  this group",
-        values:  this.group.insights,
+        title: 'Variables for all vehicles in  this group',
+        values: this.group.insights,
         destination: this.group.vars
       },
       {
-        name: "Fleet",
+        name: 'Fleet',
         open: false,
-        title: "Variables for all vehicles in  this fleet",
-        values:  this.fleet.vars,
+        title: 'Variables for all vehicles in  this fleet',
+        values: this.fleet.vars,
         destination: this.fleet.vars
       }
     ];
     // Add inputs
     for(let context of this.contextes) {
       // Filter the inputs list by context name
-      context.inputs = _.filter(this.inputs, input=> input.meta.context === context.name);
+      context.inputs = _.filter(this.inputs, input => input.meta.context === context.name);
     }
     // Cached input's values
     this._inputValues = {};
@@ -53,11 +56,10 @@ export default class EditComponent {
       // Use the input method
       this._inputValues[input.meta.id] = input.getValues();
     }
-    return this._inputValues[input.meta.id]
+    return this._inputValues[input.meta.id];
   }
 
   gs(context, name) {
-    let self = this;
     // Dump values inside the value object
     if(!context._dump) {
       // Copy the object to avoid modifying references
@@ -75,7 +77,7 @@ export default class EditComponent {
         context._values[name] = value;
       }
       return context._values[name];
-    }
+    };
   }
 
   save() {
@@ -109,12 +111,12 @@ export default class EditComponent {
 
   changedValues(contextes = this.contextes) {
     // All changed values
-    let changed = {}
+    let changed = {};
     // Merge changed values
     for(let context of contextes) {
       angular.extend(changed, context._changed);
     }
-    return _.chain(changed).pickBy(v=> v).keys().value();
+    return _.chain(changed).pickBy(v => v).keys().value();
   }
 
   hasChanged() {

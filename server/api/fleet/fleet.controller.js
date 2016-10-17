@@ -17,8 +17,6 @@ import Fleet     from './fleet.model';
 import FleetProcessor from '../../../processor/fleet.js';
 import Nightmare from 'nightmare';
 
-var nightmare = Nightmare({ width: 1050 });
-
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -102,34 +100,37 @@ export function index(req, res) {
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
-
 // Print a list of Fleets in pdf
 export function print(req, res) {
-  // Display elements
-  let display = require('../../../client/assets/display.json');
-  // Only activated elements
-  display = _.filter(display, { enable: true });
   // In development, assets are generated through a proxy on port 3000
-  let url = req.protocol + '://' + req.get('host').replace(/:\d+/, ':3000');
-  // We open the print view
-  nightmare.goto(url + '/#/print')
-    // Wait a small delay to let angular render the page
-    .wait(3000)
-    // Then print the PDF
-    .pdf(null, {
-      landscape: true,
-      pageSize: 'A4',
-      printBackground: true
-    }, function(err, buffer) {
-      if(!err) {
-        res.type('pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
-        res.send(buffer);
-      } else {
-        handleError(res)(err);
-      }
-    })
-    .run();
+  let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
+  try {
+    let nightmare = Nightmare({ width: 1050 });
+    // We open the print view
+    nightmare.goto(url + '/#/print')
+      // Wait a small delay to let angular render the page
+      .wait('.chart--rendered')
+      //.wait('.print__chart--last .chart--rendered')
+      // Then print the PDF
+      .pdf(null, {
+        landscape: true,
+        pageSize: 'A4',
+        printBackground: true
+      }, function(err, buffer) {
+        if(!err) {
+          res.type('pdf');
+          res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
+          res.send(buffer);
+        } else {
+          handleError(res)(err);
+        }
+      })
+      .run()
+      .catch(handleError(res));
+  // Catch error with Nightmare
+  } catch(err){
+    handleError(res)(err);
+  }
 }
 
 // Gets a single Fleet from the DB

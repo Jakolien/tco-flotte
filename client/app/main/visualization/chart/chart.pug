@@ -1,7 +1,7 @@
-.main__visualization__chart.card(id="{{ :: $ctrl.chart.meta.name }}")
-  h3.main__visualization__chart__heading.card-block(sticky="")
+.chart.card(id="{{ :: $ctrl.chart.meta.name }}", ng-class="{ 'chart--rendered': $ctrl.rendered }")
+  h3.chart__heading.card-block(sticky="")
     | {{ $ctrl.chart.meta.name | translate }}
-  .main__visualization__chart__c3
+  .chart__c3
     c3chart(bindto-id="chart-{{ :: $ctrl.meta.name }}", transition-duration="0")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnNames() }}")
@@ -18,6 +18,7 @@
       chart-tooltip(show-tooltip="false")
       chart-grid(show-y="true")
       chart-axes(values-x="x")
+      chart-events(on-rendered="$ctrl.rendered = true")
       chart-axis
         chart-axis-x-tick(tick-outer="false")
         chart-axis-x(axis-position="outer-center",

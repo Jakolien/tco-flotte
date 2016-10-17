@@ -10,7 +10,8 @@ export default angular.module('oekoFlotteApp.main.visualization', [uiRouter])
     controller,
     template: require('./visualization.pug'),
     bindings: {
-      display: '<'
+      display: '<',
+      settings: '<'
     }
   })
   .name;

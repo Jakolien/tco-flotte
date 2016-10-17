@@ -1,10 +1,14 @@
 .main__visualization {
 
   &__sidebar {
-    text-transform: capitalize;
 
     &.sticky {
       top:$spacer;
+    }
+
+    a.btn-link {
+      border:$link-color 2px solid;
+      border-radius: 2px;
     }
 
     li {
@@ -13,8 +17,9 @@
       border-left:3px solid transparent;
 
       a {
+        text-transform: capitalize;
         color:$text-muted;
-        margin-bottom:.1em;
+        margin-bottom:.4em;
         display: block;
       }
 
@@ -26,8 +31,29 @@
           color: $link-color;
         }
       }
+
     }
   }
 
-  &__view {}
+  &__view {
+
+    &__raw {
+      font-size: .8em;
+      white-space: nowrap;
+      margin-bottom: 4 * $spacer;
+
+      &__heading {
+        font-weight:bold;
+        text-transform: uppercase;
+        color: $text-muted;
+        font-size:1em;
+        margin-top:$spacer;
+      }
+
+      .table {
+        margin:0;
+        background: mix($card-border-color, $card-bg, 15);
+      }
+    }
+  }
 }

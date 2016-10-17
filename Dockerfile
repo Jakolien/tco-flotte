@@ -25,4 +25,4 @@ EXPOSE 3000
 
 # We use a starting script since Heroku can't manage ENTRYPOINT correctly
 RUN chmod +x ./entrypoint.sh
-CMD ["./entrypoint.sh", "node", "dist/server/app.js"]
+CMD ["./entrypoint.sh"]
