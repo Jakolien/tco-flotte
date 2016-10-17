@@ -9,15 +9,19 @@
       .col-md-3.push-md-9
         .main__visualization__sidebar(sticky="")
           ul.list-unstyled
+            li(du-scrollspy="raw-summary")
+              a(href="#raw-summary", du-smooth-scroll="") {{ 'Summary' | translate }}
             li(ng-repeat="meta in $ctrl.display", du-scrollspy="{{ meta.name }}")
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
+            li(du-scrollspy="raw-basic")
+              a(href="#raw-basic", du-smooth-scroll="") {{ 'Basic information' | translate }}
           a.btn.btn-link.btn-block(href="/api/fleets/print")
               i.fa.fa-file-pdf-o.fa-fw
               | &nbsp;Download as PDF
 
       .col-md-9.pull-md-3
         .main__visualization__view
-          .card.main__visualization__view__raw(ng-style="{ 'max-width': '100%' }")
+          .card.main__visualization__view__raw(id="raw-summary")
             h3.card-block Summary
             div(ng-repeat="fleet in $ctrl.fleets.all()")
               h5.text-xs-center.main__visualization__view__raw__heading {{ fleet.name }}
@@ -32,12 +36,13 @@
                   tbody
                     tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
                       td
-                        span.tag(ng-style="{ background: group.vars.group_color  }") {{ group.name }}
+                        span.tag(ng-style="{ background: group.vars.group_color  }")
+                          | {{ group.name }}
                       td(ng-repeat="raw in $ctrl.summaries")
                         | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
           chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
 
-          .card.main__visualization__view__raw(ng-style="{ 'max-width': '100%' }")
+          .card.main__visualization__view__raw(id="raw-basic")
             h3.card-block Basic information
             div(ng-repeat="fleet in $ctrl.fleets.all()")
               h5.text-xs-center.main__visualization__view__raw__heading {{ fleet.name }}

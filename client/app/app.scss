@@ -11,6 +11,7 @@ $card-bg: lighten($view-bg, 10);
 $card-cap-bg: darken($view-bg, 10);
 $card-border-color: $view-border;
 
+$table-border-color:$card-border-color;
 
 $custom-control-checked-indicator-bg: $brand-primary;
 $custom-control-focus-indicator-box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem mix($brand-primary, white);
