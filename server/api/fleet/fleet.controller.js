@@ -14,6 +14,7 @@ import _         from 'lodash';
 import jsonpatch from 'fast-json-patch';
 import Fleet     from './fleet.model';
 import cache     from 'memory-cache';
+// import Nightmare from 'nightmare';
 // Process fleet object
 import FleetProcessor from '../../../processor/fleet.js';
 import phantom from 'phantom';
@@ -206,7 +207,7 @@ export function png(req, res) {
       // In development, assets are generated through a proxy on port 3000
       let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
       try {
-        let nightmare = require('nightmare')({ width: 800, height: 300 });
+        let nightmare = Nightmare({ width: 800, height: 300 });
         // We open the print view
         nightmare.goto(`${url}/#/print/${req.params.meta}?clip=1&static=0`)
           // Wait a small delay to let angular render the page

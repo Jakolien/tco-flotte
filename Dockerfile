@@ -3,7 +3,7 @@ FROM node:6.7
 # Node/NPM deps
 RUN apt-get update && apt-get install -y build-essential libssl-dev git python
 # For Electron
-RUN apt-get update && apt-get install -y libgtk2.0-0 libgconf-2-4 libasound2 libxtst6 libxss1 libnss3 xvfb
+# RUN apt-get update && apt-get install -y libgtk2.0-0 libgconf-2-4 libasound2 libxtst6 libxss1 libnss3 xvfb
 
 RUN npm -s -g install gulp@3.9.1 yarnpkg forever
 
