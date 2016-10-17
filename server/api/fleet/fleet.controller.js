@@ -98,6 +98,18 @@ function findFleet(id) {
   };
 }
 
+function endNighmareFn(nightmare) {
+  return function() {
+    // finally cleanup
+    nightmare.end();
+    // kill the Electron process explicitly to ensure no orphan child processes
+    nightmare.proc.disconnect();
+    nightmare.proc.kill();
+    nightmare.ended = true;
+    nightmare = null;
+  };
+}
+
 // Gets a list of Fleets
 export function index(req, res) {
   return mine()
@@ -112,9 +124,9 @@ export function print(req, res) {
   try {
     let nightmare = Nightmare({ width: 1050 });
     // We open the print view
-    nightmare.goto(url + '/#/print/')
+    nightmare.goto(`${url}/#/print/?static=${req.query.static || 1}`)
       // Wait a small delay to let angular render the page
-      .wait('.print__chart--last')
+      .wait('.print__chart--last .chart--rendered')
       // Then print the PDF
       .pdf(null, {
         landscape: true,
@@ -129,8 +141,8 @@ export function print(req, res) {
           handleError(res)(err);
         }
       })
-      .end(_.noop)
-      .catch(handleError(res));
+      .catch(handleError(res))
+      .then(endNighmareFn(nightmare));
   // Catch error with Nightmare
   } catch(err){
     handleError(res)(err);
@@ -156,20 +168,21 @@ export function png(req, res) {
       try {
         let nightmare = Nightmare({ width: 800, height: 300 });
         // We open the print view
-        nightmare.goto(url + `/#/print/${req.params.meta}?clip=true`)
+        nightmare.goto(`${url}/#/print/${req.params.meta}?clip=1&static=0`)
           // Wait a small delay to let angular render the page
           //.wait('.chart--rendered')
           .wait('.print__chart--last .chart--rendered')
           .screenshot(function(err, buffer) {
             if(!err) {
-              cache.put(key, buffer);
+              // Cache for 2 hours
+              cache.put(key, buffer, 2*6e4);
               res.type('png').send(buffer);
             } else {
               handleError(res)(err);
             }
           })
-          .end(_.noop)
-          .catch(handleError(res));
+          .catch(handleError(res))
+          .then(endNighmareFn(nightmare));
       // Catch error with Nightmare
       } catch(err){
         handleError(res)(err);
