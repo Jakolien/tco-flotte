@@ -7,7 +7,8 @@ export default angular.module('oekoFlotteApp.main.visualization.chart', [])
     controller,
     template: require('./chart.pug'),
     bindings: {
-      meta: '<'
+      meta: '<',
+      static: '<'
     }
   })
   .name;

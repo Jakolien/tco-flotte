@@ -13,6 +13,7 @@
 import _         from 'lodash';
 import jsonpatch from 'fast-json-patch';
 import Fleet     from './fleet.model';
+import cache     from 'memory-cache';
 // Process fleet object
 import FleetProcessor from '../../../processor/fleet.js';
 import Nightmare from 'nightmare';
@@ -87,6 +88,10 @@ function handleError(res, statusCode) {
   };
 }
 
+function mine() {
+  return Fleet.find().sort( { _id: 1 } ).exec();
+}
+
 function findFleet(id) {
   return function() {
     return Fleet.findById(id).exec();
@@ -95,7 +100,7 @@ function findFleet(id) {
 
 // Gets a list of Fleets
 export function index(req, res) {
-  return Fleet.find().sort( { _id: 1 } ).exec()
+  return mine()
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -107,10 +112,9 @@ export function print(req, res) {
   try {
     let nightmare = Nightmare({ width: 1050 });
     // We open the print view
-    nightmare.goto(url + '/#/print')
+    nightmare.goto(url + '/#/print/')
       // Wait a small delay to let angular render the page
-      .wait('.chart--rendered')
-      //.wait('.print__chart--last .chart--rendered')
+      .wait('.print__chart--last')
       // Then print the PDF
       .pdf(null, {
         landscape: true,
@@ -125,12 +129,53 @@ export function print(req, res) {
           handleError(res)(err);
         }
       })
-      .run()
+      .end(_.noop)
       .catch(handleError(res));
   // Catch error with Nightmare
   } catch(err){
     handleError(res)(err);
   }
+}
+
+// Print a list of Fleets in PNG
+export function png(req, res) {
+  mine().then(function(fleets) {
+    // Generate the cache key
+    let key = fleets.reduce(function(init, fleet) {
+      return `${init}-${fleet._id}:${fleet.revision}`;
+    }, req.params.meta);
+    // Get the image from the cache
+    let image = cache.get(key);
+    // An image is present in the cache
+    if(image) {
+      // Send the image
+      res.type('png').send(image);
+    } else {
+      // In development, assets are generated through a proxy on port 3000
+      let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
+      try {
+        let nightmare = Nightmare({ width: 800, height: 300 });
+        // We open the print view
+        nightmare.goto(url + `/#/print/${req.params.meta}?clip=true`)
+          // Wait a small delay to let angular render the page
+          //.wait('.chart--rendered')
+          .wait('.print__chart--last .chart--rendered')
+          .screenshot(function(err, buffer) {
+            if(!err) {
+              cache.put(key, buffer);
+              res.type('png').send(buffer);
+            } else {
+              handleError(res)(err);
+            }
+          })
+          .end(_.noop)
+          .catch(handleError(res));
+      // Catch error with Nightmare
+      } catch(err){
+        handleError(res)(err);
+      }
+    }
+  });
 }
 
 // Gets a single Fleet from the DB

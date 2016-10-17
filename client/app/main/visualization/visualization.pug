@@ -1,9 +1,31 @@
 .main__visualization
   .main__header
-    ol.list-inline.main__header__breadcrumbs
-      li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }",)
-        a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
-        span(ng-if="$last") {{ crumb.title }}
+    .container
+      ol.list-inline.main__header__breadcrumbs
+        li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }",)
+          a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
+          span(ng-if="$last") {{ crumb.title }}
+
+  .main__visualization__summary(id="raw-summary")
+    .container
+      h4 Summary
+      div(ng-repeat="fleet in $ctrl.fleets.all()")
+        h5.text-xs-center.main__visualization__summary__heading {{ fleet.name }}
+        .table-responsive
+          table.table.table-inverse
+            thead
+              tr
+                th(style="min-width: 5em")
+                  span.sr-only Group
+                th(ng-repeat="raw in $ctrl.summaries")
+                  | {{ raw.name | translate }}
+            tbody
+              tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+                td
+                  span.tag(ng-style="{ background: group.vars.group_color  }")
+                    | {{ group.name }}
+                td(ng-repeat="raw in $ctrl.summaries")
+                  | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
   .container
     .row
       .col-md-3.push-md-9
@@ -15,33 +37,13 @@
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
             li(du-scrollspy="raw-basic")
               a(href="#raw-basic", du-smooth-scroll="") {{ 'Basic information' | translate }}
-          a.btn.btn-link.btn-block(href="/api/fleets/print")
+          a.btn.btn-link.btn-block(ng-click="$ctrl.openDownload()")
               i.fa.fa-file-pdf-o.fa-fw
               | &nbsp;Download as PDF
 
       .col-md-9.pull-md-3
         .main__visualization__view
-          .card.main__visualization__view__raw(id="raw-summary")
-            h3.card-block Summary
-            div(ng-repeat="fleet in $ctrl.fleets.all()")
-              h5.text-xs-center.main__visualization__view__raw__heading {{ fleet.name }}
-              .table-responsive
-                table.table
-                  thead
-                    tr
-                      th
-                        span.sr-only Group
-                      th(ng-repeat="raw in $ctrl.summaries")
-                        | {{ raw.name | translate }}
-                  tbody
-                    tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
-                      td
-                        span.tag(ng-style="{ background: group.vars.group_color  }")
-                          | {{ group.name }}
-                      td(ng-repeat="raw in $ctrl.summaries")
-                        | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
           chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
-
           .card.main__visualization__view__raw(id="raw-basic")
             h3.card-block Basic information
             div(ng-repeat="fleet in $ctrl.fleets.all()")

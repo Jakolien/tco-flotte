@@ -1,7 +1,9 @@
 .chart.card(id="{{ :: $ctrl.chart.meta.name }}", ng-class="{ 'chart--rendered': $ctrl.rendered }")
   h3.chart__heading.card-block(sticky="")
     | {{ $ctrl.chart.meta.name | translate }}
-  .chart__c3
+  .chart__c3.chart__c3--static(ng-if="$ctrl.static")
+    img(ng-src="/api/fleets/png/{{ $ctrl.meta.name }}")
+  .chart__c3(ng-if="!$ctrl.static")
     c3chart(bindto-id="chart-{{ :: $ctrl.meta.name }}", transition-duration="0")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnNames() }}")

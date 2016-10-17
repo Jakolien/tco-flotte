@@ -4,8 +4,12 @@ export default function($stateProvider) {
   'ngInject';
   $stateProvider
     .state('print', {
-      url: '/print',
+      url: '/print/:meta?clip',
       component: 'print',
+      params: {
+        meta: null,
+        clip: null
+      },
       resolve: {
         display: function($http) {
           'ngInject'

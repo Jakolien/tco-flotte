@@ -1,5 +1,37 @@
 .main__visualization {
 
+  &__summary {
+    color:white;
+    background: darken($brand-primary, 15);
+    border-bottom:darken($brand-primary, 25) 1px solid;
+
+    margin-top:$spacer * -2;
+    margin-bottom:$spacer * 2;
+
+    font-size: .8em;
+    white-space: nowrap;
+    margin-bottom: 4 * $spacer;
+    padding: 2 * $spacer;
+
+    &__heading {
+      font-weight:bold;
+      text-transform: uppercase;
+      color: rgba(white, .5);
+      font-size:1em;
+      margin-top:$spacer;
+    }
+
+    .table {
+      background: $brand-inverse;
+
+      th,
+      td,
+      thead th {
+        border-color: lighten($brand-inverse, 5);
+      }
+    }
+  }
+
   &__sidebar {
 
     &.sticky {

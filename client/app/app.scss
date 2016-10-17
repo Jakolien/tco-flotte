@@ -2,6 +2,8 @@
 
 $brand-primary:#437D8F;
 $brand-secondary:#FF7F66;
+$brand-inverse:darken($brand-primary, 25);
+
 $body-color: #444;
 
 $view-bg:mix($brand-primary, white, 5);

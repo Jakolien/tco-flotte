@@ -1,0 +1,12 @@
+.main__visualization__download
+  .modal-body
+    div(ng-show="$ctrl.imagesLeft !== 0")
+      h5 Preparing download...
+      p.small.text-muted It will start automatically.
+      progress.progress.progress-success(value="{{ $ctrl.display.length - $ctrl.imagesLeft }}",
+                                         max="{{ $ctrl.display.length }}")
+    div(ng-show="$ctrl.imagesLeft === 0")
+      h5 Download is about to start
+      p.small.text-muted It may take a few secondes.
+      .text-xs-right
+        button.btn.btn-primary.btn-sm(ng-click="$ctrl.modal.close()") Close

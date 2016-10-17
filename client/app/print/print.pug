@@ -1,4 +1,7 @@
-.print
-  .row
-    .print__chart.col-xs-6(ng-repeat="meta in :: $ctrl.display | limitTo:2", ng-class="{ 'print__chart--last': $last }")
-      chart(meta="meta")
+.print(ng-class="{ 'print--clip':  $ctrl.clip }")
+  .row(ng-if="!$ctrl.meta")
+    .print__chart.col-xs-6(ng-repeat="meta in :: $ctrl.display", ng-class="{ 'print__chart--last': $last }")
+      chart(meta="meta", static="true")
+  .print__chart(ng-if="$ctrl.meta")
+    .print__chart.print__chart--last
+      chart(meta="$ctrl.meta")

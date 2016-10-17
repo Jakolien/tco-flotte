@@ -1,6 +1,32 @@
 .print {
   padding:0 $spacer;
 
+  &--clip {
+    padding:0;
+    overflow: hidden;
+
+    .print__chart {
+
+      .card {
+        border:0;
+        margin:0;
+
+        .chart__heading {
+          display: none;
+        }
+
+        .chart__c3 {
+          padding:0;
+        }
+      }
+
+      .c3 {
+        padding:0;
+        height:100vh;
+      }
+    }
+  }
+
   &__chart {
 
     height:100vh;

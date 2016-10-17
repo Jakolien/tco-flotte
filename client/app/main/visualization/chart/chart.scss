@@ -14,6 +14,12 @@
   &__c3 {
     padding:$spacer;
 
+    &--static {
+      img {
+        max-width: 100%;
+      }
+    }
+
     .c3 {
       pointer-events:none;
 
