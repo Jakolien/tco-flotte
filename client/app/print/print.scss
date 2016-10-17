@@ -1,5 +1,4 @@
 .print {
-  padding:0 $spacer;
 
   &--clip {
     padding:0;
@@ -29,18 +28,21 @@
 
   &__chart {
 
-    height:100vh;
+    width:50%;
+    margin:0;
+    display: block;
+    float: left;
     position: relative;
+    page-break-inside: avoid;
 
     .card {
-      margin:0;
-      margin-top:10vh;
+      margin:20px;
       overflow: hidden;
     }
 
     .c3 {
+      min-width: 350px;
       pointer-events:none;
-      height: 50vh;
     }
 
   }

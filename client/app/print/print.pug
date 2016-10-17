@@ -1,6 +1,6 @@
 .print(ng-class="{ 'print--clip':  $ctrl.clip }")
-  .row(ng-if="!$ctrl.meta")
-    .print__chart.col-xs-6(ng-repeat="meta in :: $ctrl.display", ng-class="{ 'print__chart--last': $last }")
+  div(ng-if="!$ctrl.meta")
+    .print__chart.print__chart--half(ng-repeat="meta in :: $ctrl.display", ng-class="{ 'print__chart--last': $last, 'phantomjs_reset_pagination': !$index%2 === 0}")
       chart(meta="meta", static="$ctrl.static")
   .print__chart(ng-if="$ctrl.meta")
     .print__chart.print__chart--last

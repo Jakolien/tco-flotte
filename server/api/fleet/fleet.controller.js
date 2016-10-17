@@ -16,7 +16,14 @@ import Fleet     from './fleet.model';
 import cache     from 'memory-cache';
 // Process fleet object
 import FleetProcessor from '../../../processor/fleet.js';
-import Nightmare from 'nightmare';
+import phantom from 'phantom';
+import fs from 'fs';
+// An object holding the current promise to print a screen
+var printQueue = {};
+// Queue state
+const QUEUE_DONE = 'done', QUEUE_PENDING = 'pending';
+// Print's paper size properties
+const PAPER_SIZE = { format: "A4", orientation: "landscape" };
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -83,8 +90,7 @@ function handleFleetProcessor(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
-    console.log(err);
-    res.status(statusCode).send(err);
+    res.status(statusCode).json({ error: err.message || err.error || err });
   };
 }
 
@@ -117,35 +123,69 @@ export function index(req, res) {
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
+
+
 // Print a list of Fleets in pdf
 export function print(req, res) {
-  // In development, assets are generated through a proxy on port 3000
-  let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
-  try {
-    let nightmare = Nightmare({ width: 1050 });
-    // We open the print view
-    nightmare.goto(`${url}/#/print/?static=${req.query.static || 1}`)
-      // Wait a small delay to let angular render the page
-      .wait('.print__chart--last .chart--rendered')
-      // Then print the PDF
-      .pdf(null, {
-        landscape: true,
-        pageSize: 'A4',
-        printBackground: true
-      }, function(err, buffer) {
-        if(!err) {
-          res.type('pdf');
-          res.setHeader('Content-Disposition', 'attachment; filename=my-fleets.pdf');
-          res.send(buffer);
-        } else {
-          handleError(res)(err);
-        }
-      })
-      .catch(handleError(res))
-      .then(endNighmareFn(nightmare));
-  // Catch error with Nightmare
-  } catch(err){
-    handleError(res)(err);
+  mine().then(function(fleets) {
+    // Generate the queue key for this file
+    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, 'pdf');
+    // Obfuscate the key for better anonymity
+    key = require('crypto').createHash('md5').update(key).digest('hex');
+    // PDF temporary filename
+    let filename = `/tmp/${key}.pdf`;
+    // In development, assets are generated through a proxy on port 3000
+    let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
+    // Will hold phantom page and instance
+    let sitepage = null;
+    let phInstance = null
+    // The queue is done and the file exists!
+    if(printQueue[key] === QUEUE_DONE && fs.existsSync(filename) ) {
+      // Send the result to the user
+      res.json({ status: 'done', key: key, url: `${url}/api/fleets/print/${key}` });
+    } else {
+      // Send the result to the user with the queue key
+      res.json({ status: 'pending', key: key });
+      // Mark the queue as undone
+      printQueue[key] = QUEUE_PENDING;
+      // Start Phantom
+      phantom.create()
+        .then(instance => (phInstance = instance).createPage())
+        .then(page     => (sitepage = page).open(`${url}/#/print/`))
+        .then(status   => sitepage.property('paperSize', PAPER_SIZE) )
+        .then(function() {
+          // Wait a short delay before rendering the page to PDF
+          return setTimeout(function() {
+            // Now we can render it !
+            return sitepage.render(filename).then(function() {
+              // Close the page
+              sitepage.close();
+              // Free Phantom memory
+              phInstance.exit();
+              // Mark the queue as done
+              printQueue[key] = QUEUE_DONE;
+            })
+          // We wait 3 seconds to ensure all chart are rendered
+          }, 3000);
+        })
+        // Cache errot to exit the Phantom instance
+        .catch(e => phInstance.exit());
+    }
+  });
+}
+
+export function download(req, res) {
+  // PDF temporary filename
+  let filename = `/tmp/${req.params.key}.pdf`;
+  // The queue is done and the file exists!
+  if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
+    // Change content disposition to download the file with a custom name
+    res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
+    // Then send the file
+    res.sendFile(filename);
+  } else {
+    // Not ready!
+    handleError(res)('The file you requested is not in queue or not ready.');
   }
 }
 
@@ -153,9 +193,9 @@ export function print(req, res) {
 export function png(req, res) {
   mine().then(function(fleets) {
     // Generate the cache key
-    let key = fleets.reduce(function(init, fleet) {
-      return `${init}-${fleet._id}:${fleet.revision}`;
-    }, req.params.meta);
+    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, req.params.meta);;
+    // Obfuscate the key for better anonymity
+    key = require('crypto').createHash('md5').update(key).digest('hex');
     // Get the image from the cache
     let image = cache.get(key);
     // An image is present in the cache
@@ -166,7 +206,7 @@ export function png(req, res) {
       // In development, assets are generated through a proxy on port 3000
       let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
       try {
-        let nightmare = Nightmare({ width: 800, height: 300 });
+        let nightmare = require('nightmare')({ width: 800, height: 300 });
         // We open the print view
         nightmare.goto(`${url}/#/print/${req.params.meta}?clip=1&static=0`)
           // Wait a small delay to let angular render the page

@@ -5,12 +5,11 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets, $uibModal, $q, $scope, $window) {
-    angular.extend(this, { fleets, $uibModal, $q, $scope, $window });
+  constructor(fleets, $uibModal, $scope, Restangular, $timeout) {
+    angular.extend(this, { fleets, $uibModal, $scope, Restangular, $timeout });
     // Bind method context
     this.openDownload = this.openDownload.bind(this);
     this.prepareDownload = this.prepareDownload.bind(this);
-    this.loadImage = this.loadImage.bind(this);
     // Filter enabled display
     this.display = _.filter(this.display, { enable: true });
     // Basic information and summaries
@@ -29,34 +28,19 @@ export default class VisualizationComponent {
     // Start preparing visualizations one by one
     this.prepareDownload();
   }
-  prepareDownload(display = this.display) {
-    this.imagesLeft = display.length;
-    if(display[0]) {
-      this.loadImage(display[0]).then(function() {
-        // Go to the next
-        this.prepareDownload(display.slice(1));
-      }.bind(this), function() {
-        // Try again!
-        this.prepareDownload(display);
-      }.bind(this));
-    } else {
-      // Download!
-      this.$window.location = '/api/fleets/print';
-    }
-  }
-  loadImage(meta) {
-    // Create a promise
-    let defered = this.$q.defer();
-    // Build the image url
-    let url = `/api/fleets/png/${meta.name}`;
-    // Create an image
-    let $image = $("<img>");
-    // Resolve the promise when the image is loaded
-    $image.on('load', defered.resolve);
-    $image.on('error', defered.reject);
-    // Set the image URL
-    $image.attr('src', url);
-    // Returns the promise
-    return defered.promise;
+  prepareDownload() {
+    // Get print status
+    this.Restangular.all('fleets').one('print').get().then(function(print) {
+      // Update scope's print property
+      angular.extend(this, { print });
+      // Is the file ready?
+      if(print.status === 'done') {
+        // Download!
+        window.location.assign(print.url);
+      } else {
+        // Not yet, we check in 1 second
+        this.$timeout(this.prepareDownload, 1000);
+      }
+    }.bind(this));
   }
 }
