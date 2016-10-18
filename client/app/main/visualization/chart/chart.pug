@@ -1,9 +1,7 @@
-.chart.card(id="{{ :: $ctrl.chart.meta.name }}", ng-class="{ 'chart--rendered': $ctrl.rendered }")
+.chart.card(id="{{ :: $ctrl.chart.meta.name }}", ng-class="{ 'chart--rendered': $ctrl.rendered > 0 }")
   h3.chart__heading.card-block(sticky="")
     | {{ $ctrl.chart.meta.name | translate }}
-  .chart__c3.chart__c3--static(ng-if="$ctrl.static")
-    img(ng-src="/api/fleets/png/{{ $ctrl.meta.name }}")
-  .chart__c3(ng-if="!$ctrl.static")
+  .chart__c3
     c3chart(bindto-id="chart-{{ :: $ctrl.meta.name }}", transition-duration="0")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnNames() }}")
@@ -20,7 +18,7 @@
       chart-tooltip(show-tooltip="false")
       chart-grid(show-y="true")
       chart-axes(values-x="x")
-      chart-events(on-rendered="$ctrl.rendered = true")
+      chart-events(on-rendered="$ctrl.rendered = $ctrl.rendered + 1")
       chart-axis
         chart-axis-x-tick(tick-outer="false")
         chart-axis-x(axis-position="outer-center",

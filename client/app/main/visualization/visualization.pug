@@ -43,7 +43,10 @@
 
       .col-md-9.pull-md-3
         .main__visualization__view
-          chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
+          div(ng-repeat="meta in :: $ctrl.display", meta="meta")
+            chart(meta="meta", ng-if="!meta.bygroup")
+            chart-grouped(meta="meta", ng-if=" meta.bygroup")
+
           .card.main__visualization__view__raw(id="raw-basic")
             h3.card-block Basic information
             div(ng-repeat="fleet in $ctrl.fleets.all()")

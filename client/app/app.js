@@ -38,6 +38,7 @@ import roups           from './main/fleets/groups/groups.component';
 import edit            from './main/fleets/groups/edit/edit.component';
 import visualization   from './main/visualization/visualization.component';
 import chart           from './main/visualization/chart/chart.component';
+import chartGrouped    from './main/visualization/chart-grouped/chart-grouped.component';
 import print           from './print/print.component';
 import account         from './account';
 import constants       from './app.constants';
@@ -69,6 +70,7 @@ angular.module('oekoFlotteApp', [
   edit,
   visualization,
   chart,
+  chartGrouped,
   print,
   util,
   dynamicInput,

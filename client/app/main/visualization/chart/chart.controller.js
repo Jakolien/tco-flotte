@@ -20,6 +20,8 @@ export default class ChartComponent {
     this.columnValues = this.columnValues.bind(this);
     this.tco = this.tco.bind(this);
     this.groups = this.groups.bind(this);
+    // Number of times the chart have been rendered
+    this.rendered = 0;
   }
   columnNames() {
     return _.map(this.fleets.all() , k=> k.name || k).join(",");
