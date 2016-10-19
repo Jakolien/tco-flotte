@@ -167,8 +167,8 @@ export function print(req, res) {
               // Mark the queue as done
               printQueue[key] = QUEUE_DONE;
             })
-          // We wait 3 seconds to ensure all chart are rendered
-          }, 3000);
+          // We wait 4 seconds to ensure all chart are rendered
+          }, 4000);
         })
         // Cache errot to exit the Phantom instance
         .catch(e => phInstance.exit());
@@ -183,6 +183,7 @@ export function download(req, res) {
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
     // Change content disposition to download the file with a custom name
     res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
+    res.setHeader('Content-type', 'application/pdf');
     // Remove from the queue
     delete printQueue[req.params.key]
     // Then send the file

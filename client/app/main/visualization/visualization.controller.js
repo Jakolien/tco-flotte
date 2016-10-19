@@ -25,18 +25,22 @@ export default class VisualizationComponent {
       scope: this.$scope,
       controllerAs: '$ctrl'
     });
+    // Remove class attribute when the modal is closed
+    this.modal.result.finally( ()=> delete this.modal );
     // Start preparing visualizations one by one
     this.prepareDownload();
   }
   prepareDownload() {
     // Get print status
     this.Restangular.all('fleets').one('print').get({ t: (new Date).getTime() }).then(function(print) {
+      // Modal is closed!
+      if(!this.modal) return;
       // Update scope's print property
       angular.extend(this, { print });
       // Is the file ready?
       if(print.status === 'done') {
         // Download!
-        window.location.assign(print.url);
+        window.location = print.url;
       } else {
         // Not yet, we check in 1 second
         this.$timeout(this.prepareDownload, 1000);
