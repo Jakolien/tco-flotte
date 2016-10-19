@@ -8,8 +8,12 @@
   }
 
   &-nav {
+    font-weight: bold;
     .nav-item + .nav-item {
       margin-left: 1.5rem;
+    }
+    .nav-link  {
+      padding-top:0;
     }
   }
 }

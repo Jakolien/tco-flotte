@@ -144,11 +144,12 @@ export function print(req, res) {
     if(printQueue[key] === QUEUE_DONE && fs.existsSync(filename) ) {
       // Send the result to the user
       res.json({ status: 'done', key: key, url: `${url}/api/fleets/print/${key}` });
-    } else {
-      // Send the result to the user with the queue key
-      res.json({ status: 'pending', key: key });
+    // The file is not pending
+    } else if(printQueue[key] !== QUEUE_PENDING) {
       // Mark the queue as undone
       printQueue[key] = QUEUE_PENDING;
+      // Send the result to the user with the queue key
+      res.json({ status: 'pending', key: key });
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
@@ -172,6 +173,10 @@ export function print(req, res) {
         })
         // Cache errot to exit the Phantom instance
         .catch(e => phInstance.exit());
+    // The file is already pending!
+    } else {
+      // Send the result to the user with the queue key
+      res.json({ status: 'pending', key: key });
     }
   });
 }
@@ -184,8 +189,6 @@ export function download(req, res) {
     // Change content disposition to download the file with a custom name
     res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
     res.setHeader('Content-type', 'application/pdf');
-    // Remove from the queue
-    delete printQueue[req.params.key]
     // Then send the file
     res.sendFile(filename);
   } else {
@@ -294,8 +297,19 @@ export function create(req, res) {
 export function upsert(req, res) {
   if(req.body._id) {
     delete req.body._id;
+    delete req.body.revision;
   }
-  return Fleet.findOneAndUpdate({_id: req.params.id}, req.body, {upsert: true, setDefaultsOnInsert: true, runValidators: true, new: true}).exec()
+  return Fleet.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        $set: req.body,
+        $inc: { revision: 1 }
+      }, {
+        upsert: true,
+        setDefaultsOnInsert: true,
+        runValidators: true,
+        new: true
+      }).exec()
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

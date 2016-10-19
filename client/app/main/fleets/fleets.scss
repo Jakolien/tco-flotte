@@ -19,9 +19,9 @@
       position: relative;
 
       color:white;
-      background: darken($brand-primary, 15);
+      background: $brand-inverse;
 
-      border:darken($brand-primary, 25) 1px solid;
+      border:darken($brand-inverse, 5) 1px solid;
       border-right:0;
 
       margin-left:$spacer;

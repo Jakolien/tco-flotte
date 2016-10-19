@@ -39,6 +39,7 @@ var FleetSchema = new mongoose.Schema({
   self: {}
 }, {
   minimize: false,
+  timestamps: true,
   versionKey: 'revision'
 })
 
