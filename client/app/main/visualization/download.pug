@@ -2,10 +2,9 @@
   .modal-body
     div(ng-show="!$ctrl.print || $ctrl.print.status === 'pending'")
       h5
-        i.fa.fa-file-pdf-o.fa-fw
-        | Preparing download...
+        i.fa.fa-cog.fa-spin.fa-fw
+        | &nbsp;Preparing download...
       p.small.text-muted It will start automatically.
-      progress.progress.progress-success(value="100", max="100")
     div(ng-show="$ctrl.print.status === 'done'")
       h5
         i.fa.fa-check.fa-fw

@@ -1,66 +1,72 @@
-.chart.chart--grouped {
+.chart-grouped {
 
   margin-bottom:$spacer * 4;
   background: mix($card-border-color, $card-bg, 15);
+  border:$card-border-color 1px solid;
 
-  & .chart__heading {
+  &__heading {
     z-index:100;
     text-transform: capitalize;
     background:$card-bg;
     border-bottom:$card-border-color 1px solid;
     font-size: 1.2em;
+    padding:1.25rem;
   }
 
-  & .chart__fleet-heading {
-    font-size: 1em;
-    font-weight: bold;
-    text-transform: uppercase;
-    color:$text-muted;
-    text-align: center;
-  }
+  &__chart {
+    margin:1.25rem;
 
-  & .chart__c3 {
-    padding:$spacer;
-
-    &--static {
-      img {
-        max-width: 100%;
-      }
+    &__heading {
+      font-size: 1em;
+      font-weight: bold;
+      text-transform: uppercase;
+      color:$text-muted;
+      text-align: center;
     }
 
-    .c3 {
-      pointer-events:none;
+    &__c3 {
+      padding:$spacer;
 
-      &, .c3-legend-item {
-        font-family: $font-family-base;
-        font-size:1em;
-      }
-
-      .c3-lines {
-        stroke:$card-border-color !important;
-      }
-
-      .c3-axis {
-        text {
-          fill: $text-muted;
-          color: $text-muted;
-        }
-
-        line, path {
-          stroke: $text-muted;
-
-        }
-
-        &-y .domain, &-y .tick line {
-          stroke: transparent;
-          fill: transparent;
+      &--static {
+        img {
+          max-width: 100%;
         }
       }
 
-      .c3-ygrid, .c3-axis-x .domain, .c3-axis-x .tick line {
-        stroke:$card-border-color;
-      }
+      .c3 {
+        pointer-events:none;
 
+        &, .c3-legend-item {
+          font-family: $font-family-base;
+          font-size:1em;
+        }
+
+        .c3-lines {
+          stroke:$card-border-color !important;
+        }
+
+        .c3-axis {
+          text {
+            fill: $text-muted;
+            color: $text-muted;
+          }
+
+          line, path {
+            stroke: $text-muted;
+
+          }
+
+          &-y .domain, &-y .tick line {
+            stroke: transparent;
+            fill: transparent;
+          }
+        }
+
+        .c3-ygrid, .c3-axis-x .domain, .c3-axis-x .tick line {
+          stroke:$card-border-color;
+        }
+
+      }
     }
   }
 }

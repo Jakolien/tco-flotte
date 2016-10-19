@@ -1,9 +1,6 @@
 .print(ng-class="{ 'print--clip':  $ctrl.clip }")
-  div(ng-if="!$ctrl.meta")
-    .print__chart.print__chart--half.phantomjs_reset_pagination(ng-repeat="meta in :: $ctrl.display", ng-class="{ 'print__chart--last': $last }")
-      chart(meta="meta", ng-if="!meta.bygroup")
+  .print__chart(ng-repeat="meta in :: $ctrl.display",
+                ng-class="{ 'print__chart--last': $last, 'print__chart--grouped': meta.bygroup }")
+    chart(meta="meta", ng-if="!meta.bygroup")
+    .phantomjs_reset_pagination
       chart-grouped(meta="meta", ng-if="meta.bygroup")
-  div(ng-if="$ctrl.meta")
-    .print__chart.print__chart--last.phantomjs_reset_pagination
-      chart(meta="$ctrl.meta", ng-if="!$ctrl.meta.bygroup")
-      chart-grouped(meta="$ctrl.meta", ng-if="$ctrl.meta.bygroup")

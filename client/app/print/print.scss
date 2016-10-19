@@ -33,10 +33,34 @@
     display: block;
     float: left;
     position: relative;
-    page-break-inside: avoid;
+    page-break-inside:avoid;
+
+    &--grouped {
+      clear:both;
+      width:100%;
+      page-break-before: always;
+      margin-top:20mm;
+
+      .chart-grouped {
+        margin:0;
+        position: relative;
+        border-right:0;
+        border-left:0;
+
+        @include clearfix();
+
+        &__chart {
+          width:50%;
+          float:left;
+          page-break-inside:avoid;
+          margin:0;
+        }
+      }
+    }
 
     .card {
       margin:20px;
+      margin-top:21mm;
       overflow: hidden;
     }
 

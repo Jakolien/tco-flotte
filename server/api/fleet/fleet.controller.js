@@ -24,7 +24,7 @@ var printQueue = {};
 // Queue state
 const QUEUE_DONE = 'done', QUEUE_PENDING = 'pending';
 // Print's paper size properties
-const PAPER_SIZE = { format: "A4", orientation: "landscape" };
+const PAPER_SIZE = { format: "A4", orientation: "landscape",  border: 0 };
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -152,8 +152,9 @@ export function print(req, res) {
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
-        .then(page     => (sitepage = page).open(`${url}/#/print/`))
+        .then(page     => (sitepage = page).open(`${url}/#/print`))
         .then(status   => sitepage.property('paperSize', PAPER_SIZE) )
+        .then(status   => sitepage.property('zoomFactor', 0.75) )
         .then(function() {
           // Wait a short delay before rendering the page to PDF
           return setTimeout(function() {
@@ -182,6 +183,8 @@ export function download(req, res) {
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
     // Change content disposition to download the file with a custom name
     res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
+    // Remove from the queue
+    delete printQueue[req.params.key]
     // Then send the file
     res.sendFile(filename);
   } else {

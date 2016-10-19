@@ -1,9 +1,10 @@
-.chart.chart--grouped(id="{{ :: $ctrl.meta.name }}", ng-class="{ 'chart--rendered': $ctrl.rendered >= $ctrl.fleetCharts.length }")
-  .card
-    h3.chart__heading.card-block(sticky="") {{ $ctrl.meta.name | translate }}
-    .card-block(ng-repeat="chart in $ctrl.fleetCharts")
-      h4.chart__fleet-heading {{ chart.fleet.name }}
-      .chart__c3
+.chart-grouped(id="{{ :: $ctrl.meta.name }}",
+                      ng-class="{ 'chart--rendered': $ctrl.rendered >= $ctrl.fleetCharts.length }")
+  h3.chart-grouped__heading(sticky="") {{ :: $ctrl.meta.name }}
+  .chart-grouped__chart(ng-repeat="chart in $ctrl.fleetCharts")
+    .card
+      h4.chart-grouped__chart__heading.card-block {{ :: chart.fleet.name }}
+      .chart-grouped__chart__c3
         c3chart(bindto-id="chart-{{ :: chart.id }}", transition-duration="0")
           chart-column(column-id="x",
                        column-values="{{ :: chart.columnsStr }}")

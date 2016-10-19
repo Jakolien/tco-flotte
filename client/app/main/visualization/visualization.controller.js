@@ -30,7 +30,7 @@ export default class VisualizationComponent {
   }
   prepareDownload() {
     // Get print status
-    this.Restangular.all('fleets').one('print').get().then(function(print) {
+    this.Restangular.all('fleets').one('print').get({ t: (new Date).getTime() }).then(function(print) {
       // Update scope's print property
       angular.extend(this, { print });
       // Is the file ready?

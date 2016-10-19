@@ -4,10 +4,9 @@ export default function($stateProvider) {
   'ngInject';
   $stateProvider
     .state('print', {
-      url: '/print/:meta?{clip:bool}&{static:bool}',
+      url: '/print?{clip:bool}&{static:bool}',
       component: 'print',
       params: {
-        meta: null,
         clip: null,
         static: null
       },
