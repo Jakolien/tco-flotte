@@ -2,8 +2,8 @@
 
   &__summary {
     color:white;
-    background: darken($brand-primary, 15);
-    border-bottom:darken($brand-primary, 25) 1px solid;
+    background: $brand-inverse;
+    border-bottom:darken($brand-inverse, 25) 1px solid;
 
     margin-top:$spacer * -2;
     margin-bottom:$spacer * 2;
@@ -22,7 +22,7 @@
     }
 
     .table {
-      background: $brand-inverse;
+      background: darken($brand-inverse, 5);
 
       th,
       td,

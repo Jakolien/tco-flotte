@@ -14,7 +14,7 @@
             div.text-muted.small {{ fleet.groups.length({ special: false }) }} group(s)
       button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
         i.fa.fa-plus-circle
-        | &nbsp;{{ 'A a fleet' | translate }}
+        | &nbsp;{{ 'Add a fleet' | translate }}
     .col-xs.main__fleets__view.card
       ui-view
         .row
@@ -39,9 +39,18 @@
                   a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
                     | {{ 'Add a group of vehicles' | translate }}
 
+            .pull-xs-right
+              button.btn.btn-secondary.btn-sm(ng-class="{ 'active': $ctrl.displayCo2 }", ng-click="$ctrl.displayCo2 = !$ctrl.displayCo2")
+                i.fa.fa-bar-chart
+                | &nbsp;See CO2 emissions
+
             h5.main__fleets__view__groups__heading
               | {{ 'Alternative transporations' | translate }}
-            ul.list-unstyled.row
+
+            .main__fleets__view__groups__chart-co2(ng-if="$ctrl.displayCo2")
+              chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
+
+            ul.list-unstyled.row(ng-if="!$ctrl.displayCo2")
               li.col-lg-3.col-md-4.col-sm-6.col-xs-6(ng-repeat="group in $ctrl.fleet.groups.filter({ special: true }) track by $index")
                 .main__fleets__view__groups__item.main__fleets__view__groups__item--special
                   h4.main__fleets__view__groups__item__heading
@@ -53,9 +62,6 @@
                       a(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                         i.fa.fa-edit
                         | &nbsp;Edit
-
-            .main__fleets__view__groups__chart-co2
-              chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
 
 
           .col-md-4.main__fleets__view__compare(ng-init="$ctrl.compareWith = $ctrl.anotherFleet()")
