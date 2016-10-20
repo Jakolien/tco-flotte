@@ -1,9 +1,4 @@
 .main__fleets
-  .main__header
-    ol.list-inline.main__header__breadcrumbs
-      li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }")
-        a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
-        span(ng-if="$last") {{ crumb.title }}
   .row
     .col-xs-4.col-sm-3.col-md-2.main__fleets__list
       ul.list-unstyled

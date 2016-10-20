@@ -5,13 +5,13 @@
     background: $brand-inverse;
     border-bottom:darken($brand-inverse, 25) 1px solid;
 
-    margin-top:$spacer * -2;
     margin-bottom:$spacer * 2;
 
     font-size: .8em;
     white-space: nowrap;
     margin-bottom: 4 * $spacer;
     padding: 2 * $spacer;
+    z-index:-1;
 
     &__heading {
       font-weight:bold;

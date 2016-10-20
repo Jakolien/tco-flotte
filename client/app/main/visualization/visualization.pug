@@ -1,10 +1,4 @@
 .main__visualization
-  .main__header
-    .container
-      ol.list-inline.main__header__breadcrumbs
-        li(ng-repeat="crumb in $root.$breadcrumbs", ng-class="{ 'active' : $last }",)
-          a(ng-if="!$last", href="{{ crumb.href }}") {{ crumb.title }}
-          span(ng-if="$last") {{ crumb.title }}
 
   .main__visualization__summary(id="raw-summary")
     .container
@@ -26,6 +20,7 @@
                     | {{ group.name }}
                 td(ng-repeat="raw in $ctrl.summaries")
                   | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
+
   .container
     .row
       .col-md-3.push-md-9
