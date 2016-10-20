@@ -1,8 +1,13 @@
 'use strict';
-// import _ from 'lodash';
 
-export default function fleetsService(Restangular) {
+import _ from 'lodash';
+import Lawnchair from 'lawnchair';
+import angular from 'angular';
+
+export default function fleetsService(Restangular, $q) {
   'ngInject';
+  // We store secret with Lauwnchair
+  var store = new Lawnchair(angular.noop);
   // Counter for fleets unique name
   var fleetNameCounter = 0;
   // Symbol keys for private attributes
@@ -10,7 +15,6 @@ export default function fleetsService(Restangular) {
   const _fleet = Symbol('_fleet');
   const KEYS_BLACKLIST = ['fleet_presets', 'energy_known_prices',
                           'insights', 'TCO', 'energy_prices_evolution'];
-
   class LikeArray {
     constructor(...rest) {
       this[_array] = new Array(...rest);
@@ -44,13 +48,13 @@ export default function fleetsService(Restangular) {
     empty() {
       this[_array] = [];
     }
-    get(id_or_index) {
-      if( isNaN(id_or_index) ) {
+    get(idOrIndex) {
+      if( isNaN(idOrIndex) ) {
         // Search by id
-        return _.find(this.all(), {_id: id_or_index});
+        return _.find(this.all(), {_id: idOrIndex});
       } else {
         // search by index
-        return this.all()[id_or_index];
+        return this.all()[idOrIndex];
       }
     }
     indexOf(item) {
@@ -83,7 +87,7 @@ export default function fleetsService(Restangular) {
         } else {
           let fleet = this[_fleet];
           // We add the new group
-          let promise = fleet.api().all('groups').post(group);
+          let promise = fleet.api().post('groups', group, { secret: fleet.secret });
           // Transform the result of the promise
           promise.then(function(f) {
             // We update the fleet
@@ -108,6 +112,9 @@ export default function fleetsService(Restangular) {
       } else {
         this.groups = new FleetGroups(this);
       }
+      // Save the secret (if any)
+      this.initSecret();
+      // Return the instance
       return this;
     }
     constructor(vars = {}) {
@@ -125,6 +132,23 @@ export default function fleetsService(Restangular) {
       // We may be awaiting a promise to be resolved
       if( vars.$promise ) {
         vars.$promise.then(this.initialize);
+      // We create a name for this fleet
+      } else if( !this.name ) {
+        this.name = this.uniqueName();
+      }
+    }
+    initSecret() {
+      if(this.secret) {
+        // Save the fleet secret for later
+        store.save({ key: this._id, secret: this.secret });
+      } else {
+        store.get(this._id + 2, function(record) {
+          // If we find the record
+          if(record) {
+            // Save the secret locally (shouldn't change)
+            this.secret = record.secret;
+          }
+        }.bind(this));
       }
     }
     api() {
@@ -153,12 +177,13 @@ export default function fleetsService(Restangular) {
       return Restangular.restangularizeElement(null, cleaned);
     }
     static uniqueName() {
-      return `Fleet ${fleetNameCounter}`
+      return `Fleet ${fleetNameCounter}`;
     }
     static defaults() {
       return {
         name: Fleet.uniqueName(),
-        vars: {}
+        vars: {},
+        groups: []
       };
     }
   }
@@ -169,7 +194,11 @@ export default function fleetsService(Restangular) {
       super();
       // Bind methods to this instance
       this.push = this.push.bind(this);
+      this.purge =  this.purge.bind(this);
       this.initial =  this.initial.bind(this);
+    }
+    purge() {
+      this[_array] = [];
     }
     push(...rest) {
       for(let fleet of rest) {
@@ -186,8 +215,24 @@ export default function fleetsService(Restangular) {
       }
       return this.length();
     }
-    initial(vars = {}) {
-      return this.length() ? this.get(0) : this.create(vars);
+    initial(vars) {
+      let init = this.length() ? this.get(0) : this.create(vars);
+      // Intial object must have a promise
+      init.$promise = init.$promise ? init.$promise : $q(resolve => resolve(init));
+      // Return the object
+      return init;
+    }
+    find(idOrIndex) {
+      // Find the fleet locally
+      let local = super.get(idOrIndex);
+      // It exists
+      if(local) {
+        return $q(resolve => resolve(local));
+      } else {
+        return Restangular.one('fleets', idOrIndex).get().then(function(fleet) {
+          return this.create(fleet);
+        }.bind(this));
+      }
     }
     create(vars = Fleet.defaults()) {
       return super.create(vars);

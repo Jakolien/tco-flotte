@@ -14,64 +14,65 @@ User.find({}).remove()
       username: 'test',
       password: 'test'
     })
-    .then(() => {
-      console.log('finished populating users');
-    });
-  });
-
-Fleet.find({}).remove()
-  .then( ()=> {
-    Fleet.create([{
-      name: 'Fleet 1',
-      active: true,
-      vars: {},
-      groups: [
-        {
-          name: "Group A",
-          vars: {
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "num_of_vehicles": 1
-          },
-        }
-      ]
-    },{
-      name: 'Fleet 2',
-      active: true,
-      vars: {},
-      groups: [
-        {
-          name: "Group B",
-          vars: {
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "num_of_vehicles": 1
-          },
-        },
-        {
-          name: "Group C",
-          vars: {
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "num_of_vehicles": 1
-          }
-        }
-      ]
-    }, {
-      name: 'Fleet 3',
-      active: true,
-      vars: {},
-      groups: [
-        {
-          name: "Yolo",
-          vars: {
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "num_of_vehicles": 13
-          },
-        }
-      ]
-    }]).then(() => {
-      console.log('finished populating fleets');
+    .then((user) => {
+      Fleet.find({}).remove()
+        .then( ()=> {
+          Fleet.create([{
+            name: 'Fleet 1',
+            active: true,
+            vars: {},
+            owner: user._id,
+            groups: [
+              {
+                name: "Group A",
+                vars: {
+                  "energy_type": "benzin",
+                  "car_type": "klein",
+                  "num_of_vehicles": 1
+                },
+              }
+            ]
+          },{
+            name: 'Fleet 2',
+            active: true,
+            vars: {},
+            owner: user._id,
+            groups: [
+              {
+                name: "Group B",
+                vars: {
+                  "energy_type": "benzin",
+                  "car_type": "klein",
+                  "num_of_vehicles": 1
+                },
+              },
+              {
+                name: "Group C",
+                vars: {
+                  "energy_type": "benzin",
+                  "car_type": "klein",
+                  "num_of_vehicles": 1
+                }
+              }
+            ]
+          }, {
+            name: 'Fleet 3',
+            active: true,
+            vars: {},
+            owner: user._id,
+            groups: [
+              {
+                name: "Yolo",
+                vars: {
+                  "energy_type": "benzin",
+                  "car_type": "klein",
+                  "num_of_vehicles": 13
+                },
+              }
+            ]
+          }]).then(() => {
+            console.log('finished populating fleets');
+          });
+        });
     });
   });

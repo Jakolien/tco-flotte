@@ -11,6 +11,7 @@
 'use strict';
 
 import _         from 'lodash';
+import mongoose  from 'mongoose';
 import jsonpatch from 'fast-json-patch';
 import Fleet     from './fleet.model';
 import cache     from 'memory-cache';
@@ -69,6 +70,17 @@ function handleEntityNotFound(res) {
   };
 }
 
+function handleEntityNotEditable(req, res) {
+  return function(entity) {
+    if(canUpdate(entity, req)) {
+      return entity;
+    } else {
+      res.status(401).end();
+      return null;
+    }
+  }
+}
+
 function handleFleetProcessor(res) {
   function prepare(entity) {
     // Extend the existing fleet object with a processed fleet
@@ -95,14 +107,56 @@ function handleError(res, statusCode) {
   };
 }
 
-function mine() {
-  return Fleet.find().sort( { _id: 1 } ).exec();
+function mine(req) {
+  // Authenticated user
+  if(req.user) {
+    return Fleet.find({ owner: req.user._id }).sort( { _id: 1 } ).exec();
+  // Explicite set of fleets through a "ids" parameter
+} else if(req.query.ids) {
+    let ids = req.query.ids.split(',').map(mongoose.Types.ObjectId);
+    return Fleet.find( { _id: { $in: ids } } ).sort( { _id: 1 } ).exec();
+  } else {
+    return Promise.resolve([]);
+  }
 }
 
-function findFleet(id) {
-  return function() {
-    return Fleet.findById(id).exec();
-  };
+function canUpdate(fleet, req) {
+  if(req.user) {
+    return fleet.owner === req.user._id;
+  } else if(fleet.secret) {
+    return fleet.secret === (req.query.secret || req.body.secret);
+  } else {
+    return false;
+  }
+}
+
+function findEditableFleet(req, id) {
+  // Secret key to edit the fleet
+  let secret = req.query.secret || req.body.secret;
+  // Using session
+  if(req.user) {
+    return Fleet.findOne({ _id: id, owner: req.user._id }).exec();
+  // Using secret
+  } else if(secret) {
+    return Fleet.findOne({ _id: id, secret: secret }).exec();
+  // Using nothing (can't edit)
+  } else {
+    return Promise.reject(new Error('Not found or Unauthorized'));
+  }
+}
+
+function updateEditableFleet(req) {  
+  return Fleet.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        $set: req.body,
+        $inc: { revision: 1 }
+      }, {
+        upsert: true,
+        setDefaultsOnInsert: true,
+        runValidators: true,
+        new: true
+      }).exec()
 }
 
 function endNighmareFn(nightmare) {
@@ -119,7 +173,7 @@ function endNighmareFn(nightmare) {
 
 // Gets a list of Fleets
 export function index(req, res) {
-  return mine()
+  return mine(req)
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -128,7 +182,7 @@ export function index(req, res) {
 
 // Print a list of Fleets in pdf
 export function print(req, res) {
-  mine().then(function(fleets) {
+  mine(req).then(function(fleets) {
     // Generate the queue key for this file
     let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, 'pdf');
     // Obfuscate the key for better anonymity
@@ -199,7 +253,7 @@ export function download(req, res) {
 
 // Print a list of Fleets in PNG
 export function png(req, res) {
-  mine().then(function(fleets) {
+  mine(req).then(function(fleets) {
     // Generate the cache key
     let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, req.params.meta);;
     // Obfuscate the key for better anonymity
@@ -259,7 +313,7 @@ export function groups(req, res) {
 }
 
 export function addGroup(req, res) {
-  return Fleet.findById(req.params.id).exec()
+  return findEditableFleet(req, req.params.id)
     .then(handleEntityNotFound(res))
     .then(function(fleet) {
       // Add the group
@@ -273,7 +327,7 @@ export function addGroup(req, res) {
 }
 
 export function destroyGroup(req, res) {
-  return Fleet.findById(req.params.id).exec()
+  return findEditableFleet(req, req.params.id)
     .then(handleEntityNotFound(res))
     .then(function(fleet) {
       // Remove the group
@@ -288,7 +342,12 @@ export function destroyGroup(req, res) {
 
 // Creates a new Fleet in the DB
 export function create(req, res) {
+  // Add user as owner if any
+  if(req.user) {
+    req.body.owner = req.user._id;
+  }
   return Fleet.create(req.body)
+    .then(handleFleetProcessor(res))
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -299,17 +358,8 @@ export function upsert(req, res) {
     delete req.body._id;
     delete req.body.revision;
   }
-  return Fleet.findOneAndUpdate({
-        _id: req.params.id
-      }, {
-        $set: req.body,
-        $inc: { revision: 1 }
-      }, {
-        upsert: true,
-        setDefaultsOnInsert: true,
-        runValidators: true,
-        new: true
-      }).exec()
+
+  return updateEditableFleet()
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -319,8 +369,9 @@ export function upsert(req, res) {
 export function patch(req, res) {
   if(req.body._id) {
     delete req.body._id;
+    delete req.body.revision;
   }
-  return Fleet.findById(req.params.id).exec()
+  return findEditableFleet(req, req.params.id)
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
     .then(handleFleetProcessor(res))
@@ -330,7 +381,7 @@ export function patch(req, res) {
 
 // Deletes a Fleet from the DB
 export function destroy(req, res) {
-  return Fleet.findById(req.params.id).exec()
+  return findEditableFleet(req, req.params.id)
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

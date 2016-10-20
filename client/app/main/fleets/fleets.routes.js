@@ -14,11 +14,18 @@ export default function($stateProvider) {
       resolve: {
         $title: function(fleet) {
           'ngInject'
-          return fleet.name;
+          return (fleet || {}).name;
         },
-        fleet: function($stateParams, fleets) {
+        fleet: function($stateParams, $state, fleets) {
           'ngInject'
-          return $stateParams.fleet ? fleets.get($stateParams.fleet) : fleets.initial();
+          if($stateParams.fleet) {
+            return fleets.find($stateParams.fleet);
+          } else {
+            // Redirect to the fleet
+            return fleets.initial().$promise.then(function(fleet) {
+              $state.go('main.fleets', { fleet: fleet._id });
+            });
+          }
         }
       }
     });

@@ -1,15 +1,16 @@
 .main__fleets
   .row
     .col-xs-4.col-sm-3.col-md-2.main__fleets__list
-      ul.list-unstyled
-        li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
-                                    ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
-          a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: fleet._id })")
-            div {{ fleet.name }}
-            div.text-muted.small {{ fleet.groups.length({ special: false }) }} group(s)
-      button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
-        i.fa.fa-plus-circle
-        | &nbsp;{{ 'Add a fleet' | translate }}
+      .sticky
+        ul.list-unstyled
+          li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
+                                      ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
+            a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: fleet._id })")
+              div {{ fleet.name }}
+              div.text-muted.small {{ fleet.groups.length({ special: false }) }} group(s)
+        button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
+          i.fa.fa-plus-circle
+          | &nbsp;{{ 'Add a fleet' | translate }}
     .col-xs.main__fleets__view.card
       ui-view
         .container-fluid

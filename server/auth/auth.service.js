@@ -9,6 +9,40 @@ var validateJwt = expressJwt({
   secret: config.secrets.session
 });
 
+
+export function authenticate() {
+  return compose()
+    // Validate jwt
+    .use(function(req, res, next) {
+      // allow access_token to be passed through query parameter as well
+      if(req.query && req.query.hasOwnProperty('access_token')) {
+        req.headers.authorization = `Bearer ${req.query.access_token}`;
+      }
+     // IE11 forgets to set Authorization header sometimes. Pull from cookie instead.
+      if(req.query && typeof req.headers.authorization === 'undefined') {
+        req.headers.authorization = `Bearer ${req.cookies.token}`;
+      }
+      // Validate token
+      expressJwt({
+        secret: config.secrets.session,
+        credentialsRequired: false
+      })(req, res, next);
+    })
+    // Attach user to request
+    .use(function findUser(req, res, next) {
+      if(req.user) {
+        User.findById(req.user._id, function (err, user) {
+          if (err) return next(err);
+          if (!user) return res.status(401).send('Unauthorized');
+          req.user = user;
+          next();
+        });
+      } else {
+        next();
+      }
+    });
+}
+
 /**
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403

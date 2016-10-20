@@ -6,13 +6,12 @@
 
 import errors from './components/errors';
 import path from 'path';
+import {authenticate} from './auth/auth.service'
 
 export default function(app) {
   // Insert routes below
-  app.use('/api/fleets', require('./api/fleet'));
-  app.use('/api/things', require('./api/thing'));
-  app.use('/api/users', require('./api/user'));
-
+  app.use('/api/fleets', authenticate(), require('./api/fleet'));
+  app.use('/api/users',  authenticate(), require('./api/user'));
   app.use('/auth', require('./auth').default);
 
   // All undefined asset or api routes should return a 404

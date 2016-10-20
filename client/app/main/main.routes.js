@@ -32,14 +32,16 @@ export default function routes($stateProvider) {
         // Get display
         return $http.get('assets/display.json').then( res=> res.data);
       },
-      all: function(fleets, Restangular) {
+      all: function(fleets, Restangular, Auth) {
         'ngInject'
-        fleets.empty();
-        // return fleets.length() ? fleets.initial() : fleets.create().$promise;
-        return Restangular.all('fleets').getList().then(function(all) {
-          _.each(all, fleets.create);
-          return fleets;
-        });
+        return Auth.getCurrentUser().then(function(user) {
+          return Restangular.all('fleets').getList().then(function(all) {
+            // Add every new fleet
+            fleets.push(...all);
+            // And return the instance
+            return fleets;
+          });
+        })
       }
     }
   });

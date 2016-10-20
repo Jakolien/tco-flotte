@@ -1,6 +1,7 @@
 'use strict';
 
 import mongoose    from 'mongoose';
+import hash        from 'mongoose-hash';
 import _           from 'lodash';
 // Process fleet object
 import FleetProcessor    from '../../../processor/fleet.js'
@@ -36,12 +37,26 @@ var FleetSchema = new mongoose.Schema({
     type: [GroupSchema],
     default: []
   },
+  secret: {
+    type: String,
+    require: true,
+    select: false
+  },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   self: {}
 }, {
   minimize: false,
   timestamps: true,
   versionKey: 'revision'
 })
+
+FleetSchema.plugin(hash, {
+  field: "secret",
+  size: 16
+});
 
 FleetSchema.virtual('self.link').get(function () {
   return `/api/fleets/${this._id}`
