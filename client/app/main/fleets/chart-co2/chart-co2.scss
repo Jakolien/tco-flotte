@@ -1,0 +1,47 @@
+.chart-co2 {
+
+  &__c3 {
+    padding:$spacer;
+
+    &--static {
+      img {
+        max-width: 100%;
+      }
+    }
+
+    .c3 {
+      pointer-events:none;
+
+      &, .c3-legend-item {
+        font-family: $font-family-sans-serif;
+        font-size:1em;
+      }
+
+      .c3-lines {
+        stroke:$card-border-color !important;
+      }
+
+      .c3-axis {
+        text {
+          fill: $text-muted;
+          color: $text-muted;
+        }
+
+        line, path {
+          stroke: $text-muted;
+
+        }
+
+        &-y .domain, &-y .tick line {
+          stroke: transparent;
+          fill: transparent;
+        }
+      }
+
+      .c3-ygrid, .c3-axis-x .domain, .c3-axis-x .tick line {
+        stroke:$card-border-color;
+      }
+
+    }
+  }
+}

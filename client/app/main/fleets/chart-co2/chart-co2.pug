@@ -1,0 +1,20 @@
+.chart-co2
+  .chart-co2__c3
+    c3chart(bindto-id="chart-{{ :: $ctrl.id }}", transition-duration="0")
+      chart-column(column-id="x",
+                   column-values="{{ :: $ctrl.columnsStr }}")
+      chart-column(column-id="{{ :: $ctrl.id }}",
+                   column-values="{{ :: $ctrl.valuesStr }}",
+                   column-type="bar")
+      chart-bar(ratio="0.8")
+      chart-colors(color-function="$ctrl.colorsFn")
+      selection(enabled="false")
+      chart-legend(show-legend="false")
+      chart-tooltip(show-tooltip="false")
+      chart-grid(show-y="true")
+      chart-axes(values-x="x")
+      chart-events(on-rendered="$ctrl.rendered = $ctrl.rendered + 1")
+      chart-axis
+        chart-axis-x-tick(tick-outer="false")
+        chart-axis-x(axis-position="outer-center",
+                     axis-type="category")

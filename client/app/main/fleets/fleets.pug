@@ -54,6 +54,9 @@
                         i.fa.fa-edit
                         | &nbsp;Edit
 
+            .main__fleets__view__groups__chart-co2
+              chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
+
 
           .col-md-4.main__fleets__view__compare(ng-init="$ctrl.compareWith = $ctrl.anotherFleet()")
             h4.main__fleets__view__compare__heading Fleet data

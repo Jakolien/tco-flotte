@@ -73,6 +73,7 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 // Component styles are injected through gulp
 /* inject:scss */
 @import 'account/account';
+@import 'main/fleets/chart-co2/chart-co2';
 @import 'main/fleets/fleets';
 @import 'main/fleets/groups/edit/edit';
 @import 'main/fleets/groups/groups';

@@ -34,6 +34,7 @@ import footer          from '../components/footer/footer.component';
 import sticky          from '../components/sticky/sticky.module';
 import main            from './main/main.component';
 import fleets          from './main/fleets/fleets.component';
+import fleetsChartCo2  from './main/fleets/chart-co2/chart-co2.component';
 import roups           from './main/fleets/groups/groups.component';
 import edit            from './main/fleets/groups/edit/edit.component';
 import visualization   from './main/visualization/visualization.component';
@@ -66,6 +67,7 @@ angular.module('oekoFlotteApp', [
   sticky,
   main,
   fleets,
+  fleetsChartCo2,
   roups,
   edit,
   visualization,

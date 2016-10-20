@@ -1,8 +1,5 @@
 .main__fleets {
 
-  $view-bg:mix($brand-primary, white, 5);
-  $view-border:darken($view-bg, 10);
-
   & > .row {
     margin:$spacer * 2;
   }
@@ -97,11 +94,9 @@
         white-space: nowrap;
 
         &--special {
-          background:darken($view-bg, 10);
           font-size:.9em;
         }
         &--special &__heading {
-          background: darken($view-bg, 20);
           text-shadow:0 1px 0 rgba(white, .5);
         }
 
@@ -115,7 +110,6 @@
           padding: .8em .1em;
           font-size: .9em;
           text-transform: uppercase;
-          background: darken($view-bg, 10);
           font-weight: normal;
           color:$body-color;
           box-shadow: 0 0 $spacer/2 0 rgba(black, 0.1);
