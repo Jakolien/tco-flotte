@@ -5,18 +5,13 @@ import angular from 'angular';
 
 export class NavbarComponent {
 
-  constructor(Auth) {
+  constructor(Auth, fleets) {
     'ngInject';
     this.isCollapsed = true;
     this.isLoggedIn = Auth.isLoggedInSync;
     this.isAdmin = Auth.isAdminSync;
     this.getCurrentUser = Auth.getCurrentUserSync;
-    // Add elements to the menu
-    this.menu = [
-      { state: 'main', title: 'Home' },
-      { state: 'main.fleets', title: 'My fleets' },
-      { state: 'main.visualization', title: 'Visualization' }
-    ];
+    this.fleets = fleets;
   }
 
 }

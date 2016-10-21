@@ -8,6 +8,7 @@ export default angular.module('oekoFlotteApp.main', [uiRouter])
   .config(routing)
   .component('main', {
     controller,
+    controllerAs: '$ctrl',
     template: require('./main.pug'),
     bindings: {
       settings: '<'

@@ -243,6 +243,12 @@ export default function fleetsService(Restangular, $q) {
     create(vars = Fleet.defaults()) {
       return super.create(vars);
     }
+    isActive() {
+      // Is active if we have at least one fleet with regular groups
+      return !!this.length() && _.some(this.all(), function(fleet) {
+        return !!fleet.groups.filter({ special: false }).length;
+      });
+    }
     get ids() {
       return this.all().map(f => f._id);
     }

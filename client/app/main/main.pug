@@ -8,7 +8,9 @@ navbar
       p.main__welcome__block__intro
         | Luke hutt sebulba qui-gonn skywalker. Leia organa owen calamari binks. Dagobah mara padm&eacute; palpatine darth kessel hoth. Aayla solo han luuke. Zabrak binks dantooine organa lando sidious mace skywalker. Skywalker moff mandalore darth binks hutt. Jabba r2-d2 boba biggs. Mon sebulba organa hutt maul jade. Solo tatooine tusken raider lando darth ackbar calrissian. Solo jawa twi&apos;lek skywalker palpatine skywalker mustafar maul maul. Wedge yoda ackbar watto yavin jango. Ackbar leia baba tatooine anakin calamari skywalker kenobi darth.
       p.main__welcome__block__actions
-        a.btn.btn-success.btn-lg(ui-sref='main.fleets') Create your fleets
+        a.btn.btn-success.btn-lg(ui-sref='main.fleets')
+          span(ng-show="$ctrl.fleets.isActive()") See your fleets
+          span(ng-hide="$ctrl.fleets.isActive()") Create your fleets
         a.btn.btn-link.btn-lg See the demo scenario
     .main__welcome__context
       .row.text-center.main__welcome__context__logos

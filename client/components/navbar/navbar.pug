@@ -2,9 +2,16 @@ nav.navbar.navbar-dark.bg-primary.navbar-full
   .container-fluid
     a.navbar-brand(href='/') &Ouml;ko Institut
     ul.nav.navbar-nav.pull-xs-right
-      li.nav-item(ng-repeat='item in $ctrl.menu', ui-sref-active-eq='active')
-        a.nav-link(ui-sref='{{ item.state }}')
-          | {{ item.title }}
+      li.nav-item(ui-sref-active-eq='active')
+        a.nav-link(ui-sref='main')
+          | Home
+      li.nav-item(ui-sref-active-eq='active')
+        a.nav-link(ui-sref='main.fleets')
+          span(ng-show="$ctrl.fleets.isActive()") Your fleets
+          span(ng-hide="$ctrl.fleets.isActive()") Create a fleet
+      li.nav-item(ui-sref-active-eq='active')
+        a.nav-link(ui-sref='main.visualization')
+          | Visualization
       li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='signup')
           | Sign up

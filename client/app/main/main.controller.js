@@ -1,10 +1,6 @@
 export default class MainController {
-
   /*@ngInject*/
-  constructor() {
-  }
-
-  $onInit() {
-
+  constructor(fleets) {
+    angular.extend(this, { fleets });
   }
 }
