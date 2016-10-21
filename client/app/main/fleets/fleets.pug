@@ -81,10 +81,8 @@
                   i.fa.fa-fw.fa-trash
                   span.sr-only {{ 'delete' | translate }}
 
-
-
             .col-md-4.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
-              h4.main__fleets__view__compare__heading {{ 'fleet _data_title' | translate }}
+              h4.main__fleets__view__compare__heading {{ 'fleet_data_title' | translate }}
               form
                 .form-group
                   label(for="input-compare-with") {{ 'compare_with_label' | translate }}
@@ -105,13 +103,7 @@
                       | {{ $ctrl.mileage(fleet) | number }} {{ 'km_per_year' | translate }}
                   .main__fleets__view__compare__section__unequal.text-warning(ng-show="$ctrl.arefleetsUnequal($ctrl.mileage)")
                     i.fa.fa-warning
-                    =" "
-                    strong {{ $ctrl.biggest($ctrl.mileage).name }}
-                    =" "
-                    | has {{ $ctrl.delta($ctrl.mileage) | number }} km/year more than
-                    =" "
-                    strong {{ $ctrl.smallest($ctrl.mileage).name }}
-                    ="."
+                    span(ng-bind-html="'compare_fleet' | translate:{ biggest: $ctrl.biggest($ctrl.mileage).name, smallest: $ctrl.smallest($ctrl.mileage).name, delta: ($ctrl.delta($ctrl.mileage) | number) }")
 
                 .main__fleets__view__compare__section
                   h6.main__fleets__view__compare__section__heading {{ 'total_vehicles_title' | translate }}
