@@ -12,6 +12,7 @@ import stickyfill    from 'Stickyfill/dist/stickyfill';
 import duScroll      from 'angular-scroll';
 import 'angular-bootstrap-colorpicker';
 import 'restangular';
+import 'angular-bootstrap-confirm';
 // Angular translate deps
 import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
@@ -60,6 +61,7 @@ angular.module('oekoFlotteApp', [
   'restangular',
   'colorpicker.module',
   'gridshore.c3js.chart',
+  'mwl.confirm',
   auth,
   account,
   navbar,

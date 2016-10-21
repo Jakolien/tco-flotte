@@ -1,26 +1,26 @@
 nav.navbar.navbar-dark.bg-primary.navbar-full
   .container-fluid
-    a.navbar-brand(href='/') &Ouml;ko Institut
+    a.navbar-brand(href='/') {{ 'app_title' | translate }}
     ul.nav.navbar-nav.pull-xs-right
       li.nav-item(ui-sref-active-eq='active')
         a.nav-link(ui-sref='main')
-          | Home
+          | {{ 'home_link' | translate }}
       li.nav-item(ui-sref-active-eq='active')
         a.nav-link(ui-sref='main.fleets')
-          span(ng-show="$ctrl.fleets.isActive()") Your fleets
-          span(ng-hide="$ctrl.fleets.isActive()") Create a fleet
+          span(ng-show="$ctrl.fleets.isActive()") {{ 'your_fleets' | translate }}
+          span(ng-hide="$ctrl.fleets.isActive()") {{ 'create_a_fleet' | translate }}
       li.nav-item(ui-sref-active-eq='active')
         a.nav-link(ui-sref='main.visualization')
-          | Visualization
+          | {{ 'visualization_link' | translate }}
       li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='signup')
-          | Sign up
+          | {{ 'signup_link' | translate }}
       li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='login')
-          | Login
+          | {{ 'login_link' | translate }}
       li.nav-item(ng-show='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='settings')
           span.fa.fa-cog
       li.nav-item(ng-show='$ctrl.isLoggedIn()')
         a.nav-link(ui-sref='logout')
-          | Logout
+          | {{ 'logout_link' | translate }}

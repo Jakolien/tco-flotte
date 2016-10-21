@@ -6,18 +6,19 @@
           li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
                                       ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
             a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: fleet._id })")
-              div {{ fleet.name }}
-              div.text-muted.small {{ fleet.groups.length({ special: false }) }} group(s)
+              div {{ fleet.name || ( 'fleet_loading' | translate ) }}
+              div.text-muted.small
+                | {{ 'groups_count' | translate:{ groups: fleet.groups.length({ special: false }) } }}
         button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
           i.fa.fa-plus-circle
-          | &nbsp;{{ 'Add a fleet' | translate }}
+          | &nbsp;{{ 'add_fleet' | translate }}
     .col-xs.main__fleets__view.card
       ui-view
         .container-fluid
           .row
             .col-md-8.main__fleets__view__groups
               h5.main__fleets__view__groups__heading
-                | {{ 'Your groups' | translate }}
+                | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row
                 li.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: false }) track by $index")
                   .main__fleets__view__groups__item
@@ -29,20 +30,20 @@
                       span.pull-xs-right
                         a(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                           i.fa.fa-edit
-                          | &nbsp;Edit
-                      strong {{ group.vars.num_of_vehicles }} vehicle(s)
+                          | &nbsp;{{ 'edit' | translate }}
+                      strong {{ 'vehicles_count' | translate:{ vehicles: group.vars.num_of_vehicles } }}
                 li.col-lg-4.col-md-6.col-sm-12.col-xs-12
                   .main__fleets__view__groups__item.main__fleets__view__groups__item--link
                     a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
-                      | {{ 'Add a group of vehicles' | translate }}
+                      | {{ 'add_vehicles_group' | translate }}
 
               .pull-xs-right
                 button.btn.btn-secondary.btn-sm(ng-class="{ 'active': $ctrl.displayCo2 }", ng-click="$ctrl.displayCo2 = !$ctrl.displayCo2")
                   i.fa.fa-bar-chart
-                  | &nbsp;See CO2 emissions
+                  | &nbsp;{{ 'see_co2_emissions' | translate }}
 
               h5.main__fleets__view__groups__heading
-                | {{ 'Alternative transporations' | translate }}
+                | {{ 'alternative_transporations_title' | translate }}
 
               .main__fleets__view__groups__chart-co2(ng-if="$ctrl.displayCo2")
                 chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
@@ -52,34 +53,41 @@
                   .main__fleets__view__groups__item.main__fleets__view__groups__item--special
                     h4.main__fleets__view__groups__item__heading
                       | {{ (group.vars.group_name || group.name) | translate }}
-                      .small.text-muted {{ group.insights.mileage | number }} km/year
+                      .small.text-muted {{ group.insights.mileage | number }} {{ 'km_per_year' | translate }}
                       .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                     .main__fleets__view__groups__item__footer
                       span.pull-xs-right
                         a(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                           i.fa.fa-edit
-                          | &nbsp;Edit
+                          | &nbsp;{{ 'edit' | translate }}
 
 
               .main__fleets__view__groups__footer
                 .pull-xs-right
-                  button.btn.btn-info(ng-click="$ctrl.optimise()") How can I optimise this fleet?
+                  button.btn.btn-info(ng-click="$ctrl.optimise()")
+                    | {{ 'how_optimise_btn' | translate }}
 
                 button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                   i.fa.fa-fw.fa-files-o
-                  | &nbsp;Duplicate
+                  | &nbsp;{{ 'duplicate' | translate }}
                 =" | "
-                button.btn.btn-link(type="button", ng-click="$ctrl.delete()")
+                button.btn.btn-link(type="button",
+                  mwl-confirm,
+                  message="{{ 'confirm_deletion_message' | translate }}",
+                  confirm-button-type="danger",
+                  confirm-text="{{ 'confirm_deletion_yes' | translate }}",
+                  cancel-text="{{ 'confirm_deletion_no' | translate }}",
+                  on-confirm="$ctrl.delete()")
                   i.fa.fa-fw.fa-trash
-                  span.sr-only Delete
+                  span.sr-only {{ 'delete' | translate }}
 
 
 
             .col-md-4.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
-              h4.main__fleets__view__compare__heading Fleet data
+              h4.main__fleets__view__compare__heading {{ 'fleet _data_title' | translate }}
               form
                 .form-group
-                  label(for="input-compare-with") Compare with
+                  label(for="input-compare-with") {{ 'compare_with_label' | translate }}
                   select.form-control(
                     ng-options="fleet as fleet.name disable when fleet == $ctrl.fleet for fleet in $ctrl.fleets.all()",
                     ng-model="$ctrl.compareWith",
@@ -88,13 +96,13 @@
                     option(value="") ⎼⎼
               div(ng-if="$ctrl.compareWith")
                 .main__fleets__view__compare__section
-                  h6.main__fleets__view__compare__section__heading {{ 'Total kilometers' | translate }}
+                  h6.main__fleets__view__compare__section__heading {{ 'total_kilometers_title' | translate }}
                   .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
                     .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.mileage)")
                       .main__fleets__view__compare__section__bar__fill__name
                         | {{ fleet.name }}
                     .main__fleets__view__compare__section__bar__value
-                      | {{ $ctrl.mileage(fleet) | number }} km/year
+                      | {{ $ctrl.mileage(fleet) | number }} {{ 'km_per_year' | translate }}
                   .main__fleets__view__compare__section__unequal.text-warning(ng-show="$ctrl.arefleetsUnequal($ctrl.mileage)")
                     i.fa.fa-warning
                     =" "
@@ -106,7 +114,7 @@
                     ="."
 
                 .main__fleets__view__compare__section
-                  h6.main__fleets__view__compare__section__heading {{ 'Total vehicles' | translate }}
+                  h6.main__fleets__view__compare__section__heading {{ 'total_vehicles_title' | translate }}
                   .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
                     .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.vehicles)")
                       .main__fleets__view__compare__section__bar__fill__name

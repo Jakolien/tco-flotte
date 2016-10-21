@@ -3,7 +3,7 @@ import angular from 'angular';
 
 export default class EditComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $state) {
+  constructor(DynamicInput, $state, $translate) {
     // Settings must match with the group
     this.settings = _.filter(this.settings, s => s.special === null || s.special === this.group.special);
     // Instanciate a DynamicInput using the settings
@@ -13,21 +13,21 @@ export default class EditComponent {
       {
         name: 'VehicleGroupCommon',
         open: !this.group.special,
-        title: 'General information',
+        title: $translate.instant('group_general_information_title'),
         values: this.group.vars,
         destination: this.group.vars
       },
       {
         name: 'VehicleGroup',
         open: this.group.special,
-        title: 'Variables for all vehicles in  this group',
+        title: $translate.instant('group_variables_all_vehicles_title'),
         values: this.group.insights,
         destination: this.group.vars
       },
       {
         name: 'Fleet',
         open: false,
-        title: 'Variables for all vehicles in  this fleet',
+        title: $translate.instant('group_variables_fleet_title'),
         values: this.fleet.vars,
         destination: this.fleet.vars
       }

@@ -1,13 +1,13 @@
 .main__fleets__groups(ui-view="")
   .main__fleets__groups__header
-    h3 Create a group of vehicles
-    p.lead Through regular and organized vehicle use scheduling.
+    h3 {{ 'create_group_title' | translate }}
+    p.lead {{ 'create_group_description' | translate }}
   .row
     .col-md-5.push-md-7.push-lg-6.text-muted
-      | Each year German corporations approve 800,000 new passenger cars to add to their fleets. Such stocks represent huge potential for electric mobility. Using electric vehicles in corporate vehicle fleets offers many advantages, even over private electric vehicle use. Firstly, in corporate fleets an electric vehicle&rsquo;s restricted driving range can be compensated by the ability to switch to conventional vehicles in the fleet when a longer range is needed. As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles. Through regular and organized vehicle use scheduling, the electrical and conventional vehicles can be easily shared between employees to improve cost-effectiveness.
+      |  {{ 'create_group_help' | translate }}
     .col-md-7.col-lg-6.pull-md-5
       .card
-        form.card-block(ng-submit="$ctrl.createGroup()")
+        form.card-block(ng-submit="$ctrl.createGroup()", name="createForm")
           fieldset.form-group(ng-repeat='input in $ctrl.inputs')
             div(ng-switch=":: input.getType()")
               .row(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
@@ -18,6 +18,7 @@
                   select.form-control(
                     name="{{ input.meta.name }}",
                     id="input-{{ input.meta.id }}",
+                    required="",
                     ng-options="val as (val | translate) for val in $ctrl.getInputValues(input).range",
                     ng-model="$ctrl.group[input.meta.name]")
                     option(value="") ⎼⎼
@@ -38,4 +39,4 @@
                   legend.main__fleets__groups__input__title {{ input.meta.label | translate  }}
                   div(ng-init="$ctrl.group[input.meta.name] = $ctrl.getInputValues(input).value")
                     rzslider(rz-slider-model="$ctrl.group[input.meta.name]", rz-slider-options="$ctrl.getInputValues(input)")
-          button.btn.btn-primary(type="submit") Create
+          button.btn.btn-primary(type="submit", ng-disabled="createForm.$invalid") Create

@@ -1,14 +1,14 @@
 .main__visualization
   .main__visualization__inactive(ng-if="!$ctrl.fleets.isActive()")
     .container
-      p.lead You must create a fleet with a group of vehicles first.
+      p.lead  {{ 'visualization_inactive_alert' | translate }}
       p.lead
         a.btn.btn-primary.btn-lg(ui-sref="main.fleets")
-          | Create a fleet
+          | {{ 'create_fleet' | translate }}
 
   .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
     .container
-      h4 Summary
+      h4 {{ 'summary_title' | translate }}
       div(ng-repeat="fleet in $ctrl.fleets.all()")
         h5.text-xs-center.main__visualization__summary__heading {{ fleet.name }}
         .table-responsive
@@ -16,7 +16,7 @@
             thead
               tr
                 th(style="min-width: 5em")
-                  span.sr-only Group
+                  span.sr-only {{ 'group' | translate }}
                 th(ng-repeat="raw in $ctrl.summaries")
                   | {{ raw.name | translate }}
             tbody
@@ -32,14 +32,14 @@
         .main__visualization__sidebar(sticky="")
           ul.list-unstyled
             li(du-scrollspy="raw-summary")
-              a(href="#raw-summary", du-smooth-scroll="") {{ 'Summary' | translate }}
+              a(href="#raw-summary", du-smooth-scroll="") {{ 'summary_title' | translate }}
             li(ng-repeat="meta in $ctrl.display", du-scrollspy="{{ meta.name }}")
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
             li(du-scrollspy="raw-basic")
-              a(href="#raw-basic", du-smooth-scroll="") {{ 'Basic information' | translate }}
+              a(href="#raw-basic", du-smooth-scroll="") {{ 'basic_information_title' | translate }}
           a.btn.btn-link.btn-block(ng-click="$ctrl.openDownload()")
               i.fa.fa-file-pdf-o.fa-fw
-              | &nbsp;Download as PDF
+              | &nbsp;{{ 'download_as_pdf' | translate }}
 
       .col-md-9.pull-md-3
         .main__visualization__view
@@ -48,7 +48,7 @@
             chart-grouped(meta="meta", ng-if=" meta.bygroup")
 
           .card.main__visualization__view__raw(id="raw-basic")
-            h3.card-block Basic information
+            h3.card-block {{ 'basic_information_title' | translate }}
             div(ng-repeat="fleet in $ctrl.fleets.all()")
               h5.text-xs-center.main__visualization__view__raw__heading {{ fleet.name }}
               .table-responsive
@@ -56,7 +56,7 @@
                   thead
                     tr
                       th
-                        span.sr-only Group
+                        span.sr-only {{ 'group' | translate }}
                       th(ng-repeat="raw in $ctrl.basics")
                         | {{ raw.name | translate }}
                   tbody

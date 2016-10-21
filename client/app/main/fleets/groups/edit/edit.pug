@@ -6,28 +6,35 @@
       .main__fleets__groups__edit__sidebar(sticky)
         .card
           .card-block.text-muted
-            | As well, electric vehicle charging stations can be more easily installed directly at the company to service several vehicles than at private homes for only a few vehicles.
+            | {{ 'edit_group_help' | translate }}
           .card-footer.main__fleets__groups__edit__sidebar__footer
             .pull-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                 i.fa.fa-fw.fa-files-o
-                | &nbsp;Duplicate
+                | &nbsp;{{ 'duplicate' | translate }}
               =" | "
-              button.btn.btn-link(type="button", ng-click="$ctrl.delete()")
+              button.btn.btn-link(type="button",
+                mwl-confirm,
+                message="{{ 'confirm_deletion_message' | translate }}",
+                confirm-button-type="danger",
+                placement="left",
+                confirm-text="{{ 'confirm_deletion_yes' | translate }}",
+                cancel-text="{{ 'confirm_deletion_no' | translate }}",
+                on-confirm="$ctrl.delete()")
                 i.fa.fa-fw.fa-trash
-                span.sr-only Delete
+                span.sr-only {{ 'delete' | translate }}
             button.btn.btn-primary(type="submit", ng-disabled="!$ctrl.hasChanged()")
-              | Save changes
+              | {{ 'save_changes' | translate }}
             =" "
             a.btn.btn-link(ui-sref="main.fleets")
-              | Cancel
+              | {{ 'cancel' | translate }}
     .col-md-7.col-lg-6.pull-md-5
       .card
         .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes', ng-show="context.inputs.length")
           h5.main__fleets__groups__edit__context__heading(sticky='', ng-click="context.open = !context.open")
             i.fa.fa-caret-down(ng-show="context.open")
             i.fa.fa-caret-up(ng-hide="context.open")
-            | &nbsp;{{ context.title | translate }}
+            | &nbsp;{{ context.title }}
           .card-block(ng-show="context.open")
               fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible(context._values || context.values)')
                 label.row

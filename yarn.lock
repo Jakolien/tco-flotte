@@ -119,6 +119,10 @@ angular-bootstrap-colorpicker@^3.0.25:
   version "3.0.25"
   resolved "https://registry.yarnpkg.com/angular-bootstrap-colorpicker/-/angular-bootstrap-colorpicker-3.0.25.tgz#c54db1b068ab5d8791af1688633cb17ead551f49"
 
+angular-bootstrap-confirm:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/angular-bootstrap-confirm/-/angular-bootstrap-confirm-2.4.1.tgz#d1359dfc494ad180923cf274a1166f0cc8b98432"
+
 "angular-cookies@>=1.2.26 <1.6", angular-cookies@~1.5.5:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.5.8.tgz#08f39fa2e17b6e3a916cd3ba7352f9d702e8a9fe"
