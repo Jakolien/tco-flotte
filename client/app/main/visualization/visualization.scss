@@ -1,5 +1,22 @@
 .main__visualization {
 
+  &__inactive {
+    text-align: center;
+    padding:$spacer * 3 0;
+
+    &:after {
+      z-index:-1;
+      content:"";
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      opacity:0.8;
+      background:url('../assets/images/worn_dots.png');
+    }
+  }
+
   &__summary {
     color:white;
     background: $brand-inverse;

@@ -61,12 +61,30 @@
                           | &nbsp;Edit
 
 
-            .col-md-4.main__fleets__view__compare(ng-init="$ctrl.compareWith = $ctrl.anotherFleet()")
+              .main__fleets__view__groups__footer
+                .pull-xs-right
+                  button.btn.btn-info(ng-click="$ctrl.optimise()") How can I optimise this fleet?
+
+                button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
+                  i.fa.fa-fw.fa-files-o
+                  | &nbsp;Duplicate
+                =" | "
+                button.btn.btn-link(type="button", ng-click="$ctrl.delete()")
+                  i.fa.fa-fw.fa-trash
+                  span.sr-only Delete
+
+
+
+            .col-md-4.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
               h4.main__fleets__view__compare__heading Fleet data
               form
                 .form-group
                   label(for="input-compare-with") Compare with
-                  select.form-control(ng-options="fleet as fleet.name disable when fleet == $ctrl.fleet for fleet in $ctrl.fleets.all()", ng-model="$ctrl.compareWith", id="input-compare-with")
+                  select.form-control(
+                    ng-options="fleet as fleet.name disable when fleet == $ctrl.fleet for fleet in $ctrl.fleets.all()",
+                    ng-model="$ctrl.compareWith",
+                    ng-disabled=":: !$ctrl.compareWith"
+                    id="input-compare-with")
                     option(value="") ⎼⎼
               div(ng-if="$ctrl.compareWith")
                 .main__fleets__view__compare__section

@@ -1,0 +1,7 @@
+.modal-header
+  button.close(type="button",  data-dismiss="modal", aria-label="Close")
+    span(aria-hidden="true", ng-click="$ctrl.close()") &times;
+  h4.modal-title
+    | {{ "how_to_optimise_title" | translate }}
+.modal-body
+  | {{ "how_to_optimise_body" | translate }}

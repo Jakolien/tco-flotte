@@ -4,7 +4,7 @@ import angular from 'angular';
 
 export default class FleetsComponent {
   /*@ngInject*/
-  constructor($translate, $state, $stateParams, fleets) {
+  constructor($translate, $state, $stateParams, $uibModal, fleets) {
     // Bind method to this instance
     this.createFleet = this.createFleet.bind(this);
     this.compareStyle = this.compareStyle.bind(this);
@@ -13,8 +13,13 @@ export default class FleetsComponent {
     this.smallest = this.smallest.bind(this);
     this.delta = this.delta.bind(this);
     this.arefleetsUnequal = this.arefleetsUnequal.bind(this);
+    this.delete = this.delete.bind(this);
+    this.duplicate = this.duplicate.bind(this);
+    this.optimise = this.optimise.bind(this);
     // Dependancies available in instance
-    angular.extend(this, { $translate, fleets, $state });
+    angular.extend(this, { $translate, fleets, $state, $uibModal });
+    // Compare with another fleet
+    this.compareWith = this.anotherFleet();
     // No group yet
     if( this.fleet && this.fleet.groups.filter({ special: false }).length === 0 ) {
       // Redirect to the child state to create group
@@ -65,5 +70,27 @@ export default class FleetsComponent {
 
   delta(predicate = angular.noop) {
     return predicate( this.biggest(predicate) ) - predicate( this.smallest(predicate) );
+  }
+
+  optimise() {
+    this.$uibModal.open({
+      template: require('./optimise.pug'),
+      size: 'md',
+      controllerAs: '$ctrl',
+      controller: function($uibModalInstance) {
+        'ngInject';
+        this.close = $uibModalInstance.close;
+      }
+    });
+  }
+
+  duplicate() {
+
+  }
+
+  delete() {
+    this.fleets.delete(this.fleet);
+    // Go to the parent state
+    this.$state.go('main.fleets', { fleet: null }, { reload: 'main.fleets' });
   }
 }

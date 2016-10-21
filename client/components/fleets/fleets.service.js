@@ -209,7 +209,10 @@ export default function fleetsService(Restangular, $q) {
     push(...rest) {
       for(let fleet of rest) {
         if(fleet._id) {
-          super.push(new Fleet(fleet));
+          // Avoid adding the fleet twice
+          if(! this.get(fleet._id) ) {
+            super.push(new Fleet(fleet));
+          }
         } else {
           // We add the new fleet
           let promise = Restangular.all('fleets').post(fleet);
@@ -242,6 +245,15 @@ export default function fleetsService(Restangular, $q) {
     }
     create(vars = Fleet.defaults()) {
       return super.create(vars);
+    }
+    delete(fleet) {
+      // Remove from the local instance
+      super.delete(fleet);
+      // Remove in the database
+      return fleet.remove({ secret: fleet.secret }).then(function(){
+        // Remove in the secret store
+        this.store.remove(fleet._id);
+      }.bind(this));
     }
     isActive() {
       // Is active if we have at least one fleet with regular groups

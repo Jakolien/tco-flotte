@@ -1,6 +1,12 @@
 .main__visualization
+  .main__visualization__inactive(ng-if="!$ctrl.fleets.isActive()")
+    .container
+      p.lead You must create a fleet with a group of vehicles first.
+      p.lead
+        a.btn.btn-primary.btn-lg(ui-sref="main.fleets")
+          | Create a fleet
 
-  .main__visualization__summary(id="raw-summary")
+  .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
     .container
       h4 Summary
       div(ng-repeat="fleet in $ctrl.fleets.all()")
@@ -20,8 +26,7 @@
                     | {{ group.name }}
                 td(ng-repeat="raw in $ctrl.summaries")
                   | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
-
-  .container
+  .container(ng-if="$ctrl.fleets.isActive()")
     .row
       .col-md-3.push-md-9
         .main__visualization__sidebar(sticky="")

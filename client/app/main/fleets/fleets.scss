@@ -204,6 +204,14 @@
           }
         }
       }
+
+      &__footer {
+        background: inherit;
+        white-space: nowrap;
+        color:$card-border-color;
+        border-top:1px solid $card-border-color;
+        padding:$spacer 0;
+      }
     }
 
 
@@ -213,6 +221,22 @@
       border-left: $view-border 1px solid;
       box-shadow: 0 2px 10px 0 $view-border;
       overflow: auto;
+      position: relative;
+
+      &--disabled {
+        pointer-events: none;
+
+        &:after {
+          content:"";
+          position: absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          opacity:0.8;
+          background:url('../assets/images/worn_dots.png');
+        }
+      }
 
       &__heading {
         text-align: center;
