@@ -32,16 +32,23 @@ export default function routes($stateProvider) {
         // Get display
         return $http.get('assets/display.json').then( res=> res.data);
       },
-      all: function(fleets, Restangular, Auth) {
+      mine: function(fleets, Restangular, Auth, $q) {
         'ngInject'
+        // Init and get user session
         return Auth.getCurrentUser().then(function(user) {
-          return Restangular.all('fleets').getList().then(function(all) {
-            // Add every new fleet
-            fleets.push(...all);
-            // And return the instance
-            return fleets;
+          // Get all keys stored locally
+          return $q(resolve => fleets.store.keys(resolve)).then(function(keys) {
+            // Get all fleets for this user or the stored keys
+            let mine = Restangular.all('fleets').getList({ids: keys.join(',')});
+            // Return the promise
+            return mine.then(function(all) {
+              // Add every new fleet
+              fleets.push(...all);
+              // And return the instance
+              return fleets;
+            });
           });
-        })
+        });
       }
     }
   });

@@ -31,8 +31,9 @@ export default class VisualizationComponent {
     this.prepareDownload();
   }
   prepareDownload() {
+    let ids = this.fleets.ids.join(',');
     // Get print status
-    this.Restangular.all('fleets').one('print').get({ t: (new Date).getTime() }).then(function(print) {
+    this.Restangular.all('fleets').one('print').get({ ids: ids }).then(function(print) {
       // Modal is closed!
       if(!this.modal) return;
       // Update scope's print property

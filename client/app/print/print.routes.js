@@ -4,11 +4,10 @@ export default function($stateProvider) {
   'ngInject';
   $stateProvider
     .state('print', {
-      url: '/print?{clip:bool}&{static:bool}',
+      url: '/print?{clip:bool}&{ids:string}',
       component: 'print',
       params: {
-        clip: null,
-        static: null
+        clip: null
       },
       resolve: {
         display: function($http) {
@@ -16,12 +15,15 @@ export default function($stateProvider) {
           // Get display
           return $http.get('assets/display.json').then( res=> res.data);
         },
-        all: function(Restangular, fleets) {
+        all: function(Restangular, fleets, $stateParams) {
           'ngInject';
+          // Empty the fleet array
           fleets.empty();
-          // return fleets.length() ? fleets.initial() : fleets.create().$promise;
-          return Restangular.all('fleets').getList().then(function(all) {
-            _.each(all, fleets.create);
+          // Get the fleets before rendering
+          return Restangular.all('fleets').getList({ ids: $stateParams.ids }).then(function(all) {
+            // Add every new fleet
+            fleets.push(...all);
+            // And return the object
             return fleets;
           });
         }

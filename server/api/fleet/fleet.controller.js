@@ -133,30 +133,61 @@ function canUpdate(fleet, req) {
 function findEditableFleet(req, id) {
   // Secret key to edit the fleet
   let secret = req.query.secret || req.body.secret;
-  // Using session
-  if(req.user) {
-    return Fleet.findOne({ _id: id, owner: req.user._id }).exec();
   // Using secret
-  } else if(secret) {
+  if(secret) {
     return Fleet.findOne({ _id: id, secret: secret }).exec();
+  // Using session
+  } else if(req.user) {
+    return Fleet.findOne({ _id: id, owner: req.user._id }).exec();
   // Using nothing (can't edit)
   } else {
     return Promise.reject(new Error('Not found or Unauthorized'));
   }
 }
 
-function updateEditableFleet(req) {  
-  return Fleet.findOneAndUpdate({
-        _id: req.params.id
-      }, {
-        $set: req.body,
-        $inc: { revision: 1 }
-      }, {
-        upsert: true,
-        setDefaultsOnInsert: true,
-        runValidators: true,
-        new: true
-      }).exec()
+function updateEditableFleet(req) {
+  // Secret key to edit the fleet
+  let secret = req.query.secret || req.body.secret;
+  let id = req.params.id || req.body._id;
+  let body = req.body;
+  // Clean some properties
+  if(body.hasOwnProperty('_id')) { delete body._id; }
+  if(body.hasOwnProperty('revision')) { delete body.revision; }
+  // Add ownership to the fleet
+  if(req.user && !body.owner) { body.owner = req.user._id; }
+  // Using secret
+  if(secret) {
+    // Set owner (if any)
+    return Fleet.findOneAndUpdate({
+         _id: id,
+         secret: secret
+       }, {
+         $set: body,
+         $inc: { revision: 1 }
+       }, {
+         upsert: true,
+         setDefaultsOnInsert: true,
+         runValidators: true,
+         new: true
+       }).exec();
+  // Using session;
+  } else if(req.user) {
+    return Fleet.findOneAndUpdate({
+          _id: id,
+          owner: req.user._id
+        }, {
+          $set: body,
+          $inc: { revision: 1 }
+        }, {
+          upsert: true,
+          setDefaultsOnInsert: true,
+          runValidators: true,
+          new: true
+        }).exec()
+  // Using nothing (can't edit)
+  } else {
+    return Promise.reject(new Error('Not found or Unauthorized'));
+  }
 }
 
 function endNighmareFn(nightmare) {
@@ -207,7 +238,7 @@ export function print(req, res) {
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
-        .then(page     => (sitepage = page).open(`${url}/#/print`))
+        .then(page     => (sitepage = page).open(`${url}/#/print?ids=${req.query.ids}`))
         .then(status   => sitepage.property('paperSize', PAPER_SIZE) )
         .then(status   => sitepage.property('zoomFactor', 0.75) )
         .then(function() {
@@ -354,12 +385,7 @@ export function create(req, res) {
 
 // Upserts the given Fleet in the DB at the specified ID
 export function upsert(req, res) {
-  if(req.body._id) {
-    delete req.body._id;
-    delete req.body.revision;
-  }
-
-  return updateEditableFleet()
+  return updateEditableFleet(req)
     .then(handleFleetProcessor(res))
     .then(respondWithResult(res))
     .catch(handleError(res));

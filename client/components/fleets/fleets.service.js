@@ -138,13 +138,19 @@ export default function fleetsService(Restangular, $q) {
       }
     }
     initSecret() {
-      if(this.secret) {
+      // This fleet has a secret and no owner
+      if(this.secret && !this.owner) {
         // Save the fleet secret for later
         store.save({ key: this._id, secret: this.secret });
+      // This fleet has an owner
+      } else if (this.owner) {
+        // Remove any existing record
+        store.remove(this._id);
+      // This fleet has no secret nor an owner
       } else {
-        store.get(this._id + 2, function(record) {
-          // If we find the record
-          if(record) {
+        store.get(this._id, function(record) {
+          // The fleet has now an owner!
+          if(record && record.secret) {
             // Save the secret locally (shouldn't change)
             this.secret = record.secret;
           }
@@ -158,7 +164,7 @@ export default function fleetsService(Restangular, $q) {
       return !this.groups || !this.groups.length || !this.groups.length();
     }
     update() {
-      this.save().then(function(vars) {
+      this.save({ secret: this.secret }).then(function(vars) {
         this.initialize(vars);
       }.bind(this));
     }
@@ -236,6 +242,12 @@ export default function fleetsService(Restangular, $q) {
     }
     create(vars = Fleet.defaults()) {
       return super.create(vars);
+    }
+    get ids() {
+      return this.all().map(f => f._id);
+    }
+    get store() {
+      return store;
     }
   }
 
