@@ -81,10 +81,12 @@ angular.module('oekoFlotteApp', [
   fleetsService
 ])
 .config(routeConfig)
-.run(function($transitions, $location, Auth, $rootScope, $timeout, $state) {
+.run(function($transitions, $location, Auth, $rootScope, $timeout, $state, $window) {
   'ngInject';
   // Redirect to login if route requires auth and you're not logged in
   $transitions.onSuccess({}, function(transition) {
+
+    $window.scrollTo(0, 0);
 
     function getTitleResolvable(comp) {
       // comp is a Transition

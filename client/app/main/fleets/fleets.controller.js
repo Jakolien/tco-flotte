@@ -85,7 +85,14 @@ export default class FleetsComponent {
   }
 
   duplicate() {
-
+    this.fleets.create({
+      vars: angular.copy(this.fleet.vars),
+      groups: angular.copy(this.fleet.groups.all()),
+      name: this.fleets.uniqueName()
+    }).$promise.then(function(fleet) {
+      // Go to the parent state
+      this.$state.go('main.fleets', { fleet: fleet._id });
+    }.bind(this));
   }
 
   delete() {
