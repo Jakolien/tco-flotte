@@ -19,7 +19,6 @@ export default class FleetsGroupsComponent {
     this.getInputValues = this.getInputValues.bind(this);
     this.createGroup = this.createGroup.bind(this);
   }
-
   getInputValues(input) {
     // Fill the input value for the first time
     if(this._inputValues[input.meta.id] === undefined) {

@@ -1,5 +1,6 @@
 'use strict';
 import _ from 'lodash';
+import $ from 'jquery';
 import angular from 'angular';
 
 export default class ChartGroupedComponent {
@@ -10,6 +11,24 @@ export default class ChartGroupedComponent {
         angular.extend(this, { fleet, meta });
         // Number of times the charts have been rendered
         this.rendered = 0;
+        this.bindChart = this.bindChart.bind(this);
+        this.addUnitTo = this.addUnitTo.bind(this);
+      }
+      bindChart(chart) {
+        this.addUnitTo(chart)
+      }
+      addUnitTo(chart) {
+        // Remove y axis clipping
+        $('.c3-axis-y', chart.element).attr('clip-path', null);
+        // Find last tick element
+        let last = $('.c3-axis-y g.tick:last', chart.element);
+        // Build a unit element
+        let unit = `<text style="text-anchor: start" y="3" x="-2">${this.unit}</text>`;
+        // Add the
+        last.html( last.html() + unit);
+      }
+      get unit() {
+        return $translate.instant(this.meta.unit) || '';
       }
       get groups() {
         return this.fleet.groups.all();

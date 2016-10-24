@@ -1,5 +1,6 @@
 'use strict';
 import _ from 'lodash';
+import $ from 'jquery';
 import angular from 'angular';
 
 export default class ChartComponent {
@@ -15,13 +16,34 @@ export default class ChartComponent {
         return _.map(this.groups, 'id')
       }
     };
-    this.colors = this.colors.bind(this);
-    this.columnNames = this.columnNames.bind(this);
+    // Bind to instance
+    this.colors       = this.colors.bind(this);
+    this.columnNames  = this.columnNames.bind(this);
     this.columnValues = this.columnValues.bind(this);
-    this.tco = this.tco.bind(this);
-    this.groups = this.groups.bind(this);
+    this.tco          = this.tco.bind(this);
+    this.groups       = this.groups.bind(this);
+    this.bindChart    = this.bindChart.bind(this);
+    this.addUnitTo    = this.addUnitTo.bind(this);
     // Number of times the chart have been rendered
     this.rendered = 0;
+    // Save the max value
+    this.max = _.sum(this.groups().map( g=> 1*g.values));
+  }
+  get unit() {
+    return this.$translate.instant(this.meta.unit) || '';
+  }
+  bindChart(chart) {
+    this.addUnitTo(chart);
+  }
+  addUnitTo(chart) {
+    // Remove y axis clipping
+    $('.c3-axis-y', chart.element).attr('clip-path', null);
+    // Find last tick element
+    let last = $('.c3-axis-y g.tick:last', chart.element);
+    // Build a unit element
+    let unit = `<text style="text-anchor: start" y="3" x="-4">${this.unit}</text>`;
+    // Add the
+    last.html( last.html() + unit);
   }
   columnNames() {
     return this.fleets.all().map( g=> this.$translate.instant(g.name || g)).join(",");

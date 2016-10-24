@@ -5,7 +5,7 @@
     .card
       h4.chart-grouped__chart__heading.card-block {{ :: chart.fleet.name }}
       .chart-grouped__chart__c3
-        c3chart(bindto-id="chart-{{ :: chart.id }}", transition-duration="0")
+        c3chart(bindto-id="chart-{{ :: chart.id }}", transition-duration="0", callback-function="chart.bindChart")
           chart-column(column-id="x",
                        column-values="{{ :: chart.columnsStr }}")
           chart-column(column-id="{{ :: chart.id }}",

@@ -1,5 +1,6 @@
 'use strict';
 import _ from 'lodash';
+import $ from 'jquery';
 import angular from 'angular';
 
 export default class ChartCo2Component {
@@ -11,7 +12,10 @@ export default class ChartCo2Component {
     this.settings = _.filter(this.settings, { co2chart: true });
     // Initialize rendering count
     this.rendered = 0;
-    this.groupBy = this.groupBy.bind(this);
+    // Bind to instance
+    this.groupBy   = this.groupBy.bind(this);
+    this.bindChart = this.bindChart.bind(this);
+    this.addUnitTo = this.addUnitTo.bind(this);
 
   }
   get columns() {
@@ -41,6 +45,22 @@ export default class ChartCo2Component {
       }
       return color;
     }.bind(this);
+  }
+  get unit() {
+    return this.$translate.instant('g');
+  }
+  bindChart(chart) {
+    this.addUnitTo(chart);
+  }
+  addUnitTo(chart) {
+    // Remove y axis clipping
+    $('.c3-axis-y', chart.element).attr('clip-path', null);
+    // Find last tick element
+    let last = $('.c3-axis-y g.tick:last', chart.element);
+    // Build a unit element
+    let unit = `<text style="text-anchor: start" y="3" x="-4">${this.unit}</text>`;
+    // Add the
+    last.html( last.html() + unit);
   }
   groupBy(energytype) {
     return _.find(this.fleet.groups.all(), g=> g.vars.energy_type === energytype);
