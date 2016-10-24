@@ -16,11 +16,19 @@ nav.navbar.navbar-dark.bg-primary.navbar-full
         a.nav-link(ui-sref='signup')
           | {{ 'signup_link' | translate }}
       li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
-        a.nav-link(ui-sref='login')
+        a.btn.btn-warning(ui-sref='login')
           | {{ 'login_link' | translate }}
       li.nav-item(ng-show='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='settings')
-          span.fa.fa-cog
+          | {{ 'settings_link' | translate }}
       li.nav-item(ng-show='$ctrl.isLoggedIn()')
-        a.nav-link(ui-sref='logout')
+        a.btn.btn-outline(ui-sref='logout')
           | {{ 'logout_link' | translate }}
+      li.nav-item.dropdown(uib-dropdown="")
+        a.nav-link.dropdown-toggle(uib-dropdown-toggle="", href="#")
+          | {{ 'language_link' | translate }}
+        .dropdown-menu.dropdown-menu-right(uib-dropdown-menu="", role="menu")
+          a.dropdown-item(href="#", ng-click="$ctrl.use('en')")
+            | English
+          a.dropdown-item(href="#", ng-click="$ctrl.use('de')")
+            | Deutsch
