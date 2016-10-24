@@ -5,7 +5,7 @@ mongoose.Promise = require('bluebird');
 import mongoose, {Schema} from 'mongoose';
 
 var UserSchema = new Schema({
-  username: String,
+  email: String,
   role: {
     type: String,
     default: 'user'
@@ -27,7 +27,7 @@ UserSchema
   .virtual('profile')
   .get(function() {
     return {
-      username: this.username,
+      email: this.email,
       role: this.role
     };
   });
@@ -46,12 +46,12 @@ UserSchema
  * Validations
  */
 
-// Validate empty username
+// Validate empty email
 UserSchema
-  .path('username')
-  .validate(function(username) {
-    return username.length;
-  }, 'Username cannot be blank');
+  .path('email')
+  .validate(function(email) {
+    return email.length;
+  }, 'Email cannot be blank');
 
 // Validate empty password
 UserSchema
@@ -60,11 +60,11 @@ UserSchema
     return password.length;
   }, 'Password cannot be blank');
 
-// Validate username is not taken
+// Validate email is not taken
 UserSchema
-  .path('username')
+  .path('email')
   .validate(function(value, respond) {
-    return this.constructor.findOne({ username: value }).exec()
+    return this.constructor.findOne({ email: value }).exec()
       .then(user => {
         if(user) {
           if(this.id === user.id) {
@@ -77,7 +77,7 @@ UserSchema
       .catch(function(err) {
         throw err;
       });
-  }, 'The specified username is already in use.');
+  }, 'The specified email is already in use.');
 
 var validatePresenceOf = function(value) {
   return value && value.length;

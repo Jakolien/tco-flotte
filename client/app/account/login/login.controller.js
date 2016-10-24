@@ -6,6 +6,7 @@ export default class LoginController {
   constructor(Auth, $state) {
     this.Auth = Auth;
     this.$state = $state;
+    this.errors = {};
   }
 
   login(form) {
@@ -13,7 +14,7 @@ export default class LoginController {
 
     if(form.$valid) {
       this.Auth.login({
-        username: this.user.username,
+        email: this.user.email,
         password: this.user.password
       })
         .then(() => {

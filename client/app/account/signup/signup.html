@@ -7,17 +7,17 @@
     <div class="card-text">
       <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
 
-        <div class="form-group" ng-class="{ 'has-success': form.username.$valid && vm.submitted,
-                                            'has-error': form.username.$invalid && vm.submitted }">
-          <label>Username</label>
+        <div class="form-group" ng-class="{ 'has-success': form.email.$valid && vm.submitted,
+                                            'has-error': form.email.$invalid && vm.submitted }">
+          <label>Email</label>
 
-          <input type="text" name="username" class="form-control" ng-model="vm.user.username"
+          <input type="email" name="email" class="form-control" ng-model="vm.user.email"
                  required/>
-          <p class="help-block text-danger" ng-show="form.username.$error.required && vm.submitted">
-            A username is required
+          <p class="help-block text-danger" ng-show="form.email.$error.required && vm.submitted">
+            A email is required
           </p>
-          <p class="help-block text-danger" ng-show="form.username.$error.mongoose">
-            {{ vm.errors.username }}
+          <p class="help-block text-danger" ng-show="form.email.$error.mongoose">
+            {{ vm.errors.email }}
           </p>
         </div>
 
