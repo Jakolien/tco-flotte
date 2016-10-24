@@ -13,7 +13,7 @@
       chart-bar(ratio="0.8")
       selection(enabled="false")
       chart-group(group-values="{{ :: $ctrl.chart.groupsIds().join(',') }}")
-      chart-legend(show-legend="true")
+      chart-legend(show-legend="{{ :: $ctrl.hasGroups() }}")
       chart-colors(color-function="$ctrl.colors($ctrl.chart)")
       chart-tooltip(show-tooltip="false")
       chart-grid(show-y="true")

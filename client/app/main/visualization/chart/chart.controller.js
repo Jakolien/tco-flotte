@@ -4,9 +4,9 @@ import angular from 'angular';
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig) {
+  constructor(fleets, appConfig, $translate) {
     // Dependancies available in instance
-    angular.extend(this, { fleets, appConfig });
+    angular.extend(this, { fleets, appConfig, $translate });
     // Create chart object
     this.chart = {
       meta: this.meta,
@@ -24,7 +24,7 @@ export default class ChartComponent {
     this.rendered = 0;
   }
   columnNames() {
-    return _.map(this.fleets.all() , k=> k.name || k).join(",");
+    return this.fleets.all().map( g=> this.$translate.instant(g.name || g)).join(",");
   }
   colors() {
     return function(color, d) {
@@ -48,24 +48,28 @@ export default class ChartComponent {
   tco() {
     return _.map(this.fleets.all(), 'TCO');
   }
+  hasGroups() {
+    let value = this.tco()[0][this.meta.name];
+    return angular.isObject(value);
+  }
   groups() {
     // Get TCO from the first fleets
     let heading = this.tco()[0];
     let value = heading[this.meta.name];
     // Is the value an object?
-    if(value === undefined) {
-      return []
-    } else if( angular.isObject(value) ) {
+    if( this.hasGroups() ) {
       // Returns its keys
       return _.map( _.keys(value), function(name, id) {
         return {
           name,
           id,
-          label: name,
+          label: this.$translate.instant(name),
           color: '#666',
           values: this.columnValues(name)
         };
       }.bind(this));
+    } else if(value === undefined) {
+      return [];
     } else {
       return [
         {
