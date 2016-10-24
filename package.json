@@ -16,6 +16,7 @@
     "angular-sanitize": "~1.5.5",
     "angular-scroll": "^1.0.0",
     "angular-translate": "^2.12.1",
+    "angular-translate-interpolation-messageformat": "^2.12.1",
     "angular-translate-loader-static-files": "^2.12.1",
     "angular-translate-storage-local": "^2.12.1",
     "angular-ui-bootstrap": "^2.0.1",

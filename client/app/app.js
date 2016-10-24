@@ -10,15 +10,18 @@ import uiRouter      from 'angular-ui-router';
 import ngSlider      from 'angularjs-slider';
 import stickyfill    from 'Stickyfill/dist/stickyfill';
 import duScroll      from 'angular-scroll';
-import 'angular-bootstrap-colorpicker';
-import 'restangular';
-import 'angular-bootstrap-confirm';
-import 'angular-dynamic-locale';
 // Angular translate deps
 import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
 import ngTranslateCookie from 'angular-translate-storage-cookie';
 import ngTranslateLocal  from 'angular-translate-storage-local';
+// Angular modules
+import 'angular-bootstrap-colorpicker';
+import 'restangular';
+import 'angular-bootstrap-confirm';
+import 'angular-dynamic-locale';
+import 'messageformat';
+import 'angular-translate-interpolation-messageformat';
 // C3 angular
 import c3 from 'c3';
 import d3 from 'd3';

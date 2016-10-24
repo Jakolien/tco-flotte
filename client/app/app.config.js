@@ -37,4 +37,5 @@ export function routeConfig($urlRouterProvider, $locationProvider, $uibTooltipPr
     .fallbackLanguage('en')
     .useLocalStorage()
     .useSanitizeValueStrategy(null)
+    .useMessageFormatInterpolation()
 }
