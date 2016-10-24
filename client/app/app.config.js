@@ -1,7 +1,9 @@
 'use strict';
 
-export function routeConfig($urlRouterProvider, $locationProvider, $uibTooltipProvider, RestangularProvider, $translateProvider) {
+export function routeConfig($urlRouterProvider, $locationProvider, $uibTooltipProvider, RestangularProvider, $translateProvider, tmhDynamicLocaleProvider, appConfig) {
   'ngInject';
+  // Load current locale
+  tmhDynamicLocaleProvider.localeLocationPattern(appConfig.localeLocation);
   // Configure ui-router
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(false);

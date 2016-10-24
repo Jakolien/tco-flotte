@@ -16,16 +16,19 @@ export default function($stateProvider) {
           'ngInject'
           return (fleet || {}).name;
         },
-        fleet: function($stateParams, $state, fleets) {
+        fleet: function($stateParams, $state, fleets, $q) {
           'ngInject'
+          let deferred = $q.defer();
           if($stateParams.fleet) {
-            return fleets.find($stateParams.fleet);
+            deferred.resolve(fleets.find($stateParams.fleet));
           } else {
             // Redirect to the fleet
-            return fleets.initial().$promise.then(function(fleet) {
+            fleets.initial().$promise.then(function(fleet) {
               $state.go('main.fleets', { fleet: fleet._id });
+              deferred.reject('Redirect to a given fleet.');
             });
           }
+          return deferred.promise;
         }
       }
     });

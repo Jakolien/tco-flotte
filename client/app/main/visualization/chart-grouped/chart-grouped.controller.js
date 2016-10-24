@@ -4,7 +4,7 @@ import angular from 'angular';
 
 export default class ChartGroupedComponent {
   /*@ngInject*/
-  constructor(fleets, $translate) {
+  constructor(fleets, $translate, $filter) {
     class FleetChart {
       constructor(fleet, meta) {
         angular.extend(this, { fleet, meta });
@@ -46,5 +46,7 @@ export default class ChartGroupedComponent {
     }
     // Created a FleetChart instance for each fleets
     this.fleetCharts = fleets.all().map( f=> new FleetChart(f, this.meta) );
+    // Filters avalaible within scope
+    angular.extend(this, { $filter });
   }
 }

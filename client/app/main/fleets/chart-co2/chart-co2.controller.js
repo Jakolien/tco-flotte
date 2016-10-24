@@ -4,9 +4,9 @@ import angular from 'angular';
 
 export default class ChartCo2Component {
   /*@ngInject*/
-  constructor(fleets, $translate) {
+  constructor(fleets, $translate, $filter) {
     // Dependancies available in instance
-    angular.extend(this, { fleets, $translate });
+    angular.extend(this, { fleets, $translate, $filter });
     // Filter settings to only keep the one visualized in this chart
     this.settings = _.filter(this.settings, { co2chart: true });
     // Initialize rendering count

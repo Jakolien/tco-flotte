@@ -13,6 +13,7 @@ import duScroll      from 'angular-scroll';
 import 'angular-bootstrap-colorpicker';
 import 'restangular';
 import 'angular-bootstrap-confirm';
+import 'angular-dynamic-locale';
 // Angular translate deps
 import ngTranslate       from 'angular-translate';
 import ngTranslateFiles  from 'angular-translate-loader-static-files';
@@ -62,6 +63,7 @@ angular.module('oekoFlotteApp', [
   'colorpicker.module',
   'gridshore.c3js.chart',
   'mwl.confirm',
+  'tmh.dynamicLocale',
   auth,
   account,
   navbar,
@@ -81,7 +83,7 @@ angular.module('oekoFlotteApp', [
   fleetsService
 ])
 .config(routeConfig)
-.run(function($transitions, $location, Auth, $rootScope, $timeout, $state, $window) {
+.run(function($transitions, $location, Auth, $rootScope, $timeout, $state, $window, tmhDynamicLocale, $translate) {
   'ngInject';
   // Redirect to login if route requires auth and you're not logged in
   $transitions.onSuccess({}, function(transition) {
@@ -111,6 +113,11 @@ angular.module('oekoFlotteApp', [
     $rootScope.$title = getTitleResolvable(transition) ? transition.getResolveValue('$title') : undefined;
     // Build breadcrumbs
     $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
+    // Change locale when chaning language
+    tmhDynamicLocale.set($translate.use());
+    $rootScope.$on('$translateChangeSuccess', function(ev, data){
+      tmhDynamicLocale.set(data.language);
+    });
 
     Auth.isLoggedIn(function(loggedIn) {
       if(transition.targetState().authenticate && !loggedIn) {

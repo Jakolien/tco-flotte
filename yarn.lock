@@ -127,6 +127,10 @@ angular-bootstrap-confirm:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular-cookies/-/angular-cookies-1.5.8.tgz#08f39fa2e17b6e3a916cd3ba7352f9d702e8a9fe"
 
+angular-dynamic-locale:
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/angular-dynamic-locale/-/angular-dynamic-locale-0.1.32.tgz#d07fea75281f25ba94a5be5b46df2a02c5e35836"
+
 angular-minicolors@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/angular-minicolors/-/angular-minicolors-0.0.9.tgz#c9a51983254cad1b26882fc866d03e99b39bfc94"

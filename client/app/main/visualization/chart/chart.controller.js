@@ -4,9 +4,9 @@ import angular from 'angular';
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig, $translate) {
+  constructor(fleets, appConfig, $translate, $filter) {
     // Dependancies available in instance
-    angular.extend(this, { fleets, appConfig, $translate });
+    angular.extend(this, { fleets, appConfig, $translate, $filter });
     // Create chart object
     this.chart = {
       meta: this.meta,
