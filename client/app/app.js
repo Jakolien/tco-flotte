@@ -1,27 +1,12 @@
 'use strict';
-
 import angular       from 'angular';
 import ngAnimate     from 'angular-animate';
 import ngCookies     from 'angular-cookies';
 import ngResource    from 'angular-resource';
 import ngSanitize    from 'angular-sanitize';
-import uiBootstrap   from 'angular-ui-bootstrap';
-import uiRouter      from 'angular-ui-router';
 import ngSlider      from 'angularjs-slider';
 import stickyfill    from 'Stickyfill/dist/stickyfill';
 import duScroll      from 'angular-scroll';
-// Angular translate deps
-import ngTranslate       from 'angular-translate';
-import ngTranslateFiles  from 'angular-translate-loader-static-files';
-import ngTranslateCookie from 'angular-translate-storage-cookie';
-import ngTranslateLocal  from 'angular-translate-storage-local';
-// Angular modules
-import 'angular-bootstrap-colorpicker';
-import 'restangular';
-import 'angular-bootstrap-confirm';
-import 'angular-dynamic-locale';
-import 'messageformat';
-import 'angular-translate-interpolation-messageformat';
 // C3 angular
 import c3 from 'c3';
 import d3 from 'd3';
@@ -29,8 +14,6 @@ import 'c3-angular';
 // Export for others scripts to use
 [window.c3, window.d3] = [c3, d3];
 
-import { routeConfig } from './app.config';
-import auth            from '../components/auth/auth.module';
 import dynamicInput    from '../components/dynamic-input/dynamic-input.module';
 import fleetsService   from '../components/fleets/fleets.module';
 import util            from '../components/util/util.module';
@@ -48,26 +31,22 @@ import chartGrouped    from './main/visualization/chart-grouped/chart-grouped.co
 import print           from './print/print.component';
 import account         from './account';
 import constants       from './app.constants';
+import translate       from './app.translate';
+import route           from './app.route';
+import config          from './app.config';
 
 import './app.scss';
-
 
 angular.module('oekoFlotteApp', [
   ngCookies,
   ngAnimate,
   ngResource,
   ngSanitize,
-  ngTranslate,
   ngSlider,
-  uiBootstrap,
-  uiRouter,
   duScroll,
-  'restangular',
   'colorpicker.module',
   'gridshore.c3js.chart',
   'mwl.confirm',
-  'tmh.dynamicLocale',
-  auth,
   account,
   navbar,
   footer,
@@ -81,60 +60,15 @@ angular.module('oekoFlotteApp', [
   chart,
   chartGrouped,
   print,
-  util,
   dynamicInput,
-  fleetsService
-])
-.config(routeConfig)
-.run(function($transitions, $location, Auth, $rootScope, $timeout, $state, $window, tmhDynamicLocale, $translate) {
-  'ngInject';
-  // Redirect to login if route requires auth and you're not logged in
-  $transitions.onSuccess({}, function(transition) {
+  fleetsService,
+  util,
+  route,
+  translate,
+  constants,
+  config
+]);
 
-    $window.scrollTo(0, 0);
-
-    function getTitleResolvable(comp) {
-      // comp is a Transition
-      if(angular.isFunction(comp.getResolveTokens)) {
-        return comp.getResolveTokens().find( r=> r === '$title');
-      // comp is a PathNode
-      } else {
-        return comp.resolvables.find( r=> r.token === '$title');
-      }
-    }
-
-    // Resolve breadcrumbs.
-    function bc(pathNode) {
-      let titleResolvable = getTitleResolvable(pathNode);
-      return !titleResolvable ? null : {
-        title: titleResolvable.data,
-        state: pathNode.state,
-        href: $state.href(pathNode.state)
-      };
-    }
-    // Resolve title.
-    $rootScope.$title = getTitleResolvable(transition) ? transition.getResolveValue('$title') : undefined;
-    // Build breadcrumbs
-    $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
-    // Change locale when chaning language
-    tmhDynamicLocale.set($translate.use());
-    $rootScope.$on('$translateChangeSuccess', function(ev, data){
-      tmhDynamicLocale.set(data.language);
-    });
-
-    Auth.isLoggedIn(function(loggedIn) {
-      if(transition.targetState().authenticate && !loggedIn) {
-        $location.path('/login');
-      }
-    });
-	});
-
-	function getTitleValue(title) {
-		return angular.isFunction(title) ? title() : title;
-	}
+angular.element(document).ready(() => {
+  angular.bootstrap(document, ['oekoFlotteApp'], { strictDi: true });
 });
-
-angular.element(document)
-  .ready(() => {
-    angular.bootstrap(document, ['oekoFlotteApp'], { strictDi: true });
-  });
