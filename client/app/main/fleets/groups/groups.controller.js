@@ -5,6 +5,11 @@ import angular from 'angular';
 export default class FleetsGroupsComponent {
   /*@ngInject*/
   constructor(DynamicInput, $translate, $state) {
+    // Dependancies available in instance
+    angular.extend(this, { $translate, $state });
+    // Bind methods with this instance
+    this.getInputValues = this.getInputValues.bind(this);
+    this.createGroup = this.createGroup.bind(this);
     // Only allow preliminary inputs
     this.inputs = _.filter(this.settings, { preliminary: true, special: false });
     // Instanciate a DynamicInput using the settings
@@ -13,11 +18,6 @@ export default class FleetsGroupsComponent {
     this.group = {};
     // Cached input's values
     this._inputValues = {};
-    // Dependancies available in instance
-    angular.extend(this, { $translate, $state });
-    // Bind methods with this instance
-    this.getInputValues = this.getInputValues.bind(this);
-    this.createGroup = this.createGroup.bind(this);
   }
   getInputValues(input) {
     // Fill the input value for the first time
@@ -33,7 +33,7 @@ export default class FleetsGroupsComponent {
     this.fleet.groups.create({
       vars: angular.copy(this.group),
       name: this.fleet.groups.nextName()
-    });    
+    });
     // Go to the parent state
     this.$state.go(nextState, {}, { reload: nextState });
   }

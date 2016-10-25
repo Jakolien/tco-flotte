@@ -11,6 +11,7 @@
     "angular-bootstrap-confirm": "^2.4.1",
     "angular-cookies": "~1.5.5",
     "angular-dynamic-locale": "^0.1.32",
+    "angular-growl-v2": "^0.7.5",
     "angular-minicolors": "0.0.9",
     "angular-resource": "~1.5.5",
     "angular-sanitize": "~1.5.5",
