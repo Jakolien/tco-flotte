@@ -16,6 +16,7 @@
     "charging_infrastructure": "Charging Infrastructure",
     "charging_option": "Charging Option",
     "charging_option_cost": "Charging Option Cost",
+    "chart_leasing_alert": "*Includes the leasing rate and included services.",
     "CO2": "CO² emissions",
     "CO2_by_car_type": "CO² by car type",
     "CO2_by_energy_type": "CO² by energy type",
