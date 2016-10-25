@@ -29,12 +29,12 @@ export default class FleetsGroupsComponent {
     return _.extend(this._inputValues[input.meta.id]);
   }
 
-  createGroup() {
+  createGroup(nextState) {
     this.fleet.groups.create({
       vars: angular.copy(this.group),
       name: this.fleet.groups.nextName()
-    });
+    });    
     // Go to the parent state
-    this.$state.go('^');
+    this.$state.go(nextState, {}, { reload: nextState });
   }
 }

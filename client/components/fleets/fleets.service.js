@@ -126,11 +126,11 @@ export default function fleetsService(Restangular, $q) {
       ++fleetNameCounter;
       // Bind methods
       this.initialize = this.initialize.bind(this);
-      this.update = this.update.bind(this);
-      this.update = this.update.bind(this);
-      this.rename = this.rename.bind(this);
-      this.clean = this.clean.bind(this);
-      this.empty = this.empty.bind(this);
+      this.update     = this.update.bind(this);
+      this.rename     = this.rename.bind(this);
+      this.clean      = this.clean.bind(this);
+      this.empty      = this.empty.bind(this);
+      this.moreGroups = this.moreGroups.bind(this);
       // Initialize vars
       this.initialize(vars);
       // We may be awaiting a promise to be resolved
@@ -198,6 +198,12 @@ export default function fleetsService(Restangular, $q) {
       });
       // Return a new restangularized element
       return Restangular.restangularizeElement(null, cleaned);
+    }
+    moreGroups() {
+      return this.groupsLeft() > 0;
+    }
+    groupsLeft() {
+      return 5 - this.groups.filter({ special: false }).length;
     }
     static uniqueName() {
       return `Fleet ${fleetNameCounter}`;

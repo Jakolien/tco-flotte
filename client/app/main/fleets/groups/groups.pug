@@ -7,7 +7,7 @@
       |  {{ 'create_group_help' | translate }}
     .col-md-7.col-lg-6.pull-md-5
       .card
-        form.card-block(ng-submit="$ctrl.createGroup()", name="createForm")
+        form.card-block(name="createForm")
           fieldset.form-group(ng-repeat='input in $ctrl.inputs')
             div(ng-switch=":: input.getType()")
               .row(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
@@ -39,4 +39,18 @@
                   legend.main__fleets__groups__input__title {{ input.meta.label | translate  }}
                   div(ng-init="$ctrl.group[input.meta.name] = $ctrl.getInputValues(input).value")
                     rzslider(rz-slider-model="$ctrl.group[input.meta.name]", rz-slider-options="$ctrl.getInputValues(input)")
-          button.btn.btn-primary(type="submit", ng-disabled="createForm.$invalid") Create
+
+          button.btn.btn-primary(type="submit",
+                                 ng-disabled="createForm.$invalid",
+                                 ng-click="$ctrl.createGroup('main.fleets.groups')",
+                                 ng-show="$ctrl.fleet.groupsLeft() > 1")
+            i.fa.fa-plus.fa-fw
+            | &nbsp;
+            span(ng-bind-html="'group_create_and_add' | translate")
+          =" "
+          button.btn.btn-secondary(type="submit",
+                                   ng-disabled="createForm.$invalid",
+                                   ng-click="$ctrl.createGroup('main.visualization')")
+            i.fa.fa-bar-chart.fa-fw
+            | &nbsp;
+            span(ng-bind-html="'group_create_and_visualize' | translate")
