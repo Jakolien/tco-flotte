@@ -142,6 +142,10 @@ angular-growl-v2:
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/angular-growl-v2/-/angular-growl-v2-0.7.5.tgz#57876d511622801948c02e3a95dd96337af6470d"
 
+angular-loading-bar:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/angular-loading-bar/-/angular-loading-bar-0.9.0.tgz#37ef52c25f102c216e7b3cdfd2fc5a5df9628e45"
+
 angular-minicolors@0.0.9:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/angular-minicolors/-/angular-minicolors-0.0.9.tgz#c9a51983254cad1b26882fc866d03e99b39bfc94"

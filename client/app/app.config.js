@@ -5,9 +5,10 @@ import 'angular-bootstrap-colorpicker';
 import 'restangular';
 import 'angular-bootstrap-confirm';
 import 'angular-growl-v2';
+import 'angular-loading-bar';
 
-export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-growl', 'restangular'])
-  .config(function($uibTooltipProvider, RestangularProvider, growlProvider) {
+export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-growl', 'restangular', 'angular-loading-bar'])
+  .config(function($uibTooltipProvider, RestangularProvider, growlProvider, cfpLoadingBarProvider) {
     'ngInject';
     // Configure tooltips and popover
     $uibTooltipProvider.setTriggers({ outsideClick: 'outsideClick' });
@@ -20,5 +21,7 @@ export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-gro
     growlProvider.globalTimeToLive(5000);
     growlProvider.globalPosition('bottom-right');
     growlProvider.globalDisableCloseButton(true);
+    // Progress bar
+    cfpLoadingBarProvider.includeSpinner = false;
   })
   .name;

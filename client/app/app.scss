@@ -41,6 +41,7 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 @import '~angular-bootstrap-colorpicker/css/colorpicker.css';
 @import '~c3/c3.css';
 @import '~angular-growl-v2/build/angular-growl.css';
+@import '~angular-loading-bar/build/loading-bar.min.css';
 
 /**
  * App-wide Styles
@@ -73,6 +74,18 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 
 .card {
   @include box-shadow(0 2px 10px 0 rgba($card-border-color, .5));
+}
+
+html body #loading-bar{
+ .peg {
+   display: none;
+ }
+ .bar {
+   height: 3px;
+   z-index: $zindex-navbar-fixed + 1000;
+   background: transparent;
+   @include gradient-x($brand-secondary, rgba($brand-secondary, 0));
+ }
 }
 
 // Component styles are injected through gulp
