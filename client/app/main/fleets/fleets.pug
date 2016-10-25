@@ -17,6 +17,8 @@
         .container-fluid
           .row
             .col-md-8.main__fleets__view__groups
+              form.main__fleets__view__groups__fleet-name(ng-submit="$ctrl.fleet.rename()")
+                input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()")
               h5.main__fleets__view__groups__heading
                 | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row

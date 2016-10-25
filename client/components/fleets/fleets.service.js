@@ -13,6 +13,7 @@ export default function fleetsService(Restangular, $q) {
   // Symbol keys for private attributes
   const _array = Symbol('_fleet');
   const _fleet = Symbol('_fleet');
+  const _vars  = Symbol('_vars');
   const KEYS_BLACKLIST = ['fleet_presets', 'energy_known_prices',
                           'insights', 'TCO', 'energy_prices_evolution'];
   class LikeArray {
@@ -104,6 +105,9 @@ export default function fleetsService(Restangular, $q) {
 
   class Fleet {
     initialize(vars = {}) {
+      // Save initial values
+      this[_vars] = vars;
+      // Extend the current object
       angular.extend(this, vars);
       // Create nested groups (if any)
       if( angular.isArray(this.groups) ) {
@@ -124,6 +128,7 @@ export default function fleetsService(Restangular, $q) {
       this.initialize = this.initialize.bind(this);
       this.update = this.update.bind(this);
       this.update = this.update.bind(this);
+      this.rename = this.rename.bind(this);
       this.clean = this.clean.bind(this);
       this.empty = this.empty.bind(this);
       this.api = this.api.bind(this);
@@ -167,6 +172,16 @@ export default function fleetsService(Restangular, $q) {
       this.save({ secret: this.secret }).then(function(vars) {
         this.initialize(vars);
       }.bind(this));
+    }
+    rename() {
+      if(this[_vars].name !== this.name && this.name !== '') {
+        // Send the data !
+        this[_vars].name = this.name;
+        this.update();
+      } else {
+        // Restore the name in case we set an empty value
+        this.name = this[_vars].name;
+      }
     }
     clean() {
       // Clean the fleet
