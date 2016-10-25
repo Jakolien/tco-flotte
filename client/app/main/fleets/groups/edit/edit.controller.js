@@ -49,7 +49,14 @@ export default class EditComponent {
     // Dependancies injected in the instance
     angular.extend(this, { $state, $translate, growl });
   }
-
+  get headingBg() {
+    return this.temporaryGroupColor || this.group.vars.group_color;
+  }
+  get temporaryGroupColor() {
+    if(this.contextes[0]._values) {      
+      return this.contextes[0]._values.group_color;
+    }
+  }
   getInputValues(input) {
     // Fill the input value for the first time
     if(this._inputValues[input.meta.id] === undefined) {

@@ -110,6 +110,7 @@
                       | {{ $ctrl.mileage(fleet) | number }} {{ 'km_per_year' | translate }}
                   .main__fleets__view__compare__section__unequal.text-warning(ng-show="$ctrl.arefleetsUnequal($ctrl.mileage)")
                     i.fa.fa-warning
+                    =" "
                     span(ng-bind-html="'compare_fleet' | translate:{ biggest: $ctrl.biggest($ctrl.mileage).name, smallest: $ctrl.smallest($ctrl.mileage).name, delta: ($ctrl.delta($ctrl.mileage) | number) }")
 
                 .main__fleets__view__compare__section

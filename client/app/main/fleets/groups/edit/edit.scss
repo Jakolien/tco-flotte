@@ -26,23 +26,43 @@
     font-size:0.9em;
 
     &__heading {
+      position: relative;
       cursor: pointer;
       z-index:100;
       padding:$spacer;
       margin:0;
-      color:white;
+      color: $body-color;
       font-weight:300;
-      @include gradient-directional($brand-secondary, lighten($brand-secondary, 10), 90deg);
 
       i.fa {
+        color: inherit;
         margin-right:$spacer;
         padding-right:$spacer;
-        border-right:1px solid lighten($brand-secondary, 10);
+        border-right:1px solid rgba($body-color, .7);
+      }
+
+      &__color {
+        position: absolute;
+        bottom:0;
+        left:0;
+        right:0;
+        top:0;
+        z-index: -1;
+
+        &:after {
+          content:"";
+          position: absolute;
+          top:0;
+          left:0;
+          right:0;
+          bottom:1px;
+          @include gradient-y(rgba(white, 0.8), rgba(white, 0.9));
+        }
       }
     }
 
-    &:not(:last-child) &__heading {
-      border-bottom:1px solid lighten($brand-secondary, 10);
+    &:last-child &__heading__color:after {
+      bottom:0;
     }
 
   }

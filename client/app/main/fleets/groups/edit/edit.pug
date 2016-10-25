@@ -32,9 +32,10 @@
       .card
         .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes', ng-show="context.inputs.length")
           h5.main__fleets__groups__edit__context__heading(sticky='', ng-click="context.open = !context.open")
+            .main__fleets__groups__edit__context__heading__color(ng-style="{ background: $ctrl.headingBg }")
             i.fa.fa-caret-down(ng-show="context.open")
             i.fa.fa-caret-up(ng-hide="context.open")
-            | &nbsp;{{ context.title }}
+            span &nbsp;{{ context.title }}
           .card-block(ng-show="context.open")
               fieldset.form-group(ng-repeat='input in context.inputs', ng-show='input.isVisible(context._values || context.values)')
                 label.row
