@@ -3,6 +3,12 @@ import _ from 'lodash';
 import $ from 'jquery';
 import angular from 'angular';
 
+const LEASING_INCLUDES = [
+  'leasing_includes_insurance',
+  'leasing_includes_tax',
+  'leasing_includes_service'
+];
+
 export default class ChartComponent {
   /*@ngInject*/
   constructor(fleets, appConfig, $translate, $filter) {
@@ -32,6 +38,26 @@ export default class ChartComponent {
   get unit() {
     return this.$translate.instant(this.meta.unit) || '';
   }
+  get leasingAlert() {
+    return this.meta.leasingconditions && this.someLeasingIncluded;
+  }
+  get someLeasingIncluded() {
+    return _.some(this.fleets.all(), this.leasingIncluded);
+  }
+  leasingIncluded(fleet) {
+    // Enter groups attribute
+    return _.chain(fleet.groups.all())
+      // Enter vars attribute
+      .map('vars')
+      // Pick leasing values as an array
+      .map(vars => _.chain(vars).pick(LEASING_INCLUDES).values().value() )
+      // Does any value in this array is true?
+      .map(includes => _.some(includes))
+      // Does any fleet has a leasing option to true?
+      .some()
+      // Return the final boolean
+      .value();
+  }
   bindChart(chart) {
     this.addUnitTo(chart);
   }
@@ -46,7 +72,7 @@ export default class ChartComponent {
     last.html( last.html() + unit);
   }
   columnNames() {
-    return this.fleets.all().map( g=> this.$translate.instant(g.name || g)).join(",");
+    return this.fleets.all().map(g=> g.name).join(",");
   }
   colors() {
     return function(color, d) {
@@ -71,8 +97,7 @@ export default class ChartComponent {
     return _.map(this.fleets.all(), 'TCO');
   }
   hasGroups() {
-    let value = this.tco()[0][this.meta.name];
-    return angular.isObject(value);
+    return this.meta.type === 'stacked_bar';
   }
   groups() {
     // Get TCO from the first fleets
@@ -82,10 +107,13 @@ export default class ChartComponent {
     if( this.hasGroups() ) {
       // Returns its keys
       return _.map( _.keys(value), function(name, id) {
+        // Add a asterix symbol to "net_acquisition_cost" if some fleets have
+        // leasing options included.
+        let suffix = name === 'net_acquisition_cost' && this.someLeasingIncluded ? '*' : '';
         return {
           name,
           id,
-          label: this.$translate.instant(name),
+          label: this.$translate.instant(name) + suffix,
           color: '#666',
           values: this.columnValues(name)
         };

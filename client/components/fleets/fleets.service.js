@@ -174,7 +174,7 @@ export default function fleetsService(Restangular, $q) {
     }
     update() {
       this.$promise = this.save({ secret: this.secret }).then(function(vars) {
-        this.initialize(vars);
+        return this.initialize(vars);
       }.bind(this));
       // Return the instance
       return this;
