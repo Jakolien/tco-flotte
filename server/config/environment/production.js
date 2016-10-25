@@ -5,7 +5,7 @@
 // =================================
 module.exports = {
   // Seed database on startup
-  seedDB: true,
+  seedDB: false,
   // Server IP
   ip: process.env.OPENSHIFT_NODEJS_IP
     || process.env.ip

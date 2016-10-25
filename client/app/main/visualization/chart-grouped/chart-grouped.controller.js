@@ -31,7 +31,9 @@ export default class ChartGroupedComponent {
         return $translate.instant(this.meta.unit) || '';
       }
       get groups() {
-        return this.fleet.groups.all();
+        return _.filter(this.fleet.groups.all(), (group) =>{
+          return this.fleet.TCO[this.meta.name][group.name] > 0;
+        });
       }
       get columns() {
         return this.groups.map( (g)=>{
