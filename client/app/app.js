@@ -11,7 +11,6 @@ import duScroll      from 'angular-scroll';
 import c3 from 'c3';
 import d3 from 'd3';
 import 'c3-angular';
-import 'angular-growl-v2';
 // Export for others scripts to use
 [window.c3, window.d3] = [c3, d3];
 
@@ -48,7 +47,6 @@ angular.module('oekoFlotteApp', [
   'colorpicker.module',
   'gridshore.c3js.chart',
   'mwl.confirm',
-  'angular-growl',
   account,
   navbar,
   footer,

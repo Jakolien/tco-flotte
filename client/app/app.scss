@@ -29,6 +29,10 @@ $enable-gradients: false;
 $enable-transitions: true;
 $enable-flex: true;
 
+$alert-success-bg:     $brand-success;
+$alert-success-text:   lighten($brand-success, 50);
+$alert-success-border: white;
+
 $fa-font-path: '/assets/fonts/font-awesome/';
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -36,6 +40,7 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 @import '~angularjs-slider/dist/rzslider';
 @import '~angular-bootstrap-colorpicker/css/colorpicker.css';
 @import '~c3/c3.css';
+@import '~angular-growl-v2/build/angular-growl.css';
 
 /**
  * App-wide Styles

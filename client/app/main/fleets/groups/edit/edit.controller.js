@@ -3,7 +3,7 @@ import angular from 'angular';
 
 export default class EditComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $state, $translate) {
+  constructor(DynamicInput, $state, $translate, growl) {
     // Settings must match with the group
     this.settings = _.filter(this.settings, s => s.special === null || s.special === this.group.special);
     // Instanciate a DynamicInput using the settings
@@ -47,7 +47,7 @@ export default class EditComponent {
     this.delete = this.delete.bind(this);
     this.save = this.save.bind(this);
     // Dependancies injected in the instance
-    angular.extend(this, { $state });
+    angular.extend(this, { $state, $translate, growl });
   }
 
   getInputValues(input) {
@@ -89,7 +89,9 @@ export default class EditComponent {
       angular.extend(context.destination, _.pick(context._values, changed));
     }
     // Save the fleet!
-    this.fleet.update();
+    // Notify user
+    let successMsg = this.$translate.instant('group_saved');
+    this.fleet.update().$promise.then( ()=> this.growl.success(successMsg));
     // And redirect to the fleet
     this.$state.go('main.fleets');
   }

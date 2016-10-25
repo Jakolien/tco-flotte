@@ -89,6 +89,8 @@ export default function fleetsService(Restangular, $q) {
           let fleet = this[_fleet];
           // We add the new group
           let promise = fleet.api.post('groups', group, { secret: fleet.secret });
+          // Backward reference
+          promise.$object.$promise = promise
           // Transform the result of the promise
           promise.then(function(f) {
             // We update the fleet
@@ -174,6 +176,8 @@ export default function fleetsService(Restangular, $q) {
       this.$promise = this.save({ secret: this.secret }).then(function(vars) {
         this.initialize(vars);
       }.bind(this));
+      // Return the instance
+      return this;
     }
     rename() {
       if(this[_vars].name !== this.name && this.name !== '') {

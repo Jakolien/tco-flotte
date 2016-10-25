@@ -4,9 +4,9 @@ import angular from 'angular';
 
 export default class FleetsGroupsComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $translate, $state) {
+  constructor(DynamicInput, $translate, $state, growl) {
     // Dependancies available in instance
-    angular.extend(this, { $translate, $state });
+    angular.extend(this, { $translate, $state, growl});
     // Bind methods with this instance
     this.getInputValues = this.getInputValues.bind(this);
     this.createGroup = this.createGroup.bind(this);
@@ -30,10 +30,13 @@ export default class FleetsGroupsComponent {
   }
 
   createGroup(nextState) {
-    this.fleet.groups.create({
+    let group = this.fleet.groups.create({
       vars: angular.copy(this.group),
       name: this.fleet.groups.nextName()
     });
+    // Notify user
+    let successMsg = this.$translate.instant('group_added');
+    group.$promise.then( ()=> this.growl.success(successMsg) );
     // Go to the parent state
     this.$state.go(nextState, {}, { reload: nextState });
   }
