@@ -6,7 +6,9 @@
           li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
                                       ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
             a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: fleet._id })")
-              div {{ fleet.name || ( 'fleet_loading' | translate ) }}
+              .pull-xs-right.text-muted(ng-show="fleet.loading")
+                i.fa.fa-refresh.fa-spin.fa-fw
+              div {{ fleet.name || '┄' }}
               div.text-muted.small
                 | {{ 'groups_count' | translate:{ groups: fleet.groups.length({ special: false }) } }}
         button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
@@ -18,7 +20,10 @@
           .row
             .col-md-8.main__fleets__view__groups
               form.main__fleets__view__groups__fleet-name(ng-submit="$ctrl.fleet.rename()")
-                input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()")
+                .input-group.input-group-lg
+                  input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()", id="name-input")
+                  label.input-group-addon(for="name-input")
+                    i.fa.fa-edit
               h5.main__fleets__view__groups__heading
                 | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row

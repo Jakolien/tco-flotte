@@ -78,7 +78,7 @@ export default function fleetsService(Restangular, $q) {
       return 'Group ' + ( this.filter({ special: false }).length + 1 )
     }
     delete(group) {
-      this[_fleet].api().one('groups', group._id).remove();
+      this[_fleet].api.one('groups', group._id).remove();
       return super.delete(group);
     }
     push(...rest) {
@@ -88,7 +88,7 @@ export default function fleetsService(Restangular, $q) {
         } else {
           let fleet = this[_fleet];
           // We add the new group
-          let promise = fleet.api().post('groups', group, { secret: fleet.secret });
+          let promise = fleet.api.post('groups', group, { secret: fleet.secret });
           // Transform the result of the promise
           promise.then(function(f) {
             // We update the fleet
@@ -131,7 +131,6 @@ export default function fleetsService(Restangular, $q) {
       this.rename = this.rename.bind(this);
       this.clean = this.clean.bind(this);
       this.empty = this.empty.bind(this);
-      this.api = this.api.bind(this);
       // Initialize vars
       this.initialize(vars);
       // We may be awaiting a promise to be resolved
@@ -162,14 +161,17 @@ export default function fleetsService(Restangular, $q) {
         }.bind(this));
       }
     }
-    api() {
+    get api() {
       return Restangular.one('fleets', this._id);
+    }
+    get loading() {
+      return (this.$promise && this.$promise.$$state.status == 0);
     }
     empty() {
       return !this.groups || !this.groups.length || !this.groups.length();
     }
     update() {
-      this.save({ secret: this.secret }).then(function(vars) {
+      this.$promise = this.save({ secret: this.secret }).then(function(vars) {
         this.initialize(vars);
       }.bind(this));
     }
