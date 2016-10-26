@@ -54,7 +54,7 @@
                       div(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
                         select.form-control(
                           name="{{ input.meta.name }}",
-                          ng-options="val as (val | translate) for val in $ctrl.getInputValues(input).range",
+                          ng-options="val as (val | translate) for val in $ctrl.getInputValues(input, context).range",
                           ng-model="$ctrl.gs(context, input.meta.name)",
                           ng-model-options="{ getterSetter: true }")
                             option(value="") ⎼⎼
@@ -63,9 +63,9 @@
                       div(ng-switch-when="interval", ng-class="{ 'input-group': input.meta.unit }")
                         input.form-control(type="number",
                           name="{{ input.meta.name }}",
-                          min="{{ $ctrl.getInputValues(input).floor }}",
-                          max="{{ $ctrl.getInputValues(input).ceil }}",
-                          step="{{ $ctrl.getInputValues(input).step != 1 ? $ctrl.getInputValues(input).step : 'any' }}",
+                          min="{{ $ctrl.getInputValues(input, context).floor }}",
+                          max="{{ $ctrl.getInputValues(input, context).ceil }}",
+                          step="{{ $ctrl.getInputValues(input, context).step != 1 ? $ctrl.getInputValues(input, context).step : 'any' }}",
                           ng-model="$ctrl.gs(context, input.meta.name)",
                           ng-model-options="{ getterSetter: true }")
                         span.input-group-addon(ng-show="input.meta.unit")

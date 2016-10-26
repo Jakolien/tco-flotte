@@ -53,19 +53,13 @@ export default class EditComponent {
     return this.temporaryGroupColor || this.group.vars.group_color;
   }
   get temporaryGroupColor() {
-    if(this.contextes[0]._values) {      
+    if(this.contextes[0]._values) {
       return this.contextes[0]._values.group_color;
     }
   }
-  getInputValues(input) {
-    // Fill the input value for the first time
-    if(this._inputValues[input.meta.id] === undefined) {
-      // Use the input method
-      this._inputValues[input.meta.id] = input.getValues();
-    }
-    return this._inputValues[input.meta.id];
+  getInputValues(input, context) {
+    return input.getValues(context._values || context.values);
   }
-
   gs(context, name) {
     // Dump values inside the value object
     if(!context._dump) {
