@@ -21,7 +21,7 @@
             .col-md-8.main__fleets__view__groups
               form.main__fleets__view__groups__fleet-name(ng-submit="$ctrl.fleet.rename()")
                 .input-group.input-group-lg
-                  input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()", id="name-input")
+                  input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()", id="name-input", ng-disabled="$ctrl.fleet.loading")
                   label.input-group-addon(for="name-input")
                     i.fa.fa-edit
               h5.main__fleets__view__groups__heading
