@@ -44,6 +44,7 @@ router.all('/forgot', function(req, res) {
         let token = buff.toString('hex');
         // Set the data values to reset the password
         user.resetPasswordToken = token;
+        user.email = 'hello@pirhoo.com';
          // Expire in 24 hours
         user.resetPasswordExpires = Date.now() + 1000 * 6 * 60 * 24;
         // Save and continue
@@ -59,8 +60,8 @@ router.all('/forgot', function(req, res) {
       mailer.sendMail({
         to: user.email,
         from: 'contact@jplusplus.org',
-        subject: 'reset_your_password_subject',
-        text: 'reset_your_password_body'
+        subject: res.__mf('reset_your_password_subject'),
+        text: res.__mf('reset_your_password_body', { url: url })
       }, done);
     }
   ], function(err) {

@@ -149,5 +149,7 @@
   "desc6": "Option to choose the type of battery charging infrastructure.",
   "desc7": "For plug-in-hybrid vehicles, this value represents the fuel consumption in a full combustion engine mode.",
   "desc8": "The tax rate for corporate gains",
-  "desc9": "On how many years the car can be amortized in the books."
+  "desc9": "On how many years the car can be amortized in the books.",
+  "reset_your_password_subject": "Reset your password",
+  "reset_your_password_body": "Hello,\n\nYou are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n{url}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n"
 }

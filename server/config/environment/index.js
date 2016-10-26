@@ -19,6 +19,9 @@ var all = {
   // Root path of server
   root: path.normalize(`${__dirname}/../../..`),
 
+  // Locale path
+  locales: path.normalize(`${__dirname}/../../../client/assets/locales`),
+
   // Browser-sync port
   browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
 

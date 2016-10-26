@@ -47,6 +47,7 @@
     "font-awesome": ">=4.1.0",
     "gulp-angular-translate-extractor": "^1.0.2",
     "html2canvas": "^0.5.0-beta4",
+    "i18n": "^0.8.3",
     "imagemin-gifsicle": "^5.1.0",
     "imagemin-jpegtran": "^5.0.2",
     "imagemin-optipng": "^5.2.1",

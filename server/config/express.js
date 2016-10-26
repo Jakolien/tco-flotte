@@ -19,10 +19,16 @@ import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
+import i18n from 'i18n';
 var MongoStore = connectMongo(session);
 
 export default function(app) {
   var env = app.get('env');
+
+  i18n.configure({
+    locales:['en', 'de'],
+    directory: config.locales
+  });
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
@@ -35,7 +41,6 @@ export default function(app) {
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
   app.use(morgan('dev'));
-
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
   app.use(shrinkRay());
@@ -44,7 +49,7 @@ export default function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
-
+  app.use(i18n.init);
 
   // Persist sessions with MongoStore / sequelizeStore
   // We need to enable sessions for passport-twitter because it's an
