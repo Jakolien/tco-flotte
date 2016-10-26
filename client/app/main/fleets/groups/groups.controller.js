@@ -36,8 +36,18 @@ export default class FleetsGroupsComponent {
     });
     // Notify user
     let successMsg = this.$translate.instant('group_added');
-    group.$promise.then( ()=> this.growl.success(successMsg) );
-    // Go to the parent state
-    this.$state.go(nextState, {}, { reload: nextState });
+    //
+    group.$promise.then( group => {
+      this.growl.success(successMsg);
+      // A next state is given
+      if(nextState) {
+        // Go to the given state
+        this.$state.go(nextState, {}, { reload: nextState });
+      } else {
+        let index = this.fleet.groups.length() - 1;
+        // Go to the group edit form
+        this.$state.go('main.fleets.groups.edit', { group: index });
+      }
+    });
   }
 }

@@ -134,6 +134,7 @@ export default function fleetsService(Restangular, $q) {
       this.clean      = this.clean.bind(this);
       this.empty      = this.empty.bind(this);
       this.moreGroups = this.moreGroups.bind(this);
+      this.isActive   = this.isActive.bind(this);
       // Initialize vars
       this.initialize(vars);
       // We may be awaiting a promise to be resolved
@@ -209,6 +210,10 @@ export default function fleetsService(Restangular, $q) {
     }
     groupsLeft() {
       return 5 - this.groups.filter({ special: false }).length;
+    }
+    isActive() {
+      // Is active if we have at least one regular groups
+      return !!this.groups.filter({ special: false }).length;
     }
     static uniqueName() {
       return `Fleet ${fleetNameCounter}`;
@@ -287,7 +292,7 @@ export default function fleetsService(Restangular, $q) {
     isActive() {
       // Is active if we have at least one fleet with regular groups
       return !!this.length() && _.some(this.all(), function(fleet) {
-        return !!fleet.groups.filter({ special: false }).length;
+        return fleet.isActive();
       });
     }
     uniqueName() {

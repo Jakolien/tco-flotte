@@ -40,8 +40,8 @@
                           | &nbsp;{{ 'edit' | translate }}
                       strong {{ 'vehicles_count' | translate:{ vehicles: group.vars.num_of_vehicles } }}
                 li.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-if="$ctrl.fleet.groups.filter({ special: false }).length < 5")
-                  .main__fleets__view__groups__item.main__fleets__view__groups__item--link
-                    a.main__fleets__view__groups__item__add-group(ui-sref=".groups")
+                  a.main__fleets__view__groups__item.main__fleets__view__groups__item--link(ui-sref=".groups")
+                    .main__fleets__view__groups__item__add-group
                       | {{ 'add_vehicles_group' | translate }}
 
               .pull-xs-right

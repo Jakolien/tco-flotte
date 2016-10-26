@@ -24,33 +24,43 @@
                     option(value="") ⎼⎼
                   span.input-group-addon(ng-show="input.meta.unit")
                     | {{ input.meta.unit | translate }}
-              div(ng-switch-when="interval")
-                .main__fleets__groups__input.main__fleets__groups__input--select.custom-controls-stacked(ng-if=":: !input.meta.hasslider")
-                  legend.main__fleets__groups__input__title {{ input.meta.label | translate }}
-                  label.custom-control.custom-radio(ng-repeat="value in $ctrl.getInputValues(input).range track by $index")
-                    input(type="radio", required, name="{{ input.meta.name }}", ng-value="value", ng-model="$ctrl.group[input.meta.name]").custom-control-input
-                    span.custom-control-indicator
-                    span.custom-control-description
-                      | &nbsp;{{ value | translate }}
-                      span.text-muted.small(uib-tooltip="{{ value + '-tooltip' | translate }}", ng-show="input.meta.hashelp")
-                        =" "
-                        i.fa.fa-info
+              dov(ng-switch-when="interval")
+                .row.main__fleets__groups__input(ng-if=":: !input.meta.hasslider")
+                  .col-form-label.col-lg-4
+                    label(for="input-{{ input.meta.id }}")
+                      | {{ input.meta.label | translate }}
+                  .col-lg-8
+                    input.form-control(type="number",
+                      name="{{ input.meta.name }}",
+                      required="",
+                      min="{{ $ctrl.getInputValues(input).floor }}",
+                      max="{{ $ctrl.getInputValues(input).ceil }}",
+                      step="{{ $ctrl.getInputValues(input).step != 1 ? $ctrl.getInputValues(input).step : 'any' }}",
+                      ng-model="$ctrl.group[input.meta.name]")
+                    span.input-group-addon(ng-show="input.meta.unit")
+                      | {{ input.meta.unit | translate }}
                 .main__fleets__groups__input.main__fleets__groups__input--slider(ng-if=":: input.meta.hasslider")
                   legend.main__fleets__groups__input__title {{ input.meta.label | translate  }}
                   div(ng-init="$ctrl.group[input.meta.name] = $ctrl.getInputValues(input).value")
                     rzslider(rz-slider-model="$ctrl.group[input.meta.name]", rz-slider-options="$ctrl.getInputValues(input)")
-
-          button.btn.btn-primary(type="submit",
-                                 ng-disabled="createForm.$invalid",
-                                 ng-click="$ctrl.createGroup('main.fleets.groups')",
-                                 ng-show="$ctrl.fleet.groupsLeft() > 1")
-            i.fa.fa-plus.fa-fw
-            | &nbsp;
-            span(ng-bind-html="'group_create_and_add' | translate")
-          =" "
-          button.btn.btn-secondary(type="submit",
+          .row
+            .col-lg-8.offset-lg-4
+              button.btn.btn-primary.btn-lg(type="submit",
+                                     ng-disabled="createForm.$invalid",
+                                     ng-click="$ctrl.createGroup()")
+                span(ng-bind-html="'group_create' | translate")
+          //- div(ng-if="!$ctrl.fleet.isActive()")
+            .pull-xs-right
+              button.btn.btn-secondary(type="submit",
+                                        ng-disabled="createForm.$invalid",
+                                        ng-click="$ctrl.createGroup('main.visualization')")
+                i.fa.fa-bar-chart.fa-fw
+                | &nbsp;
+                span(ng-bind-html="'group_create_and_visualize' | translate")
+            button.btn.btn-primary(type="submit",
                                    ng-disabled="createForm.$invalid",
-                                   ng-click="$ctrl.createGroup('main.visualization')")
-            i.fa.fa-bar-chart.fa-fw
-            | &nbsp;
-            span(ng-bind-html="'group_create_and_visualize' | translate")
+                                   ng-click="$ctrl.createGroup('main.fleets.groups')",
+                                   ng-show="$ctrl.fleet.groupsLeft() > 1")
+              i.fa.fa-plus.fa-fw
+              | &nbsp;
+              span(ng-bind-html="'group_create_and_add' | translate")

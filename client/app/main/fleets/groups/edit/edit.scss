@@ -56,15 +56,14 @@
           left:0;
           right:0;
           bottom:1px;
-          @include gradient-y(rgba(white, 0.7), rgba(white, 0.8));
+          @include gradient-y(rgba(white, 0.5), rgba(white, 0.6));
         }
       }
     }
 
     fieldset  {
-      padding:$spacer;
+      padding:$spacer 0;
       margin:$spacer 0;
-      border:$card-border-color 1px solid;
 
       &:first-child {
         margin-top:0;
