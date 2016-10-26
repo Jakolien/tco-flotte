@@ -117,7 +117,10 @@ export default class ChartComponent {
           color: '#666',
           values: this.columnValues(name)
         };
-      }.bind(this));
+      }.bind(this)).filter(function(group){
+        // Remove group with value to 0
+        return _.compact( group.values.split(',').map(parseInt) ).length > 0
+      });
     } else if(value === undefined) {
       return [];
     } else {
