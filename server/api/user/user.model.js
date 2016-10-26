@@ -15,7 +15,9 @@ var UserSchema = new Schema({
     required: true
   },
   provider: String,
-  salt: String
+  salt: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 /**
