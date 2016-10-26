@@ -4,7 +4,7 @@ import angular from 'angular';
 
 export default class FleetsComponent {
   /*@ngInject*/
-  constructor($translate, $state, $stateParams, $uibModal, fleets) {
+  constructor($translate, $state, $stateParams, $uibModal, fleets, $scope) {
     // Bind method to this instance
     this.createFleet = this.createFleet.bind(this);
     this.compareStyle = this.compareStyle.bind(this);
@@ -19,7 +19,7 @@ export default class FleetsComponent {
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state, $uibModal });
     // Compare with another fleet
-    this.compareWith = this.anotherFleet();
+    fleets.compared = this.compareWith = this.anotherFleet();
     // No group yet
     if( this.fleet && this.fleet.groups.filter({ special: false }).length === 0 ) {
       // Redirect to the child state to create group
@@ -53,9 +53,15 @@ export default class FleetsComponent {
   }
 
   anotherFleet() {
-    return _.chain(this.fleets.all()).without(this.fleet).head().value();
+    if( [undefined, null, this.fleet].indexOf(this.fleets.compared) === -1) {
+      return this.fleets.compared;
+    } else {
+      return _.chain(this.fleets.all()).without(this.fleet).head().value();
+    }
   }
-
+  reflectsComparaison() {
+    this.fleets.compared = this.compareWith;
+  }
   arefleetsUnequal(predicate = angular.noop) {
     return predicate(this.fleet) !== predicate(this.compareWith);
   }

@@ -1,0 +1,13 @@
+.modal-header
+  button.close(type="button",  data-dismiss="modal", aria-label="Close")
+    span(aria-hidden="true", ng-click="$ctrl.dismiss()") &times;
+  h4.modal-title
+    | {{ "compare_fleet_title" | translate }}
+.modal-body
+  p(ng-bind-html="'compare_fleet' | translate:{ smallest: $ctrl.deltaValues.smallest.name, biggest: $ctrl.deltaValues.biggest.name, delta: ($ctrl.deltaValues.delta | number) }")
+  .text-xs-right
+    button.btn.btn-primary(ng-click="$ctrl.ok()")
+      | <strong>{{ "compare_continue" | translate }}</strong>
+    =" "
+    button.btn.btn-secondary(ng-click="$ctrl.dismiss()")
+      | {{ "compare_cancel" | translate }}

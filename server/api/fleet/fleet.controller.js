@@ -271,6 +271,7 @@ export function download(req, res) {
   let filename = `/tmp/${req.params.key}.pdf`;
   // The queue is done and the file exists!
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
+    delete printQueue[req.params.key];
     // Change content disposition to download the file with a custom name
     res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
     res.setHeader('Content-type', 'application/pdf');

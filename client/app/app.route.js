@@ -1,4 +1,5 @@
 'use strict';
+import _        from 'lodash';
 import uiRouter from 'angular-ui-router';
 import auth     from '../components/auth/auth.module';
 
@@ -28,6 +29,39 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
           $location.path('/login');
         }
       });
+    });
+  })
+  .run(function($transitions, $q, fleets, $uibModal) {
+    'ngInject';
+    // Confirm transition from main.fleets to main.visualization
+    $transitions.onBefore({  from: 'main.fleets', to: 'main.visualization' }, function(transition) {
+      // Find original path node
+      let pathNode = transition.treeChanges().from.slice(-1)[0]
+      // Find the fleet
+      let fleet    = _.find(pathNode.resolvables, { token: 'fleet' }).data;
+      // Are we comparing fleets?
+      if(fleets.compared && fleets.compared.TCO.mileage !== fleet.TCO.mileage) {
+        return $uibModal.open({
+          template: require('./main/fleets/confirm.pug'),
+          size: 'md',
+          controllerAs: '$ctrl',
+          controller: function($uibModalInstance) {
+            'ngInject';
+            // An array of sorted values
+            let sorted = [fleet, fleets.compared].sort(( a, b)=> a.TCO.mileage - b.TCO.mileage);
+            // Comparaison values
+            this.deltaValues = {
+              biggest: sorted[1],
+              smallest: sorted[0],
+              delta: sorted[1].TCO.mileage - sorted[0].TCO.mileage
+            };
+            // Modal helpers
+            this.ok = $uibModalInstance.close;
+            this.dismiss = $uibModalInstance.dismiss;
+          }
+        // Return the promise
+        }).result;
+      }
     });
   })
   .run(function($transitions, $rootScope, $state, $window) {

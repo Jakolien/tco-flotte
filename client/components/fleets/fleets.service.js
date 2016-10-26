@@ -11,9 +11,10 @@ export default function fleetsService(Restangular, $q) {
   // Counter for fleets unique name
   var fleetNameCounter = 0;
   // Symbol keys for private attributes
-  const _array = Symbol('_fleet');
-  const _fleet = Symbol('_fleet');
-  const _vars  = Symbol('_vars');
+  const _array     = Symbol('_fleet');
+  const _fleet     = Symbol('_fleet');
+  const _vars      = Symbol('_vars');
+  const _compared  = Symbol('_compared');
   const KEYS_BLACKLIST = ['fleet_presets', 'energy_known_prices',
                           'insights', 'TCO', 'energy_prices_evolution'];
   class LikeArray {
@@ -229,7 +230,7 @@ export default function fleetsService(Restangular, $q) {
       this.push = this.push.bind(this);
       this.purge =  this.purge.bind(this);
       this.initial =  this.initial.bind(this);
-      this.uniqueName =  this.uniqueName.bind(this);
+      this.uniqueName = this.uniqueName.bind(this);
     }
     purge() {
       this[_array] = [];
@@ -294,6 +295,14 @@ export default function fleetsService(Restangular, $q) {
         ++fleetNameCounter;
       }
       return Fleet.uniqueName();
+    }
+    set compared(fleet = null) {
+      this[_compared] = fleet;
+      return this[_compared];
+    }
+    get compared() {
+      // Ensure the compared fleet still exist
+      return this[_compared] ? _.find(this.all(), this[_compared]) : null;
     }
     get ids() {
       return this.all().map(f => f._id);

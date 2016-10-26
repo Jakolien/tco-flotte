@@ -96,6 +96,7 @@
                   select.form-control(
                     ng-options="fleet as fleet.name disable when fleet == $ctrl.fleet for fleet in $ctrl.fleets.all()",
                     ng-model="$ctrl.compareWith",
+                    ng-change="$ctrl.reflectsComparaison()",
                     ng-disabled=":: !$ctrl.compareWith"
                     id="input-compare-with")
                     option(value="") ⎼⎼

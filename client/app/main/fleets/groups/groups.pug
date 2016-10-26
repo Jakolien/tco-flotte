@@ -3,9 +3,9 @@
     h3 {{ 'create_group_title' | translate }}
     p.lead {{ 'create_group_description' | translate }}
   .row
-    .col-md-5.push-md-7.push-lg-6.text-muted
+    .col-md-4.push-md-8.text-muted
       |  {{ 'create_group_help' | translate }}
-    .col-md-7.col-lg-6.pull-md-5
+    .col-md-8.pull-md-4
       .card
         form.card-block(name="createForm")
           fieldset.form-group(ng-repeat='input in $ctrl.inputs')
