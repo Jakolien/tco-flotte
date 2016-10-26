@@ -47,7 +47,7 @@ export default class ChartCo2Component {
     }.bind(this);
   }
   get unit() {
-    return this.$translate.instant('g');
+    return this.$translate.instant('g_per_km');
   }
   bindChart(chart) {
     this.addUnitTo(chart);

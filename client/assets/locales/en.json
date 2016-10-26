@@ -51,6 +51,7 @@
     "fleet_loading": "Loading...",
     "fuel_consumption": "Fuel Consumption",
     "g": "g",
+    "g_per_km": "g/km",
     "group": "Group",
     "group_added": "Group added to this fleet.",
     "group_create_and_add": "<strong>Create</strong> and add another group",
