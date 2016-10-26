@@ -36,6 +36,7 @@ export default class EditComponent {
     for(let context of this.contextes) {
       // Filter the inputs list by context name
       context.inputs = _.filter(this.inputs, input => input.meta.context === context.name);
+      context.sections = _.groupBy(context.inputs, input => input.meta.section);
     }
     // Cached input's values
     this._inputValues = {};
@@ -56,6 +57,9 @@ export default class EditComponent {
     if(this.contextes[0]._values) {
       return this.contextes[0]._values.group_color;
     }
+  }
+  isVisible(inputs, values) {
+    return _.some(inputs, input => input.isVisible(values));
   }
   getInputValues(input, context) {
     return input.getValues(context._values || context.values);

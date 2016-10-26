@@ -56,8 +56,29 @@
           left:0;
           right:0;
           bottom:1px;
-          @include gradient-y(rgba(white, 0.8), rgba(white, 0.9));
+          @include gradient-y(rgba(white, 0.7), rgba(white, 0.8));
         }
+      }
+    }
+
+    fieldset  {
+      padding:$spacer;
+      margin:$spacer 0;
+      border:$card-border-color 1px solid;
+
+      &:first-child {
+        margin-top:0;
+      }
+
+      &:last-child {
+        margin-bottom:0;
+      }
+
+      legend {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size:1em;
+        width: auto;
       }
     }
 
