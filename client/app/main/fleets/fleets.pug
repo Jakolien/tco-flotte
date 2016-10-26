@@ -53,6 +53,8 @@
                 | {{ 'alternative_transporations_title' | translate }}
 
               .main__fleets__view__groups__chart-co2(ng-if="$ctrl.displayCo2")
+                p.main__fleets__view__groups__chart-co2__description.small.text-muted
+                  | {{ 'alternative_transporations_chart-co2_description' | translate }}
                 chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
 
               ul.list-unstyled.row(ng-if="!$ctrl.displayCo2")

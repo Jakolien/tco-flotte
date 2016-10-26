@@ -1,6 +1,7 @@
 {
     "add_fleet": "",
     "add_vehicles_group": "",
+    "alternative_transporations_chart-co2_description": "",
     "alternative_transporations_title": "",
     "app_title": "",
     "basic_information_title": "",
@@ -27,6 +28,7 @@
     "edit_group_help": "",
     "fleet_data_title": "",
     "g": "",
+    "g_per_km": "",
     "group": "",
     "group_added": "",
     "group_create_and_add": "",
