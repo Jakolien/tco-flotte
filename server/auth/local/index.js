@@ -44,7 +44,6 @@ router.all('/forgot', function(req, res) {
         let token = buff.toString('hex');
         // Set the data values to reset the password
         user.resetPasswordToken = token;
-        user.email = 'hello@pirhoo.com';
          // Expire in 24 hours
         user.resetPasswordExpires = Date.now() + 1000 * 6 * 60 * 24;
         // Save and continue
