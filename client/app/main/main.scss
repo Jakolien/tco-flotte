@@ -61,19 +61,8 @@
         margin-bottom:$spacer * 2;
         position: relative;
 
-        &:before {
-          content:"";
-          position: absolute;
-          left:50%;
-          top:0;
-          bottom:0;
-          width:2px;
-          margin-left: -1px;
-          background: lighten($brand-primary, 30%);
-        }
-        img {
-          display: block;
-          margin:auto;
+        > div {
+          padding:0 $spacer * 2;
         }
       }
 
