@@ -16,17 +16,9 @@ export default class FleetsGroupsComponent {
     this.inputs = _.map(this.inputs, meta => new DynamicInput(meta));
     // The new group we have to create
     this.group = {};
-    // Cached input's values
-    this._inputValues = {};
   }
   getInputValues(input) {
-    // Fill the input value for the first time
-    if(this._inputValues[input.meta.id] === undefined) {
-      // Use the input method
-      this._inputValues[input.meta.id] = input.getValues();
-    }
-    // Extend the translate method with an instant value
-    return _.extend(this._inputValues[input.meta.id]);
+    return input.getValues(this.group);
   }
 
   createGroup(nextState) {
