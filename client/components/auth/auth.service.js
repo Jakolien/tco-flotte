@@ -55,6 +55,27 @@ export function AuthService($location, $http, $cookies, $q, appConfig, Util, Use
     },
 
     /**
+     * Send a confirmation email to reset the password
+     *
+     * @param  {String}   email    - User email
+     * @return {Promise}
+     */
+    forgot(email) {
+      return $http.post('/auth/local/forgot', { email });
+    },
+
+    /**
+     * Change the user password using a token
+     *
+     * @param  {String}   password    - New password
+     * @param  {String}   token       - Token
+     * @return {Promise}
+     */
+    reset(password, token) {
+      return $http.post(`/auth/local/reset/${token}`, { password });
+    },
+
+    /**
      * Delete access token and user info
      */
     logout() {

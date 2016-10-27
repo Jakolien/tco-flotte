@@ -4,12 +4,14 @@ import angular from 'angular';
 
 import uiRouter from 'angular-ui-router';
 
-import routing from './account.routes';
-import login from './login';
+import routing  from './account.routes';
+import login    from './login';
+import forgot   from './forgot';
+import reset    from './reset';
 import settings from './settings';
-import signup from './signup';
+import signup   from './signup';
 
-export default angular.module('oekoFlotteApp.account', [uiRouter, login, settings, signup])
+export default angular.module('oekoFlotteApp.account', [uiRouter, login, settings, signup, reset, forgot])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

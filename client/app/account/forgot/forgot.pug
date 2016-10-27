@@ -1,0 +1,18 @@
+navbar
+.container.account__forgot
+  .card.card-block
+    .card-title
+      h1 {{ 'reset_your_password_title' | translate }}
+    .card-text
+      form.form(name='form', ng-submit='vm.forgot(form)', novalidate='')
+        .form-group
+          label(for="input-email") {{ 'reset_your_password_email' | translate }}
+          input.form-control(type='email', id="input-email", name='email', ng-model='vm.email', required='')
+        .form-group.has-error
+          p.help-block.text-danger(ng-show='form.email.$error.email && vm.submitted')
+            | {{ 'reset_your_password_email_valid' | translate }}
+          p.help-block.text-danger(ng-show='vm.errors.forgot')
+            | {{ vm.errors.forgot }}
+        div
+          button.btn.btn-primary.btn-block(type='submit')
+            | {{ 'reset_your_password_submit' | translate }}

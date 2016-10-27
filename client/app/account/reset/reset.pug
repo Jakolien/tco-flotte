@@ -1,0 +1,27 @@
+navbar
+.container.account__reset
+  .card.card-block
+    .card-title
+      h1 {{ 'reset_your_password_title' | translate }}
+    .card-text
+      form.form(name='form', ng-submit='vm.reset(form)', novalidate='')
+        .form-group(ng-class="{ 'has-success': form.password.$valid && vm.submitted,\
+                                'has-error': form.password.$invalid && vm.submitted }")
+          label(for="input-password") {{ 'password' | translate }}
+          input.form-control(id="input-password", type='password', name='password', ng-model='vm.password', ng-minlength='3', required='', mongoose-error='')
+          p.help-block.text-danger(ng-show='(form.password.$error.minlength || form.password.$error.required) && vm.submitted')
+            | {{ 'password_length' | translate }}
+          p.help-block.text-danger(ng-show='form.password.$error.mongoose')
+            | {{ vm.errors.password }}
+        .form-group(ng-class="{ 'has-success': form.confirmPassword.$valid && vm.submitted,\
+                                'has-error': form.confirmPassword.$invalid && vm.submitted }")
+          label(for="input-confirmPassword") {{ 'password_confirm' | translate }}
+          input.form-control(id="input-confirmPassword", type='password', name='confirmPassword', ng-model='vm.confirmPassword', match='vm.password', ng-minlength='3', required='')
+          p.help-block.text-danger(ng-show='form.confirmPassword.$error.match && vm.submitted')
+            | {{ 'password_match' | translate }}
+        .form-group.has-error
+          p.help-block.text-danger
+            | {{ vm.errors.reset }}
+        div
+          button.btn.btn-primary.btn-block(type='submit')
+            | {{ 'password_change' | translate }}

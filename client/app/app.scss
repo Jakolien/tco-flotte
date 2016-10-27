@@ -31,7 +31,7 @@ $enable-flex: true;
 
 $alert-success-bg:     $brand-success;
 $alert-success-text:   lighten($brand-success, 50);
-$alert-success-border: white;
+$alert-success-border: darken($brand-success, 5);
 
 $fa-font-path: '/assets/fonts/font-awesome/';
 
@@ -86,6 +86,10 @@ html body #loading-bar{
    background: transparent;
    @include gradient-x($brand-secondary, rgba($brand-secondary, 0));
  }
+}
+
+html body .growl-container.growl-fixed.top-right {
+  top:85px;
 }
 
 

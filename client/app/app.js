@@ -7,6 +7,7 @@ import ngSanitize    from 'angular-sanitize';
 import ngSlider      from 'angularjs-slider';
 import stickyfill    from 'Stickyfill/dist/stickyfill';
 import duScroll      from 'angular-scroll';
+import match         from 'angular-validation-match';
 // C3 angular
 import c3 from 'c3';
 import d3 from 'd3';
@@ -44,6 +45,7 @@ angular.module('oekoFlotteApp', [
   ngSanitize,
   ngSlider,
   duScroll,
+  match,
   'colorpicker.module',
   'gridshore.c3js.chart',
   'mwl.confirm',

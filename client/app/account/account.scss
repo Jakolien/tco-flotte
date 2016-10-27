@@ -1,11 +1,17 @@
 .account {
 
-  &__login, &__settings, &__signup {
+  &__login, &__settings, &__signup, &__forgot, &__reset {
+
+    margin-top:$spacer * $line-height-base * 2;
 
     .card {
       margin:auto;
-      margin-top:$spacer * $line-height-base;
-      max-width: 440px;
+      margin-bottom:$spacer * $line-height-base;
+      max-width: 360px;
+
+      &:last-child:not(:first-child) {
+        background:mix($card-border-color, $card-bg);
+      }
 
       .card-title {
         text-transform: uppercase;

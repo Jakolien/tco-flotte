@@ -15,10 +15,10 @@ router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     var error = err || info;
     if(error) {
-      return res.status(401).json(error);
+      return res.status(401).json({message: res.__mf('password_not_correct') });
     }
     if(!user) {
-      return res.status(404).json({message: 'Something went wrong, please try again.'});
+      return res.status(404).json({message: res.__mf('something_is_wrong') });
     }
 
     var token = signToken(user._id, user.role);
@@ -39,7 +39,7 @@ router.all('/forgot', function(req, res) {
       // Find the user using the provided email
       User.findOne({ email: email }, function(err, user) {
         // User not found
-        if (!user) { return res.status(404).json({message: 'User not found'}); }
+        if (!user) { return res.status(404).json({message: res.__mf('user_not_found') }); }
         // Transform buffer to string
         let token = buff.toString('hex');
         // Set the data values to reset the password
@@ -74,7 +74,7 @@ router.all('/reset/:token', function(req, res) {
       function(done) {
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
           // User not found
-          if (!user) { return res.status(404).json({message: 'User not found'}); }
+          if (!user) { return res.status(404).json({message: res.__mf('user_token_not_found') }); }
           // Change the password
           user.password = req.body.password || req.query.password;
           user.resetPasswordToken = undefined;

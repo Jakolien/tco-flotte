@@ -2,23 +2,27 @@ navbar
 .container.account__login
   .card.card-block
     .card-title
-      h1 Login
+      h1 {{ 'login_title' | translate }}
     .card-text
       form.form(name='form', ng-submit='vm.login(form)', novalidate='')
         .form-group
-          label Email
-          input.form-control(type='email', name='email', ng-model='vm.user.email', required='')
+          label(for="input-email") {{ 'email' | translate }}
+          input.form-control(type='email', id="input-email", name='email', tabindex="1", ng-model='vm.user.email', required='')
         .form-group
-          label Password
-          input.form-control(type='password', name='password', ng-model='vm.user.password', required='')
+          a.pull-xs-right(ui-sref="forgot", tabindex="4")  {{ 'forgot_password' | translate }}
+          label(for="input-password") {{ 'password' | translate }}
+          input.form-control(type='password', id="input-password", name='password', tabindex="2", ng-model='vm.user.password', required='')
         .form-group.has-error
           p.help-block.text-danger(ng-show='form.email.$error.required && form.password.$error.required && vm.submitted')
-            | Please enter your email and password.
+            | {{ 'email_and_password' | translate }}
           p.help-block.text-danger(ng-show='form.email.$error.email && vm.submitted')
-            | Please enter a valid email.
-          p.help-block.text-danger {{ vm.errors.login }}
+            | {{ 'email_valid' | translate }}
+          p.help-block.text-danger
+            | {{ vm.errors.login }}
         div
-          button.btn.btn-primary.btn-lg.btn-login(type='submit')
-            | Login
-          a.btn.btn-link.btn-lg.btn-register(ui-sref='signup')
-            | Sign up
+          button.btn.btn-primary.btn-block(type='submit', tabindex="3")
+            | {{ 'login_submit' | translate }}
+  .card.card-block.text-xs-center
+    | {{ 'first_visit' | translate }}
+    =" "
+    a(ui-sref='signup') {{ 'create_account' | translate }}
