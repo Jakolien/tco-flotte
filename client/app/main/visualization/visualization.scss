@@ -163,16 +163,10 @@
       }
 
       &__chart {
-        min-width: 220mm;
         min-height: 100%;
         margin:0;
         display: block;
         position: relative;
-
-        .c3 svg {
-          width:100% !important;
-          max-width: 100% !important;
-        }
 
         .chart {
           padding:0;
