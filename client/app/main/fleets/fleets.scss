@@ -18,10 +18,9 @@
       z-index:80;
       position: relative;
 
-      color:white;
-      background: $brand-inverse;
-
-      border:darken($brand-inverse, 5) 1px solid;
+      color: rgba($body-color, .7);
+      background: lighten($view-bg, 1);
+      border:lighten($view-border, 5) 1px solid;
       border-right:0;
 
       margin-left:$spacer;
@@ -42,7 +41,7 @@
       }
 
       &:not(&--active):hover {
-        background:lighten($brand-inverse, 5);
+        background:$view-bg;
       }
 
       &--active {
@@ -60,7 +59,7 @@
           left:$spacer;
           right:1px;
           height:$spacer;
-          @include gradient-y(rgba(black, 0.1), rgba(black, 0));
+          @include gradient-y(rgba($view-border, 0.5), rgba($view-border, 0));
         }
       }
     }
