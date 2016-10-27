@@ -50,7 +50,7 @@
       margin:$spacer * 2 auto;
       padding:50px;
       padding-top:50px + 20px;
-      max-width:660px + 50px;
+      max-width:770px + 50px;
       background: white;
       color:$body-color;
       box-shadow: 0 2px 4px 3px rgba(black, .1);
@@ -60,9 +60,21 @@
       &__logos {
         margin-bottom:$spacer * 2;
         position: relative;
+        align-items: center;
+        overflow: hidden;
 
-        > div {
-          padding:0 $spacer * 2;
+        .col-xs-3 {
+          position: relative;
+
+          &:not(:last-child):after {
+            content:"";
+            position: absolute;
+            top:-1000%;
+            bottom:-1000%;
+            left:100%;
+            width:1px;
+            background: $view-border;
+          }
         }
       }
 
