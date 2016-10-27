@@ -18,7 +18,7 @@ export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-gro
     RestangularProvider.setRestangularFields({ id: "_id",  selfLink: 'self.link' });
     // Configure growl
     growlProvider.globalDisableCountDown(true);
-    growlProvider.globalTimeToLive(7000);
+    growlProvider.globalTimeToLive(5000);
     growlProvider.globalPosition('top-right');
     growlProvider.globalDisableCloseButton(true);
     // Progress bar

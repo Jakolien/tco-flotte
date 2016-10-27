@@ -13,7 +13,7 @@
               .row(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
                 .col-form-label.col-lg-4
                   label(for="input-{{ input.meta.id }}")
-                    | {{ input.meta.label | translate }}
+                    | {{ input.meta.name | translate }}
                 .col-lg-8
                   select.form-control(
                     name="{{ input.meta.name }}",

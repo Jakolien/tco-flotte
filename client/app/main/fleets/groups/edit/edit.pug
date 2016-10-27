@@ -42,7 +42,7 @@
                 .form-group(ng-repeat='input in inputs', ng-show='input.isVisible(context._values || context.values)')
                   label.row
                     .col-lg-5(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
-                      | {{ input.meta.label | translate }}
+                      | {{ input.meta.name | translate }}
                       span(uib-tooltip-html="input.meta.description | translate", ng-show="input.meta.description")
                         i.fa.fa-info
                     .col-lg-7
