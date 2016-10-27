@@ -41,4 +41,12 @@ export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-gro
       };
     })
   })
+  .run(function($rootScope, $window) {
+    'ngInject';
+    // Detect headless browser
+    if (/PhantomJS/.test($window.navigator.userAgent)){
+      // Specipy a fixed width for the charts
+      $rootScope.chartWidth = 720;
+    }
+  })
   .name;

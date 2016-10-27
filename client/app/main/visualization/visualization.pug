@@ -5,12 +5,14 @@
       p.lead
         a.btn.btn-primary.btn-lg(ui-sref="main.fleets")
           | {{ 'create_fleet' | translate }}
-
+  .main__visualization__introduction
+    h2 {{ 'pdf_title' | translate }}
+    p.lead(ng-bind-html="'pdf_description' | translate")
   .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
     .container
       h4 {{ 'summary_title' | translate }}
-      div(ng-repeat="fleet in $ctrl.fleets.all()")
-        h5.text-xs-center.main__visualization__summary__heading {{ fleet.name }}
+      .main__visualization__summary__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
+        h5.text-xs-center.main__visualization__summary__fleet__heading {{ fleet.name }}
         .table-responsive
           table.table.table-inverse
             thead
@@ -43,14 +45,15 @@
 
       .col-md-9.pull-md-3
         .main__visualization__view
-          div(ng-repeat="meta in :: $ctrl.display", meta="meta")
+          .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
             chart(meta="meta", ng-if="!meta.bygroup")
             chart-grouped(meta="meta", ng-if=" meta.bygroup")
 
           .card.main__visualization__view__raw(id="raw-basic")
-            h3.card-block {{ 'basic_information_title' | translate }}
-            div(ng-repeat="fleet in $ctrl.fleets.all()")
-              h5.text-xs-center.main__visualization__view__raw__heading {{ fleet.name }}
+            .card-block
+              h3 {{ 'basic_information_title' | translate }}
+            .main__visualization__view__raw__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
+              h5.text-xs-center.main__visualization__view__raw__fleet__heading {{ fleet.name }}
               .table-responsive
                 table.table
                   thead
