@@ -4,12 +4,21 @@ export default function($stateProvider) {
   'ngInject';
   $stateProvider
     .state('print', {
-      url: '/print?{clip:bool}&{ids:string}',
+      url: '/print?{clip:bool}&{ids:string}&{language:string}',
       component: 'print',
       params: {
-        clip: null
+        clip: null,
+        language: null
       },
       resolve: {
+        language: function($translate, $stateParams) {
+          'ngInject'
+          return $translate.onReady().then(function() {
+            if($stateParams.language !== null) {
+              $translate.use($stateParams.language);
+            }
+          });
+        },
         display: function($http) {
           'ngInject'
           // Get display

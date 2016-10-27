@@ -2,7 +2,6 @@
   .print__page
     h2 {{ 'pdf_title' | translate }}
     p.lead(ng-bind-html="'pdf_description' | translate")
-  .print__chart(ng-repeat="meta in :: $ctrl.display",
-                ng-class="{ 'print__chart--last': $last, 'print__chart--grouped': meta.bygroup }")
+  .print__chart.print__page(ng-repeat="meta in :: $ctrl.display", ng-class="{ 'print__chart--last': $last, 'print__chart--grouped': meta.bygroup }")
     chart(meta="meta", ng-if="!meta.bygroup")
     chart-grouped(meta="meta", ng-if="meta.bygroup")

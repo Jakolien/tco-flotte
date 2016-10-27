@@ -215,7 +215,7 @@ export function index(req, res) {
 export function print(req, res) {
   mine(req).then(function(fleets) {
     // Generate the queue key for this file
-    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, 'pdf');
+    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, `pdf/${req.locale}`);
     // Obfuscate the key for better anonymity
     key = require('crypto').createHash('md5').update(key).digest('hex');
     // PDF temporary filename
@@ -238,7 +238,7 @@ export function print(req, res) {
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
-        .then(page     => (sitepage = page).open(`${url}/#/print?ids=${req.query.ids}`))
+        .then(page     => (sitepage = page).open(`${url}/#/print?language=${req.locale}&ids=${req.query.ids}`))
         .then(status   => sitepage.property('paperSize', PAPER_SIZE) )
         .then(status   => sitepage.property('zoomFactor', 0.75) )
         .then(function() {
