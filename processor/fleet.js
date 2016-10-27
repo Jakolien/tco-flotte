@@ -567,6 +567,9 @@ var Fleet = function(params) {
 		}
 	}
 
+	//Sends fleet_presents to vars
+	this.vars = this.fleet_presets
+
 	// Initializes the object that will contain the groups
 	this.groups = new Array(params.groups.length);
 	// Computes the TCO values for each vehicle group
