@@ -13,6 +13,10 @@
         background:mix($card-border-color, $card-bg);
       }
 
+      h4 {
+        margin-bottom:$spacer;
+      }
+
       .card-title {
         text-transform: uppercase;
         text-align: center;

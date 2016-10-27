@@ -2,23 +2,23 @@ navbar
 .container.account__settings
   .card-block.card
     .card-title
-      h1 Change Password
+      h1 {{ 'settings' | translate }}
     .card-text
+      h4 {{ 'change_password' | translate }}
       form.form(name='form', ng-submit='vm.changePassword(form)', novalidate='')
         .form-group
-          label Current Password
+          label {{ 'password_current' | translate }}
           input.form-control(type='password', name='password', ng-model='vm.user.oldPassword', mongoose-error='')
-          p.help-block.text-danger(ng-show='form.password.$error.mongoose')
+          p.help-block.text-danger
             | {{ vm.errors.other }}
         .form-group
-          label New Password
+          label {{ 'password_new' | translate }}
           input.form-control(type='password', name='newPassword', ng-model='vm.user.newPassword', ng-minlength='3', required='')
           p.help-block.text-danger(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)')
-            | Password must be at least 3 characters.
+            | {{ 'password_length' | translate }}
         .form-group
-          label Confirm New Password
+          label {{ 'password_new_confirm' | translate }}
           input.form-control(type='password', name='confirmPassword', ng-model='vm.user.confirmPassword', match='vm.user.newPassword', ng-minlength='3', required='')
           p.help-block.text-danger(ng-show='form.confirmPassword.$error.match && vm.submitted')
-            | Passwords must match.
-          p.help-block.text-danger  {{ vm.message }}
-          button.btn.btn-lg.btn-primary(type='submit') Save changes
+            | {{ 'password_match' | translate }}
+        button.btn.btn-block.btn-primary(type='submit') {{ 'save' | translate }}
