@@ -5,7 +5,7 @@ export default function routes($stateProvider) {
 
   $stateProvider.state('login', {
     url: '/login',
-    template: require('./login/login.html'),
+    template: require('./login/login.pug'),
     controller: 'LoginController',
     controllerAs: 'vm'
   })
@@ -27,13 +27,13 @@ export default function routes($stateProvider) {
     })
     .state('signup', {
       url: '/signup',
-      template: require('./signup/signup.html'),
+      template: require('./signup/signup.pug'),
       controller: 'SignupController',
       controllerAs: 'vm'
     })
     .state('settings', {
       url: '/settings',
-      template: require('./settings/settings.html'),
+      template: require('./settings/settings.pug'),
       controller: 'SettingsController',
       controllerAs: 'vm',
       authenticate: true

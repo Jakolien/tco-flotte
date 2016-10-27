@@ -1,0 +1,24 @@
+navbar
+.container.account__login
+  .card.card-block
+    .card-title
+      h1 Login
+    .card-text
+      form.form(name='form', ng-submit='vm.login(form)', novalidate='')
+        .form-group
+          label Email
+          input.form-control(type='email', name='email', ng-model='vm.user.email', required='')
+        .form-group
+          label Password
+          input.form-control(type='password', name='password', ng-model='vm.user.password', required='')
+        .form-group.has-error
+          p.help-block.text-danger(ng-show='form.email.$error.required && form.password.$error.required && vm.submitted')
+            | Please enter your email and password.
+          p.help-block.text-danger(ng-show='form.email.$error.email && vm.submitted')
+            | Please enter a valid email.
+          p.help-block.text-danger {{ vm.errors.login }}
+        div
+          button.btn.btn-primary.btn-lg.btn-login(type='submit')
+            | Login
+          a.btn.btn-link.btn-lg.btn-register(ui-sref='signup')
+            | Sign up
