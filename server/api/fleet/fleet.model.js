@@ -62,7 +62,7 @@ FleetSchema.virtual('self.link').get(function () {
   return `/api/fleets/${this._id}`
 });
 
-FleetSchema.methods.fillGroups = function(next = _.noop) {
+FleetSchema.methods.fillGroups = function(next) {
   let colors = require('../../config/environment/shared').colors;
   // Groups must be exists
   this.groups = this.groups || [];
@@ -100,7 +100,11 @@ FleetSchema.methods.fillGroups = function(next = _.noop) {
       group.group_name = group.name;
     }
   });
-  next();
+
+  if(next) {
+    next();
+  }
+  
   return this;
 };
 

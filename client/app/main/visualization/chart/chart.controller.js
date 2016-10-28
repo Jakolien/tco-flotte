@@ -30,6 +30,7 @@ export default class ChartComponent {
     this.groups       = this.groups.bind(this);
     this.bindChart    = this.bindChart.bind(this);
     this.addUnitTo    = this.addUnitTo.bind(this);
+    this.values       = this.values.bind(this);
     // Number of times the chart have been rendered
     this.rendered = 0;
     // Save the max value
@@ -99,14 +100,33 @@ export default class ChartComponent {
   hasGroups() {
     return this.meta.type === 'stacked_bar';
   }
+  values() {
+    let values = [];
+    // Is the value an object?
+    if( this.hasGroups() ) {
+      this.tco().forEach(tco =>{
+        _.forEach(tco[this.meta.name], function(value, key) {
+          if(value) {
+            values.push(key);
+          }
+        });
+      });
+    } else {
+      this.tco().forEach(tco => {
+        if( tco[this.meta.name] ) {
+          values.push( tco[this.meta.name] )
+        }
+      });
+    }
+    return _.uniq(values);
+  }
   groups() {
     // Get TCO from the first fleets
-    let heading = this.tco()[0];
-    let value = heading[this.meta.name];
+    let values = this.values();
     // Is the value an object?
     if( this.hasGroups() ) {
       // Returns its keys
-      return _.map( _.keys(value), function(name, id) {
+      return _.map(values, function(name, id) {
         // Add a asterix symbol to "net_acquisition_cost" if some fleets have
         // leasing options included.
         let suffix = name === 'net_acquisition_cost' && this.someLeasingIncluded ? '*' : '';
@@ -117,22 +137,21 @@ export default class ChartComponent {
           color: '#666',
           values: this.columnValues(name)
         };
-      }.bind(this)).filter(function(group){
-        // Remove group with value to 0
-        return _.compact( group.values.split(',').map(parseInt) ).length > 0
-      });
-    } else if(value === undefined) {
-      return [];
+      }.bind(this));
     } else {
-      return [
-        {
-          id: 0,
-          name: '^',
-          label: this.meta.name,
-          color: '#666',
-          values: this.columnValues('^')
-        }
-      ];
+      if(values.length = 0) {
+        return [];
+      } else {
+        return [
+          {
+            id: 0,
+            name: '^',
+            label: this.meta.name,
+            color: '#666',
+            values: this.columnValues('^')
+          }
+        ];
+      }
     }
   }
 }
