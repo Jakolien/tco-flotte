@@ -5,18 +5,26 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets, $uibModal, $scope, Restangular, $timeout) {
+  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate) {
     angular.extend(this, { fleets, $uibModal, $scope, Restangular, $timeout });
     // Bind method context
-    this.openDownload = this.openDownload.bind(this);
+    this.openDownload    = this.openDownload.bind(this);
     this.prepareDownload = this.prepareDownload.bind(this);
+    this.fleetNames      = this.fleetNames.bind(this);
+    this.fleetNamesStr   = this.fleetNamesStr.bind(this);
     // Filter enabled display
     this.display = _.filter(this.display, { enable: true });
     // Basic information and summaries
     this.summaries = _.filter(this.settings, { report: 'Summary' });
     this.basics = _.filter(this.settings, { report: 'Basic information for the calculation' });
-    // Number of image to download (null until we start the download)
-    this.imagesLeft = null;
+    // To display the date
+    this.now = new Date();
+  }
+  fleetNames() {
+    return this.fleets.all().map(f => f.name);
+  }
+  fleetNamesStr() {
+    return this.fleetNames().join(', ');
   }
   openDownload() {
     this.modal = this.$uibModal.open({

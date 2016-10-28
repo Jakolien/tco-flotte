@@ -7,7 +7,7 @@
           | {{ 'create_fleet' | translate }}
   .main__visualization__introduction
     h2 {{ 'pdf_title' | translate }}
-    p.lead(ng-bind-html="'pdf_description' | translate")
+    p.lead(ng-bind-html="'pdf_description' | translate:{ fleets: $ctrl.fleetNamesStr(), now: ($ctrl.now | date:('date_format' | translate)) }")
   .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
     .container
       h4 {{ 'summary_title' | translate }}
@@ -27,7 +27,7 @@
                   span.tag(ng-style="{ background: group.vars.group_color  }")
                     | {{ group.name }}
                 td(ng-repeat="raw in $ctrl.summaries")
-                  | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
+                  | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}{{ raw.unit | translate }}
   .container(ng-if="$ctrl.fleets.isActive()")
     .row
       .col-md-3.push-md-9
@@ -67,4 +67,4 @@
                       td
                         span.tag(ng-style="{ background: group.vars.group_color  }") {{ group.name }}
                       td(ng-repeat="raw in $ctrl.basics")
-                        | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}
+                        | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}{{ raw.unit | translate }}

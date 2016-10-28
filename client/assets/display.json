@@ -61,7 +61,7 @@
   },
   {
     "id": "7",
-    "name": "net_cost_by_group",
+    "name": "cost_by_group",
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
@@ -101,7 +101,7 @@
   },
   {
     "id": "11",
-    "name": "net_cost_by_car_type",
+    "name": "cost_by_car_type",
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
@@ -111,7 +111,7 @@
   },
   {
     "id": "12",
-    "name": "net_cost_by_energy_type",
+    "name": "cost_by_energy_type",
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
