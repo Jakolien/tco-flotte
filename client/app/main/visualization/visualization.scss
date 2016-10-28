@@ -1,5 +1,43 @@
 .main__visualization {
 
+  @media print {
+    .container {
+      padding:0;
+      max-width: none;
+
+      .col-md-9.pull-md-3 {
+        max-width:100%;
+        display: block;
+        flex:1;
+        right:0;
+        padding:0;
+      }
+
+      .row {
+        margin:0;
+      }
+    }
+
+    .table-responsive {
+      overflow: visible;
+      width:auto;
+      height:auto;
+      display: block;
+      background: $view-border;
+      font-size:.7em;
+    }
+  }
+
+  &__introduction {
+    padding:10mm;
+    page-break-inside:avoid;
+    page-break-after: always;
+    display: none;
+    @media print {
+      display: block;
+    }
+  }
+
   &__inactive {
     text-align: center;
     padding:$spacer * 3 0;
@@ -30,26 +68,59 @@
     padding: 2 * $spacer;
     z-index:-1;
 
-    &__heading {
-      font-weight:bold;
-      text-transform: uppercase;
-      color: rgba(white, .5);
-      font-size:1em;
-      margin-top:$spacer;
+    @media print {
+      background:transparent;
+      color: $body-color;
+      border:0;
+      padding: 10mm;
+      white-space: normal;
+
+      h4 {
+        margin:0;
+      }
+    }
+
+    &__fleet {
+      page-break-inside:avoid;
+
+      &__heading {
+        font-weight:bold;
+        text-transform: uppercase;
+        color: rgba(white, .5);
+        font-size:1em;
+        padding-top:$spacer;
+        @media print {
+          color:inherit;
+        }
+      }
     }
 
     .table {
-      background: darken($brand-inverse, 5);
+
+      @media print {
+        border:1px solid $table-border-color;
+      }
 
       th,
       td,
       thead th {
         border-color: lighten($brand-inverse, 5);
+        background: darken($brand-inverse, 5);
+
+        @media print {
+          background: $view-bg !important;
+          border-color: $table-border-color;
+          color: $body-color;
+        }
       }
     }
   }
 
   &__sidebar {
+
+    @media print {
+      display: none;
+    }
 
     &.sticky {
       top:$spacer;
@@ -84,23 +155,97 @@
   }
 
   &__view {
+    @media print {
+      padding:0;
+
+      .card {
+        margin:0;
+      }
+
+      &__chart {
+        min-height: 100%;
+        margin:0;
+        display: block;
+        position: relative;
+
+        .chart {
+          padding:0;
+          margin: 0 10mm;
+          page-break-inside:avoid;
+          page-break-before: always;
+          -webkit-transform: translateY(10mm);
+        }
+
+        .chart-grouped {
+          position: relative;
+          margin:0;
+          border-right:0;
+          border-left:0;
+          page-break-inside:avoid;
+          page-break-before: always;
+
+          &__chart {
+            page-break-inside:avoid;
+            margin: 0 10mm;
+            padding-top:10mm;
+            padding-bottom:10mm
+          }
+        }
+      }
+    }
 
     &__raw {
       font-size: .8em;
       white-space: nowrap;
-      margin-bottom: 4 * $spacer;
+      padding-bottom: 4 * $spacer;
 
-      &__heading {
-        font-weight:bold;
-        text-transform: uppercase;
-        color: $text-muted;
-        font-size:1em;
-        margin-top:$spacer;
+      @media print {
+        page-break-before: always;
+        border:0;
+        white-space: normal;
+        margin:0;
+
+        &, .card-block {
+          padding:0;
+          margin:0;
+        }
+
+        h3 {
+          margin:0 10mm;
+        }
+      }
+
+      &__fleet {
+        page-break-inside: avoid;
+
+        @media print {
+          padding:0 10mm;
+        }
+
+        &__heading {
+          font-weight:bold;
+          text-transform: uppercase;
+          color: $text-muted;
+          font-size:1em;
+          padding-top:$spacer;
+        }
       }
 
       .table {
+        max-width: 100%;
+        overflow: hidden;
         margin:0;
         background: mix($card-border-color, $card-bg, 15);
+
+        @media print {
+          border:1px solid $table-border-color;
+        }
+
+        th, td, thead th {
+          @media print {
+            background: $view-bg !important;
+          }
+        }
       }
     }
   }

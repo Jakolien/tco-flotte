@@ -3,6 +3,7 @@
     | {{ $ctrl.chart.meta.name | translate }}
   .chart__c3
     c3chart(bindto-id="chart-{{ :: $ctrl.meta.name }}", transition-duration="0", padding-top="0", callback-function="$ctrl.bindChart")
+      chart-size(chart-width="{{ :: $root.chartWidth }}")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnNames() }}")
       chart-column(ng-repeat="group in $ctrl.chart.groups",

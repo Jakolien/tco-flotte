@@ -25,7 +25,10 @@ var printQueue = {};
 // Queue state
 const QUEUE_DONE = 'done', QUEUE_PENDING = 'pending';
 // Print's paper size properties
-const PAPER_SIZE = { format: "A4", orientation: "landscape",  border: 0 };
+const PAPER_SIZE = {
+  format: "A4",
+  orientation: "landscape"
+};
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -215,7 +218,7 @@ export function index(req, res) {
 export function print(req, res) {
   mine(req).then(function(fleets) {
     // Generate the queue key for this file
-    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, 'pdf');
+    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, `pdf/${req.locale}`);
     // Obfuscate the key for better anonymity
     key = require('crypto').createHash('md5').update(key).digest('hex');
     // PDF temporary filename
@@ -238,9 +241,10 @@ export function print(req, res) {
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
-        .then(page     => (sitepage = page).open(`${url}/#/print?ids=${req.query.ids}`))
-        .then(status   => sitepage.property('paperSize', PAPER_SIZE) )
-        .then(status   => sitepage.property('zoomFactor', 0.75) )
+        .then(page     => sitepage = page)
+        .then(page     => sitepage.property('paperSize', PAPER_SIZE) )
+        .then(status   => sitepage.property('zoomFactor', 1) )
+        .then(page     => sitepage.open(`${url}/#/visualization?language=${req.locale}&ids=${req.query.ids}`))
         .then(function() {
           // Wait a short delay before rendering the page to PDF
           return setTimeout(function() {
@@ -252,7 +256,7 @@ export function print(req, res) {
               phInstance.exit();
               // Mark the queue as done
               printQueue[key] = QUEUE_DONE;
-            })
+            });
           // We wait 4 seconds to ensure all chart are rendered
           }, 4000);
         })

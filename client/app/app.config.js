@@ -24,4 +24,29 @@ export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-gro
     // Progress bar
     cfpLoadingBarProvider.includeSpinner = false;
   })
+  .config(function($httpProvider, $injector) {
+    'ngInject';
+    // Add interceptor to change the accept language header
+    $httpProvider.interceptors.push(function() {
+      'ngInject';
+      // Use injector to get $translate instance in order to avoid circular deps
+      let $translate = $injector.get('$translateProvider');
+      return {
+       request: function(config) {
+          // Change the headers
+          config.headers['accept-language'] = $translate.use() || 'en'
+          // Return the new config to apply it
+          return config;
+        }
+      };
+    })
+  })
+  .run(function($rootScope, $window) {
+    'ngInject';
+    // Detect headless browser
+    if (/PhantomJS/.test($window.navigator.userAgent)){
+      // Specipy a fixed width for the charts
+      $rootScope.chartWidth = 720;
+    }
+  })
   .name;
