@@ -2,7 +2,7 @@ var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
-var charging_options = ["Keine","Wallbox 3.7kW","Wallbox bis 22kW","Ladesäule 22kW"];
+var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW"];
 var year_min = 2014;
 var year_max = 2050;
 // Special groups energy type
@@ -46,9 +46,9 @@ var Fleet = function(params) {
 	this.fleet_presets.businessplane_cost_per_km = 3.5
 
 	// Financial variables
-	this.fleet_presets.inflationsrate   = 0.015		// That's 1.5% per year
+	this.fleet_presets.inflationsrate   = 1.5		// That's 1.5% per year
 	this.fleet_presets.exchange_rate    = 1.25 		// How many $ for 1 €
-	this.fleet_presets.discount_rate    = 0.05	    // 5% per year
+	this.fleet_presets.discount_rate    = 5	    // 5% per year
 	this.fleet_presets.abschreibungszeitraum = 6  	// amortization period
 	this.fleet_presets.unternehmenssteuersatz = 30 	// corporate tax
 	this.fleet_presets.sonder_afa = false			// special accounting rule to increase amortization for electro vehicles in the first year deactivated by default
@@ -175,11 +175,9 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3.7kW": { "acquisition": 350, "maintenance": 15},
+		"Wallbox 3,7kW": { "acquisition": 350, "maintenance": 15},
 		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
-		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330},
-		"Ladesäule 43.6kW": { "acquisition": 15250, "maintenance": 1600},
-		"Ladesäule 100 kW DC": { "acquisition": 48500, "maintenance": 4600}
+		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330}
 	}
 
 	// Variables for evolution of energy consumption in % of reduction per decade
@@ -593,10 +591,14 @@ var Fleet = function(params) {
 		this.groups[group_id] = _.pick(group, ['_id', 'vars', 'name', 'special']);
 		// Creates the corresponding vehicle group
 		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
+		// CO2 from manufacturing
+		var current_CO2_from_manufacturing = this.fleet_presets.CO2_from_manufacturing[group.vars.energy_type][group.vars.car_type];
 
 		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
-			"CO2": current_group.CO2 * num_of_vehicles + this.fleet_presets.CO2_from_manufacturing[params.groups[group_id].vars.energy_type][params.groups[group_id].vars.car_type] * num_of_vehicles,
+			"CO2_from_driving": current_group.CO2 * num_of_vehicles,
+			"CO2_from_manufacturing": current_CO2_from_manufacturing * num_of_vehicles,
+			"CO2": (current_group.CO2 + current_CO2_from_manufacturing) * num_of_vehicles,
 			"mileage": current_group.mileage * num_of_vehicles,
 			"car_type": current_group.car_type,
 			"energy_type": current_group.energy_type,
@@ -620,13 +622,21 @@ var Fleet = function(params) {
 		"cost_per_km": 0,
 		"cost_by_group": {},
 		"CO2_by_group": {},
-		"cost_by_position": {"net_acquisition_cost": 0, "fixed_costs": 0, "variable_costs": 0, "energy_costs": 0, "charging_infrastructure":0},
+		"cost_by_position": {
+			"net_acquisition_cost": 0, 
+			"fixed_costs": 0, 
+			"variable_costs": 0, 
+			"energy_costs": 0, 
+			"charging_infrastructure":0},
 		"mileage_by_group": {},
 		"cost_by_car_type": {},
 		"cost_by_energy_type": {},
 		"CO2_by_car_type": {},
 		"CO2_by_energy_type": {},
-		"CO2_by_phase": {}
+		"CO2_by_phase": {
+			"CO2_from_driving": 0,
+			"CO2_from_manufacturing": 0
+		}
 	}
 
 	// Computes the TCO values for the whole fleet
@@ -660,10 +670,8 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
 		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
 		// CO2 by phase
-		this.TCO.CO2_by_phase = {
-			"CO2_from_driving": group_insights.TCO.CO2 - this.fleet_presets.CO2_from_manufacturing[group_insights.energy_type][group_insights.car_type] * group_insights.num_of_vehicles,
-			"CO2_from_manufacturing": this.fleet_presets.CO2_from_manufacturing[group_insights.energy_type][group_insights.car_type] * group_insights.num_of_vehicles
-		}
+		this.TCO.CO2_by_phase["CO2_from_driving"] += group_insights.TCO.CO2_from_driving
+		this.TCO.CO2_by_phase["CO2_from_manufacturing"] += group_insights.TCO.CO2_from_manufacturing
 
 		// Costs and CO2 by car type
 		if (group_insights.car_type == "single_size") {
@@ -707,3 +715,4 @@ var Fleet = function(params) {
 // Available from outisde
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
+
