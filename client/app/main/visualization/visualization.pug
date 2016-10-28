@@ -7,7 +7,7 @@
           | {{ 'create_fleet' | translate }}
   .main__visualization__introduction
     h2 {{ 'pdf_title' | translate }}
-    p.lead(ng-bind-html="'pdf_description' | translate")
+    p.lead(ng-bind-html="'pdf_description' | translate:{ fleets: $ctrl.fleetNamesStr(), now: ($ctrl.now | date:('date_format' | translate)) }")
   .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
     .container
       h4 {{ 'summary_title' | translate }}
