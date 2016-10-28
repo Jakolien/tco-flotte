@@ -150,16 +150,16 @@ function findEditableFleet(req, id) {
 
 function updateEditableFleet(req) {
   // Secret key to edit the fleet
-  let secret = req.query.secret || req.body.secret;
-  let id = req.params.id || req.body._id;
   let body = req.body;
+  let secret = body.secret = req.query.secret || req.body.secret;
+  let id = req.params.id || req.body._id;
   // Clean some properties
-  if(body.hasOwnProperty('_id')) { delete body._id; }
+  if(body.hasOwnProperty('_id'))      { delete body._id; }
   if(body.hasOwnProperty('revision')) { delete body.revision; }
-  // Add ownership to the fleet
-  if(req.user && !body.owner) { body.owner = req.user._id; }
   // Using secret
   if(secret) {
+    // Add ownership to the fleet
+    if(req.user && !body.owner) { body.owner = req.user._id; }
     // Set owner (if any)
     return Fleet.findOneAndUpdate({
          _id: id,
@@ -169,10 +169,10 @@ function updateEditableFleet(req) {
          $inc: { revision: 1 }
        }, {
          upsert: true,
-         setDefaultsOnInsert: true,
          runValidators: true,
          new: true
-       }).exec();
+      // Ensure validation is performed
+    }).exec().then(fleet => fleet.fillGroups());
   // Using session;
   } else if(req.user) {
     return Fleet.findOneAndUpdate({
@@ -183,26 +183,14 @@ function updateEditableFleet(req) {
           $inc: { revision: 1 }
         }, {
           upsert: true,
-          setDefaultsOnInsert: true,
           runValidators: true,
           new: true
-        }).exec()
+        // Ensure validation is performed
+        }).exec().then(fleet => fleet.fillGroups());
   // Using nothing (can't edit)
   } else {
     return Promise.reject(new Error('Not found or Unauthorized'));
   }
-}
-
-function endNighmareFn(nightmare) {
-  return function() {
-    // finally cleanup
-    nightmare.end();
-    // kill the Electron process explicitly to ensure no orphan child processes
-    nightmare.proc.disconnect();
-    nightmare.proc.kill();
-    nightmare.ended = true;
-    nightmare = null;
-  };
 }
 
 // Gets a list of Fleets
@@ -285,48 +273,6 @@ export function download(req, res) {
     // Not ready!
     handleError(res)('The file you requested is not in queue or not ready.');
   }
-}
-
-// Print a list of Fleets in PNG
-export function png(req, res) {
-  mine(req).then(function(fleets) {
-    // Generate the cache key
-    let key = fleets.reduce( (init, f)=> `${init}/${f._id}:${f.revision}`, req.params.meta);;
-    // Obfuscate the key for better anonymity
-    key = require('crypto').createHash('md5').update(key).digest('hex');
-    // Get the image from the cache
-    let image = cache.get(key);
-    // An image is present in the cache
-    if(image) {
-      // Send the image
-      res.type('png').send(image);
-    } else {
-      // In development, assets are generated through a proxy on port 3000
-      let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
-      try {
-        let nightmare = Nightmare({ width: 800, height: 300 });
-        // We open the print view
-        nightmare.goto(`${url}/#/print/${req.params.meta}?clip=1&static=0`)
-          // Wait a small delay to let angular render the page
-          //.wait('.chart--rendered')
-          .wait('.print__chart--last .chart--rendered')
-          .screenshot(function(err, buffer) {
-            if(!err) {
-              // Cache for 2 hours
-              cache.put(key, buffer, 2*6e4);
-              res.type('png').send(buffer);
-            } else {
-              handleError(res)(err);
-            }
-          })
-          .catch(handleError(res))
-          .then(endNighmareFn(nightmare));
-      // Catch error with Nightmare
-      } catch(err){
-        handleError(res)(err);
-      }
-    }
-  });
 }
 
 // Gets a single Fleet from the DB

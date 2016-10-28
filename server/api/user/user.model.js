@@ -16,8 +16,14 @@ var UserSchema = new Schema({
   },
   provider: String,
   salt: String,
-  resetPasswordToken: String,
-  resetPasswordExpires: Date
+  resetPasswordToken: {
+    type: String,
+    select: false
+  },
+  resetPasswordExpires: {
+    type: Date,
+    select: false
+  }
 });
 
 /**

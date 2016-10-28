@@ -27,7 +27,7 @@
   {
     "id": "56",
     "label": "Number of charging devices",
-    "name": "chargin_option_num",
+    "name": "charging_option_num",
     "description": null,
     "unit": null,
     "section": "Charging option",
@@ -847,7 +847,7 @@
     "editable": false,
     "context": "VehicleGroup",
     "special": false,
-    "report": "Basic information for the calculation"
+    "report": null
   },
   {
     "id": "2",

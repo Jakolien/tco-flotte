@@ -115,7 +115,7 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
       return _.map(types, type=> _.trim(type, ' "\''));
     }
     isVisible(subset = this.subset) {
-      return this.isParentActive(subset) && this.matchEnergyType(subset);
+      return this.meta.shownonthelist && this.isParentActive(subset) && this.matchEnergyType(subset);
     }
   }
 

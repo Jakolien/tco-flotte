@@ -51,7 +51,7 @@ var FleetSchema = new mongoose.Schema({
   minimize: false,
   timestamps: true,
   versionKey: 'revision'
-})
+});
 
 FleetSchema.plugin(hash, {
   field: "secret",
@@ -62,8 +62,8 @@ FleetSchema.virtual('self.link').get(function () {
   return `/api/fleets/${this._id}`
 });
 
-// Add special groups
-FleetSchema.pre('validate', function (next) {
+FleetSchema.methods.fillGroups = function(next = _.noop) {
+  let colors = require('../../config/environment/shared').colors;
   // Groups must be exists
   this.groups = this.groups || [];
   // Those 7 energy_types must exist in a group
@@ -83,8 +83,27 @@ FleetSchema.pre('validate', function (next) {
       })
     }
   }
+  this.groups.forEach( function(group, i) {
+    // Vars must exists
+    group.vars = group.vars || {};
+    // Add color only for group without color
+    if( !group.vars.group_color) {
+      // Create colors for this group
+      group.vars.group_color = "#" + colors[ i % colors.length ].replace('#', '');
+    }
+    // Group name from vars has priority
+    if(group.vars.group_name) {
+      // Fill group name with 'vars'
+      group.name = group.vars.group_name;
+    } else if(group.name) {
+      // Fill 'vars'  with group name
+      group.group_name = group.name;
+    }
+  });
   next();
-});
+  return this;
+};
+
 
 // The fleet must be used by the FleetProcessor
 FleetSchema.pre('validate', function (next) {
@@ -99,16 +118,6 @@ FleetSchema.pre('validate', function (next) {
   }
 });
 
-// Create colors
-FleetSchema.pre('validate', function (next) {
-  let colors = require('../../config/environment/shared').colors;
-  this.groups.forEach( function(group, i) {
-    // Add color only for group without color
-    if(group.vars && !group.vars.group_color) {
-      group.vars.group_color = "#" + colors[ i % colors.length ].replace('#', '');
-    }
-  });
-  next();
-});
+FleetSchema.pre('validate', FleetSchema.methods.fillGroups);
 
 export default mongoose.model('Fleet', FleetSchema);
