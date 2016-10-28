@@ -50,6 +50,22 @@ var VehicleGroup = function(fleet_params, params) {
 	this.leasing_residual_value = 0
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
 
+	// Variables of the special groups
+	this.long_distance_train_CO2_per_km = 0.041
+	this.long_distance_train_cost_per_km = .9
+	this.short_distance_train_CO2_per_km = 0.069
+	this.short_distance_train_cost_per_km = .7
+	this.car_sharing_CO2_per_km = 0.077
+	this.car_sharing_cost_per_km = .2
+	this.rental_car_CO2_per_km = 0.181
+	this.rental_car_cost_per_km = 2
+	this.bike_CO2_per_km = 0.0042
+	this.bike_cost_per_km = 0
+	this.plane_CO2_per_km = 0.196
+	this.plane_cost_per_km = 1.5 
+	this.businessplane_CO2_per_km = 0.366
+	this.businessplane_cost_per_km = 3.5
+
 	for(var prop in params) {
     if( params.hasOwnProperty(prop) && this.hasOwnProperty(prop) ) {
 			this[prop] = params[prop]
@@ -848,7 +864,7 @@ var VehicleGroup = function(fleet_params, params) {
 		this.TCO_simplified.energy_costs = 0
 		this.TCO_simplified.variable_costs = 0
 		this.TCO_simplified.fixed_costs = 0
-		this.CO2 = this.mileage * eval("fleet_params."+ this.energy_type +"_CO2_per_km")
+		this.CO2 = this.mileage * eval("this."+ this.energy_type +"_CO2_per_km")
 	} else {
 	// Proceeds to the regular calculations
 		this.computeCosts()
