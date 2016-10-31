@@ -1,6 +1,6 @@
 .main__fleets__groups__edit
   .main__fleets__groups__edit__header
-    h3 {{ $ctrl.group.name }}
+    h3 {{ $ctrl.group.special ? ($ctrl.group.name | translate) : $ctrl.group.name }}
   form.row(ng-submit="$ctrl.save()", novalidate)
     .col-md-5.push-md-7.push-lg-6
       .main__fleets__groups__edit__sidebar(sticky)
@@ -8,7 +8,7 @@
           .card-block.text-muted
             | {{ 'edit_group_help' | translate }}
           .card-footer.main__fleets__groups__edit__sidebar__footer
-            .pull-right(ng-if="!$ctrl.group.special")
+            .float-xs-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                 i.fa.fa-fw.fa-files-o
                 | &nbsp;{{ 'duplicate' | translate }}
@@ -38,7 +38,7 @@
             span &nbsp;{{ context.title }}
           .card-block(ng-show="context.open")
               fieldset(ng-repeat="(section, inputs) in context.sections", ng-show="$ctrl.isVisible(inputs, context._values || context.values)")
-                legend(ng-hide="$last && $first") {{ section }}
+                legend(ng-hide="$last && $first") {{ section | translate }}
                 .form-group(ng-repeat='input in inputs', ng-show='input.isVisible(context._values || context.values)')
                   label.row
                     .col-lg-5(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
