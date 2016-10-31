@@ -156,6 +156,7 @@ function updateEditableFleet(req) {
   // Clean some properties
   if(body.hasOwnProperty('_id'))      { delete body._id; }
   if(body.hasOwnProperty('revision')) { delete body.revision; }
+  if(body.hasOwnProperty('secret'))   { delete body.secret; }
   // Using secret
   if(secret) {
     // Add ownership to the fleet
