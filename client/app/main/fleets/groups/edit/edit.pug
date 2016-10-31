@@ -1,6 +1,6 @@
 .main__fleets__groups__edit
   .main__fleets__groups__edit__header
-    h3 {{ $ctrl.group.name }}
+    h3 {{ $ctrl.group.special ? ($ctrl.group.name | translate) : $ctrl.group.name }}
   form.row(ng-submit="$ctrl.save()", novalidate)
     .col-md-5.push-md-7.push-lg-6
       .main__fleets__groups__edit__sidebar(sticky)
