@@ -27,7 +27,7 @@
   "charging_infrastructure": "Charging Infrastructure",
   "charging_option": "Charging option",
   "charging_option_cost": "Charging infrastructure cost",
-  "chart_leasing_alert": "* Includes the leasing rate and included services.",
+  "chart_leasing_alert": "Fixed costs include services that are part to the leasing contract.",
   "CO2": "CO₂ emissions",
   "CO2_by_car_type": "CO₂ by car type",
   "CO2_by_energy_type": "CO₂ by energy type",
@@ -262,5 +262,7 @@
   "evolution_elec_price_until_2050": "Evolution of the price of electricity (2030-2050)",
   "evolution_hydrocarbon_price_until_2050": "Evolution of the price of a barrel of oil",
   "CO2_from_driving": "CO₂ from driving",
-  "CO2_from_manufacturing": "CO₂ from manufacturing"
+  "CO2_from_manufacturing": "CO₂ from manufacturing",
+  "total_costs": "Total costs",
+  "euro_per_km": "€/km"
 }
