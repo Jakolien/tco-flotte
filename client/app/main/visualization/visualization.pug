@@ -27,7 +27,7 @@
                   span.tag(ng-style="{ background: group.vars.group_color  }")
                     | {{ group.name }}
                 td(ng-repeat="raw in $ctrl.summaries")
-                  | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }}{{ raw.unit | translate }}
+                  | {{ group[raw.name] || group.vars[raw.name] || group.insights[raw.name] }} {{ raw.unit | translate }}
   .container(ng-if="$ctrl.fleets.isActive()")
     .row
       .col-md-3.push-md-9
