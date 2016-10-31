@@ -16,7 +16,6 @@ export default class ChartCo2Component {
     this.groupBy   = this.groupBy.bind(this);
     this.bindChart = this.bindChart.bind(this);
     this.addUnitTo = this.addUnitTo.bind(this);
-
   }
   get columns() {
     return this.settings.map(s => this.$translate.instant(s.energytype));
@@ -28,9 +27,10 @@ export default class ChartCo2Component {
     return 'fleet-co2';
   }
   get values() {
-    return this.settings.map( function(meta) {
-      return this.fleet.fleet_presets[meta.name]
-    }.bind(this));
+    return this.settings.map( (meta)=> {
+      let group = this.findByEnergyType(meta.energytype)
+      return group.vars[meta.name] || group.insights[meta.name];
+    });
   }
   get valuesStr() {
     return this.values.join(',');
@@ -48,6 +48,12 @@ export default class ChartCo2Component {
   }
   get unit() {
     return this.$translate.instant('g_per_km');
+  }
+  get groups() {
+    return this.fleet.groups.filter({ special: true })
+  }
+  findByEnergyType(energyType) {
+    return _.find(this.groups, g=> g.vars.energy_type === energyType);
   }
   bindChart(chart) {
     this.addUnitTo(chart);
