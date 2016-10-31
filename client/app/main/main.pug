@@ -8,9 +8,12 @@ navbar
       p.main__welcome__block__intro(ng-bind-html="'main_intro' | translate")
       p.main__welcome__block__actions
         a.btn.btn-success.btn-lg(ui-sref='main.fleets')
-          span(ng-show="$ctrl.fleets.isActive()") {{ 'see_your_fleets' | translate }}
-          span(ng-hide="$ctrl.fleets.isActive()") {{ 'create_your_fleets' | translate }}
-        a.btn.btn-link.btn-lg {{ 'see_demo' | translate }}
+          span(ng-show="$ctrl.fleets.isActive()")
+            | {{ 'see_your_fleets' | translate }}
+          span(ng-hide="$ctrl.fleets.isActive()")
+            | {{ 'create_your_fleets' | translate }}
+        a.btn.btn-link.btn-lg(ng-hide="$ctrl.fleets.isActive()", ng-click="$ctrl.demo()")
+          | {{ 'see_demo' | translate }}
     .main__welcome__context
       .row.text-center.main__welcome__context__logos
         .col-xs-3

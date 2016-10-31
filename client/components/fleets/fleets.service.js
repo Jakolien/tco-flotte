@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Lawnchair from 'lawnchair';
 import angular from 'angular';
 
-export default function fleetsService(Restangular, $q) {
+export default function fleetsService(Restangular, $q, demoScenario) {
   'ngInject';
   // We store secret with Lauwnchair
   var store = new Lawnchair(angular.noop);
@@ -232,6 +232,8 @@ export default function fleetsService(Restangular, $q) {
       // Parent constructor
       super();
       // Bind methods to this instance
+      this.demo = this.demo.bind(this);
+      this.delete = this.delete.bind(this);
       this.push = this.push.bind(this);
       this.purge =  this.purge.bind(this);
       this.initial =  this.initial.bind(this);
@@ -283,6 +285,7 @@ export default function fleetsService(Restangular, $q) {
     delete(fleet) {
       // Remove from the local instance
       super.delete(fleet);
+      console.log('pong', fleet);
       // Remove in the database
       return fleet.remove({ secret: fleet.secret }).then(function(){
         // Remove in the secret store
@@ -300,6 +303,18 @@ export default function fleetsService(Restangular, $q) {
         ++fleetNameCounter;
       }
       return Fleet.uniqueName();
+    }
+    demo() {
+      // Copy all fleets to an alternative array because we need
+      // to modify the array during the loop
+      let all = angular.copy( this.all() );
+      // We delete all inactive fleets
+      all.forEach( fleet=> fleet.isActive() || this.delete(fleet) );
+      // We create two fleets using the demo scenario
+      let promises = demoScenario.map( demo=> this.create(demo).$promise );
+      // Return a race of promises
+      // (resolved as soon as one promise is resolved)
+      return $q.race(promises);
     }
     set compared(fleet = null) {
       this[_compared] = fleet;

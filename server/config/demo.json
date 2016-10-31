@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Basis fleet",
+    "vars": {},
+    "groups": [
+      {
+        "vars": {
+          "group_name": "VW Transporter",
+          "num_of_vehicles": 2,
+          "energy_type": "diesel",
+          "car_type": "LNF1",
+          "mileage": 20000
+        }
+      },
+      {
+        "vars": {
+          "group_name": "Opel Astra",
+          "num_of_vehicles": 1,
+          "energy_type": "benzin",
+          "car_type": "mittel",
+          "mileage": 10000
+        }
+      },
+      {
+        "vars": {
+          "group_name": "VW Polo",
+          "num_of_vehicles": 3,
+          "energy_type": "benzin",
+          "car_type": "klein",
+          "mileage": 8000
+        }
+      }
+    ]
+  },
+  {
+    "name": "Optimized fleet",
+    "vars": {
+      "charging_options": "Wallbox bis 22kW",
+      "charging_option_num": 1
+    },
+    "groups": [
+      {
+        "vars": {
+          "group_name": "VW Transporter",
+          "num_of_vehicles": 2,
+          "energy_type": "diesel",
+          "car_type": "LNF1",
+          "mileage": 20000
+        }
+      },
+      {
+        "vars": {
+          "group_name": "Opel Astra",
+          "num_of_vehicles": 1,
+          "energy_type": "benzin",
+          "car_type": "mittel",
+          "mileage": 9000
+        }
+      },
+      {
+        "name": "e-Bike",
+        "vars": {
+          "energy_type": "bike",
+          "mileage": 1000
+        }
+      },
+      {
+        "vars": {
+          "group_name": "VW Polo",
+          "num_of_vehicles": 1,
+          "energy_type": "benzin",
+          "car_type": "klein",
+          "mileage": 10000
+        }
+      },
+      {
+        "vars": {
+          "group_name": "VW e-Up",
+          "num_of_vehicles": 2,
+          "energy_type": "BEV",
+          "car_type": "klein",
+          "mileage": 7000
+        }
+      }
+    ]
+  }
+]
