@@ -242,5 +242,6 @@
     "your_groups_title": "Your groups",
     "€": "€",
     "€_per_kwh": "€_per_kwh",
-    "€_per_liter": "€_per_liter"
+    "€_per_liter": "€_per_liter",
+    "charging_option_num": "Number of charging devices"
 }
