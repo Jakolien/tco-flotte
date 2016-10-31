@@ -92,6 +92,12 @@ html body .growl-container.growl-fixed.top-right {
   top:85px;
 }
 
+.input-group {
+  .form-control, .input-group-addon {
+    min-width: 0;
+  }
+}
+
 
 
 // Component styles are injected through gulp

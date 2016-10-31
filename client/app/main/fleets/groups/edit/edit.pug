@@ -2,8 +2,8 @@
   .main__fleets__groups__edit__header
     h3 {{ $ctrl.group.special ? ($ctrl.group.name | translate) : $ctrl.group.name }}
   form.row(ng-submit="$ctrl.save()", novalidate)
-    .col-md-5.push-md-7.push-lg-6
-      .main__fleets__groups__edit__sidebar(sticky)
+    .col-xl-5.push-xl-7
+      .main__fleets__groups__edit__sidebar
         .card
           .card-block.text-muted
             | {{ 'edit_group_help' | translate }}
@@ -11,7 +11,7 @@
             .float-xs-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                 i.fa.fa-fw.fa-files-o
-                | &nbsp;{{ 'duplicate' | translate }}
+                span.hidden-xl-up &nbsp;{{ 'duplicate' | translate }}
               =" | "
               button.btn.btn-link(type="button",
                 mwl-confirm,
@@ -28,7 +28,7 @@
             =" "
             a.btn.btn-link(ui-sref="main.fleets")
               | {{ 'cancel' | translate }}
-    .col-md-7.col-lg-6.pull-md-5
+    .col-xl-7.pull-xl-5
       .card
         .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes', ng-show="context.inputs.length")
           h5.main__fleets__groups__edit__context__heading(sticky='', ng-click="context.open = !context.open")
@@ -41,11 +41,11 @@
                 legend(ng-hide="$last && $first") {{ section | translate }}
                 .form-group(ng-repeat='input in inputs', ng-show='input.isVisible(context._values || context.values)')
                   label.row
-                    .col-lg-5(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
+                    .col-lg-4(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
                       | {{ input.meta.name | translate }}
                       span(uib-tooltip-html="input.meta.description | translate", ng-show="input.meta.description")
                         i.fa.fa-info
-                    .col-lg-7
+                    .col-lg-8
                       div(ng-switch=":: input.getType()")
                         div.custom-control.custom-checkbox(ng-switch-when="boolean")
                           input.custom-control-input(type="checkbox",
@@ -61,7 +61,7 @@
                             ng-model-options="{ getterSetter: true }")
                               option(value="") ⎼⎼
                           span.input-group-addon(ng-show="input.meta.unit")
-                            | {{ input.meta.unit | translate }}
+                            | {{ input.meta.unit | translate | trim }}
                         div(ng-switch-when="interval", ng-class="{ 'input-group': input.meta.unit }")
                           input.form-control(type="number",
                             name="{{ input.meta.name }}",
@@ -71,14 +71,14 @@
                             ng-model="$ctrl.gs(context, input.meta.name)",
                             ng-model-options="{ getterSetter: true }")
                           span.input-group-addon(ng-show="input.meta.unit")
-                            | {{ input.meta.unit | translate }}
+                            | {{ input.meta.unit | translate | trim }}
                         div(ng-switch-when="string")
                           input.form-control(type="text",
                             name="{{ input.meta.name }}",
                             ng-model="$ctrl.gs(context, input.meta.name)",
                             ng-model-options="{ getterSetter: true }")
                           span.input-group-addon(ng-show="input.meta.unit")
-                            | {{ input.meta.unit | translate }}
+                            | {{ input.meta.unit | translate | trim }}
                         div(ng-switch-when="color")
                           input.form-control(type="text",
                             name="{{ input.meta.name }}",
@@ -88,4 +88,4 @@
                             ng-model-options="{ getterSetter: true }")
                         div(ng-switch-default)
                           strong {{ context.values[input.meta.name] | number:2 }}
-                          span &nbsp;{{ input.meta.unit | translate }}
+                          span &nbsp;{{ input.meta.unit | translate | trim }}

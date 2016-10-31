@@ -10,6 +10,8 @@
 
   &__sidebar {
 
+    margin-bottom:$spacer;
+
     &.sticky {
       top:$spacer;
     }
@@ -18,6 +20,10 @@
       background: inherit;
       white-space: nowrap;
       color:$card-border-color;
+      .btn-link {
+        padding-left:$spacer/2;
+        padding-right:$spacer/2;
+      }
     }
   }
 
