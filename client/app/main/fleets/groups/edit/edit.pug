@@ -8,7 +8,7 @@
           .card-block.text-muted
             | {{ 'edit_group_help' | translate }}
           .card-footer.main__fleets__groups__edit__sidebar__footer
-            .pull-right(ng-if="!$ctrl.group.special")
+            .float-xs-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                 i.fa.fa-fw.fa-files-o
                 | &nbsp;{{ 'duplicate' | translate }}

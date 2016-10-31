@@ -6,7 +6,7 @@
           li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
                                       ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
             a.main__fleets__list__item__name(ui-sref="main.fleets({ fleet: fleet._id })")
-              .pull-xs-right.text-muted(ng-show="fleet.loading")
+              .float-xs-right.text-muted(ng-show="fleet.loading")
                 i.fa.fa-refresh.fa-spin.fa-fw
               div {{ fleet.name || '┄' }}
               div.text-muted.small
@@ -34,7 +34,7 @@
                       .small.text-muted {{ group.insights.mileage | number }} km/year
                       .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                     .main__fleets__view__groups__item__footer
-                      span.pull-xs-right
+                      span.float-xs-right
                         a(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                           i.fa.fa-edit
                           | &nbsp;{{ 'edit' | translate }}
@@ -44,7 +44,7 @@
                     .main__fleets__view__groups__item__add-group
                       | {{ 'add_vehicles_group' | translate }}
 
-              .pull-xs-right
+              .float-xs-right
                 button.btn.btn-secondary.btn-sm(ng-class="{ 'active': $ctrl.displayCo2 }", ng-click="$ctrl.displayCo2 = !$ctrl.displayCo2")
                   i.fa.fa-bar-chart
                   | &nbsp;{{ 'see_co2_emissions' | translate }}
@@ -65,14 +65,14 @@
                       .small.text-muted {{ group.insights.mileage | number }} {{ 'km_per_year' | translate }}
                       .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                     .main__fleets__view__groups__item__footer
-                      span.pull-xs-right
+                      span.float-xs-right
                         a(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                           i.fa.fa-edit
                           | &nbsp;{{ 'edit' | translate }}
 
 
               .main__fleets__view__groups__footer
-                .pull-xs-right
+                .float-xs-right
                   button.btn.btn-info(ng-click="$ctrl.optimise()")
                     | {{ 'how_optimise_btn' | translate }}
 

@@ -9,7 +9,7 @@ navbar
           label(for="input-email") {{ 'email' | translate }}
           input.form-control(type='email', id="input-email", name='email', tabindex="1", ng-model='vm.user.email', required='')
         .form-group
-          a.pull-xs-right(ui-sref="forgot", tabindex="4")  {{ 'forgot_password' | translate }}
+          a.float-xs-right(ui-sref="forgot", tabindex="4")  {{ 'forgot_password' | translate }}
           label(for="input-password") {{ 'password' | translate }}
           input.form-control(type='password', id="input-password", name='password', tabindex="2", ng-model='vm.user.password', required='')
         .form-group.has-error
