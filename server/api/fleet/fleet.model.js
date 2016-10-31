@@ -1,8 +1,8 @@
 'use strict';
 
 import mongoose    from 'mongoose';
-import hash        from 'mongoose-hash';
 import _           from 'lodash';
+import crypto      from 'crypto';
 // Process fleet object
 import FleetProcessor    from '../../../processor/fleet.js'
 // Those energy types must be present in at least one group by fleet
@@ -39,7 +39,6 @@ var FleetSchema = new mongoose.Schema({
   },
   secret: {
     type: String,
-    require: true,
     select: false
   },
   owner: {
@@ -53,9 +52,18 @@ var FleetSchema = new mongoose.Schema({
   versionKey: 'revision'
 });
 
-FleetSchema.plugin(hash, {
-  field: "secret",
-  size: 16
+
+FleetSchema.pre('save', function(next) {
+    if (this.isNew) {
+      // Add secret
+      crypto.randomBytes(16, function(err, result) {
+        if (err) return next(err);
+        this.secret = result.toString('hex');
+        next();
+      }.bind(this));
+    } else {
+      next()
+    }
 });
 
 FleetSchema.virtual('self.link').get(function () {
@@ -104,7 +112,7 @@ FleetSchema.methods.fillGroups = function(next) {
   if(next) {
     next();
   }
-  
+
   return this;
 };
 

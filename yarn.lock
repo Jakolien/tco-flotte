@@ -6066,10 +6066,6 @@ mongodb-core@2.0.12:
     mongodb-core "2.0.12"
     readable-stream "2.1.5"
 
-mongoose-hash:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/mongoose-hash/-/mongoose-hash-0.2.0.tgz#5ac5d44f5889b445cd255e7c5b4c231a4d5e50bf"
-
 mongoose@^4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.6.3.tgz#92226e34720ae859afb5dee3170b62653d6598bb"

@@ -62,7 +62,6 @@
     "memory-cache": "^0.1.6",
     "method-override": "^2.3.5",
     "mongoose": "^4.6.3",
-    "mongoose-hash": "^0.2.0",
     "morgan": "~1.7.0",
     "nodemailer": "^2.6.4",
     "passport": "~0.3.0",

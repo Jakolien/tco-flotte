@@ -286,7 +286,6 @@ export default function fleetsService(Restangular, $q, demoScenario) {
     delete(fleet) {
       // Remove from the local instance
       super.delete(fleet);
-      console.log('pong', fleet);
       // Remove in the database
       return fleet.remove({ secret: fleet.secret }).then(function(){
         // Remove in the secret store
