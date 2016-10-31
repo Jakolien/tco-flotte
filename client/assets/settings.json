@@ -922,7 +922,7 @@
     "editable": true,
     "context": "VehicleGroup",
     "special": false,
-    "report": "Basic information for the calculation"
+    "report": "Summary"
   },
   {
     "id": "5",
@@ -1612,7 +1612,7 @@
     "interval": 1,
     "hasslider": false,
     "canbeonxaxis": false,
-    "shownonthelist": false,
+    "shownonthelist": true,
     "importancerank": 51,
     "energytype": null,
     "preliminary": true,

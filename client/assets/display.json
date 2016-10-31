@@ -21,11 +21,11 @@
   },
   {
     "id": "3",
-    "name": "net_cost",
+    "name": "total_costs",
     "type": "bar",
     "usage": "both",
     "leasingconditions": false,
-    "enable": false,
+    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -51,11 +51,11 @@
   },
   {
     "id": "6",
-    "name": "net_cost_per_km",
+    "name": "cost_per_km",
     "type": "bar",
     "usage": "report",
     "leasingconditions": false,
-    "enable": false,
+    "enable": true,
     "bygroup": false,
     "unit": "euro_per_km"
   },
@@ -65,7 +65,7 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
-    "enable": false,
+    "enable": true,
     "bygroup": true,
     "unit": "€"
   },
@@ -105,7 +105,7 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
-    "enable": false,
+    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -115,7 +115,7 @@
     "type": "stacked_bar",
     "usage": "report",
     "leasingconditions": false,
-    "enable": false,
+    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
