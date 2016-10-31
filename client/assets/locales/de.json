@@ -147,8 +147,8 @@
   "long_distance_train": "Bahn (Fernverkehr)",
   "long_distance_train_CO2_per_km": "CO₂ Ausstoß pro km",
   "long_distance_train_cost_per_km": "Kosten pro km",
-  "main_intro": "The total cost of ownership calculator for fleets lets you compute the cost and CO₂ emissions of a fleet of vehicles.",
-  "main_note": "The total cost of ownership calculator for fleets was created by the Öko Insitut as part of ePowered Fleets Hamburg.",
+  "main_intro": "Mit dem Kostenrechner für Flotten können Sie die Gesamtkosten und CO₂ Ausstöße für bis zu 5 Flotten berechnen.",
+  "main_note": "Der Kostenrechner für Flotten wurde vom Öko Insitut als Teil von ePowered Fleets Hamburg entwickelt.",
   "main_purpose": "für Fahrzeugflotten",
   "main_title": "TCO-Kostenrechner",
   "maintenance_costs_charger": "Ladeinfrastruktur Instandhaltungskosten",
@@ -256,5 +256,7 @@
   "CO2_from_driving": "CO₂ aus der Herstellungsphase",
   "CO2_from_manufacturing": "CO₂ vom Treibstoffverbrauch",
   "total_costs": "Gesamtkosten",
-  "euro_per_km": "€/km"
+  "euro_per_km": "€/km",
+  "strom_mix": "Strommix",
+  "strom_erneubar": "Strom aus erneuerbaren Quellen"
 }
