@@ -1,12 +1,7 @@
-var in_array = function(needle, haystack) {
-    var i = haystack.length;
-    while (i--) {
-        if (haystack[i] == needle) {
-            return true;
-        }
-    }
-    return false;
-}
+// Special groups energy type
+const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
+                         'car_sharing',  'rental_car', 'bike',
+                         'plane', 'businessplane'];
 
 var VehicleGroup = function(fleet_params, params) {
 	var scenarios = ["mittel"]
@@ -855,11 +850,11 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	// Checks if this is a special group
-	if (in_array(this.energy_type, additional_energy_types)) {
+	if( SG_ENERGY_TYPES.indexOf(this.energy_type) > -1 ) {
 		// Cleans some of the properties of this special group
 		this.car_type = "single_size"
 		this.num_of_vehicles = 1
-		this.TCO_simplified.net_cost = this.mileage * eval("fleet_params."+ this.energy_type +"_cost_per_km")
+		this.TCO_simplified.net_cost = this.mileage * eval("this."+ this.energy_type +"_cost_per_km")
 		this.TCO_simplified.charging_infrastructure = 0
 		this.TCO_simplified.energy_costs = 0
 		this.TCO_simplified.variable_costs = 0

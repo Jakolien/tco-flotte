@@ -699,4 +699,3 @@ var Fleet = function(params) {
 // Available from outisde
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
-
