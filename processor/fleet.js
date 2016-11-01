@@ -518,6 +518,16 @@ var Fleet = function(params) {
 
 	}
 
+	// Updates the variables in case the Fleet receives user-input variables
+	for(var prop in params.vars) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) ) {
+			this.fleet_presets[prop] = params.vars[prop]
+		}
+	}
+
+	//Sends fleet_presents to vars
+	this.vars = this.fleet_presets
+
 	// Initializes the object that will hold every aquisition prices
 	for (var i in energy_types) {
 		this.fleet_presets.raw_acquisition_price[energy_types[i]] = {}
@@ -546,16 +556,6 @@ var Fleet = function(params) {
 
 	// Initializes the energy prices
 	this.setEnergyPrices()
-
-	// Updates the variables in case the Fleet receives user-input variables
-	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) ) {
-			this.fleet_presets[prop] = params.vars[prop]
-		}
-	}
-
-	//Sends fleet_presents to vars
-	this.vars = this.fleet_presets
 
 	// Initializes the object that will contain the groups
 	this.groups = new Array(params.groups.length);

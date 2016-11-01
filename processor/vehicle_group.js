@@ -847,6 +847,7 @@ var VehicleGroup = function(fleet_params, params) {
 		this.computeCosts()
 		this.getTCOByHoldingTime()
 		this.getTCO()
+
 	}
 
 	// Checks if this is a special group
