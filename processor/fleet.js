@@ -519,10 +519,16 @@ var Fleet = function(params) {
 	}
 
 	// Updates the variables in case the Fleet receives user-input variables
+	// The list of charging options cannot be modified
 	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) ) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" ) {
 			this.fleet_presets[prop] = params.vars[prop]
 		}
+	}
+
+	// Removes the charging option if not in the list (otherwise: Error 500 happens)
+	if( this.fleet_presets.charging_option.indexOf(charging_options) == -1 ) {
+		this.fleet_presets.charging_option = "Keine"
 	}
 
 	//Sends fleet_presents to vars
