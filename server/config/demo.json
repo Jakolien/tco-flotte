@@ -35,7 +35,7 @@
   {
     "name": "Optimized fleet",
     "vars": {
-      "charging_options": "Wallbox bis 22kW",
+      "charging_option": "Wallbox bis 22kW",
       "charging_option_num": 1
     },
     "groups": [
