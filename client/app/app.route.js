@@ -40,7 +40,7 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
       // Find the fleet
       let fleet    = _.find(pathNode.resolvables, { token: 'fleet' }).data;
       // Are we comparing fleets?
-      if(fleets.compared && fleets.compared.TCO.mileage !== fleet.TCO.mileage) {
+      if(fleets.compared && fleets.compared.TCO.mileage_with_savings !== fleet.TCO.mileage_with_savings) {
         return $uibModal.open({
           template: require('./main/fleets/confirm.pug'),
           size: 'md',
@@ -48,12 +48,12 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
           controller: function($uibModalInstance) {
             'ngInject';
             // An array of sorted values
-            let sorted = [fleet, fleets.compared].sort(( a, b)=> a.TCO.mileage - b.TCO.mileage);
+            let sorted = [fleet, fleets.compared].sort(( a, b)=> a.TCO.mileage_with_savings - b.TCO.mileage_with_savings);
             // Comparaison values
             this.deltaValues = {
               biggest: sorted[1],
               smallest: sorted[0],
-              delta: sorted[1].TCO.mileage - sorted[0].TCO.mileage
+              delta: sorted[1].TCO.mileage_with_savings - sorted[0].TCO.mileage_with_savings
             };
             // Modal helpers
             this.ok = $uibModalInstance.close;
