@@ -81,7 +81,11 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     }
     delete(group) {
       let fleet = this[_fleet];
-      fleet.api.one('groups', group._id).remove({ secret: fleet.secret });
+      // Delete the group with a special API endpoint
+      fleet.api.one('groups', group._id).remove({ secret: fleet.secret }).then( (vars)=>{
+        // Then update the fleet data
+        return this[_fleet].initialize(vars);
+      });
       return super.delete(group);
     }
     push(...rest) {
