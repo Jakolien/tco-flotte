@@ -279,5 +279,6 @@
     "your_groups_title": "Ihre Fahrzeuggruppen",
     "€": "€",
     "€_per_kwh": "€/kWh",
-    "€_per_liter": "€/L"
+    "€_per_liter": "€/L",
+    "mileage_with_savings": ""
 }

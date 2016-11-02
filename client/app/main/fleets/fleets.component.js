@@ -12,6 +12,7 @@ export default angular.module('oekoFlotteApp.main.fleets', [uiRouter])
     template: require('./fleets.pug'),
     bindings: {
       settings: '<',
+      display: '<',
       fleet: '<'
     }
   })

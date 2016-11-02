@@ -13,7 +13,7 @@ export default class VisualizationComponent {
     this.fleetNames      = this.fleetNames.bind(this);
     this.fleetNamesStr   = this.fleetNamesStr.bind(this);
     // Filter enabled display
-    this.display = _.filter(this.display, { enable: true });
+    this.display = _.filter(this.display, { visualization: true });
     // Basic information and summaries
     this.inputs    = _.map(this.settings,   meta=> new DynamicInput(meta));
     this.summaries = _.filter(this.inputs, input=> input.meta.report === 'Summary');
