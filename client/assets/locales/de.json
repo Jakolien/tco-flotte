@@ -269,7 +269,7 @@
     "variable_costs": "Variable Kosten",
     "Vehicle costs": "Fahrzeugkosten",
     "Vehicle details": "Fahrzeugeigenschaften",
-    "Vehicle use": "Fahrzeugnutzung",
+    "Vehicle use": "Nutzung",
     "vehicles_count": "{vehicles, plural, =0{kein Fahrzeug} one{1 Fahrzeug} other{# Fahrzeuge}}",
     "visualization_inactive_alert": "Zuerst müssen Sie eine Fahrzeuggruppe hinzufügen.",
     "visualization_link": "Visualisierung",
