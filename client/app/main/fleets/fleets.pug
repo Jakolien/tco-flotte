@@ -58,7 +58,7 @@
 
               ul.list-unstyled.row(ng-if="!$ctrl.displayCo2")
                 li.col-xl-3.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: true }) track by $index")
-                  a.main__fleets__view__groups__item.main__fleets__view__groups__item--special(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
+                  a.main__fleets__view__groups__item.main__fleets__view__groups__item--special(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })", class="main__fleets__view__groups__item--{{ group.vars.energy_type }}")
                     h4.main__fleets__view__groups__item__heading
                       | {{ (group.vars.group_name || group.name) | translate }}
                       .small.text-muted {{ group.insights.mileage | number }} {{ 'km_per_year' | translate }}
