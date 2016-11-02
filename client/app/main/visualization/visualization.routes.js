@@ -10,7 +10,10 @@ export default function($stateProvider) {
         ids: null
       },
       resolve: {
-        $title: ()=> 'Visualize your fleets',
+        $title: function($translate) {
+          'ngInject';
+          return $translate.instant('visualize_title');
+        },
         ids: function(Restangular, fleets, $stateParams) {
           'ngInject';
           // Reset the fleet list according to the given ids array

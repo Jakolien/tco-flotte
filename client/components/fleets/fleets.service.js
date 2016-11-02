@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Lawnchair from 'lawnchair';
 import angular from 'angular';
 
-export default function fleetsService(Restangular, $q, demoScenario) {
+export default function fleetsService(Restangular, $q, demoScenario, $translate) {
   'ngInject';
   // We store secret with Lauwnchair
   var store = new Lawnchair(angular.noop);
@@ -76,7 +76,8 @@ export default function fleetsService(Restangular, $q, demoScenario) {
       this[_fleet] = fleet;
     }
     nextName() {
-      return 'Group ' + ( this.filter({ special: false }).length + 1 )
+      let n =this.filter({ special: false }).length + 1;
+      return $translate.instant('group_n', { n });
     }
     delete(group) {
       let fleet = this[_fleet];
@@ -217,7 +218,7 @@ export default function fleetsService(Restangular, $q, demoScenario) {
       return !!this.groups.filter({ special: false }).length;
     }
     static uniqueName() {
-      return `Fleet ${fleetNameCounter}`;
+      return $translate.instant('fleet_n', { n: fleetNameCounter });
     }
     static defaults() {
       return {

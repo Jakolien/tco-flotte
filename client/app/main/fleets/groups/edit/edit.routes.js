@@ -11,9 +11,9 @@ export default function($stateProvider) {
           'ngInject'
           return fleet.groups.get($stateParams.group);
         },
-        $title: function(group) {
+        $title: function(group, $translate) {
           'ngInject'
-          return group.name;
+          return group.special ? $translate.instant(group.name) : group.name;
         }
       }
     });
