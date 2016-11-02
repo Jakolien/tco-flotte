@@ -5,7 +5,7 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate) {
+  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate, DynamicInput) {
     angular.extend(this, { fleets, $uibModal, $scope, Restangular, $timeout });
     // Bind method context
     this.openDownload    = this.openDownload.bind(this);
@@ -15,10 +15,14 @@ export default class VisualizationComponent {
     // Filter enabled display
     this.display = _.filter(this.display, { enable: true });
     // Basic information and summaries
-    this.summaries = _.filter(this.settings, { report: 'Summary' });
-    this.basics = _.filter(this.settings, { report: 'Basic information for the calculation' });
+    this.inputs    = _.map(this.settings,   meta=> new DynamicInput(meta));
+    this.summaries = _.filter(this.inputs, input=> input.meta.report === 'Summary');
+    this.basics    = _.filter(this.inputs, input=> input.meta.report === 'Basic information for the calculation');
     // To display the date
     this.now = new Date();
+  }
+  isNumber(value) {
+    return angular.isNumber(value);
   }
   fleetNames() {
     return this.fleets.all().map(f => f.name);
