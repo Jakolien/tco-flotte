@@ -8,7 +8,7 @@ var year_max = 2050;
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
                          'car_sharing',  'rental_car', 'bike',
-                         'plane', 'businessplane'];
+                         'plane', 'businessplane', 'savings'];
 
 var Fleet = function(params) {
 	this.fleet_presets = {}
@@ -634,8 +634,14 @@ var Fleet = function(params) {
 		var group_insights = this.groups[group_id]["insights"]
 		var group_name = params.groups[group_id]["name"]
 
-		// Total mileage
-		this.TCO.mileage += group_insights.TCO.mileage
+		// Total mileage with savings
+		this.TCO.mileage_with_savings += group_insights.TCO.mileage
+
+		// Total mileage 
+		if (group_insights.energy_type != "savings") {
+			this.TCO.mileage += group_insights.TCO.mileage
+		}
+
 		// Total number of vehicles increases if it's not a special group
 		if( SG_ENERGY_TYPES.indexOf(group_insights.energy_type) === -1 ) {
 			this.TCO.num_of_vehicles += group_insights.num_of_vehicles

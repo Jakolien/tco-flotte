@@ -1,7 +1,7 @@
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
                          'car_sharing',  'rental_car', 'bike',
-                         'plane', 'businessplane'];
+                         'plane', 'businessplane', 'savings'];
 
 var VehicleGroup = function(fleet_params, params) {
 	var scenarios = ["mittel"]
