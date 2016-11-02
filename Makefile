@@ -13,7 +13,7 @@ deploy: build-docker tag-docker
 packages:
 	npm install
 
-install: packages fake
+install: packages
 
 prune:
 	npm prune
