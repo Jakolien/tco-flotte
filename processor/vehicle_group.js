@@ -861,6 +861,11 @@ var VehicleGroup = function(fleet_params, params) {
 		this.TCO_simplified.variable_costs = 0
 		this.TCO_simplified.fixed_costs = 0
 		this.CO2 = this.mileage * eval("this."+ this.energy_type +"_CO2_per_km")
+		// Special case for the Savings group
+		if (this.energy_type == "savings") {
+			this.TCO_simplified.net_cost = 0
+			this.CO2 = 0
+		}
 	} else {
 	// Proceeds to the regular calculations
 		this.computeCosts()

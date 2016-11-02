@@ -527,7 +527,7 @@ var Fleet = function(params) {
 	}
 
 	// Removes the charging option if not in the list (otherwise: Error 500 happens)
-	if( this.fleet_presets.charging_option.indexOf(charging_options) == -1 ) {
+	if( charging_options.indexOf(this.fleet_presets.charging_option) == -1 ) {
 		this.fleet_presets.charging_option = "Keine"
 	}
 
@@ -605,6 +605,7 @@ var Fleet = function(params) {
 	// Initializes the TCO values for the whole fleet
 	this.TCO = {
 		"mileage": 0,
+		"mileage_with_savings": 0,
 		"CO2": 0,
 		"total_costs": 0,
 		"num_of_vehicles": 0,
@@ -665,6 +666,7 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.variable_costs += group_insights.TCO.variable_costs
 		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
 		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
+
 		// CO2 by phase
 		this.TCO.CO2_by_phase["CO2_from_driving"] += group_insights.TCO.CO2_from_driving
 		this.TCO.CO2_by_phase["CO2_from_manufacturing"] += group_insights.TCO.CO2_from_manufacturing
