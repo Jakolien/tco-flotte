@@ -12,7 +12,8 @@ let NUMBER_FIELDS = ['importancerank', 'interval']
 let UNWANTED_FIELDS = ['_xml', '_links'];
 let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist',
                    'preliminary', 'editable', 'relative', 'leasingconditions',
-                   'bygroup', 'special', 'enable', 'co2chart'];
+                   'bygroup', 'special', 'enable', 'co2chart',
+                   'fleetdata', 'visualization'];
 
 var prepareRows = function(rows) {
   return _.map(rows, function(row) {

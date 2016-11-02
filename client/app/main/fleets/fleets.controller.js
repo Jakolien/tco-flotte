@@ -6,20 +6,23 @@ export default class FleetsComponent {
   /*@ngInject*/
   constructor($translate, $state, $stateParams, $uibModal, fleets, $scope) {
     // Bind method to this instance
-    this.createFleet = this.createFleet.bind(this);
-    this.compareStyle = this.compareStyle.bind(this);
-    this.anotherFleet = this.anotherFleet.bind(this);
-    this.biggest = this.biggest.bind(this);
-    this.smallest = this.smallest.bind(this);
-    this.delta = this.delta.bind(this);
+    this.get              = this.get.bind(this);
+    this.createFleet      = this.createFleet.bind(this);
+    this.compareStyle     = this.compareStyle.bind(this);
+    this.anotherFleet     = this.anotherFleet.bind(this);
+    this.biggest          = this.biggest.bind(this);
+    this.smallest         = this.smallest.bind(this);
+    this.delta            = this.delta.bind(this);
     this.arefleetsUnequal = this.arefleetsUnequal.bind(this);
-    this.delete = this.delete.bind(this);
-    this.duplicate = this.duplicate.bind(this);
-    this.optimise = this.optimise.bind(this);
+    this.delete           = this.delete.bind(this);
+    this.duplicate        = this.duplicate.bind(this);
+    this.optimise         = this.optimise.bind(this);
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state, $uibModal });
     // Compare with another fleet
     fleets.compared = this.compareWith = this.anotherFleet();
+    // List of variables visualized in "fleet data"
+    this.fleetdata = _.filter(this.display, { fleetdata: true });
     // No group yet
     if( this.fleet && this.fleet.groups.filter({ special: false }).length === 0 ) {
       // Redirect to the child state to create group
@@ -37,19 +40,15 @@ export default class FleetsComponent {
     }.bind(this));
   }
 
-  compareStyle(fleet, predicate = angular.noop) {
-    let max = _.maxBy([this.fleet, this.compareWith], predicate);
+  compareStyle(fleet, tco) {
+    let max = _.maxBy([this.fleet, this.compareWith], f=> this.get(f, tco));
     return {
-      width: predicate(fleet)/predicate(max)  * 100 + '%'
+      width: this.get(fleet, tco)/this.get(max, tco)  * 100 + '%'
     }
   }
 
-  mileage(fleet) {
-    return (fleet.TCO || {}).mileage;
-  }
-
-  vehicles(fleet) {
-    return (fleet.TCO || {}).num_of_vehicles;
+  get(fleet, tco) {
+    return ( (fleet || {}).TCO  || {})[tco] || 0;
   }
 
   anotherFleet() {
@@ -62,20 +61,20 @@ export default class FleetsComponent {
   reflectsComparaison() {
     this.fleets.compared = this.compareWith;
   }
-  arefleetsUnequal(predicate = angular.noop) {
-    return predicate(this.fleet) !== predicate(this.compareWith);
+  arefleetsUnequal(tco) {
+    return this.get(this.fleet, tco) !== this.get(this.compareWith, tco);
   }
 
-  biggest(predicate = angular.noop) {
-    return _.maxBy([this.fleet, this.compareWith], predicate);
+  biggest(tco) {
+    return _.maxBy([this.fleet, this.compareWith], f=> this.get(f, tco));
   }
 
-  smallest(predicate = angular.noop) {
-    return _.minBy([this.fleet, this.compareWith], predicate);
+  smallest(tco) {
+    return _.minBy([this.fleet, this.compareWith], f=> this.get(f, tco));
   }
 
-  delta(predicate = angular.noop) {
-    return predicate( this.biggest(predicate) ) - predicate( this.smallest(predicate) );
+  delta(tco) {
+    return this.get(this.biggest(tco), tco) - this.get(this.smallest(tco), tco);
   }
 
   optimise() {

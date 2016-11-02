@@ -193,6 +193,7 @@
     "max_battery_charges": "Maximum number of battery charges",
     "mileage": "Mileage",
     "mileage_by_group": "Mileage for each group",
+    "mileage_with_savings": "Mileage including savings",
     "mittel": "Medium",
     "na": "n/a",
     "net_acquisition_cost": "Net Acquisition Cost",
@@ -261,6 +262,7 @@
     "user_not_found": "User not found",
     "user_token_not_found": "User not found for this token",
     "variable_costs": "Variable Costs",
+    "Vehicle use": "Usage",
     "vehicles_count": "{vehicles, plural, =0{no vehicles} one{1 vehicle} other{# vehicles}}",
     "visualization_inactive_alert": "You must create a fleet with a group of vehicles first.",
     "visualization_link": "Visualizations",
@@ -270,6 +272,5 @@
     "your_groups_title": "Your groups",
     "€": "€",
     "€_per_kwh": "€/kWh",
-    "€_per_liter": "€/L",
-    "Vehicle use": "Usage"
+    "€_per_liter": "€/L"
 }

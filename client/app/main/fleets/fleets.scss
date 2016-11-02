@@ -152,7 +152,7 @@
         }
 
         &--savings &__footer {
-          @include gradient-y(rgba(white, 0), rgba(white, 0.4));
+          @include gradient-y(rgba(white, 0), rgba(white, 0.6));
         }
 
         &__heading {

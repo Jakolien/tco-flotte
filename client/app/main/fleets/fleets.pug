@@ -101,24 +101,15 @@
                     id="input-compare-with")
                     option(value="") ⎼⎼
               div(ng-if="$ctrl.compareWith")
-                .main__fleets__view__compare__section
-                  h6.main__fleets__view__compare__section__heading {{ 'total_kilometers_title' | translate }}
+                .main__fleets__view__compare__section(ng-repeat="meta in $ctrl.fleetdata")
+                  h6.main__fleets__view__compare__section__heading {{ meta.name | translate }}
                   .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
-                    .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.mileage)")
+                    .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, meta.name)")
                       .main__fleets__view__compare__section__bar__fill__name
                         | {{ fleet.name }}
                     .main__fleets__view__compare__section__bar__value
-                      | {{ $ctrl.mileage(fleet) | number }} {{ 'km_per_year' | translate }}
-                  .main__fleets__view__compare__section__unequal.text-warning(ng-show="$ctrl.arefleetsUnequal($ctrl.mileage)")
+                      | {{ $ctrl.get(fleet, meta.name) | number }}{{ meta.unit | translate }}
+                  .main__fleets__view__compare__section__unequal.text-warning(ng-if="meta.name == 'mileage_with_savings' && $ctrl.arefleetsUnequal($ctrl.mileage, meta.name)")
                     i.fa.fa-warning
                     =" "
                     span(ng-bind-html="'compare_fleet' | translate:{ biggest: $ctrl.biggest($ctrl.mileage).name, smallest: $ctrl.smallest($ctrl.mileage).name, delta: ($ctrl.delta($ctrl.mileage) | number) }")
-
-                .main__fleets__view__compare__section
-                  h6.main__fleets__view__compare__section__heading {{ 'total_vehicles_title' | translate }}
-                  .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
-                    .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, $ctrl.vehicles)")
-                      .main__fleets__view__compare__section__bar__fill__name
-                        | {{ fleet.name }}
-                    .main__fleets__view__compare__section__bar__value
-                      | {{ $ctrl.vehicles(fleet) | number }}
