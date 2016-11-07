@@ -190,6 +190,14 @@
           }
         }
 
+        &__image {
+          position: absolute;
+          left:$spacer;
+          max-width: calc(100% - #{$spacer});
+          bottom: $line-height-base * 1rem + $spacer * 2;
+          opacity: .8;
+        }
+
         &__footer {
           z-index: 20;
           position: absolute;
