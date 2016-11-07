@@ -90,6 +90,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     }
     push(...rest) {
       for(let group of rest) {
+        // Group already instanciate in server-side
         if(group.insights) {
           super.push(group);
         } else {
@@ -127,6 +128,8 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       }
       // Save the secret (if any)
       this.initSecret();
+      // Add a method to each group
+      this.groups.all().map( g => g.image = this.groupImage.bind(g) );
       // Return the instance
       return this;
     }
@@ -149,6 +152,18 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       // We create a name for this fleet
       } else if( !this.name ) {
         this.name = Fleet.uniqueName();
+      }
+    }
+    // Monkey-patch method on group
+    groupImage() {
+      // Base dir of vehicles images
+      let path = 'assets/images/vehicles';
+      let color = this.vars.group_color.replace('#', '');
+      // Special groups have no car type
+      if(this.special) {
+        return `${path}/${this.vars.energy_type}.svg?color=${color}`;
+      } else {
+        return `${path}/${this.vars.car_type} - ${this.vars.energy_type}.svg?color=${color}`;
       }
     }
     initSecret() {

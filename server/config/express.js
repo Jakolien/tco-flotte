@@ -20,6 +20,7 @@ import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
 import i18n from 'i18n';
+import colorizer from '../components/colorizer';
 var MongoStore = connectMongo(session);
 
 export default function(app) {
@@ -29,6 +30,9 @@ export default function(app) {
     locales:['en', 'de'],
     directory: config.locales
   });
+
+  // Middleware to colorize SVG
+  app.get('/assets/images/vehicles/:filename', colorizer);
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));

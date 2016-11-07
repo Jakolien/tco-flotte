@@ -437,9 +437,6 @@ gulp.task('build', cb => {
         'inject',
         'transpile:server',
         [
-            'build:images'
-        ],
-        [
             'copy:extras',
             'copy:assets',
             'copy:fonts:dist',
@@ -515,7 +512,7 @@ gulp.task('copy:fonts:dist', () => {
 });
 
 gulp.task('copy:assets', () => {
-    return gulp.src([paths.client.assets, '!' + paths.client.images])
+    return gulp.src([paths.client.assets /*, '!' + paths.client.images */])
         .pipe(gulp.dest(`${paths.dist}/${clientPath}/assets`));
 });
 gulp.task('copy:processor', () => {

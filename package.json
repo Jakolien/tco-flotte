@@ -32,6 +32,7 @@
     "bootstrap": "4.0.0-alpha.5",
     "c3": "^0.4.11",
     "c3-angular": "^1.3.1",
+    "chroma-js": "^1.2.1",
     "color-scheme": "^0.0.5",
     "composable-middleware": "^0.3.0",
     "connect-mongo": "^1.2.1",
