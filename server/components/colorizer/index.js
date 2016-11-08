@@ -32,7 +32,7 @@ export default function(req, res) {
       // Instanciate chroma class
       let color = chroma(hex);
       // Limit luminance
-      color = color.luminance(Math.min(0.6, color.luminance()));
+      color = color.luminance(Math.min(0.4, color.luminance()));
       // Replace the color
       svg = replaceAll('#666', color.hex(), svg);
     }
