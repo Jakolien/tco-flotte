@@ -59,7 +59,6 @@
                             ng-options="val as (val | translate) for val in $ctrl.getInputValues(input, context).range",
                             ng-model="$ctrl.gs(context, input.meta.name)",
                             ng-model-options="{ getterSetter: true }")
-                              option(value="") ⎼⎼
                           span.input-group-addon(ng-show="input.meta.unit")
                             | {{ input.meta.unit | translate | trim }}
                         div(ng-switch-when="interval", ng-class="{ 'input-group': input.meta.unit }")
