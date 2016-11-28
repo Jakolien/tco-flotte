@@ -41,18 +41,17 @@
                 legend(ng-hide="$last && $first") {{ section | translate }}
                 .form-group(ng-repeat='input in inputs', ng-show='input.isVisible(context._values || context.values)')
                   label.row
-                    .col-lg-4(ng-class=":: { 'col-form-label': input.getType() !== 'boolean' && input.getType() !== 'static' }")
+                    .col-lg-4(ng-class=":: { input.getType() !== 'static' }")
                       | {{ input.meta.name | translate }}
                       span(uib-tooltip-html="input.meta.description | translate", ng-show="input.meta.description")
                         i.fa.fa-info
                     .col-lg-8
                       div(ng-switch=":: input.getType()")
-                        div.custom-control.custom-checkbox(ng-switch-when="boolean")
-                          input.custom-control-input(type="checkbox",
+                        div(ng-switch-when="boolean")
+                          input(type="checkbox",
                           name="{{ input.meta.name }}",
                           ng-model="$ctrl.gs(context, input.meta.name)",
                           ng-model-options="{ getterSetter: true }")
-                          span.custom-control-indicator
                         div(ng-switch-when="enum", ng-class="{ 'input-group': input.meta.unit }")
                           select.form-control(
                             name="{{ input.meta.name }}",
