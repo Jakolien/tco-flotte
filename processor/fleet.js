@@ -32,13 +32,12 @@ var Fleet = function(params) {
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 1.5		// That's 1.5% per year
 	this.fleet_presets.exchange_rate    = 1.25 		// How many $ for 1 €
-	this.fleet_presets.discount_rate    = 5	    // 5% per year
+	this.fleet_presets.discount_rate    = 5	        // 5% per year
 	this.fleet_presets.abschreibungszeitraum = 6  	// amortization period
 	this.fleet_presets.unternehmenssteuersatz = 30 	// corporate tax
 	this.fleet_presets.sonder_afa = false			// special accounting rule to increase amortization for electro vehicles in the first year deactivated by default
-	this.fleet_presets.praemie = true 			    // Cash bonus activated by default
-	this.fleet_presets.praemie_bev = 4000
-	this.fleet_presets.praemie_hybrid = 3000
+	//this.fleet_presets.praemie = true 			// Cash bonus is now only managed in vehicle.cash_bonus_amount
+
 
 	// Energy prices in € per Liter and cents per kWh
 	this.energy_known_prices = {

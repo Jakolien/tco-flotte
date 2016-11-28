@@ -28,7 +28,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.max_battery_charges = 2500
 	this.battery_price = 0
 	this.cash_bonus_amount = fleet_params.praemie_bev
-	this.praemie = fleet_params.praemie
+	this.praemie = true               
 	this.sonder_afa = fleet_params.sonder_afa
 	this.unternehmenssteuersatz = fleet_params.unternehmenssteuersatz
 	this.abschreibungszeitraum = fleet_params.abschreibungszeitraum
@@ -44,6 +44,8 @@ var VehicleGroup = function(fleet_params, params) {
 	this.leasing_includes_service = false
 	this.leasing_residual_value = 0
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
+	this.praemie_bev = 4000
+	this.praemie_hybrid = 3000
 
 	// Variables of the special groups
 	this.long_distance_train_CO2_per_km = 0.041
@@ -368,14 +370,17 @@ var VehicleGroup = function(fleet_params, params) {
 			if (this.praemie == true) {
 				if (this.acquisition_year >= 2016 && this.acquisition_year < 2020 && this.acquisition_price < 60000) {
 						if (this.energy_type == "hybrid-benzin" || this.energy_type == "hybrid-diesel"){
-							this.cash_bonus_amount = fleet_params.praemie_hybrid
+							this.cash_bonus_amount = this.praemie_hybrid
 						}
 					    else if (this.energy_type == "BEV"){
-					    	this.cash_bonus_amount = fleet_params.praemie_bev
+					    	this.cash_bonus_amount = this.praemie_bev
 						}
 						else {
 							this.cash_bonus_amount = 0
 						}
+					if (params.hasOwnProperty("cash_bonus_amount")) {
+						this.cash_bonus_amount = params["cash_bonus_amount"]
+					}
 					this.price.total[scenario] -= this.cash_bonus_amount
 				} else {
 					this.cash_bonus_amount = 0
