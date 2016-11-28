@@ -333,34 +333,34 @@ var Fleet = function(params) {
 		this.fleet_presets.evolution_hydrocarbon_price_until_2050 = this.energy_prices_evolution["hydrocarbon"][0]["rate"] * 100.0
 
 		// Finds out if the evolution rate has been changed by the user
-		if (params.vars.hasOwnProperty("evolution_elec_price_until_2020")) {
-			this.fleet_presets.evolution_elec_price_until_2020 = params.vars["evolution_elec_price_until_2020"]
-			this.energy_prices_evolution["strom"][0]["rate"] = params.vars["evolution_elec_price_until_2020"] / 100.0
-		}
-		if (params.vars.hasOwnProperty("evolution_elec_price_until_2030")) {
-			this.fleet_presets.evolution_elec_price_until_2030 = params.vars["evolution_elec_price_until_2030"]
-			this.energy_prices_evolution["strom"][1]["rate"] = params.vars["evolution_elec_price_until_2030"] / 100.0
-		}
-		if (params.vars.hasOwnProperty("evolution_elec_price_until_2050")) {
-			this.fleet_presets.evolution_elec_price_until_2050 = params.vars["evolution_elec_price_until_2050"]
-			this.energy_prices_evolution["strom"][2]["rate"] = params.vars["evolution_elec_price_until_2050"] / 100.0
-		}
-		if (params.vars.hasOwnProperty("evolution_hydrocarbon_price_until_2050")) {
-			this.fleet_presets.evolution_hydrocarbon_price_until_2050 = params.vars["evolution_hydrocarbon_price_until_2050"]
-			this.energy_prices_evolution["hydrocarbon"][0]["rate"] = params.vars["evolution_hydrocarbon_price_until_2050"] / 100.0
-		}
-		if (params.vars.hasOwnProperty("_2016_elec_price")) {
-			this.fleet_presets._2016_elec_price = params.vars["_2016_elec_price"]
-			this.energy_known_prices["BEV"][2016] = params.vars["_2016_elec_price"]
-		}
-		if (params.vars.hasOwnProperty("_2016_diesel_price")) {
-			this.fleet_presets._2016_diesel_price = params.vars["_2016_diesel_price"]
-			this.energy_known_prices["diesel"][2016] = params.vars["_2016_diesel_price"]
-		}
-		if (params.vars.hasOwnProperty("_2016_benzin_price")) {
-			this.fleet_presets._2016_benzin_price = params.vars["_2016_benzin_price"]
-			this.energy_known_prices["benzin"][2016] = params.vars["_2016_benzin_price"]
-		}
+		// if (params.vars.hasOwnProperty("evolution_elec_price_until_2020")) {
+		// 	this.fleet_presets.evolution_elec_price_until_2020 = params.vars["evolution_elec_price_until_2020"]
+		// 	this.energy_prices_evolution["strom"][0]["rate"] = params.vars["evolution_elec_price_until_2020"] / 100.0
+		// }
+		// if (params.vars.hasOwnProperty("evolution_elec_price_until_2030")) {
+		// 	this.fleet_presets.evolution_elec_price_until_2030 = params.vars["evolution_elec_price_until_2030"]
+		// 	this.energy_prices_evolution["strom"][1]["rate"] = params.vars["evolution_elec_price_until_2030"] / 100.0
+		// }
+		// if (params.vars.hasOwnProperty("evolution_elec_price_until_2050")) {
+		// 	this.fleet_presets.evolution_elec_price_until_2050 = params.vars["evolution_elec_price_until_2050"]
+		// 	this.energy_prices_evolution["strom"][2]["rate"] = params.vars["evolution_elec_price_until_2050"] / 100.0
+		// }
+		// if (params.vars.hasOwnProperty("evolution_hydrocarbon_price_until_2050")) {
+		// 	this.fleet_presets.evolution_hydrocarbon_price_until_2050 = params.vars["evolution_hydrocarbon_price_until_2050"]
+		// 	this.energy_prices_evolution["hydrocarbon"][0]["rate"] = params.vars["evolution_hydrocarbon_price_until_2050"] / 100.0
+		// }
+		// if (params.vars.hasOwnProperty("_2016_elec_price")) {
+		// 	this.fleet_presets._2016_elec_price = params.vars["_2016_elec_price"]
+		// 	this.energy_known_prices["BEV"][2016] = params.vars["_2016_elec_price"]
+		// }
+		// if (params.vars.hasOwnProperty("_2016_diesel_price")) {
+		// 	this.fleet_presets._2016_diesel_price = params.vars["_2016_diesel_price"]
+		// 	this.energy_known_prices["diesel"][2016] = params.vars["_2016_diesel_price"]
+		// }
+		// if (params.vars.hasOwnProperty("_2016_benzin_price")) {
+		// 	this.fleet_presets._2016_benzin_price = params.vars["_2016_benzin_price"]
+		// 	this.energy_known_prices["benzin"][2016] = params.vars["_2016_benzin_price"]
+		// }
 
 		for (var i in energy_types) {
 			var energy_type = energy_types[i]["name"]
@@ -385,14 +385,6 @@ var Fleet = function(params) {
 					// Applies the growth rate to get the price for the current year
 					estimates[energy_type][year]["mittel"] = estimates[energy_type][year - 1]["mittel"] * (1 + evolution_rate)
 				}
-
-				if (energy_type == "BEV"){
-					estimates[energy_type][year]["pro"] = estimates[energy_type][year]["mittel"] * .9
-		    		estimates[energy_type][year]["contra"] = estimates[energy_type][year]["mittel"] * 1.1
-				} else {
-					estimates[energy_type][year]["pro"] = estimates[energy_type][year]["mittel"] * 1.1
-		    		estimates[energy_type][year]["contra"] = estimates[energy_type][year]["mittel"] * .9
-				}
 			}
 		}
 
@@ -402,9 +394,9 @@ var Fleet = function(params) {
 		this.fleet_presets._2016_benzin_price = this.fleet_presets.energy_prices["benzin"][2016]["mittel"]
 
 		// Rounding
-		this.fleet_presets._2016_diesel_price = Math.round(this.fleet_presets._2016_diesel_price * 100) / 100
-		this.fleet_presets._2016_benzin_price = Math.round(this.fleet_presets._2016_benzin_price * 100) / 100
-		this.fleet_presets._2016_elec_price = Math.round(this.fleet_presets._2016_elec_price * 100) / 100
+		//this.fleet_presets._2016_diesel_price = Math.round(this.fleet_presets._2016_diesel_price * 100) / 100
+		//this.fleet_presets._2016_benzin_price = Math.round(this.fleet_presets._2016_benzin_price * 100) / 100
+		//this.fleet_presets._2016_elec_price = Math.round(this.fleet_presets._2016_elec_price * 100) / 100
 
 	}
 

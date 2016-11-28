@@ -126,34 +126,6 @@ var VehicleGroup = function(fleet_params, params) {
 				this.residual_value[scenario] *= Math.exp(12 * fleet_params.restwert_constants["b1"] * (this.holding_time)) 			  // Age
 				this.residual_value[scenario] *= Math.exp(fleet_params.restwert_constants["b2"] * this.mileage / 12)					 // Yearly mileage
 				this.residual_value[scenario] *= Math.pow(this.price.total[scenario] - this.charging_option_cost, fleet_params.restwert_constants["b3"])				  // Initial price
-			} else if (method == "Methode 1" && this.energy_type == "BEV"){
-				temp_vehicle = new VehicleGroup(
-											fleet_params,
-											{
-												energy_type: "diesel",
-												car_type: this.car_type,
-												mileage: this.mileage,
-												acquisition_year: this.acquisition_year,
-												holding_time: this.holding_time,
-												traffic: this.traffic,
-												second_user_holding_time: this.second_user_holding_time,
-												second_user_yearly_mileage: this.second_user_yearly_mileage,
-												unternehmenssteuersatz: this.unternehmenssteuersatz,
-												abschreibungszeitraum: this.abschreibungszeitraum,
-												inflationsrate: this.inflationsrate,
-												discount_rate: this.discount_rate,
-												energy_known_prices: this.energy_known_prices,
-												energy_prices: this.energy_prices,
-												fleet_params:this.fleet_params,
-												limited: true
-											})
-				var residual_value_ratio = temp_vehicle.residual_value["mittel"] / temp_vehicle.acquisition_price
-
-				// delete temp_vehicle // Deleting variable is forbidden in strict mode!
-        temp_vehicle = null;
-
-				this.residual_value[scenario] = this.acquisition_price * residual_value_ratio
-
 			}else if (method == "Methode 2"){
 
 				// Computes the advantage of the 2d user
@@ -252,36 +224,11 @@ var VehicleGroup = function(fleet_params, params) {
 					this.residual_value[scenario] = temp_vehicle_benzin.residual_value["mittel"] + advantage_2d_user
 				}
 
-
 				// delete temp_vehicle_benzin  // Deleting variable is forbidden in strict mode!
         temp_vehicle_benzin = null;
 				// delete temp_vehicle_diesel  // Deleting variable is forbidden in strict mode!
         temp_vehicle_diesel = null;
 
-			} else if (method == "Methode 3"){
-				// Creates temp diesel machine to get the residual value
-				temp_vehicle = new VehicleGroup(
-										fleet_params,
-										{
-											energy_type: "diesel",
-											car_type: this.car_type,
-											mileage: this.mileage,
-											acquisition_year: this.acquisition_year,
-											holding_time: this.holding_time,
-											traffic: this.traffic,
-											second_user_holding_time: this.second_user_holding_time,
-											second_user_yearly_mileage: this.second_user_yearly_mileage,
-											unternehmenssteuersatz: this.unternehmenssteuersatz,
-											abschreibungszeitraum: this.abschreibungszeitraum,
-											inflationsrate: this.inflationsrate,
-											discount_rate: this.discount_rate,
-											energy_known_prices: this.energy_known_prices,
-											energy_prices: this.energy_prices,
-											limited: true
-										})
-				this.residual_value[scenario] = temp_vehicle.residual_value["mittel"]
-				// delete temp_vehicle // Deleting variable is forbidden in strict mode!
-        temp_vehicle = null
 			}
 		}
 
@@ -289,8 +236,6 @@ var VehicleGroup = function(fleet_params, params) {
 		if (params.hasOwnProperty("residual_value_fixed")) {
 			this.residual_value_fixed = params["residual_value_fixed"]
 			this.residual_value["mittel"] = params["residual_value_fixed"]
-			this.residual_value["pro"] = params["residual_value_fixed"]
-			this.residual_value["contra"] = params["residual_value_fixed"]
 		}
 	}
 
@@ -776,8 +721,8 @@ var VehicleGroup = function(fleet_params, params) {
 
 			var holding_time_temp = this.holding_time
 
-			for (var holding_time = 1; holding_time <= 12; holding_time++){
-				this.holding_time = holding_time
+			for (var holding_time = this.holding_time; holding_time <= this.holding_time; holding_time++){
+				
 				this.computeCosts()
 				costs = this.initCosts(scenario)
 				co2 = 0
