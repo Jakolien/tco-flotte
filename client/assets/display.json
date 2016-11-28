@@ -6,7 +6,6 @@
     "fleetdata": true,
     "visualization": false,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "km_per_year"
   },
@@ -17,7 +16,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "km_per_year"
   },
@@ -28,7 +26,6 @@
     "fleetdata": true,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "g"
   },
@@ -39,7 +36,6 @@
     "fleetdata": true,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -50,7 +46,6 @@
     "fleetdata": true,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "vehicles"
   },
@@ -61,7 +56,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "g_per_km"
   },
@@ -72,7 +66,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "euro_per_km"
   },
@@ -83,7 +76,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": true,
     "unit": "€"
   },
@@ -94,7 +86,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": true,
     "unit": "g"
   },
@@ -105,7 +96,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": true,
-    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -116,7 +106,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": true,
     "unit": "km_per_year"
   },
@@ -127,7 +116,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -138,7 +126,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "€"
   },
@@ -149,7 +136,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "g"
   },
@@ -160,7 +146,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "g"
   },
@@ -171,7 +156,6 @@
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
-    "enable": true,
     "bygroup": false,
     "unit": "g"
   }
