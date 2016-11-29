@@ -47,6 +47,8 @@ export default class EditComponent {
     this.duplicate = this.duplicate.bind(this);
     this.delete = this.delete.bind(this);
     this.save = this.save.bind(this);
+    this.getMeta = this.getMeta.bind(this);
+    this.gs = this.gs.bind(this);
     // Dependancies injected in the instance
     angular.extend(this, { $state, $translate, growl });
   }
@@ -64,6 +66,9 @@ export default class EditComponent {
   getInputValues(input, context) {
     return input.getValues(context._values || context.values);
   }
+  getMeta(name) {
+    return _.find(this.settings, { name: name });
+  }
   gs(context, name) {
     // Dump values inside the value object
     if(!context._dump) {
@@ -74,14 +79,17 @@ export default class EditComponent {
       // All changed variables will be saved here
       context._changed = {};
     }
-    return function(value) {
+    return (value) => {
       if(value !== undefined) {
         // Mark the value as changed
         context._changed[name] = context._dump[name] !== value;
         // Input values
         context._values[name] = value;
       }
-      return context._values[name];
+      // Use existing value to populate param
+      value = context._values[name]
+      // Return rounded value if needed
+      return this.getMeta(name).rounded ? Math.round( value * 100 ) / 100 : value;
     };
   }
 

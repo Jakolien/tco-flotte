@@ -13,7 +13,7 @@ let UNWANTED_FIELDS = ['_xml', '_links'];
 let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist',
                    'preliminary', 'editable', 'relative', 'leasingconditions',
                    'bygroup', 'special', 'enable', 'co2chart',
-                   'fleetdata', 'visualization'];
+                   'fleetdata', 'visualization', 'rounded'];
 
 var prepareRows = function(rows) {
   return _.map(rows, function(row) {
