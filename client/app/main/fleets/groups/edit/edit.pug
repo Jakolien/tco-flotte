@@ -23,10 +23,10 @@
                 on-confirm="$ctrl.delete()")
                 i.fa.fa-fw.fa-trash
                 span.sr-only {{ 'delete' | translate }}
-            button.btn.btn-primary(type="submit", ng-click="$ctrl.save('.')", ng-disabled="!$ctrl.hasChanged()")
+            button.btn.btn-primary(type="submit", ng-click="$ctrl.save('.')")
               | {{ 'save_changes' | translate }}
             =" "
-            button.btn.btn-secondary(type="button", ng-click="$ctrl.save()", ng-disabled="!$ctrl.hasChanged()")
+            button.btn.btn-secondary(type="button", ng-click="$ctrl.save()")
               | {{ 'save_back' | translate }}
             =" "
             a.btn.btn-link(ui-sref="main.fleets")
