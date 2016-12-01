@@ -1,7 +1,7 @@
 .main__fleets
   .row
     .col-xs-4.col-sm-3.col-md-2.main__fleets__list
-      .sticky
+      .sticky(sticky='')
         ul.list-unstyled
           li.main__fleets__list__item(ng-repeat="fleet in $ctrl.fleets.all()",
                                       ng-class="{ 'main__fleets__list__item--active': fleet === $ctrl.fleet }")
