@@ -85,6 +85,13 @@
         font-size:1em;
         width: auto;
       }
+
+      .form-group input[type=checkbox] {
+        position: absolute;
+        top:50%;
+        left:$spacer;
+        transform: translateY(-50%) scale(1.1);
+      }
     }
 
   }

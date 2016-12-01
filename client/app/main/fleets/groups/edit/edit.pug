@@ -1,9 +1,9 @@
 .main__fleets__groups__edit
   .main__fleets__groups__edit__header
     h3 {{ $ctrl.group.special ? ($ctrl.group.name | translate) : $ctrl.group.name }}
-  form.row(ng-submit="$ctrl.save()", novalidate)
+  form.row(novalidate)
     .col-xl-5.push-xl-7
-      .main__fleets__groups__edit__sidebar
+      .main__fleets__groups__edit__sidebar(sticky='')
         .card
           .card-block.text-muted
             | {{ 'edit_group_help' | translate }}
@@ -23,8 +23,11 @@
                 on-confirm="$ctrl.delete()")
                 i.fa.fa-fw.fa-trash
                 span.sr-only {{ 'delete' | translate }}
-            button.btn.btn-primary(type="submit", ng-disabled="!$ctrl.hasChanged()")
+            button.btn.btn-primary(type="submit", ng-click="$ctrl.save('.')", ng-disabled="!$ctrl.hasChanged()")
               | {{ 'save_changes' | translate }}
+            =" "
+            button.btn.btn-secondary(type="button", ng-click="$ctrl.save()", ng-disabled="!$ctrl.hasChanged()")
+              | {{ 'save_back' | translate }}
             =" "
             a.btn.btn-link(ui-sref="main.fleets")
               | {{ 'cancel' | translate }}

@@ -4,30 +4,55 @@ import angular from 'angular';
 export default class EditComponent {
   /*@ngInject*/
   constructor(DynamicInput, $state, $translate, growl) {
+    // Bind methods with this instance
+    this.init = this.init.bind(this);
+    this.getInputValues = this.getInputValues.bind(this);
+    this.isContextOpen = this.isContextOpen.bind(this);
+    this.changedValues = this.changedValues.bind(this);
+    this.hasChanged = this.hasChanged.bind(this);
+    this.duplicate = this.duplicate.bind(this);
+    this.delete = this.delete.bind(this);
+    this.save = this.save.bind(this);
+    this.getMeta = this.getMeta.bind(this);
+    this.gs = this.gs.bind(this);
+    // Dependancies injected in the instance
+    angular.extend(this, { $state, $translate, growl, DynamicInput });
+    // Init this controller
+    this.init();
+  }
+  get headingBg() {
+    return this.temporaryGroupColor || this.group.vars.group_color;
+  }
+  get temporaryGroupColor() {
+    if(this.contextes[0]._values) {
+      return this.contextes[0]._values.group_color;
+    }
+  }
+  init() {
     // Settings must match with the group
     this.settings = _.filter(this.settings, s => s.special === null || s.special === this.group.special);
     // Instanciate a DynamicInput using the settings
-    this.inputs = _.map(this.settings, meta => new DynamicInput(meta));
+    this.inputs = _.map(this.settings, meta => new this.DynamicInput(meta));
     // Input's context
     this.contextes = [
       {
         name: 'VehicleGroupCommon',
-        open: !this.group.special,
-        title: $translate.instant('group_general_information_title'),
+        open: this.isContextOpen(0) || !this.group.special,
+        title: this.$translate.instant('group_general_information_title'),
         values: this.group.vars,
         destination: this.group.vars
       },
       {
         name: 'VehicleGroup',
-        open: this.group.special,
-        title: $translate.instant('group_variables_all_vehicles_title'),
+        open: this.isContextOpen(1) || this.group.special,
+        title: this.$translate.instant('group_variables_all_vehicles_title'),
         values: this.group.insights,
         destination: this.group.vars
       },
       {
         name: 'Fleet',
-        open: false,
-        title: $translate.instant('group_variables_fleet_title'),
+        open: this.isContextOpen(2) || false,
+        title: this.$translate.instant('group_variables_fleet_title'),
         values: this.fleet.vars,
         destination: this.fleet.vars
       }
@@ -40,28 +65,12 @@ export default class EditComponent {
     }
     // Cached input's values
     this._inputValues = {};
-    // Bind methods with this instance
-    this.getInputValues = this.getInputValues.bind(this);
-    this.changedValues = this.changedValues.bind(this);
-    this.hasChanged = this.hasChanged.bind(this);
-    this.duplicate = this.duplicate.bind(this);
-    this.delete = this.delete.bind(this);
-    this.save = this.save.bind(this);
-    this.getMeta = this.getMeta.bind(this);
-    this.gs = this.gs.bind(this);
-    // Dependancies injected in the instance
-    angular.extend(this, { $state, $translate, growl });
-  }
-  get headingBg() {
-    return this.temporaryGroupColor || this.group.vars.group_color;
-  }
-  get temporaryGroupColor() {
-    if(this.contextes[0]._values) {
-      return this.contextes[0]._values.group_color;
-    }
   }
   isVisible(inputs, values) {
     return _.some(inputs, input => input.isVisible(values));
+  }
+  isContextOpen(index) {
+    return this.contextes && this.contextes[index] && this.contextes[index].open;
   }
   getInputValues(input, context) {
     return input.getValues(context._values || context.values);
@@ -93,7 +102,7 @@ export default class EditComponent {
     };
   }
 
-  save() {
+  save(nextState = 'main.fleets') {
     // For each context object, we extend the destination object
     for(let context of this.contextes) {
       // Get all variables that changes in this context
@@ -104,9 +113,20 @@ export default class EditComponent {
     // Save the fleet!
     // Notify user
     let successMsg = this.$translate.instant('group_saved');
-    this.fleet.update().$promise.then( ()=> this.growl.success(successMsg));
-    // And redirect to the fleet
-    this.$state.go('main.fleets');
+    this.fleet.update().$promise.then( ()=> {
+      this.growl.success(successMsg);
+      console.log(this.$state.is(nextState), nextState, this.$state.current.name)
+      // The state change
+      if(!this.$state.is(nextState)) {
+        // And redirect to the fleet
+        this.$state.go(nextState);
+      } else {
+        // Reload the current group
+        this.group = this.fleet.groups.get(this.$state.params.group);
+        // Reloald the current group values
+        this.init();
+      }
+    });
   }
 
   duplicate() {

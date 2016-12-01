@@ -21,6 +21,7 @@ function localAuthenticate(User, email, password, done) {
           return done(null, user);
         }
       });
+      return null;
     })
     .catch(err => done(err));
 }

@@ -21,6 +21,7 @@ export default angular.module('oekoFlotteApp.config', [uiBootstrap, 'angular-gro
     growlProvider.globalTimeToLive(5000);
     growlProvider.globalPosition('top-right');
     growlProvider.globalDisableCloseButton(true);
+    growlProvider.onlyUniqueMessages(false);
     // Progress bar
     cfpLoadingBarProvider.includeSpinner = false;
   })
