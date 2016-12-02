@@ -115,7 +115,6 @@ export default class EditComponent {
     let successMsg = this.$translate.instant('group_saved');
     this.fleet.update().$promise.then( ()=> {
       this.growl.success(successMsg);
-      console.log(this.$state.is(nextState), nextState, this.$state.current.name)
       // The state change
       if(!this.$state.is(nextState)) {
         // And redirect to the fleet
