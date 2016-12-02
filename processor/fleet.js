@@ -2,7 +2,7 @@ var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
-var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW"];
+var charging_options = ["Keine","Wallbox 3‚7kW","Wallbox bis 22kW","Ladesäule 22kW"];
 var year_min = 2014;
 var year_max = 2050;
 // Special groups energy type
@@ -158,7 +158,7 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3,7kW": { "acquisition": 350, "maintenance": 15},
+		"Wallbox 3‚7kW": { "acquisition": 350, "maintenance": 15},
 		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
 		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330}
 	}
