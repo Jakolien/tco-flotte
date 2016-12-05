@@ -1,6 +1,11 @@
 .main__fleets__groups__edit
   .main__fleets__groups__edit__header
     h3 {{ $ctrl.group.special ? ($ctrl.group.name | translate) : $ctrl.group.name }}
+    p
+      a(ui-sref="main.fleets")
+        i.fa.fa-caret-left
+        =" "
+        | {{ 'cancel' | translate }}
   form.row(novalidate)
     .col-xl-5.push-xl-7
       .main__fleets__groups__edit__sidebar(sticky='')
@@ -28,9 +33,6 @@
             =" "
             button.btn.btn-secondary(type="button", ng-click="$ctrl.save()")
               | {{ 'save_back' | translate }}
-            =" "
-            a.btn.btn-link(ui-sref="main.fleets")
-              | {{ 'cancel' | translate }}
     .col-xl-7.pull-xl-5
       .card
         .main__fleets__groups__edit__context(ng-repeat='context in $ctrl.contextes', ng-show="context.inputs.length")
