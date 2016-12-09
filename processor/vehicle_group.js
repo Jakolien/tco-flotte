@@ -48,19 +48,19 @@ var VehicleGroup = function(fleet_params, params) {
 	this.praemie_hybrid = 3000
 
 	// Variables of the special groups
-	this.long_distance_train_CO2_per_km = 0.041
+	this.long_distance_train_CO2_per_km = 41
 	this.long_distance_train_cost_per_km = .9
-	this.short_distance_train_CO2_per_km = 0.069
+	this.short_distance_train_CO2_per_km = 69
 	this.short_distance_train_cost_per_km = .7
-	this.car_sharing_CO2_per_km = 0.077
+	this.car_sharing_CO2_per_km = 77
 	this.car_sharing_cost_per_km = .2
-	this.rental_car_CO2_per_km = 0.181
+	this.rental_car_CO2_per_km = 181
 	this.rental_car_cost_per_km = 2
-	this.bike_CO2_per_km = 0.0042
+	this.bike_CO2_per_km = 4.2
 	this.bike_cost_per_km = 0
-	this.plane_CO2_per_km = 0.196
+	this.plane_CO2_per_km = 196
 	this.plane_cost_per_km = 1.5 
-	this.businessplane_CO2_per_km = 0.366
+	this.businessplane_CO2_per_km = 366
 	this.businessplane_cost_per_km = 3.5
 
 	for(var prop in params) {
@@ -342,12 +342,7 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getNeededBatterySize = function() {
-		if (this.energy_type.indexOf("hybrid") > -1 ) {
-			this.reichweite = 50
-		}
-		var capacity = this.reichweite * (this.electricity_consumption / 100) / fleet_params.entladetiefe
-		var actual_capacity = capacity * fleet_params.entladetiefe
-		this.battery_size = actual_capacity
+		this.battery_size = fleet_params.battery_capacity[this.energy_type][this.car_type]
 	}
 
 	this.getFixedCosts = function() {

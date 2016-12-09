@@ -87,13 +87,13 @@ var Fleet = function(params) {
 	this.fleet_presets.raw_acquisition_price = {}
 	this.fleet_presets.nettolistenpreise = {
 		"benzin":{
-			"klein":{"2014": 10121},
-			"mittel":{"2014": 16282},
-			"groß":{"2014": 29595}
+			"klein":{"2016": 11549},
+			"mittel":{"2016": 19557},
+			"groß":{"2016": 30047}
 		},
 		"diesel": {
-			"LNF1":{"2014": 20346},
-			"LNF2":{"2014": 34069}
+			"LNF1":{"2016": 20346},
+			"LNF2":{"2016": 34069}
 		}
 	}
 
@@ -116,9 +116,9 @@ var Fleet = function(params) {
 	// Surcharge for the price of vehicle compared to benzin in EUR
 	this.fleet_presets.aufpreis = {
 		"diesel":{
-			"klein": 2564,
-			"mittel": 2340,
-			"groß": 2232,
+			"klein": 3912,
+			"mittel": 1738,
+			"groß": 4561,
 			"LNF1": 2000,
 			"LNF2": 2500
 		},
@@ -128,9 +128,9 @@ var Fleet = function(params) {
 			"groß": 3830
 		},
 		"BEV":{
-			"klein":{"2014": 1500},
-			"mittel":{"2014": 2000},
-			"groß":{"2014": 2500},
+			"klein":{"2014": 5583},
+			"mittel":{"2014": 3292},
+			"groß":{"2014": 21153},
 			"LNF1":{"2014": 2000},
 			"LNF2":{"2014": 2500}
 		}
@@ -143,10 +143,26 @@ var Fleet = function(params) {
 	this.fleet_presets.batteriepreise = {			// in € per kWh
 		"2014": 400.0,
 		"2015": 380.0,
-		"2016": 350.0,
-		"2017": 300.0,
-		"2018": 290.0
+		"2016": 200.0,
+		"2017": 180.0,
+		"2018": 165.0,
+		"2019": 155.0,
+		"2020": 145.0
+	}
 
+	this.fleet_presets.battery_capacity = {
+		"BEV" : {
+			"klein": 18,
+			"mittel": 25,
+			"groß": 60
+		},
+		"hybrid-benzin": {
+			"mittel": 15,
+			"groß": 10
+		},
+		"hybrid-diesel": {
+			"groß": 10
+		}
 	}
 
 	// Charging options costs in EUR
@@ -477,7 +493,7 @@ var Fleet = function(params) {
 
 	// Returns the price of the battery in E/kwh
 	this.setBatteryPricePerKWh = function(year) {
-		for (var i = 2019; i<=2025; i++) {
+		for (var i = 2021; i<=2025; i++) {
 			this.fleet_presets.batteriepreise[i] = this.fleet_presets.batteriepreise[i-1] - 5
 		}
 
