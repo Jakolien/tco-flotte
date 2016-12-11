@@ -15,8 +15,8 @@ var VehicleGroup = function(fleet_params, params) {
 	this.reichweite = 150
 	this.energy_source = fleet_params.energy_source
 	this.electro_fleet_size = fleet_params.electro_fleet_size
-	this.charging_option_cost = (fleet_params.charging_option_cost * fleet_params.charging_option_num) / this.electro_fleet_size
-	this.maintenance_costs_charger = (fleet_params.maintenance_costs_charger * fleet_params.charging_option_num) / this.electro_fleet_size
+	this.charging_option_cost = fleet_params.charging_option_cost / this.electro_fleet_size
+	this.maintenance_costs_charger = fleet_params.maintenance_costs_charger / this.electro_fleet_size
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
@@ -277,7 +277,7 @@ var VehicleGroup = function(fleet_params, params) {
 			this.maintenance_costs_repairs = params["maintenance_costs_repairs"]
 		}
 		if (params.hasOwnProperty("maintenance_costs_charger")) {
-			this.maintenance_costs_charger = (params["maintenance_costs_charger"] * fleet_params.charging_option_num) / this.electro_fleet_size
+			this.maintenance_costs_charger = (params["maintenance_costs_charger"] * (fleet_params.charging_option_num + fleet_params.charging_option2_num)) / this.electro_fleet_size
 		}
 
 		this.maintenance_costs_total = this.maintenance_costs_tires + this.maintenance_costs_inspection + this.maintenance_costs_repairs;
@@ -342,7 +342,11 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getNeededBatterySize = function() {
-		this.battery_size = fleet_params.battery_capacity[this.energy_type][this.car_type]
+		if (this.energy_type.indexOf(["BEV", "hybrid-diesel", "hybrid-benzin"]) > -1){ 
+			this.battery_size = fleet_params.battery_capacity[this.energy_type][this.car_type]
+		} else {
+			this.battery_size = 0
+		}
 	}
 
 	this.getFixedCosts = function() {

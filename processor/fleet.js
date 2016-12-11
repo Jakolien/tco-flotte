@@ -167,10 +167,12 @@ var Fleet = function(params) {
 
 	// Charging options costs in EUR
 	this.fleet_presets.charging_option = "Keine"
+	this.fleet_presets.charging_option2 = "Keine"
 	this.fleet_presets.maintenance_costs_charger = ""
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
 	this.fleet_presets.charging_option_num = 1
+	this.fleet_presets.charging_option2_num = 0
 	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
@@ -484,11 +486,13 @@ var Fleet = function(params) {
 
 	this.setChargingOptionPrice = function(year) {
 		// Decrease in price is 5%/year
-		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2014);
+		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2014) * this.fleet_presets.charging_option_num;
+		this.fleet_presets.charging_option_cost += this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2014) * this.fleet_presets.charging_option2_num;
 	}
 
 	this.setChargingOptionMaintenance = function() {
-		this.fleet_presets.maintenance_costs_charger = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"];
+		this.fleet_presets.maintenance_costs_charger = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"] * this.fleet_presets.charging_option_num;
+		this.fleet_presets.maintenance_costs_charger += this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"] * this.fleet_presets.charging_option2_num;
 	}
 
 	// Returns the price of the battery in E/kwh
