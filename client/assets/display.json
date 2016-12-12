@@ -1,162 +1,47 @@
 [
   {
-    "id": "1",
-    "name": "mileage_with_savings",
-    "type": "bar",
-    "fleetdata": true,
-    "visualization": false,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "km_per_year"
+    "id": "https://spreadsheets.google.com/feeds/list/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/2/cokwr",
+    "_cn6ca": "benzin",
+    "klein": "x",
+    "mittel": "x",
+    "groß": "x",
+    "lnf1": null,
+    "lnf2": null
   },
   {
-    "id": "2",
-    "name": "mileage",
-    "type": "bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "km_per_year"
+    "id": "https://spreadsheets.google.com/feeds/list/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/2/cpzh4",
+    "_cn6ca": "diesel",
+    "klein": "x",
+    "mittel": "x",
+    "groß": "x",
+    "lnf1": "x",
+    "lnf2": "x"
   },
   {
-    "id": "3",
-    "name": "CO2",
-    "type": "bar",
-    "fleetdata": true,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "g"
+    "id": "https://spreadsheets.google.com/feeds/list/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/2/cre1l",
+    "_cn6ca": "BEV",
+    "klein": "x",
+    "mittel": "x",
+    "groß": "x",
+    "lnf1": "x",
+    "lnf2": "x"
   },
   {
-    "id": "4",
-    "name": "total_costs",
-    "type": "bar",
-    "fleetdata": true,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "€"
+    "id": "https://spreadsheets.google.com/feeds/list/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/2/chk2m",
+    "_cn6ca": "hybrid-benzin",
+    "klein": null,
+    "mittel": "x",
+    "groß": "x",
+    "lnf1": null,
+    "lnf2": null
   },
   {
-    "id": "5",
-    "name": "num_of_vehicles",
-    "type": "bar",
-    "fleetdata": true,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "vehicles"
-  },
-  {
-    "id": "6",
-    "name": "CO2_per_km",
-    "type": "bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "g_per_km"
-  },
-  {
-    "id": "7",
-    "name": "cost_per_km",
-    "type": "bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "euro_per_km"
-  },
-  {
-    "id": "8",
-    "name": "cost_by_group",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": true,
-    "unit": "€"
-  },
-  {
-    "id": "9",
-    "name": "CO2_by_group",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": true,
-    "unit": "g"
-  },
-  {
-    "id": "10",
-    "name": "cost_by_position",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": true,
-    "bygroup": false,
-    "unit": "€"
-  },
-  {
-    "id": "11",
-    "name": "mileage_by_group",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": true,
-    "unit": "km_per_year"
-  },
-  {
-    "id": "12",
-    "name": "cost_by_car_type",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "€"
-  },
-  {
-    "id": "13",
-    "name": "cost_by_energy_type",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "€"
-  },
-  {
-    "id": "14",
-    "name": "CO2_by_car_type",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "g"
-  },
-  {
-    "id": "15",
-    "name": "CO2_by_energy_type",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "g"
-  },
-  {
-    "id": "16",
-    "name": "CO2_by_phase",
-    "type": "stacked_bar",
-    "fleetdata": false,
-    "visualization": true,
-    "leasingconditions": false,
-    "bygroup": false,
-    "unit": "g"
+    "id": "https://spreadsheets.google.com/feeds/list/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/2/ciyn3",
+    "_cn6ca": "hybrid-diesel",
+    "klein": null,
+    "mittel": null,
+    "groß": "x",
+    "lnf1": null,
+    "lnf2": null
   }
 ]

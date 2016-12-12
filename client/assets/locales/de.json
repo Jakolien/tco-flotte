@@ -22,7 +22,7 @@
     "businessplane_CO2_per_km": "CO₂ Ausstoß pro km",
     "businessplane_cost_per_km": "Kosten pro km",
     "cancel": "Abbrechen",
-    "car_sharing": "Carsharing (Elektrofahrzeuge)",
+    "car_sharing": "Carsharing/Mietwagen (Elektrofahrzeuge)",
     "car_sharing_CO2_per_km": "CO₂ Ausstoß pro km",
     "car_sharing_cost_per_km": "Kosten per km",
     "car_type": "Größenklasse",
@@ -229,7 +229,7 @@
     "plane_cost_per_km": "Kosten pro km",
     "praemie": "Kaufprämie",
     "reichweite": "Reichweite",
-    "rental_car": "Mietwagen (Benzin/Diesel)",
+    "rental_car": "Carsharing/Mietwagen (Benzin/Diesel)",
     "rental_car_CO2_per_km": "CO₂-Ausstoß pro km",
     "rental_car_cost_per_km": "Kosten pro km",
     "reset_your_password_body": "Sehr geehrte Damen und Herren,\n\nSie erhalten diese E-Mail, weil Sie (oder jemand anderes) das Zurücksetzen des Passworts für Ihr Benutzerkonto auf { home } angefordert haben.\n\nBitte klicken Sie auf den folgenden Link oder kopieren Sie den Link in Ihren Browser, um den Vorgang abzuschließen:\n\n{url}\n\nWenn Sie das Zurücksetzen des Passworts nicht beantragt haben, ignorieren Sie bitte diese E-Mail.\n",
@@ -286,5 +286,6 @@
     "€": "€",
     "€_per_kwh": "€/kWh",
     "€_per_liter": "€/L",
-    "chargin_option2_num": ""
+    "charging_option_unitary_cost": "Kosten der ersten Lademöglichkeit (pro Stück)",
+    "charging_option2_unitary_cost": "Kosten der zweiten Lademöglichkeit (pro Stück)"
 }
