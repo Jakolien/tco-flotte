@@ -33,9 +33,9 @@
     "charging_infrastructure": "Ladeinfrastruktur",
     "charging_option": "Erste Lademöglichkeit",
     "charging_option2": "Zweite Lademöglichkeit",
+    "charging_option2_num": "Anzahl Ladengeräte zweite Lademöglichkeit",
     "charging_option_cost": "Kosten Ladeinfrastruktur",
     "charging_option_num": "Anzahl Ladengeräte erste Lademöglichkeit",
-    "charging_option2_num": "Anzahl Ladengeräte zweite Lademöglichkeit",
     "chart_leasing_alert": "Die Fixkosten enthalten Leistungen, die Teil des Leasingvertrags sind.",
     "CO2": "CO₂ Ausstoß",
     "CO2_by_car_type": "CO₂ nach Größenklasse",
@@ -111,6 +111,7 @@
     "discount_rate": "Kalkulationszinssatz",
     "download_as_pdf": "Als PDF herunterladen",
     "duplicate": "Kopie erstellen",
+    "duplicate_fleet": "Create a new variant of this fleet",
     "edit": "Bearbeiten",
     "edit_group_help": "Geben Sie die Parameter für diesen Fahrzeugtyp ein.",
     "elec_unit": " kWh/100km",
@@ -172,8 +173,8 @@
     "km": " km",
     "km_per_year": " km/Jahr",
     "language_link": "Sprache",
-    "Leasing": "Leasing",
     "leasing": "Leasing",
+    "Leasing": "Leasing",
     "leasing_includes_insurance": "Leasingvertrag enthält Versicherungkosten",
     "leasing_includes_service": "Leasingvertrag enthält Untersuchungen",
     "leasing_includes_tax": "Leasingvertrag enthält Kfz-Steuer",
@@ -283,5 +284,6 @@
     "your_groups_title": "Ihre Fahrzeuge",
     "€": "€",
     "€_per_kwh": "€/kWh",
-    "€_per_liter": "€/L"
+    "€_per_liter": "€/L",
+    "chargin_option2_num": ""
 }

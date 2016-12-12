@@ -31,13 +31,26 @@
         border-bottom:0;
       }
 
-      & > a {
+      &__name {
         color:inherit;
         display: block;
         padding:$spacer;
+        padding-bottom:$spacer/2;
+
         &:hover {
           text-decoration: none;
         }
+      }
+
+      &__duplicate {
+        color: $link-color !important;
+        font-weight: normal;
+        padding:$spacer/2 $spacer;
+        font-size:.9em;
+        display: block;
+        border-top: lighten($view-border, 5) 1px dashed;
+        cursor: pointer;
+        white-space: normal;
       }
 
       &:not(&--active):hover {

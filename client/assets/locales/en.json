@@ -28,12 +28,12 @@
     "car_type": "Car type",
     "cash_bonus_amount": "Cash bonus amount",
     "change_password": "Change your password",
-    "charging_option_num": "Number of charging devices (first option)",
     "chargin_option2_num": "Number of charging devices (second option)",
     "charging_infrastructure": "Charging Infrastructure",
     "charging_option": "Charging option",
     "charging_option2": "Second charging option",
     "charging_option_cost": "Charging infrastructure cost",
+    "charging_option_num": "Number of charging devices (first option)",
     "chart_leasing_alert": "Fixed costs include services that are part to the leasing contract.",
     "CO2": "CO₂ emissions",
     "CO2_by_car_type": "CO₂ by car type",
@@ -109,6 +109,7 @@
     "discount_rate": "Discount rate",
     "download_as_pdf": "Download as PDF",
     "duplicate": "Duplicate",
+    "duplicate_fleet": "Create a new variant of this fleet",
     "edit": "Edit",
     "edit_group_help": "Enter the parameters for this vehicle type.",
     "elec_unit": " kWh/100km",
@@ -274,5 +275,6 @@
     "your_groups_title": "Your groups",
     "€": "€",
     "€_per_kwh": "€/kWh",
-    "€_per_liter": "€/L"
+    "€_per_liter": "€/L",
+    "charging_option2_num": "Number of charging devices for second charging option"
 }

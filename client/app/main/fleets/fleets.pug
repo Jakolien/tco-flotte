@@ -11,6 +11,9 @@
               div {{ fleet.name || '┄' }}
               div.text-muted.small
                 | {{ 'groups_count' | translate:{ groups: fleet.groups.length({ special: false }) } }}
+            a.main__fleets__list__item__duplicate(ng-click="$ctrl.duplicate()", ng-if="fleet === $ctrl.fleet")
+              i.fa.fa-fw.fa-files-o
+              | &nbsp;{{ 'duplicate_fleet' | translate }}
         button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()")
           i.fa.fa-plus-circle
           | &nbsp;{{ 'add_fleet' | translate }}
