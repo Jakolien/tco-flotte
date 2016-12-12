@@ -413,11 +413,6 @@ var Fleet = function(params) {
 		this.fleet_presets._2016_diesel_price = this.fleet_presets.energy_prices["diesel"][2016]["mittel"]
 		this.fleet_presets._2016_benzin_price = this.fleet_presets.energy_prices["benzin"][2016]["mittel"]
 
-		// Rounding
-		//this.fleet_presets._2016_diesel_price = Math.round(this.fleet_presets._2016_diesel_price * 100) / 100
-		//this.fleet_presets._2016_benzin_price = Math.round(this.fleet_presets._2016_benzin_price * 100) / 100
-		//this.fleet_presets._2016_elec_price = Math.round(this.fleet_presets._2016_elec_price * 100) / 100
-
 	}
 
 	// Corrects amounts for inflation
@@ -448,9 +443,9 @@ var Fleet = function(params) {
 
 		} else if (energy_type.indexOf("hybrid") > -1) { // hybrid car
 			if (energy_type.indexOf("diesel") > -1) { //hybrid-diesel
-				this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = this.fleet_presets.raw_acquisition_price["diesel"][car_type][year] + this.getPriceSurcharge("hybrid", car_type, year) + this.getPriceSurcharge("BEV", car_type, year);
+				this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = this.fleet_presets.raw_acquisition_price["diesel"][car_type][year] + this.getPriceSurcharge("hybrid-diesel", car_type, year) + this.getPriceSurcharge("BEV", car_type, year);
 			} else {
-				this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = this.fleet_presets.raw_acquisition_price["benzin"][car_type][year] + this.getPriceSurcharge("hybrid", car_type, year) + this.getPriceSurcharge("BEV", car_type, year);
+				this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = this.fleet_presets.raw_acquisition_price["benzin"][car_type][year] + this.getPriceSurcharge("hybrid-benzin", car_type, year) + this.getPriceSurcharge("BEV", car_type, year);
 			}
 		} else { // Elektro car
 			if (car_type.indexOf("LNF") > -1) {
@@ -486,16 +481,16 @@ var Fleet = function(params) {
 		}
 	}
 
-	this.setChargingOptionPrice = function(year) {
-		// Decrease in price is 5%/year
-		this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
-		this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
-		
-		if (params.vars.hasOwnProperty("charging_option_unitary_cost")) {
+	this.setChargingOptionPrice = function(year) {		
+		if (params.vars.hasOwnProperty("charging_option_unitary_cost") && params.vars["charging_option_unitary_cost"] > 0) {
 			this.fleet_presets.charging_option_unitary_cost = params.vars["charging_option_unitary_cost"];
+		} else {
+			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
 		}
-		if (params.vars.hasOwnProperty("charging_option2_unitary_cost")) {
+		if (params.vars.hasOwnProperty("charging_option2_unitary_cost") && params.vars["charging_option2_unitary_cost"] > 0) {
 			this.fleet_presets.charging_option2_unitary_cost = params.vars["charging_option2_unitary_cost"];
+		} else {
+			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
 		}
 
 		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_option_unitary_cost  * this.fleet_presets.charging_option_num + this.fleet_presets.charging_option2_unitary_cost  * this.fleet_presets.charging_option2_num + this.fleet_presets.maintenance_costs_charger;
