@@ -60,7 +60,7 @@
     "create_account": "Create an account",
     "create_fleet": "Create a fleet",
     "create_group_description": "Add a new vehicle group",
-    "create_group_help": "Create a new vehicle type by selecting the car size class, the engine type and the number of vehicles. Afterwards click the 'Save' button.",
+    "create_group_help": "Create a new vehicle type by selecting the car size class, the engine type and the number of vehicles.<br/><br/>Afterwards click the 'Save' button.",
     "create_group_title": "Create a group",
     "create_your_fleets": "Create your fleets",
     "date_format": "dd/MM/yyyy",
