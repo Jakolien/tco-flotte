@@ -122,17 +122,19 @@ var Fleet = function(params) {
 			"LNF1": 2000,
 			"LNF2": 2500
 		},
-		"hybrid": {
-			"klein": 1480,
-			"mittel": 2425,
-			"groß": 3830
+		"hybrid-benzin": {
+			"mittel": 9719,
+			"groß": 11061
+		},
+		"hybrid-diesel": {
+			"groß": 16676
 		},
 		"BEV":{
-			"klein":{"2014": 5583},
-			"mittel":{"2014": 3292},
-			"groß":{"2014": 21153},
-			"LNF1":{"2014": 2000},
-			"LNF2":{"2014": 2500}
+			"klein":{"2016": 5583},
+			"mittel":{"2016": 3292},
+			"groß":{"2016": 21153},
+			"LNF1":{"2016": 2000},
+			"LNF2":{"2016": 2500}
 		}
 	}
 
@@ -437,12 +439,12 @@ var Fleet = function(params) {
 		if (energy_type != "BEV" && energy_type.indexOf("hybrid") == -1) {
 			for (var type in starting_price["benzin"]) {
 				if (energy_type != "benzin") {starting_price[energy_type][type] = {};}
-				starting_price[energy_type][type]["2014"] = starting_price["benzin"][type]["2014"] + this.getPriceSurcharge(energy_type, type, year);
+				starting_price[energy_type][type]["2016"] = starting_price["benzin"][type]["2016"] + this.getPriceSurcharge(energy_type, type, year);
 			}
 			// Computes yearly price increase
 			var yearly_increase = Math.pow((1 + this.fleet_presets.kostensteigerung20102030[energy_type][car_type]), (1/20)) - 1;
 			// Computes the value for the asked year
-			this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = starting_price[energy_type][car_type]["2014"] * Math.pow(1+yearly_increase, year - 2014)
+			this.fleet_presets.raw_acquisition_price[energy_type][car_type][year] = starting_price[energy_type][car_type]["2016"] * Math.pow(1+yearly_increase, year - 2016)
 
 		} else if (energy_type.indexOf("hybrid") > -1) { // hybrid car
 			if (energy_type.indexOf("diesel") > -1) { //hybrid-diesel
@@ -468,7 +470,7 @@ var Fleet = function(params) {
 			var surcharge = this.fleet_presets.aufpreis["BEV"];
 			var surcharge_decrease_2020 = -.5;
 			var yearly_surcharge_deacrease = Math.pow((1 + surcharge_decrease_2020), (1/6)) - 1;
-			for (var i = 2015; i<=2020; i++){ // Automates the fill out of surcharge
+			for (var i = 2017; i<=2020; i++){ // Automates the fill out of surcharge
 				for (var type in surcharge) {
 					surcharge[type][i] = surcharge[type][i - 1] * (1 + yearly_surcharge_deacrease);
 				}
@@ -480,14 +482,23 @@ var Fleet = function(params) {
 			}
 			return surcharge[car_type][year]
 		} else {
-			return this.fleet_presets.aufpreis["hybrid"][car_type]
+			return this.fleet_presets.aufpreis[energy_type][car_type]
 		}
 	}
 
 	this.setChargingOptionPrice = function(year) {
 		// Decrease in price is 5%/year
-		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2014) * this.fleet_presets.charging_option_num;
-		this.fleet_presets.charging_option_cost += this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2014) * this.fleet_presets.charging_option2_num;
+		this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
+		this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
+		
+		if (params.vars.hasOwnProperty("charging_option_unitary_cost")) {
+			this.fleet_presets.charging_option_unitary_cost = params.vars["charging_option_unitary_cost"];
+		}
+		if (params.vars.hasOwnProperty("charging_option2_unitary_cost")) {
+			this.fleet_presets.charging_option2_unitary_cost = params.vars["charging_option2_unitary_cost"];
+		}
+
+		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_option_unitary_cost  * this.fleet_presets.charging_option_num + this.fleet_presets.charging_option2_unitary_cost  * this.fleet_presets.charging_option2_num + this.fleet_presets.maintenance_costs_charger;
 	}
 
 	this.setChargingOptionMaintenance = function() {
@@ -565,8 +576,8 @@ var Fleet = function(params) {
 	}
 
 	// Initializes the prices of all charging options for all years
-	this.setChargingOptionPrice(2016)
 	this.setChargingOptionMaintenance()
+	this.setChargingOptionPrice(2016)
 
 	// Initializes the CO2 from the electricity mix
 	this.setCO2FromElectricityMix()
