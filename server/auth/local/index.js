@@ -61,7 +61,7 @@ router.all('/forgot', function(req, res) {
         to: user.email,
         from: 'contact@jplusplus.org',
         subject: res.__mf('reset_your_password_subject'),
-        text: res.__mf('reset_your_password_body', { url: url, home:  })
+        text: res.__mf('reset_your_password_body', { url: url, home: home })
       }, done);
     }
   ], function(err) {

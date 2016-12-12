@@ -66,7 +66,11 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
           EXCEPTION = ref1[i];
           if(EXCEPTION.TO === this.meta.name) {
             if(EXCEPTION.INCLUDE.indexOf(subset[EXCEPTION.IF]) > -1) {
-              range = range.concat(EXCEPTION.ADD);
+              if(EXCEPTION.ADD) {
+                range = range.concat(EXCEPTION.ADD);
+              } else if(EXCEPTION.SET) {
+                range = angular.copy(EXCEPTION.SET);
+              }
             }
           }
         }

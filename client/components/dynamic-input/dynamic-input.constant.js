@@ -13,6 +13,18 @@ var DYNAMIC_INPUT = {
       INCLUDE: ['diesel', 'BEV'],
       ADD: ['LNF1', 'LNF2'],
       TO: 'car_type'
+    },
+    {
+      IF: 'energy_type',
+      INCLUDE: ['hybrid-benzin'],
+      SET: ['mittel', 'groß'],
+      TO: 'car_type'
+    },
+    {
+      IF: 'energy_type',
+      INCLUDE: ['hybrid-diesel'],
+      SET: [ 'groß'],
+      TO: 'car_type'
     }
   ]
 };
