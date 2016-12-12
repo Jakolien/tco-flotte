@@ -55,7 +55,7 @@ router.all('/forgot', function(req, res) {
       // In development, assets are generated through a proxy on port 3000
       let home = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
       // Add token path to the url
-      url = `${home}/#/reset/${token}`;
+      let url = `${home}/#/reset/${token}`;
       // Send the email and continue
       mailer.sendMail({
         to: user.email,
