@@ -224,7 +224,7 @@
     "rental_car": "Rental Car (Gasoline/Diesel)",
     "rental_car_CO2_per_km": "CO₂ emissions per km",
     "rental_car_cost_per_km": "Cost per km",
-    "reset_your_password_body": "Hello,\n\nYou are receiving this email because you (or someone else) have requested the reset of the password for your account on {url2}.\n\nPlease click on the following link, or paste this link into your browser, in order to complete the process:\n\n{url}\n\nIf you did not request the reset of your password, please ignore this email.\n",
+    "reset_your_password_body": "Hello,\n\nYou are receiving this email because you (or someone else) have requested the reset of the password for your account on { home }.\n\nPlease click on the following link, or paste this link into your browser, in order to complete the process:\n\n{url}\n\nIf you did not request the reset of your password, please ignore this email.\n",
     "reset_your_password_email": "Enter your email address and we will send you a link to reset your password.",
     "reset_your_password_email_valid": "Please enter a valid email.",
     "reset_your_password_subject": "Reset your password",

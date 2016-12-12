@@ -53,15 +53,15 @@ router.all('/forgot', function(req, res) {
     // Send token by email
     }, function(token, user, done) {
       // In development, assets are generated through a proxy on port 3000
-      let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
+      let home = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
       // Add token path to the url
-      url += `/#/reset/${token}`;
+      url = `${home}/#/reset/${token}`;
       // Send the email and continue
       mailer.sendMail({
         to: user.email,
         from: 'contact@jplusplus.org',
         subject: res.__mf('reset_your_password_subject'),
-        text: res.__mf('reset_your_password_body', { url: url })
+        text: res.__mf('reset_your_password_body', { url: url, home:  })
       }, done);
     }
   ], function(err) {
