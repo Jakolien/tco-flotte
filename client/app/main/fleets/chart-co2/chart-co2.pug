@@ -1,6 +1,6 @@
 .chart-co2
   .chart-co2__c3
-    c3chart(bindto-id="chart-{{ :: $ctrl.id }}", transition-duration="0", callback-function="$ctrl.bindChart")
+    c3chart(bindto-id="chart-{{ :: $ctrl.id }}", transition-duration="0", callback-function="$ctrl.bindChart", padding-bottom="10")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnsStr }}")
       chart-column(column-id="{{ :: $ctrl.id }}",
