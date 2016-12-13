@@ -301,7 +301,15 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       }
     }
     create(vars = Fleet.defaults()) {
-      return super.create(vars);
+      if(this.length() < 5) {
+        return super.create(vars);
+      } else {
+        let defered = $q.defer();
+        // Reject the promise already
+        defered.reject('Too many fleets.')
+        // And return it as a new property of vars
+        return angular.extend(vars, { $promise: defered.promise });
+      }
     }
     delete(fleet) {
       // Remove from the local instance
@@ -330,8 +338,15 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       let all = angular.copy( this.all() );
       // We delete all inactive fleets
       all.forEach( fleet=> fleet.isActive() || this.delete(fleet) );
+      // Get the current language
+      let lang = $translate.use();
+      // The lang is unkown with the scenario object
+      if(! demoScenario.hasOwnProperty(lang)) {
+        // Use the first lang
+        lang = _(demoScenario).keys().initial().value();
+      }
       // We create two fleets using the demo scenario
-      let promises = demoScenario.map( demo=> this.create(demo).$promise );
+      let promises = demoScenario[lang].map( demo=> this.create(demo).$promise );
       // Return a race of promises
       // (resolved as soon as one promise is resolved)
       return $q.race(promises);
