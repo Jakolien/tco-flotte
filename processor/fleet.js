@@ -7,7 +7,7 @@ var year_min = 2014;
 var year_max = 2050;
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
-                         'car_sharing',  'rental_car', 'bike',
+                         'rental_bev',  'rental_gas', 'bike',
                          'plane', 'businessplane', 'savings'];
 
 var Fleet = function(params) {
@@ -156,7 +156,9 @@ var Fleet = function(params) {
 		"BEV" : {
 			"klein": 18,
 			"mittel": 25,
-			"groß": 60
+			"groß": 60,
+			"LNF1": 100,
+			"LNF2": 160
 		},
 		"hybrid-benzin": {
 			"mittel": 15,
@@ -317,8 +319,8 @@ var Fleet = function(params) {
 			"2030": 0.248
 		},
 		"strom_erneubar": 0.012,
-		"benzin": 2.80,
-		"diesel": 3.15
+		"benzin": 2800,
+		"diesel": 3150
 	}
 
 	// CO2 produced when the vehicle is produced
@@ -733,4 +735,4 @@ var Fleet = function(params) {
 
 // Available from outisde
 module.exports = Fleet;
-module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
+module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 

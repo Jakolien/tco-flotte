@@ -1,11 +1,11 @@
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
-                         'car_sharing',  'rental_car', 'bike',
+                         'rental_bev',  'rental_gas', 'bike',
                          'plane', 'businessplane', 'savings'];
 
 var VehicleGroup = function(fleet_params, params) {
 	var scenarios = ["mittel"]
-	var additional_energy_types = ["long_distance_train","short_distance_train","car_sharing","rental_car","bike","plane", "businessplane"]
+	var additional_energy_types = ["long_distance_train","short_distance_train","rental_bev","rental_gas","bike","plane", "businessplane"]
 	this.energy_type = "BEV"
 	this.car_type = "klein"
 	this.electricity_consumption = 0
@@ -52,10 +52,10 @@ var VehicleGroup = function(fleet_params, params) {
 	this.long_distance_train_cost_per_km = .9
 	this.short_distance_train_CO2_per_km = 69
 	this.short_distance_train_cost_per_km = .7
-	this.car_sharing_CO2_per_km = 77
-	this.car_sharing_cost_per_km = .2
-	this.rental_car_CO2_per_km = 181
-	this.rental_car_cost_per_km = 2
+	this.rental_bev_CO2_per_km = 77
+	this.rental_bev_cost_per_km = 2
+	this.rental_gas_CO2_per_km = 181
+	this.rental_gas_cost_per_km = 2
 	this.bike_CO2_per_km = 4.2
 	this.bike_cost_per_km = 0
 	this.plane_CO2_per_km = 196
@@ -342,7 +342,7 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getNeededBatterySize = function() {
-		if (this.energy_type.indexOf(["BEV", "hybrid-diesel", "hybrid-benzin"]) > -1){ 
+		if (["BEV", "hybrid-diesel", "hybrid-benzin"].indexOf(this.energy_type) > -1){ 
 			this.battery_size = fleet_params.battery_capacity[this.energy_type][this.car_type]
 		} else {
 			this.battery_size = 0

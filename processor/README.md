@@ -20,19 +20,48 @@ A new Fleet object accepts a single parameter, which is a Javascript object form
 
 ```
 {
-    vars: {},
-    groups: [
-        {
-          name: "group_name1",
-          vars: {"num_of_vehicles": 1},
-          insights: { "energy_prices": [] }
-        },
-        {
-          name: "group_name2",
-          vars: {"num_of_vehicles": 2},
-          insights: { "energy_prices": [] }
-        }
-    ]
+  vars: "",
+  groups: [
+    {
+      "name": "1",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "diesel",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "2",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "benzin",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "3",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "BEV",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "4",
+      "vars": {
+        "car_type": "mittel",
+        "energy_type": "hybrid-benzin",
+        "num_of_vehicles": 2,
+      }
+    },{
+      "name": "5",
+      "vars": {
+        "car_type": "groß",
+        "energy_type": "hybrid-diesel",
+        "num_of_vehicles": 2,
+      }
+    }
+  ]
 }
 ```
 
