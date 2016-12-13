@@ -189,6 +189,7 @@ var Fleet = function(params) {
 		"diesel":  {"2010": -.26, "2020": -.1},
 		"LNF":     {"2010": -.14, "2020": -.1},
 		"BEV":     {"2010": -.15, "2020": -.01},
+		"hybrid":  {"2010": 0, 	  "2020": 0},
 		"BEV-LNF": {"2010": 0,    "2020": -.01}
 	}
 
@@ -430,7 +431,6 @@ var Fleet = function(params) {
 	this.setRawAcquisitionPrice = function(energy_type, car_type, year) {
 		// Updates the starting prices with diesel
 		var starting_price = this.fleet_presets.nettolistenpreise;
-
 		if (energy_type != "BEV" && energy_type.indexOf("hybrid") == -1) {
 			for (var type in starting_price["benzin"]) {
 				if (energy_type != "benzin") {starting_price[energy_type][type] = {};}
@@ -477,6 +477,10 @@ var Fleet = function(params) {
 			}
 			return surcharge[car_type][year]
 		} else {
+			if (this.fleet_presets.aufpreis[energy_type] === undefined){
+				// Needed to prevent error on older fleets
+				return this.fleet_presets.aufpreis["hybrid"][car_type]
+			}
 			return this.fleet_presets.aufpreis[energy_type][car_type]
 		}
 	}

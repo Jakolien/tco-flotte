@@ -426,10 +426,9 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getConsumption = function(energy_type) {
-		if (energy_type.indexOf("hybrid") > -1) {
+		if (["hybrid-diesel", "hybrid-benzin"].indexOf(energy_type) > -1) {
 			this.getConsumption("BEV");
-			this.getConsumption(energy_type.split("-")[1]);
-			this.fuel_consumption *= fleet_params.hybrid_minderverbrauch[this.car_type];
+			this.getConsumption("hybrid");
 		} else {
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
 			var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2010"];
