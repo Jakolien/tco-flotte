@@ -204,8 +204,13 @@
         &__image {
           position: absolute;
           left:$spacer;
-          max-width: calc(100% - #{$spacer});
-          bottom: $line-height-base * 1rem + $spacer * 2;
+          max-width: 40%;
+          width:100%;
+          bottom: 25%;
+
+          @media (max-width: 1100px) {
+            bottom: $line-height-base * 1rem + $spacer;
+          }
         }
 
         &__footer {
@@ -222,16 +227,6 @@
 
           span, i {
             color:mix($text-muted, $link-color);
-          }
-
-          &:before {
-            content:"";
-            position: absolute;
-            bottom:100%;
-            left:$spacer;
-            width:$spacer * 2;
-            height:1px;
-            background:$card-border-color;
           }
         }
 
@@ -254,6 +249,8 @@
           transform: translate(-50%, -50%);
           display: block;
           text-align: center;
+          font-size: .9em;
+          line-height: 1.1em;
 
           &:hover {
             text-decoration: none;

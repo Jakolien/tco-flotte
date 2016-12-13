@@ -30,7 +30,7 @@
               h5.main__fleets__view__groups__heading
                 | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row
-                li.col-xl-3.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: false }) track by $index")
+                li.col-xl-3.col-lg-4.col-md-6.col-sm-8.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: false }) track by $index")
                   a.main__fleets__view__groups__item(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })")
                     h4.main__fleets__view__groups__item__heading
                       | {{ group.vars.group_name || group.name }}
@@ -42,7 +42,7 @@
                         i.fa.fa-edit
                         span.hidden-xl-down &nbsp;{{ 'edit' | translate }}
                       strong {{ 'vehicles_count' | translate:{ vehicles: group.vars.num_of_vehicles } }}
-                li.col-xl-3.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-if="$ctrl.fleet.groups.filter({ special: false }).length < 5")
+                li.col-xl-3.col-lg-4.col-md-6.col-sm-8.col-xs-12(ng-if="$ctrl.fleet.groups.filter({ special: false }).length < 5")
                   a.main__fleets__view__groups__item.main__fleets__view__groups__item--link(ui-sref=".groups")
                     .main__fleets__view__groups__item__add-group
                       | {{ 'add_vehicles_group' | translate }}
@@ -61,7 +61,7 @@
                 chart-co2(fleet="$ctrl.fleet", settings="$ctrl.settings")
 
               ul.list-unstyled.row(ng-if="!$ctrl.displayCo2")
-                li.col-xl-3.col-lg-4.col-md-6.col-sm-12.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: true }) track by $index")
+                li.col-xl-3.col-lg-4.col-md-6.col-sm-8.col-xs-12(ng-repeat="group in $ctrl.fleet.groups.filter({ special: true }) track by $index")
                   a.main__fleets__view__groups__item.main__fleets__view__groups__item--special(ui-sref="main.fleets.groups.edit({group: $ctrl.fleet.groups.indexOf(group) })", class="main__fleets__view__groups__item--{{ group.vars.energy_type }}")
                     h4.main__fleets__view__groups__item__heading
                       | {{ (group.vars.group_name || group.name) | translate }}
