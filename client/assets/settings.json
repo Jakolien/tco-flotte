@@ -1619,7 +1619,7 @@
     "unit": null,
     "rounded": false,
     "section": "Vehicle details",
-    "values": "\"klein\", \"mittel\", \"groß\"",
+    "values": "\"klein\", \"mittel\", \"groß\",\"LNF1\",\"LNF2\"",
     "default": null,
     "hashelp": true,
     "interval": 0,

@@ -9,22 +9,28 @@ var DYNAMIC_INPUT = {
   FIELD_STATIC: 'static',
   EXCEPTIONS: [
     {
-      IF: 'energy_type',
-      INCLUDE: ['diesel', 'BEV'],
-      ADD: ['LNF1', 'LNF2'],
-      TO: 'car_type'
+      IF: 'car_type',
+      INCLUDE: ['klein'],
+      SET: ['benzin', 'diesel', 'BEV'],
+      TO: 'energy_type'
     },
     {
-      IF: 'energy_type',
-      INCLUDE: ['hybrid-benzin'],
-      SET: ['mittel', 'groß'],
-      TO: 'car_type'
+      IF: 'car_type',
+      INCLUDE: ['mittel'],
+      SET: ['benzin', 'diesel', 'BEV', 'hybrid-benzin'],
+      TO: 'energy_type'
     },
     {
-      IF: 'energy_type',
-      INCLUDE: ['hybrid-diesel'],
-      SET: [ 'groß'],
-      TO: 'car_type'
+      IF: 'car_type',
+      INCLUDE: ['groß'],
+      SET: ['benzin', 'diesel', 'BEV', 'hybrid-benzin', 'hybrid-diesel'],
+      TO: 'energy_type'
+    },
+    {
+      IF: 'car_type',
+      INCLUDE: ['LNF1', 'LNF2'],
+      SET: ['diesel', 'BEV'],
+      TO: 'energy_type'
     }
   ]
 };
