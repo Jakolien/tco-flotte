@@ -218,7 +218,7 @@ gulp.task('styles', () => {
 });
 
 gulp.task('transpile:server', () => {
-    return gulp.src(_.union(paths.server.scripts, paths.server.json))
+    return gulp.src(paths.server.scripts)
         .pipe(transpileServer())
         .pipe(gulp.dest(`${paths.dist}/${serverPath}`));
 });
