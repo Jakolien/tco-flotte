@@ -1,7 +1,7 @@
 {
   "de": [
     {
-      "name": "Heutige Flotte Muster GmbH",
+      "name": "Heutige Flotte",
       "vars": {},
       "groups": [
         {
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "name": "Optimierte Flotte Muster GmbH",
+      "name": "Optimierte Flotte",
       "vars": {
         "charging_option": "Wallbox bis 22kW",
         "charging_option_num": 1
