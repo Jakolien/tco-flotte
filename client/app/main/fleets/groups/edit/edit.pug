@@ -10,8 +10,7 @@
     .col-xl-5.push-xl-7
       .main__fleets__groups__edit__sidebar(sticky='')
         .card
-          .card-block.text-muted
-            | {{ 'edit_group_help' | translate }}
+          .card-block.text-muted(ng-bind-html="'edit_group_help' | translate")
           .card-footer.main__fleets__groups__edit__sidebar__footer
             .float-xs-right(ng-if="!$ctrl.group.special")
               button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
