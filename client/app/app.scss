@@ -33,6 +33,8 @@ $alert-success-bg:     $brand-success;
 $alert-success-text:   lighten($brand-success, 50);
 $alert-success-border: darken($brand-success, 5);
 
+$tag-font-size: 100%;
+
 $fa-font-path: '/assets/fonts/font-awesome/';
 
 @import '~bootstrap/scss/bootstrap.scss';

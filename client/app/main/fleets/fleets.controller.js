@@ -6,17 +6,18 @@ export default class FleetsComponent {
   /*@ngInject*/
   constructor($translate, $state, $stateParams, $uibModal, fleets, $scope) {
     // Bind method to this instance
-    this.get              = this.get.bind(this);
-    this.createFleet      = this.createFleet.bind(this);
-    this.compareStyle     = this.compareStyle.bind(this);
-    this.anotherFleet     = this.anotherFleet.bind(this);
-    this.biggest          = this.biggest.bind(this);
-    this.smallest         = this.smallest.bind(this);
-    this.delta            = this.delta.bind(this);
-    this.arefleetsUnequal = this.arefleetsUnequal.bind(this);
-    this.delete           = this.delete.bind(this);
-    this.duplicate        = this.duplicate.bind(this);
-    this.optimise         = this.optimise.bind(this);
+    this.get               = this.get.bind(this);
+    this.createFleet       = this.createFleet.bind(this);
+    this.compareStyle      = this.compareStyle.bind(this);
+    this.anotherFleet      = this.anotherFleet.bind(this);
+    this.biggest           = this.biggest.bind(this);
+    this.smallest          = this.smallest.bind(this);
+    this.delta             = this.delta.bind(this);
+    this.arefleetsUnequal  = this.arefleetsUnequal.bind(this);
+    this.hasUnequalWarning = this.hasUnequalWarning.bind(this);
+    this.delete            = this.delete.bind(this);
+    this.duplicate         = this.duplicate.bind(this);
+    this.optimise          = this.optimise.bind(this);
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state, $uibModal });
     // Compare with another fleet
@@ -63,6 +64,9 @@ export default class FleetsComponent {
   }
   arefleetsUnequal(tco) {
     return this.get(this.fleet, tco) !== this.get(this.compareWith, tco);
+  }
+  hasUnequalWarning(meta) {
+    return meta.name == 'mileage_with_savings' && this.arefleetsUnequal(meta.name);
   }
 
   biggest(tco) {

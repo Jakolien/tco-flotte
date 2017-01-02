@@ -106,7 +106,8 @@
                     id="input-compare-with")
                     option(value="") ⎼⎼
               div(ng-if="$ctrl.compareWith")
-                .main__fleets__view__compare__section(ng-repeat="meta in $ctrl.fleetdata")
+                .main__fleets__view__compare__section(ng-repeat="meta in $ctrl.fleetdata",
+                  ng-class="{ 'main__fleets__view__compare__section--unequal': $ctrl.hasUnequalWarning(meta) }")
                   h6.main__fleets__view__compare__section__heading {{ meta.name | translate }}
                   .main__fleets__view__compare__section__bar(ng-repeat="fleet in [$ctrl.fleet, $ctrl.compareWith] track by $index")
                     .main__fleets__view__compare__section__bar__fill(ng-style="$ctrl.compareStyle(fleet, meta.name)")
@@ -114,7 +115,7 @@
                         | {{ fleet.name }}
                     .main__fleets__view__compare__section__bar__value
                       | {{ $ctrl.get(fleet, meta.name) | number }}{{ meta.unit | translate }}
-                  .main__fleets__view__compare__section__unequal.text-warning(ng-if="meta.name == 'mileage_with_savings' && $ctrl.arefleetsUnequal($ctrl.mileage, meta.name)")
+                  .main__fleets__view__compare__section__unequal.text-warning(ng-if="$ctrl.hasUnequalWarning(meta)")
                     i.fa.fa-warning
                     =" "
-                    span(ng-bind-html="'compare_fleet' | translate:{ biggest: $ctrl.biggest($ctrl.mileage).name, smallest: $ctrl.smallest($ctrl.mileage).name, delta: ($ctrl.delta($ctrl.mileage) | number) }")
+                    span(ng-bind-html="'compare_fleet' | translate:{ biggest: $ctrl.biggest(meta.name).name, smallest: $ctrl.smallest(meta.name).name, delta: ($ctrl.delta(meta.name) | number) }")

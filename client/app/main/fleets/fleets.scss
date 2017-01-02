@@ -331,6 +331,14 @@
         margin-top:$spacer;
         padding-top:$spacer;
 
+        &--unequal &__bar {
+          border:1px solid lighten($brand-secondary, 10);
+          background:lighten($brand-secondary, 25);
+          &__fill {
+            background: lighten($brand-secondary, 0);
+          }
+        }
+
         &__heading {
           padding:$spacer 0;
           text-transform: uppercase;
@@ -345,11 +353,12 @@
           padding: $spacer / 2 $spacer;
         }
 
+
         &__bar {
           position: relative;
           height: 3rem;
-          border:1px solid lighten($brand-secondary, 10);
-          background:lighten($brand-secondary, 25);
+          border:1px solid lighten($brand-primary, 10);
+          background:lighten($brand-primary, 25);
           display: block;
           width:100%;
           border-radius: 3px;
@@ -374,7 +383,7 @@
             top:0;
             bottom:0;
             left:0;
-            background:lighten($brand-secondary, 0);
+            background:lighten($brand-primary, 0);
             width:100%;
             border-radius: inherit;
 
