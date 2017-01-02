@@ -9,7 +9,7 @@
   form.row(novalidate)
     .col-xl-5.push-xl-7
       .main__fleets__groups__edit__sidebar(sticky='')
-        .card
+        fieldset.card(ng-disabled="$ctrl.fleet.loading")
           .card-block.text-muted(ng-bind-html="'edit_group_help' | translate")
           .card-footer.main__fleets__groups__edit__sidebar__footer
             .float-xs-right(ng-if="!$ctrl.group.special")
@@ -41,7 +41,9 @@
             i.fa.fa-caret-up(ng-hide="context.open")
             span &nbsp;{{ context.title }}
           .card-block(ng-show="context.open")
-              fieldset(ng-repeat="(section, inputs) in context.sections", ng-show="$ctrl.isVisible(inputs, context._values || context.values)")
+              fieldset(ng-repeat="(section, inputs) in context.sections",
+                ng-show="$ctrl.isVisible(inputs, context._values || context.values)",
+                ng-disabled="$ctrl.fleet.loading")
                 legend(ng-hide="$last && $first") {{ section | translate }}
                 .form-group(ng-repeat='input in inputs', ng-show='input.isVisible(context._values || context.values)')
                   label.row

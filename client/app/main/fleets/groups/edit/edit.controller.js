@@ -78,6 +78,9 @@ export default class EditComponent {
   getMeta(name) {
     return _.find(this.settings, { name: name });
   }
+  getInput(name) {
+    return  _.find(this.inputs, i => i.meta.name === name);
+  }
   gs(context, name) {
     // Dump values inside the value object
     if(!context._dump) {
@@ -94,6 +97,8 @@ export default class EditComponent {
         context._changed[name] = context._dump[name] !== value;
         // Input values
         context._values[name] = value;
+        // Enum input trigger a saving
+        this.getInput(name).isEnum() && this.save('.');
       }
       // Use existing value to populate param
       value = context._values[name]

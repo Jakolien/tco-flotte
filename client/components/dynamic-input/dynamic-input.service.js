@@ -103,6 +103,24 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
         return DYNAMIC_INPUT.FIELD_COLOR;
       }
     }
+    isStatic() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_STATIC;
+    }
+    isInterval() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_INTERVAL;
+    }
+    isEnum() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_ENUM;
+    }
+    isBoolean() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_BOOLEAN;
+    }
+    isString() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_STRING;
+    }
+    isColor() {
+      return this.getType() === DYNAMIC_INPUT.FIELD_COLOR;
+    }
     isParentActive(subset = this.subset) {
       return _.isEmpty(this.meta.parentname) || subset[this.meta.parentname];
     }
