@@ -21,7 +21,7 @@
       ui-view
         .container-fluid
           .row
-            .col-md-8.main__fleets__view__groups
+            .col-md-9.main__fleets__view__groups
               form.main__fleets__view__groups__fleet-name(ng-submit="$ctrl.fleet.rename()")
                 .input-group.input-group-lg
                   input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()", id="name-input", ng-disabled="$ctrl.fleet.loading")
@@ -93,7 +93,7 @@
                   i.fa.fa-fw.fa-trash
                   span.sr-only {{ 'delete' | translate }}
 
-            .col-md-4.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
+            .col-md-3.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
               h4.main__fleets__view__compare__heading {{ 'fleet_data_title' | translate }}
               form
                 .form-group
