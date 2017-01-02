@@ -58,7 +58,8 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
           translate: this.translate
         };
       case DYNAMIC_INPUT.FIELD_ENUM:
-        range = _.map(this.meta.values.split(','), function(v) {
+        // Split using comma, but ignore commas inside quotes
+        range = _.map(this.meta.values.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g), function(v) {
           return _.trim(v, ' "');
         });
         ref1 = DYNAMIC_INPUT.EXCEPTIONS;
