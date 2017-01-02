@@ -1,3 +1,5 @@
+'use strict';
+
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
                          'rental_bev',  'rental_gas', 'bike',

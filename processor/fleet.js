@@ -1,3 +1,5 @@
+'use strict';
+
 var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
@@ -736,3 +738,50 @@ var Fleet = function(params) {
 // Available from outisde
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
+
+var myFleet = new Fleet({
+  vars: "",
+  groups: [
+    {
+      "name": "1",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "diesel",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "2",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "benzin",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "3",
+      "vars": {
+        "car_type": "klein",
+        "energy_type": "BEV",
+        "num_of_vehicles": 2,
+      }
+    },
+    {
+      "name": "4",
+      "vars": {
+        "car_type": "mittel",
+        "energy_type": "hybrid-benzin",
+        "num_of_vehicles": 2,
+      }
+    },{
+      "name": "5",
+      "vars": {
+        "car_type": "groß",
+        "energy_type": "hybrid-diesel",
+        "num_of_vehicles": 2,
+      }
+    }
+  ]
+});
+
+console.log(myFleet.TCO)
