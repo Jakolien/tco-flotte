@@ -1,12 +1,12 @@
 {
   "de": [
     {
-      "name": "Basisflotte",
+      "name": "Heutige Flotte Muster GmbH",
       "vars": {},
       "groups": [
         {
           "vars": {
-            "group_name": "VW Transporter",
+            "group_name": "Lieferwagen Handwerker",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -15,7 +15,7 @@
         },
         {
           "vars": {
-            "group_name": "Opel Astra",
+            "group_name": "Dienstwagen Geschäftsführerin",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "mittel",
@@ -24,7 +24,7 @@
         },
         {
           "vars": {
-            "group_name": "VW Polo",
+            "group_name": "Poolfahrzeuge Verwaltung",
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "name": "Optimierte Flotte",
+      "name": "Optimierte Flotte Muster GmbH",
       "vars": {
         "charging_option": "Wallbox bis 22kW",
         "charging_option_num": 1
@@ -42,7 +42,7 @@
       "groups": [
         {
           "vars": {
-            "group_name": "VW Transporter",
+            "group_name": "Lieferwagen Handwerker",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -51,7 +51,7 @@
         },
         {
           "vars": {
-            "group_name": "Opel Astra",
+            "group_name": "Dienstwagen Geschäftsführerin",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "mittel",
@@ -67,7 +67,7 @@
         },
         {
           "vars": {
-            "group_name": "VW Polo",
+            "group_name": "Poolfahrzeuge Verwaltung",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "klein",
@@ -76,7 +76,7 @@
         },
         {
           "vars": {
-            "group_name": "VW e-Up",
+            "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
             "num_of_vehicles": 2,
             "energy_type": "BEV",
             "car_type": "klein",
@@ -88,12 +88,12 @@
   ],
   "en": [
     {
-      "name": "Basis fleet",
+      "name": "Current fleet Acme Ltd.",
       "vars": {},
       "groups": [
         {
           "vars": {
-            "group_name": "VW Transporter",
+            "group_name": "Delivery vans",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -102,7 +102,7 @@
         },
         {
           "vars": {
-            "group_name": "Opel Astra",
+            "group_name": "Company car of the director",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "mittel",
@@ -111,7 +111,7 @@
         },
         {
           "vars": {
-            "group_name": "VW Polo",
+            "group_name": "Pool of cars for the administration",
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
@@ -121,7 +121,7 @@
       ]
     },
     {
-      "name": "Optimized fleet",
+      "name": "Optimized fleet Acme Ltd.",
       "vars": {
         "charging_option": "Wallbox bis 22kW",
         "charging_option_num": 1
@@ -129,7 +129,7 @@
       "groups": [
         {
           "vars": {
-            "group_name": "VW Transporter",
+            "group_name": "Delivery vans",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -138,7 +138,7 @@
         },
         {
           "vars": {
-            "group_name": "Opel Astra",
+            "group_name": "Company car of the director",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "mittel",
@@ -154,7 +154,7 @@
         },
         {
           "vars": {
-            "group_name": "VW Polo",
+            "group_name": "Pool of cars for the administration",
             "num_of_vehicles": 1,
             "energy_type": "benzin",
             "car_type": "klein",
@@ -163,7 +163,7 @@
         },
         {
           "vars": {
-            "group_name": "VW e-Up",
+            "group_name": "Pool of electric cars for the administration",
             "num_of_vehicles": 2,
             "energy_type": "BEV",
             "car_type": "klein",

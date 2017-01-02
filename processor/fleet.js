@@ -4,7 +4,7 @@ var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
-var charging_options = ["Keine","Wallbox 3‚7kW","Wallbox bis 22kW","Ladesäule 22kW"];
+var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW"];
 var year_min = 2014;
 var year_max = 2050;
 // Special groups energy type
@@ -45,15 +45,21 @@ var Fleet = function(params) {
 	this.energy_known_prices = {
 		"diesel": {
 			"2014": 1.1349,
-			"2015": 0.9841
+			"2015": 0.9841,
+			"2016": 1.0084,
+			"2017": 1.0084
 		},
 		"benzin": {
 			"2014": 1.2843,
-			"2015": 1.1711
+			"2015": 1.1711,
+			"2016": 1.1765,
+			"2017": 1.1765
 		},
 		"BEV": {
 			"2014": .2449,
-			"2015": .2410
+			"2015": .2410,
+			"2016": .2101,
+			"2017": .2101
 		}
 	}
 
@@ -61,24 +67,24 @@ var Fleet = function(params) {
 	this.energy_prices_evolution = {
 		"hydrocarbon": [
 			{
-				"start_year": 2014,
+				"start_year": 2016,
 				"end_year": 2050,
 				"rate": .02
 			}
 		],
 		"strom": [
 			{
-				"start_year": 2014,
+				"start_year": 2017,
 				"end_year": 2020,
 				"rate": .013
 			},
 			{
 				"start_year": 2021,
-				"end_year": 2030,
+				"end_year": 2035,
 				"rate": -.0028
 			},
 			{
-				"start_year": 2031,
+				"start_year": 2036,
 				"end_year": 2050,
 				"rate": -.0058
 			},
@@ -125,15 +131,15 @@ var Fleet = function(params) {
 			"LNF2": 2500
 		},
 		"hybrid-benzin": {
-			"mittel": 9719,
-			"groß": 11061
+			"mittel": 11482,
+			"groß": 17231
 		},
 		"hybrid-diesel": {
-			"groß": 16676
+			"groß": 29598
 		},
 		"BEV":{
-			"klein":{"2016": 5583},
-			"mittel":{"2016": 3292},
+			"klein":{"2016": 3696},
+			"mittel":{"2016": 4083},
 			"groß":{"2016": 21153},
 			"LNF1":{"2016": 2000},
 			"LNF2":{"2016": 2500}
@@ -148,8 +154,8 @@ var Fleet = function(params) {
 		"2014": 400.0,
 		"2015": 380.0,
 		"2016": 200.0,
-		"2017": 180.0,
-		"2018": 165.0,
+		"2017": 200.0,
+		"2018": 170.0,
 		"2019": 155.0,
 		"2020": 145.0
 	}
@@ -182,19 +188,19 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3‚7kW": { "acquisition": 350, "maintenance": 15},
+		"Wallbox 3,7kW": { "acquisition": 350, "maintenance": 15},
 		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
 		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330}
 	}
 
 	// Variables for evolution of energy consumption in % of reduction per decade
 	this.fleet_presets.verbrauchsentwicklung = {
-		"benzin":  {"2010": -.3,  "2020": -.12},
-		"diesel":  {"2010": -.26, "2020": -.1},
-		"LNF":     {"2010": -.14, "2020": -.1},
-		"BEV":     {"2010": -.15, "2020": -.01},
-		"hybrid":  {"2010": 0, 	  "2020": 0},
-		"BEV-LNF": {"2010": 0,    "2020": -.01}
+		"benzin":  {"2017": -.3,  "2020": -.12},
+		"diesel":  {"2017": -.26, "2020": -.1},
+		"LNF":     {"2017": -.14, "2020": -.1},
+		"BEV":     {"2017": -.15, "2020": -.01},
+		"hybrid":  {"2017": 0, 	  "2020": 0},
+		"BEV-LNF": {"2017": 0,    "2020": -.01}
 	}
 
 	// Size of the engine (for oil consumption)
@@ -206,10 +212,11 @@ var Fleet = function(params) {
 
 	// Consumption in liters or kWh per 100 km
 	this.fleet_presets.verbrauch = {
-		"benzin": {"klein": 6.94, "mittel": 8.08,"groß": 8.86},
-		"diesel": {"klein": 4.99, "mittel": 6,"groß": 6.39, "LNF1": 8.4, "LNF2": 9.8},
-		"BEV":    {"klein": .15, "mittel": .19,"groß": .21, "LNF1": .25, "LNF2": .30},
-		"hybrid": {"klein": 5.21, "mittel": 6.06,"groß": 6.64}
+		"benzin": {"klein": 6.72, "mittel": 7.69,"groß": 8.53},
+		"diesel": {"klein": 5.16, "mittel": 5.61,"groß": 6.22, "LNF1": 8.4, "LNF2": 9.8},
+		"BEV":    {"klein": .1755, "mittel": .1943,"groß": .2079, "LNF1": .25, "LNF2": .30},
+		"hybrid-benzin": {"mittel": 2.4, "groß": 3.49},
+		"hybrid-diesel": {"groß": 2.52},
 					}
 
 	// Hybrid fuel consumption discount
@@ -227,25 +234,25 @@ var Fleet = function(params) {
 
 	// Insurance in €/year
 	this.fleet_presets.versicherung = {
-		"benzin": {"klein": 721, "mittel": 836,"groß": 1025},
-		"diesel": {"klein": 785, "mittel": 901,"groß": 1093, "LNF1": 903, "LNF2": 1209},
-		"BEV":    {"klein": 721, "mittel": 836,"groß": 1025, "LNF1": 903, "LNF2": 1209}
+		"benzin": {"klein": 617, "mittel": 665,"groß": 689},
+		"diesel": {"klein": 694, "mittel": 686,"groß": 753, "LNF1": 903, "LNF2": 1209},
+		"BEV":    {"klein": 613, "mittel": 693,"groß": 784, "LNF1": 903, "LNF2": 1209}
 					}
 
 	// Yearly tax in €
 	this.fleet_presets.kfzsteuer = {
-		"benzin": {"klein": 66.6, "mittel": 108.5,"groß": 137.8},
-		"diesel": {"klein": 105.33, "mittel": 193.19,"groß": 227.01, "LNF1": 293.63, "LNF2": 390.59},
-		"hybrid-benzin": {"klein": 23, "mittel": 38,"groß": 48},
-		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 79},
-		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5}
+		"benzin": {"klein": 45.88, "mittel": 79.24,"groß": 107.48},
+		"diesel": {"klein": 126.26, "mittel": 152.73,"groß": 210.59, "LNF1": 293.63, "LNF2": 390.59},
+		"hybrid-benzin": {"klein": 23, "mittel": 24.09,"groß": 37.65},
+		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 215.55},
+		"BEV":    {"klein": 0, "mittel": 0,"groß": 0, "LNF1": 0, "LNF2": 0}
 					}
 
 	// Yearly check up in €
 	this.fleet_presets.untersuchung = {
-		"benzin": {"HU": 53.5, "AU": 41},
-		"diesel": {"HU": 53.5, "AU": 41},
-		"BEV":    {"HU": 53.5, "AU": 0}
+		"benzin": {"HU": 47.5, "AU": 38.32},
+		"diesel": {"HU": 47.5, "AU": 38.32},
+		"BEV":    {"HU": 47.5, "AU": 0}
 					}
 
 	// Variables for repairs
@@ -260,41 +267,41 @@ var Fleet = function(params) {
 	this.fleet_presets.reperaturkosten = {
 		"benzin": {
 			"klein": {
-				"inspektion": 18.20,
-				"reparatur": 28,
-				"reifen": 12,
+				"inspektion": 193,
+				"reparatur": 139,
+				"reifen": 124,
 				"sonstige": 0
 			},
 			"mittel": {
-				"inspektion": 19.6,
-				"reparatur": 29.7,
-				"reifen": 17.7,
+				"inspektion": 214,
+				"reparatur": 170,
+				"reifen": 194,
 				"sonstige": 0
 			},
 			"groß": {
-				"inspektion": 22,
-				"reparatur": 34.6,
-				"reifen": 32.4,
+				"inspektion": 229,
+				"reparatur": 183,
+				"reifen": 260,
 				"sonstige": 0
 			}
 		},
 		"diesel": {
 			"klein": {
-				"inspektion": 19.4,
-				"reparatur": 29.7,
-				"reifen": 13.1,
+				"inspektion": 198,
+				"reparatur": 199,
+				"reifen": 192,
 				"sonstige": 0
 			},
 			"mittel": {
-				"inspektion": 18.3,
-				"reparatur": 30.4,
-				"reifen": 19.9,
+				"inspektion": 197,
+				"reparatur": 217,
+				"reifen": 246,
 				"sonstige": 0
 			},
 			"groß": {
-				"inspektion": 21.7,
-				"reparatur": 34.4,
-				"reifen": 27.4,
+				"inspektion": 238,
+				"reparatur": 207,
+				"reifen": 338,
 				"sonstige": 0
 			},
 			"LNF1": {
@@ -316,13 +323,13 @@ var Fleet = function(params) {
 	this.fleet_presets.CO2_from_electricity_mix = {}
 	this.fleet_presets.co2_emissions = {
 		"strom_mix": {
-			"2012": 0.623,
-			"2020": 0.395,
-			"2030": 0.248
+			"2017": 0.519,
+			"2020": 0.485,
+			"2030": 0.413
 		},
 		"strom_erneubar": 0.012,
-		"benzin": 2800,
-		"diesel": 3150
+		"benzin": 2650,
+		"diesel": 3010
 	}
 
 	// CO2 produced when the vehicle is produced
@@ -414,9 +421,9 @@ var Fleet = function(params) {
 		}
 
 		this.fleet_presets.energy_prices = estimates
-		this.fleet_presets._2016_elec_price = this.fleet_presets.energy_prices["BEV"][2016]["mittel"]
-		this.fleet_presets._2016_diesel_price = this.fleet_presets.energy_prices["diesel"][2016]["mittel"]
-		this.fleet_presets._2016_benzin_price = this.fleet_presets.energy_prices["benzin"][2016]["mittel"]
+		this.fleet_presets._2017_elec_price = this.fleet_presets.energy_prices["BEV"][2017]["mittel"]
+		this.fleet_presets._2017_diesel_price = this.fleet_presets.energy_prices["diesel"][2017]["mittel"]
+		this.fleet_presets._2017_benzin_price = this.fleet_presets.energy_prices["benzin"][2017]["mittel"]
 
 	}
 
@@ -599,6 +606,7 @@ var Fleet = function(params) {
 		// For special groups
 		if( SG_ENERGY_TYPES.indexOf(group.vars.energy_type) > -1 ) {
 			group.vars.car_type = "single_size";
+			group.vars.mileage = group.vars.mileage_special
 		}
 
 		var num_of_vehicles = group.vars.num_of_vehicles;
@@ -606,8 +614,8 @@ var Fleet = function(params) {
 		this.groups[group_id] = _.pick(group, ['_id', 'vars', 'name', 'special']);
 		// Creates the corresponding vehicle group
 		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
-		// CO2 from manufacturing
-		var current_CO2_from_manufacturing = this.fleet_presets.CO2_from_manufacturing[group.vars.energy_type][group.vars.car_type];
+		// CO2 from manufacturing, updates kg to grams 
+		var current_CO2_from_manufacturing = this.fleet_presets.CO2_from_manufacturing[group.vars.energy_type][group.vars.car_type] * 1000;
 
 		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
@@ -660,6 +668,9 @@ var Fleet = function(params) {
 		var group_insights = this.groups[group_id]["insights"]
 		var group_name = params.groups[group_id]["name"]
 
+		//Conversion from grams to tons
+		group_insights.TCO.CO2 = group_insights.TCO.CO2 / 1000000
+
 		// Total mileage with savings
 		this.TCO.mileage_with_savings += group_insights.TCO.mileage
 
@@ -693,8 +704,8 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
 
 		// CO2 by phase
-		this.TCO.CO2_by_phase["CO2_from_driving"] += group_insights.TCO.CO2_from_driving
-		this.TCO.CO2_by_phase["CO2_from_manufacturing"] += group_insights.TCO.CO2_from_manufacturing
+		this.TCO.CO2_by_phase["CO2_from_driving"] += group_insights.TCO.CO2_from_driving / 1000000
+		this.TCO.CO2_by_phase["CO2_from_manufacturing"] += group_insights.TCO.CO2_from_manufacturing / 1000000
 
 		// Costs and CO2 by car type
 		if (group_insights.car_type == "single_size") {

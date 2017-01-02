@@ -111,7 +111,7 @@
     "duplicate": "Duplicate",
     "duplicate_fleet": "Create a new variant of this fleet",
     "edit": "Edit",
-    "edit_group_help": "Enter the parameters for this vehicle type.",
+    "edit_group_help": "Enter the parameters for this vehicle type.<br/><br/>All calculations are done in net costs, excluding value-added tax.",
     "elec_unit": " kWh/100km",
     "electricity_consumption": "Electricity consumption",
     "email": "Email",
@@ -181,7 +181,7 @@
     "login_title": "Login",
     "logout_link": "Logout",
     "long_distance_train": "Train (Long Distance)",
-    "long_distance_train_CO2_per_km": "CO2 emissions per km",
+    "long_distance_train_CO2_per_km": "CO₂ emissions per km",
     "long_distance_train_cost_per_km": "Cost per km",
     "main_intro": "The Total Cost of Ownership (TCO) calculator allows computing the costs and CO₂ emissions of vehicle fleets. Up to 5 fleets can directly be compared to each other.",
     "main_note": "The Total Cost of Ownership (TCO) calculator for vehicle fleets was created by Oeko-Insitut (Öko-Institut) as part of the project 'ePowered Fleets Hamburg'.",
@@ -278,5 +278,6 @@
     "€_per_kwh": "€/kWh",
     "€_per_liter": "€/L",
     "charging_option_unitary_cost": "Unitary cost of the first charging option",
-    "charging_option2_unitary_cost": "Unitary cost of the second charging option"
+    "charging_option2_unitary_cost": "Unitary cost of the second charging option",
+    "tons": "tons"
 }

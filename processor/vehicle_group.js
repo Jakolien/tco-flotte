@@ -12,7 +12,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.car_type = "klein"
 	this.electricity_consumption = 0
 	this.mileage = 10000
-	this.acquisition_year = 2016
+	this.acquisition_year = 2017
 	this.holding_time = 4
 	this.reichweite = 150
 	this.energy_source = fleet_params.energy_source
@@ -55,7 +55,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.short_distance_train_CO2_per_km = 69
 	this.short_distance_train_cost_per_km = .7
 	this.rental_bev_CO2_per_km = 77
-	this.rental_bev_cost_per_km = 2
+	this.rental_bev_cost_per_km = 0.2
 	this.rental_gas_CO2_per_km = 181
 	this.rental_gas_cost_per_km = 2
 	this.bike_CO2_per_km = 4.2
@@ -430,7 +430,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.getConsumption = function(energy_type) {
 		if (["hybrid-diesel", "hybrid-benzin"].indexOf(energy_type) > -1) {
 			this.getConsumption("BEV");
-			this.getConsumption("hybrid");
+			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
 		} else {
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
 			var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2010"];
