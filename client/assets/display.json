@@ -27,7 +27,7 @@
     "visualization": true,
     "leasingconditions": false,
     "bygroup": false,
-    "unit": "g"
+    "unit": "tons"
   },
   {
     "id": "4",
@@ -87,7 +87,7 @@
     "visualization": true,
     "leasingconditions": false,
     "bygroup": true,
-    "unit": "g"
+    "unit": "tons"
   },
   {
     "id": "10",
@@ -137,7 +137,7 @@
     "visualization": true,
     "leasingconditions": false,
     "bygroup": false,
-    "unit": "g"
+    "unit": "tons"
   },
   {
     "id": "15",
@@ -147,7 +147,7 @@
     "visualization": true,
     "leasingconditions": false,
     "bygroup": false,
-    "unit": "g"
+    "unit": "tons"
   },
   {
     "id": "16",
@@ -157,6 +157,6 @@
     "visualization": true,
     "leasingconditions": false,
     "bygroup": false,
-    "unit": "g"
+    "unit": "tons"
   }
 ]

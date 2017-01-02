@@ -64,12 +64,14 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
       }
     });
   })
-  .run(function($transitions, $rootScope, $state, $window) {
+  .run(function($transitions, $rootScope, $state, $window, $location) {
     'ngInject';
     // Redirect to login if route requires auth and you're not logged in
     $transitions.onSuccess({}, function(transition) {
       // Go up
       $window.scrollTo(0, 0);
+      // Send 'pageview' to Google Analytics
+      $window.ga('send', 'pageview', {page: $location.url() });
       // Helper to find the title within the state's resolve
       function getTitleResolvable(comp) {
         // comp is a Transition
