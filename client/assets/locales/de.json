@@ -157,6 +157,7 @@
     "group_name": "Name",
     "group_saved": "Änderungen gespeichert.",
     "group_variables_all_vehicles_title": "Parameter für diesen Fahrzeugtyp",
+    "group_variables_all_vehicles_title_special": "Parameter für dieses Verkehrsmittel",
     "group_variables_fleet_title": "Parameter für alle Fahrzeuge in dieser Fahrzeugflotte",
     "groups_count": "{groups, plural, =0{kein Fahrzeug} one{1 Fahrzeugtyp} other{# Fahrzeugtypen}}",
     "groß": "Groß",

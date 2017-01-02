@@ -45,7 +45,7 @@ export default class EditComponent {
       {
         name: 'VehicleGroup',
         open: this.isContextOpen(1) || this.group.special,
-        title: this.$translate.instant('group_variables_all_vehicles_title'),
+        title: this.$translate.instant(this.group.special ? 'group_variables_all_vehicles_title_special' : 'group_variables_all_vehicles_title'),
         values: this.group.insights,
         destination: this.group.vars
       },
