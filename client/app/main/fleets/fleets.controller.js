@@ -17,6 +17,9 @@ export default class FleetsComponent {
     this.hasUnequalWarning = this.hasUnequalWarning.bind(this);
     this.delete            = this.delete.bind(this);
     this.duplicate         = this.duplicate.bind(this);
+    this.duplicateGroup    = this.duplicateGroup.bind(this);
+    this.canAddGroup       = this.canAddGroup.bind(this);
+    this.groupIndex        = this.groupIndex.bind(this);
     this.optimise          = this.optimise.bind(this);
     // Dependancies available in instance
     angular.extend(this, { $translate, fleets, $state, $uibModal });
@@ -102,6 +105,33 @@ export default class FleetsComponent {
       // Go to the parent state
       this.$state.go('main.fleets', { fleet: fleet._id });
     }.bind(this));
+  }
+
+
+  duplicateGroup(group) {
+    // Copy vars with a new name
+    const vars = angular.extend(angular.copy(group.vars), {
+      // The new name is prefixed
+      group_name: `${group.vars.group_name} (copy)`
+    });
+    // Create the group
+    this.fleet.groups.create({
+      vars: vars,
+      name: vars.group_name
+    // We wait for the new group to be created
+    }).$promise.then( ()=> {
+      const group = this.fleet.groups.length() - 1;
+      // Then we move to that group edit form
+      this.$state.go('main.fleets.groups.edit', { group });
+    });
+  }
+
+  groupIndex(group) {
+    return this.fleet.groups.indexOf(group);
+  }
+
+  canAddGroup() {
+    return this.fleet.groups.filter({ special: false }).length < 5
   }
 
   delete() {
