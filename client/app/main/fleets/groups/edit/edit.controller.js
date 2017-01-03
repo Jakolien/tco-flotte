@@ -102,8 +102,14 @@ export default class EditComponent {
       }
       // Use existing value to populate param
       value = context._values[name]
+      // Number of decimal pla
+      const rounded = this.getMeta(name).rounded;
       // Return rounded value if needed
-      return this.getMeta(name).rounded ? Math.round( value * 100 ) / 100 : value;
+      if(rounded === null) {
+        return value;
+      } else {
+        return Math.round(value * Math.pow(10, rounded)) / Math.pow(10, rounded);
+      }
     };
   }
 
