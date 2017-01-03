@@ -5,7 +5,7 @@ var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
 var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW"];
-var year_min = 2014;
+var year_min = 2017;
 var year_max = 2050;
 // Special groups energy type
 const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
@@ -335,11 +335,11 @@ var Fleet = function(params) {
 	// CO2 produced when the vehicle is produced
 	// Values here are temporary
 	this.fleet_presets.CO2_from_manufacturing = {
-		"benzin": {"klein": 66.6, "mittel": 108.5,"groß": 137.8},
-		"diesel": {"klein": 105.33, "mittel": 193.19,"groß": 227.01, "LNF1": 293.63, "LNF2": 390.59},
-		"hybrid-benzin": {"klein": 23, "mittel": 38,"groß": 48},
-		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 79},
-		"BEV":    {"klein": 33.75, "mittel": 45,"groß": 56.25, "LNF1": 56.25, "LNF2": 67.5}
+		"benzin": {"klein": 5880, "mittel": 5880,"groß": 5880},
+		"diesel": {"klein": 5880, "mittel": 5880,"groß": 5880, "LNF1": 5880, "LNF2": 5880},
+		"hybrid-benzin": {"klein": 8400, "mittel": 8400,"groß": 8400},
+		"hybrid-diesel": {"klein": 8400, "mittel": 8400,"groß": 8400},
+		"BEV":    {"klein": 9341, "mittel": 9341,"groß": 9341, "LNF1": 9341, "LNF2": 9341}
 	};
 
 	// Add special groups
@@ -399,7 +399,7 @@ var Fleet = function(params) {
 			var energy_source = energy_types[i]["source"]
 			estimates[energy_type] = {}
 
-			for (var year = 2014; year <= 2050; year++) {
+			for (var year = 2017; year <= 2050; year++) {
 
 				estimates[energy_type][year] = {}
 
@@ -532,9 +532,9 @@ var Fleet = function(params) {
 			estimates[year] = this.fleet_presets.co2_emissions["strom_mix"][year]
 		}
 
-		for (var year = 2012; year<=2050; year++){
+		for (var year = 2017; year<=2050; year++){
 			if (year < 2020) {
-			    estimates[year] = estimates["2012"] + (estimates["2020"] - estimates["2012"]) / 8 * (year - 2012)
+			    estimates[year] = estimates["2017"] + (estimates["2020"] - estimates["2017"]) / 3 * (year - 2017)
 			}
 			else if (year in this.fleet_presets.co2_emissions["strom_mix"]){
 				estimates[year] = estimates[year]
@@ -607,6 +607,10 @@ var Fleet = function(params) {
 		if( SG_ENERGY_TYPES.indexOf(group.vars.energy_type) > -1 ) {
 			group.vars.car_type = "single_size";
 			group.vars.mileage = group.vars.mileage_special
+			// In case no mileage is defined
+			if(group.vars.mileage == undefined) {
+				group.vars.mileage = group.vars.mileage || 0;
+			}
 		}
 
 		var num_of_vehicles = group.vars.num_of_vehicles;
@@ -739,8 +743,9 @@ var Fleet = function(params) {
 		}
 
 	}, this);
-	// CO2 per km
-	this.TCO.CO2_per_km = this.TCO.CO2 / this.TCO.mileage
+	// CO2 per km in grams
+	// Multiply mileage by 4 because holding time is always 4 years
+	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / (this.TCO.mileage * 4)
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
 
@@ -749,50 +754,3 @@ var Fleet = function(params) {
 // Available from outisde
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
-
-var myFleet = new Fleet({
-  vars: "",
-  groups: [
-    {
-      "name": "1",
-      "vars": {
-        "car_type": "klein",
-        "energy_type": "diesel",
-        "num_of_vehicles": 2,
-      }
-    },
-    {
-      "name": "2",
-      "vars": {
-        "car_type": "klein",
-        "energy_type": "benzin",
-        "num_of_vehicles": 2,
-      }
-    },
-    {
-      "name": "3",
-      "vars": {
-        "car_type": "klein",
-        "energy_type": "BEV",
-        "num_of_vehicles": 2,
-      }
-    },
-    {
-      "name": "4",
-      "vars": {
-        "car_type": "mittel",
-        "energy_type": "hybrid-benzin",
-        "num_of_vehicles": 2,
-      }
-    },{
-      "name": "5",
-      "vars": {
-        "car_type": "groß",
-        "energy_type": "hybrid-diesel",
-        "num_of_vehicles": 2,
-      }
-    }
-  ]
-});
-
-console.log(myFleet.TCO)

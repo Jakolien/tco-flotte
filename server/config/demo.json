@@ -62,7 +62,7 @@
           "name": "e-Bike",
           "vars": {
             "energy_type": "bike",
-            "mileage": 1000
+            "mileage_special": 1000
           }
         },
         {
@@ -149,7 +149,7 @@
           "name": "e-Bike",
           "vars": {
             "energy_type": "bike",
-            "mileage": 1000
+            "mileage_special": 1000
           }
         },
         {

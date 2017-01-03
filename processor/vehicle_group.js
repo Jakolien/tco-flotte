@@ -12,6 +12,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.car_type = "klein"
 	this.electricity_consumption = 0
 	this.mileage = 10000
+	this.mileage_special = 0
 	this.acquisition_year = 2017
 	this.holding_time = 4
 	this.reichweite = 150
@@ -433,7 +434,7 @@ var VehicleGroup = function(fleet_params, params) {
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
 		} else {
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
-			var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2010"];
+			var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2017"];
 			var yearly_improvement_first_decade = Math.pow((1 + improvement_first_decade), (1/10)) - 1;
 			var improvement_second_decade = fleet_params.verbrauchsentwicklung[energy_type]["2020"];
 			var yearly_improvement_second_decade = Math.pow(1 + improvement_second_decade, .1) - 1;
@@ -466,28 +467,20 @@ var VehicleGroup = function(fleet_params, params) {
 		if (this.energy_type == "benzin" || this.energy_type == "diesel") {
 			for (var year = this.acquisition_year; year <= 2049; year++) {
 				this.energy_costs[year] = {}
-				this.energy_costs[year]["pro"] = (this.mileage / 100) * this.fuel_consumption * this.energy_prices[this.energy_type][year]["pro"];
 				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.fuel_consumption * this.energy_prices[this.energy_type][year]["mittel"];
-				this.energy_costs[year]["contra"] = (this.mileage / 100) * this.fuel_consumption * this.energy_prices[this.energy_type][year]["contra"];
 			}
 		} else if (this.energy_type == "BEV") {
 			for (var year = this.acquisition_year; year <= 2049; year++) {
 				this.energy_costs[year] = {}
-				this.energy_costs[year]["pro"] = (this.mileage / 100) * this.electricity_consumption * this.energy_prices[this.energy_type][year]["pro"];
 				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.electricity_consumption * this.energy_prices[this.energy_type][year]["mittel"];
-				this.energy_costs[year]["contra"] = (this.mileage / 100) * this.electricity_consumption * this.energy_prices[this.energy_type][year]["contra"];
 			}
 		} else { //Hybrid vehicles
 			var energy_type = this.energy_type.split("-")[1];
 
 			for (var year = this.acquisition_year; year <= 2049; year++) {
 				this.energy_costs[year] = {}
-				this.energy_costs[year]["pro"] = (this.mileage / 100) * this.share_electric / 100 * this.electricity_consumption * this.energy_prices["BEV"][year]["pro"];
-				this.energy_costs[year]["pro"] += (this.mileage / 100) * (1 - this.share_electric / 100) * this.fuel_consumption * this.energy_prices[energy_type][year]["mittel"];
 				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.share_electric / 100 * this.electricity_consumption * this.energy_prices["BEV"][year]["mittel"];
 				this.energy_costs[year]["mittel"] += (this.mileage / 100) * (1 - this.share_electric / 100) * this.fuel_consumption * this.energy_prices[energy_type][year]["mittel"];
-				this.energy_costs[year]["contra"] = (this.mileage / 100) * this.share_electric / 100 * this.electricity_consumption * this.energy_prices["BEV"][year]["contra"];
-				this.energy_costs[year]["contra"] += (this.mileage / 100) * (1 - this.share_electric / 100) * this.fuel_consumption * this.energy_prices[energy_type][year]["mittel"];
 			}
 		}
 	}
