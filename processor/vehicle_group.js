@@ -174,6 +174,7 @@ var VehicleGroup = function(fleet_params, params) {
 										{
 											energy_type: "diesel",
 											car_type: this.car_type,
+											acquisition_price: this.acquisition_price,
 											mileage: this.mileage,
 											acquisition_year: this.acquisition_year,
 											holding_time: this.holding_time,
@@ -197,6 +198,7 @@ var VehicleGroup = function(fleet_params, params) {
 										{
 											energy_type: "benzin",
 											car_type: this.car_type,
+											acquisition_price: this.acquisition_price,
 											mileage: this.mileage,
 											acquisition_year: this.acquisition_year,
 											holding_time: this.holding_time,
@@ -328,6 +330,7 @@ var VehicleGroup = function(fleet_params, params) {
 					this.price.total[scenario] -= this.cash_bonus_amount
 				} else {
 					this.cash_bonus_amount = 0
+					this.praemie = false
 				}
 			} else {
 				this.cash_bonus_amount = 0
