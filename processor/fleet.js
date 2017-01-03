@@ -673,6 +673,8 @@ var Fleet = function(params) {
 		var group_insights = this.groups[group_id]["insights"]
 		var group_name = params.groups[group_id]["name"]
 
+
+
 		//Conversion from grams to tons
 		group_insights.TCO.CO2 = group_insights.TCO.CO2 / 1000000
 
@@ -756,3 +758,57 @@ var Fleet = function(params) {
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
 
+// var myFleet = new Fleet({
+//   vars: "",
+//   groups: [
+//     {
+//       "name": "Small Elec",
+//       "vars": {
+//         "car_type": "klein",
+//         "energy_type": "BEV",
+//         "num_of_vehicles": 2
+//       }
+//     },
+//     {
+//       "name": "Small Elec 3",
+//       "vars": {
+//         "car_type": "klein",
+//         "energy_type": "BEV",
+//         "num_of_vehicles": 2
+//       }
+//     },
+//     {
+//       "name": "Small Gas",
+//       "vars": {
+//         "car_type": "klein",
+//         "energy_type": "benzin",
+//         "num_of_vehicles": 2
+//       }
+//     },
+//     {
+//       "name": "Small Elec 2",
+//       "vars": {
+//         "car_type": "klein",
+//         "energy_type": "BEV",
+//         "num_of_vehicles": 2
+//       }
+//     },
+//     {
+//       "name": "Mid Hybrid",
+//       "vars": {
+//         "car_type": "mittel",
+//         "energy_type": "hybrid-benzin",
+//         "num_of_vehicles": 2
+//       }
+//     },{
+//       "name": "5",
+//       "vars": {
+//         "car_type": "groß",
+//         "energy_type": "hybrid-diesel",
+//         "num_of_vehicles": 2
+//       }
+//     }
+//   ]
+// })
+
+// console.log(myFleet.TCO)
