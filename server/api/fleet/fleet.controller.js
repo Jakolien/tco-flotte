@@ -174,7 +174,7 @@ function updateEditableFleet(req) {
          runValidators: true,
          new: true
       // Ensure validation is performed
-    }).exec().then(fleet => fleet.fillGroups());
+    }).exec().then(fleet => fleet.fillGroups().save());
   // Using session;
   } else if(req.user) {
     return Fleet.findOneAndUpdate({
@@ -188,7 +188,7 @@ function updateEditableFleet(req) {
           runValidators: true,
           new: true
         // Ensure validation is performed
-        }).exec().then(fleet => fleet.fillGroups());
+        }).exec().then(fleet => fleet.fillGroups().save());
   // Using nothing (can't edit)
   } else {
     return Promise.reject(new Error('Not found or Unauthorized'));
