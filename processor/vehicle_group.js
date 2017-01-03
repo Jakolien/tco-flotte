@@ -73,10 +73,6 @@ var VehicleGroup = function(fleet_params, params) {
 		}
 	}
 
-	if (this.car_type.indexOf("LNF") >= 0 && this.energy_type == "BEV"){
-		this.reichweite = 130
-	}
-
 	this.share_electric_temp = this.share_electric
 	this.charges_per_year = this.mileage / this.reichweite
 	this.battery_duration = this.max_battery_charges / this.charges_per_year
@@ -350,6 +346,13 @@ var VehicleGroup = function(fleet_params, params) {
 		} else {
 			this.battery_size = 0
 		}
+
+		if (params.hasOwnProperty("battery_size")) {
+			this.battery_size = params["battery_size"]
+		}
+
+		this.reichweite = 100*this.battery_size/this.electricity_consumption
+		this.reichweite_NEFZ = this.reichweite * 1.4
 	}
 
 	this.getFixedCosts = function() {

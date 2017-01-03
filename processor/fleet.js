@@ -643,6 +643,7 @@ var Fleet = function(params) {
 	this.TCO = {
 		"mileage": 0,
 		"mileage_with_savings": 0,
+		"mileage_overall": 0,
 		"CO2": 0,
 		"total_costs": 0,
 		"num_of_vehicles": 0,
@@ -681,6 +682,7 @@ var Fleet = function(params) {
 		// Total mileage 
 		if (group_insights.energy_type != "savings") {
 			this.TCO.mileage += group_insights.TCO.mileage
+			this.TCO.mileage_overall += group_insights.TCO.mileage * group_insights.holding_time
 		}
 
 		// Total number of vehicles increases if it's not a special group
@@ -744,8 +746,7 @@ var Fleet = function(params) {
 
 	}, this);
 	// CO2 per km in grams
-	// Multiply mileage by 4 because holding time is always 4 years
-	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / (this.TCO.mileage * 4)
+	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / this.TCO.mileage_overall
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
 
@@ -754,3 +755,4 @@ var Fleet = function(params) {
 // Available from outisde
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
+

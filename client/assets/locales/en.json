@@ -222,7 +222,8 @@
     "plane_CO2_per_km": "CO₂ emissions per km",
     "plane_cost_per_km": "Cost per km",
     "praemie": "Buyer's bonus",
-    "reichweite": "Range",
+    "reichweite": "Range (in step with actual practice)",
+    "reichweite_NEFZ": "Range according to the New European Driving Cycle (NEDC).",
     "rental_gas": "Car sharing/Rental (Gasoline/Diesel)",
     "rental_gas_CO2_per_km": "CO₂ emissions per km",
     "rental_gas_cost_per_km": "Cost per km",
@@ -281,5 +282,6 @@
     "charging_option_unitary_cost": "Unitary cost of the first charging option",
     "charging_option2_unitary_cost": "Unitary cost of the second charging option",
     "tons": "tons",
-    "mileage_special": "Distance in this mode of transport"
+    "mileage_special": "Distance in this mode of transport",
+    "battery_size": "Battery size"
 }

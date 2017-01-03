@@ -229,7 +229,8 @@
     "plane_CO2_per_km": "CO₂-Ausstoß",
     "plane_cost_per_km": "Kosten",
     "praemie": "Kaufprämie",
-    "reichweite": "Reichweite",
+    "reichweite": "Reichweite (praxisnah)",
+    "reichweite_NEFZ": "Reichweite gemäß NEFZ (Neuer Europäischer Fahrzyklus)",
     "rental_gas": "Carsharing/Mietwagen (Benzin/Diesel)",
     "rental_gas_CO2_per_km": "CO₂-Ausstoß",
     "rental_gas_cost_per_km": "Kosten",
@@ -291,5 +292,6 @@
     "charging_option2_unitary_cost": "Zweite Lademöglichkeit: Kosten pro Gerät",
     "tons": " Tonnen",
     "General information": "Allgemeine Informationen",
-    "mileage_special": "In diesem Verkehrsmittel zurückgelegte Strecken"
+    "mileage_special": "In diesem Verkehrsmittel zurückgelegte Strecken",
+    "battery_size": "Batteriekapazität"
 }
