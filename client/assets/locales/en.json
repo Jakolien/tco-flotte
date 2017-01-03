@@ -280,5 +280,6 @@
     "€_per_liter": "€/L",
     "charging_option_unitary_cost": "Unitary cost of the first charging option",
     "charging_option2_unitary_cost": "Unitary cost of the second charging option",
-    "tons": "tons"
+    "tons": "tons",
+    "mileage_special": "Distance in this mode of transport"
 }
