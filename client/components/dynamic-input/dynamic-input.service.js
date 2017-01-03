@@ -18,7 +18,10 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
       this.setSubset = this.setSubset.bind(this);
       this.setMeta = this.setMeta.bind(this);
       this.translate = this.translate.bind(this);
+      this.isParentActive = this.isParentActive.bind(this);
+      this.matchEnergyType = this.matchEnergyType.bind(this);
       this.isVisible = this.isVisible.bind(this);
+      this.isntHiddenby = this.isntHiddenby.bind(this);
       // Set meta and subset
       this.setMeta(meta);
       this.setSubset(subset);
@@ -124,6 +127,9 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
     isParentActive(subset = this.subset) {
       return _.isEmpty(this.meta.parentname) || subset[this.meta.parentname];
     }
+    isntHiddenby(subset = this.subset) {
+      return _.isEmpty(this.meta.hiddenby) || !subset[this.meta.hiddenby];
+    }
     matchEnergyType(subset = this.subset) {
       return !this.isSpecificToEnergyType() || this.isEnergyType(subset);
     }
@@ -138,7 +144,9 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
       return _.map(types, type=> _.trim(type, ' "\''));
     }
     isVisible(subset = this.subset) {
-      return this.meta.shownonthelist && this.isParentActive(subset) && this.matchEnergyType(subset);
+      // Those functions must all return true with the same parameter
+      const every = _.overEvery([this.isParentActive, this.isntHiddenby, this.matchEnergyType]);
+      return this.meta.shownonthelist && every(subset);
     }
   }
 
