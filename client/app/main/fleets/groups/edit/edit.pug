@@ -13,10 +13,6 @@
           .card-block.text-muted(ng-bind-html="'edit_group_help' | translate")
           .card-footer.main__fleets__groups__edit__sidebar__footer
             .float-xs-right(ng-if="!$ctrl.group.special")
-              button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
-                i.fa.fa-fw.fa-files-o
-                span.hidden-xl-up &nbsp;{{ 'duplicate' | translate }}
-              =" | "
               button.btn.btn-link(type="button",
                 mwl-confirm,
                 message="{{ 'confirm_deletion_message' | translate }}",
