@@ -23,13 +23,13 @@ var Fleet = function(params) {
 			group = params.groups[i] = group.toObject();
 		}
 
-		if(!(group.vars.hasOwnProperty("energy_type")) ||
-					group.vars.energy_type == "BEV" ||
-					group.vars.energy_type == "hybrid-benzin" ||
-					group.vars.energy_type == "hybrid-diesel") {
+		if( group.vars.energy_type == "BEV" ||
+			group.vars.energy_type == "hybrid-benzin" ||
+			group.vars.energy_type == "hybrid-diesel") {
 			this.fleet_presets.electro_fleet_size += group.vars.num_of_vehicles
 		}
 	}, this);
+
 
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 1.5		// That's 1.5% per year
@@ -547,9 +547,9 @@ var Fleet = function(params) {
 	}
 
 	// Updates the variables in case the Fleet receives user-input variables
-	// The list of charging options cannot be modified
+	// The list of charging options and number of elec vehicles cannot be modified
 	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" ) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "electro_fleet_size" ) {
 			this.fleet_presets[prop] = params.vars[prop]
 		}
 	}
@@ -669,8 +669,6 @@ var Fleet = function(params) {
 		var group_insights = this.groups[group_id]["insights"]
 		var group_name = params.groups[group_id]["name"]
 
-
-
 		//Conversion from grams to tons
 		group_insights.TCO.CO2 = group_insights.TCO.CO2 / 1000000
 
@@ -747,6 +745,7 @@ var Fleet = function(params) {
 	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / this.TCO.mileage_overall
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
+
 
 }
 
