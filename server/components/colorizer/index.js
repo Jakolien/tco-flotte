@@ -25,7 +25,10 @@ const isColor = (str = '')=> {
 
 export default function(req, res) {
   try {
-    let svg = fs.readFileSync( path.join(__dirname, '../../../client/', unescape(req.path)), "utf8");
+    console.log(req.path);
+    console.log(unescape(req.path));
+    console.log(decodeURI(req.path));
+    let svg = fs.readFileSync( path.join(__dirname, '../../../client/', decodeURI(req.path)), "utf8");
     let hex = req.query.color;
     // Is a color given?
     if( isColor(hex) ) {
