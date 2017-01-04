@@ -199,7 +199,8 @@ var Fleet = function(params) {
 		"diesel":  {"2017": -.26, "2020": -.1},
 		"LNF":     {"2017": -.14, "2020": -.1},
 		"BEV":     {"2017": -.15, "2020": -.01},
-		"hybrid":  {"2017": 0, 	  "2020": 0},
+		"hybrid-benzin":  {"2017": 0, 	  "2020": 0},
+		"hybrid-diesel":  {"2017": 0, 	  "2020": 0},
 		"BEV-LNF": {"2017": 0,    "2020": -.01}
 	}
 
@@ -210,20 +211,18 @@ var Fleet = function(params) {
 		"diesel": {"klein": 1383, "mittel": 1618,"groß": 1929, "LNF1": 1722, "LNF2": 2140}
 	}
 
-	// Consumption in liters or kWh per 100 km
+	// Consumption in liters 
 	this.fleet_presets.verbrauch = {
 		"benzin": {"klein": 6.72, "mittel": 7.69,"groß": 8.53},
 		"diesel": {"klein": 5.16, "mittel": 5.61,"groß": 6.22, "LNF1": 8.4, "LNF2": 9.8},
-		"BEV":    {"klein": .1755, "mittel": .1943,"groß": .2079, "LNF1": .25, "LNF2": .30},
 		"hybrid-benzin": {"mittel": 2.4, "groß": 3.49},
-		"hybrid-diesel": {"groß": 2.52},
-					}
-
-	// Hybrid fuel consumption discount
-	this.fleet_presets.hybrid_minderverbrauch = {
-		"klein" : .918,
-		"mittel" : .9211,
-		"groß" : .8725
+		"hybrid-diesel": {"groß": 2.52}
+		}
+	// Consumption in kWh/km
+	this.fleet_presets.electro_verbrauch = {
+		"BEV":    {"klein": .1755, "mittel": .1943,"groß": .2079, "LNF1": .25, "LNF2": .30},
+		"hybrid-diesel": {"groß": .2363},
+		"hybrid-benzin": {"mittel": .1612 , "groß": .2057}
 	}
 
 	// Hybrid lubricant consumption discount
@@ -323,9 +322,20 @@ var Fleet = function(params) {
 	this.fleet_presets.CO2_from_electricity_mix = {}
 	this.fleet_presets.co2_emissions = {
 		"strom_mix": {
-			"2017": 0.519,
-			"2020": 0.485,
-			"2030": 0.413
+			"2017": .519,
+			"2018": .508,
+			"2019": .496,
+			"2020": .485,
+			"2021": .483,
+			"2022": .482,
+			"2023": .480,
+			"2024": .479,
+			"2025": .477,
+			"2026": .464,
+			"2027": .452,
+			"2028": .439,
+			"2029": .426,
+			"2030": .413
 		},
 		"strom_erneubar": 0.012,
 		"benzin": 2650,
@@ -532,20 +542,6 @@ var Fleet = function(params) {
 			estimates[year] = this.fleet_presets.co2_emissions["strom_mix"][year]
 		}
 
-		for (var year = 2017; year<=2050; year++){
-			if (year < 2020) {
-			    estimates[year] = estimates["2017"] + (estimates["2020"] - estimates["2017"]) / 3 * (year - 2017)
-			}
-			else if (year in this.fleet_presets.co2_emissions["strom_mix"]){
-				estimates[year] = estimates[year]
-			}
-			else {
-				var decade_start = Math.floor(year / 10) * 10
-				var decade_end = Math.ceil(year / 10) * 10
-				estimates[year] = estimates[decade_start] + ((estimates[decade_end] - estimates[decade_start]) / 10) * (year - decade_start)
-			}
-		}
-
 		this.fleet_presets.CO2_from_electricity_mix = estimates
 
 	}
@@ -646,7 +642,7 @@ var Fleet = function(params) {
 		"mileage_overall": 0,
 		"CO2": 0,
 		"total_costs": 0,
-		"num_of_vehicles": 0,
+		"fleet_num_of_vehicles": 0,
 		"CO2_per_km": 0,
 		"cost_per_km": 0,
 		"cost_by_group": {},
@@ -689,7 +685,7 @@ var Fleet = function(params) {
 
 		// Total number of vehicles increases if it's not a special group
 		if( SG_ENERGY_TYPES.indexOf(group_insights.energy_type) === -1 ) {
-			this.TCO.num_of_vehicles += group_insights.num_of_vehicles
+			this.TCO.fleet_num_of_vehicles += group_insights.num_of_vehicles
 		}
 
 		// Total cost

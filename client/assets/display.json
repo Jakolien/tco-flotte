@@ -41,7 +41,7 @@
   },
   {
     "id": "5",
-    "name": "num_of_vehicles",
+    "name": "fleet_num_of_vehicles",
     "type": "bar",
     "fleetdata": true,
     "visualization": true,

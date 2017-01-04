@@ -435,15 +435,32 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getConsumption = function(energy_type) {
+		
+		var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2017"];
+		var yearly_improvement_first_decade = Math.pow((1 + improvement_first_decade), (1/10)) - 1;
+		var improvement_second_decade = fleet_params.verbrauchsentwicklung[energy_type]["2020"];
+		var yearly_improvement_second_decade = Math.pow(1 + improvement_second_decade, .1) - 1;
+
 		if (["hybrid-diesel", "hybrid-benzin"].indexOf(energy_type) > -1) {
-			this.getConsumption("BEV");
+			this.electricity_consumption = fleet_params.electro_verbrauch[energy_type][this.car_type] * 100;
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
+		} else if (energy_type == "BEV"){
+			// Multiply by 100 because the information for electric cars is in kWh per km
+			this.electricity_consumption = fleet_params.electro_verbrauch[energy_type][this.car_type] * 100;
+			
+			// Need to take into account the rate of improvement of the previous decade
+			if (this.acquisition_year > 2020) {
+				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+				this.electricity_consumption *= Math.pow(1+yearly_improvement_second_decade, this.acquisition_year - 2020);
+			} else {
+				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+			}
+
+			// Just in case
+			this.fuel_consumption = 0;
+
 		} else {
 			this.fuel_consumption = fleet_params.verbrauch[energy_type][this.car_type];
-			var improvement_first_decade = fleet_params.verbrauchsentwicklung[energy_type]["2017"];
-			var yearly_improvement_first_decade = Math.pow((1 + improvement_first_decade), (1/10)) - 1;
-			var improvement_second_decade = fleet_params.verbrauchsentwicklung[energy_type]["2020"];
-			var yearly_improvement_second_decade = Math.pow(1 + improvement_second_decade, .1) - 1;
 
 			// Need to take into account the rate of improvement of the previous decade
 			if (this.acquisition_year > 2020) {
@@ -451,12 +468,6 @@ var VehicleGroup = function(fleet_params, params) {
 				this.fuel_consumption *= Math.pow(1+yearly_improvement_second_decade, this.acquisition_year - 2020);
 			} else {
 				this.fuel_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
-			}
-
-			// Because the information for electric cars is in kWh per km
-			if (energy_type == "BEV") {
-				this.electricity_consumption = this.fuel_consumption * 100;
-				this.fuel_consumption = 0;
 			}
 		}
 
