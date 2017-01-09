@@ -31,10 +31,13 @@ export default class ChartComponent {
     this.bindChart    = this.bindChart.bind(this);
     this.addUnitTo    = this.addUnitTo.bind(this);
     this.values       = this.values.bind(this);
+    this.yValues      = this.yValues.bind(this);
     // Number of times the chart have been rendered
     this.rendered = 0;
     // Save the max value
-    this.max = _.sum(this.groups().map( g=> 1*g.values));
+    this.max = _.sum(this.groups().map( g =>{
+      return _.max(_.map(g.values.split(','), Number));
+    }));
   }
   get unit() {
     return this.$translate.instant(this.meta.unit) || '';
@@ -70,7 +73,7 @@ export default class ChartComponent {
     // Build a unit element
     let unit = `<text style="text-anchor: start" y="3" x="-4">${this.unit}</text>`;
     // Add the
-    last.html( last.html() + unit);
+    last.html(last.html() + unit);
   }
   columnNames() {
     return this.fleets.all().map(g=> g.name).join(",");
@@ -99,6 +102,27 @@ export default class ChartComponent {
   }
   hasGroups() {
     return this.meta.type === 'stacked_bar';
+  }
+  yValues() {
+    const ticks = 7;
+    // Calculate the slice size
+    const slice = Math.ceil(this.max/(ticks - 1));
+    // Create at least 7 slices
+    const values =  _.reduce(Array(ticks), (res, v, i) => {
+      if(i * slice <= this.max + slice) {
+        res.push(i * slice);
+      }
+      return res;
+    }, []);
+    console.log( this.max/_.last(values), this.meta.name )
+    // Add a tick if the slice last slice is not high enough
+    if( this.max/_.last(values) > 0.9 ) {
+      values.push(values.length * slice);
+    }
+    return values;
+  }
+  yMax() {
+    return _.last(this.yValues());
   }
   values() {
     let values = [];

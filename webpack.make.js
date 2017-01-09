@@ -83,8 +83,6 @@ module.exports = function makeWebpackConfig(options) {
             chunkFilename: BUILD ? '[name].[hash].js' : '[name].bundle.js'
 
         };
-
-
     }
 
     if(TEST) {
@@ -266,6 +264,11 @@ module.exports = function makeWebpackConfig(options) {
         // Disabled when in test mode or not in build mode
         new ExtractTextPlugin('[name].[hash].css', {
             disable: !BUILD || TEST
+        }),
+
+        new webpack.ProvidePlugin({
+            d3: 'd3',
+            $: 'jquery'
         })
     ];
 

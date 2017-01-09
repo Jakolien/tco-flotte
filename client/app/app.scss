@@ -37,6 +37,13 @@ $tag-font-size: 100%;
 
 $fa-font-path: '/assets/fonts/font-awesome/';
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1740px
+) !default;
+
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~font-awesome/scss/font-awesome';
 @import '~angularjs-slider/dist/rzslider';

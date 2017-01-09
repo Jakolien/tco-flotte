@@ -10,10 +10,9 @@ import duScroll      from 'angular-scroll';
 import match         from 'angular-validation-match';
 // C3 angular
 import c3 from 'c3';
-import d3 from 'd3';
 import 'c3-angular';
 // Export for others scripts to use
-[window.c3, window.d3] = [c3, d3];
+[window.c3, window.d3] = [c3, require('d3')];
 
 import dynamicInput    from '../components/dynamic-input/dynamic-input.module';
 import fleetsService   from '../components/fleets/fleets.module';
