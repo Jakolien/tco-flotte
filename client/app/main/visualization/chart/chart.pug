@@ -24,7 +24,6 @@
         chart-axis-y
           chart-axis-y-tick(tick-format-function="$ctrl.$filter('number')")
         chart-axis-x-tick(tick-outer="false")
-        chart-axis-x(axis-position="outer-center",
-                     axis-type="category")
+        chart-axis-x(axis-position="outer-center", axis-type="category")
     .alert.alert-warning.small(ng-if="$ctrl.leasingAlert")
       | {{ 'chart_leasing_alert' | translate }}
