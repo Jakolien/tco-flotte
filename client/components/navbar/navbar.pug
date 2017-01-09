@@ -1,9 +1,10 @@
 nav.navbar.navbar-dark.bg-primary.navbar-full
   .container-fluid
-    a.navbar-brand(href='/') {{ 'app_title' | translate }}
+    span.navbar-brand
+      | {{ 'app_title' | translate }}
     ul.nav.navbar-nav.float-xs-right
       li.nav-item(ui-sref-active-eq='active')
-        a.nav-link(ui-sref='main')
+        .nav-link(ui-sref='main')
           | {{ 'home_link' | translate }}
       li.nav-item(ui-sref-active-eq='active')
         a.nav-link(ui-sref='main.fleets')

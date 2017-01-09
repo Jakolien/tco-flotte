@@ -28,9 +28,11 @@
                     | {{ group.name }}
                 td(ng-repeat="input in $ctrl.summaries")
                   span(ng-if=":: input.isVisible(group.insights)")
-                    span(ng-if=":: $ctrl.isNumber(group.insights[input.meta.name])")
+                    span(ng-if=":: input.meta.type === 'number'")
                       | {{ group.insights[input.meta.name] | number }}{{ input.meta.unit | translate }}
-                    span(ng-if=":: !$ctrl.isNumber(group.insights[input.meta.name])")
+                    span(ng-if=":: input.meta.type === 'year'")
+                      | {{ group.insights[input.meta.name] }}
+                    span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
                       | {{ group.insights[input.meta.name] | translate }}
                   span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
                     | {{ 'na' | translate }}
@@ -74,9 +76,11 @@
                         span.tag(ng-style="{ background: group.vars.group_color  }") {{ group.name }}
                       td(ng-repeat="input in $ctrl.basics")
                         span(ng-if=":: input.isVisible(group.insights)")
-                          span(ng-if=":: $ctrl.isNumber(group.insights[input.meta.name])")
+                          span(ng-if=":: input.meta.type === 'number'")
                             | {{ group.insights[input.meta.name] | number }}{{ input.meta.unit | translate }}
-                          span(ng-if=":: !$ctrl.isNumber(group.insights[input.meta.name])")
+                          span(ng-if=":: input.meta.type === 'year'")
+                            | {{ group.insights[input.meta.name] }}
+                          span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
                             | {{ group.insights[input.meta.name] | translate }}
                         span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
                           | {{ 'na' | translate }}
