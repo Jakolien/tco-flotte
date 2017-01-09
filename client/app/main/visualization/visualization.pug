@@ -29,7 +29,7 @@
                 td(ng-repeat="input in $ctrl.summaries")
                   span(ng-if=":: input.isVisible(group.insights)")
                     span(ng-if=":: input.meta.type === 'number'")
-                      | {{ group.insights[input.meta.name] | number }}{{ input.meta.unit | translate }}
+                      | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
                     span(ng-if=":: input.meta.type === 'year'")
                       | {{ group.insights[input.meta.name] }}
                     span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
@@ -77,7 +77,7 @@
                       td(ng-repeat="input in $ctrl.basics")
                         span(ng-if=":: input.isVisible(group.insights)")
                           span(ng-if=":: input.meta.type === 'number'")
-                            | {{ group.insights[input.meta.name] | number }}{{ input.meta.unit | translate }}
+                            | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
                           span(ng-if=":: input.meta.type === 'year'")
                             | {{ group.insights[input.meta.name] }}
                           span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
