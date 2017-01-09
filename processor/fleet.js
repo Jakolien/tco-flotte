@@ -649,10 +649,11 @@ var Fleet = function(params) {
 		"CO2_by_group": {},
 		"cost_by_position": {
 			"net_acquisition_cost": 0, 
-			"fixed_costs": 0, 
-			"variable_costs": 0, 
+			"charging_infrastructure":0,
 			"energy_costs": 0, 
-			"charging_infrastructure":0},
+			"fixed_costs": 0, 
+			"variable_costs": 0
+			},
 		"mileage_by_group": {},
 		"cost_by_car_type": {},
 		"cost_by_energy_type": {},
