@@ -3,14 +3,14 @@
     div(ng-show="!$ctrl.print || $ctrl.print.status === 'pending'")
       h5
         i.fa.fa-cog.fa-spin.fa-fw
-        | &nbsp;Preparing download...
-      p.small.text-muted It will start automatically.
+        | &nbsp;{{ 'download.preparing' | translate }}
+      p.small.text-muted {{ 'download.description' | translate }}
     div(ng-show="$ctrl.print.status === 'done'")
       h5
         i.fa.fa-check.fa-fw
-        | &nbsp;Download ready
+        | &nbsp;{{ 'download.ready' | translate }}
       p.text-muted.small.
-        <a href="{{ $ctrl.print.url }}", ng-click="$ctrl.modal.close()">Click here</a>
-        if the download didn't start.
+        <a href="{{ $ctrl.print.url }}", ng-click="$ctrl.modal.close()">{{ 'download.click' | translate }}</a>
+        {{ 'download.fail' | translate }}
       .text-xs-right
-        button.btn.btn-primary.btn-sm(ng-click="$ctrl.modal.close()") Close
+        button.btn.btn-primary.btn-sm(ng-click="$ctrl.modal.close()") {{ 'download.close' | translate }}

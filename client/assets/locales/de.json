@@ -289,5 +289,13 @@
     "mileage_special": "In diesem Verkehrsmittel zurückgelegte Strecken",
     "battery_size": "Batteriekapazität",
     "vehicles": " Fahrzeuge",
-    "fleet_num_of_vehicles": "Anzahl Fahrzeuge"
+    "fleet_num_of_vehicles": "Anzahl Fahrzeuge",
+    "download": {
+        "preparing": "Preparing download...",
+        "description": "It will start automatically.",
+        "ready": "Download ready",
+        "click": "Click here",
+        "fail": "if the download didn't start.",
+        "close": "Close"
+    }
 }

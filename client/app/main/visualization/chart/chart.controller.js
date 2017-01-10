@@ -114,8 +114,7 @@ export default class ChartComponent {
       }
       return res;
     }, []);
-    console.log( this.max/_.last(values), this.meta.name )
-    // Add a tick if the slice last slice is not high enough
+    // Add a tick if the last slice is not high enough
     if( this.max/_.last(values) > 0.9 ) {
       values.push(values.length * slice);
     }

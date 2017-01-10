@@ -285,5 +285,13 @@
     "mileage_special": "Distance in this mode of transport",
     "battery_size": "Battery size",
     "vehicles": " vehicles",
-    "fleet_num_of_vehicles": "Number of vehicles"
+    "fleet_num_of_vehicles": "Number of vehicles",
+    "download": {
+        "preparing": "Preparing download...",
+        "description": "It will start automatically.",
+        "ready": "Download ready",
+        "click": "Click here",
+        "fail": "if the download didn't start.",
+        "close": "Close"
+    }
 }
