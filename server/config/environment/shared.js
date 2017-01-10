@@ -39,8 +39,8 @@ exports = module.exports = {
   frozenGroups: [
     "net_acquisition_cost",
     "charging_infrastructure",
-    "energy_costs",
     "fixed_costs",
+    "energy_costs",
     "variable_costs"
   ]
 };
