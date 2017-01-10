@@ -49,18 +49,3 @@
                                      ng-disabled="createForm.$invalid",
                                      ng-click="$ctrl.createGroup()")
                 span(ng-bind-html="'group_create' | translate")
-          //- div(ng-if="!$ctrl.fleet.isActive()")
-            .float-xs-right
-              button.btn.btn-secondary(type="submit",
-                                        ng-disabled="createForm.$invalid",
-                                        ng-click="$ctrl.createGroup('main.visualization')")
-                i.fa.fa-bar-chart.fa-fw
-                | &nbsp;
-                span(ng-bind-html="'group_create_and_visualize' | translate")
-            button.btn.btn-primary(type="submit",
-                                   ng-disabled="createForm.$invalid",
-                                   ng-click="$ctrl.createGroup('main.fleets.groups')",
-                                   ng-show="$ctrl.fleet.groupsLeft() > 1")
-              i.fa.fa-plus.fa-fw
-              | &nbsp;
-              span(ng-bind-html="'group_create_and_add' | translate")
