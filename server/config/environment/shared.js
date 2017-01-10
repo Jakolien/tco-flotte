@@ -20,7 +20,27 @@ exports = module.exports = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
   // Default palette
-  colors: [ "#3288bd", "#ffffbf", "#9e0142", "#abdda4", "#fdae61", "#66c2a5",  "#d53e4f", "#e6f598", "#5e4fa2", "#fee08b", "#f46d43"],
+  colors: [
+    "#3288bd",
+    "#ffffbf",
+    "#9e0142",
+    "#abdda4",
+    "#fdae61",
+    "#66c2a5",
+    "#d53e4f",
+    "#e6f598",
+    "#5e4fa2",
+    "#fee08b",
+    "#f46d43"
+  ],
   // Angular Locale
-  localeLocation: 'https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js'
+  localeLocation: 'https://code.angularjs.org/1.2.20/i18n/angular-locale_{{locale}}.js',
+  // Groups natural order
+  frozenGroups: [
+    "net_acquisition_cost",
+    "charging_infrastructure",
+    "energy_costs",
+    "fixed_costs",
+    "variable_costs"
+  ]
 };

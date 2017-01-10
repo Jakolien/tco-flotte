@@ -20,6 +20,9 @@ export default class ChartComponent {
       groups: this.groups(),
       groupsIds: function() {
         return _.map(this.groups, 'id')
+      },
+      groupsNames: function() {
+        return _.map(this.groups, 'name')
       }
     };
     // Bind to instance
@@ -47,6 +50,12 @@ export default class ChartComponent {
   }
   get someLeasingIncluded() {
     return _.some(this.fleets.all(), this.leasingIncluded);
+  }
+  get hasFrozenGroupsOrder() {
+    return !!_.intersection(this.chart.groupsNames(), this.appConfig.frozenGroups).length;
+  }
+  get sortDataBy() {
+    return this.hasFrozenGroupsOrder ? 'null' : 'asc';
   }
   leasingIncluded(fleet) {
     // Enter groups attribute
@@ -141,7 +150,12 @@ export default class ChartComponent {
         }
       });
     }
-    return _.uniq(values);
+    return _.chain(values)
+      .uniq()
+      // Sort by a frozen order
+      .sortBy( name => {
+        return this.appConfig.frozenGroups.indexOf(name);
+      }).value();
   }
   groups() {
     // Get TCO from the first fleets
@@ -149,10 +163,11 @@ export default class ChartComponent {
     // Is the value an object?
     if( this.hasGroups() ) {
       // Returns its keys
-      return _.map(values, function(name, id) {
+      return _.map(values, (name, id)=> {
         // Add a asterix symbol to "net_acquisition_cost" if some fleets have
         // leasing options included.
         let suffix = name === 'net_acquisition_cost' && this.someLeasingIncluded ? '*' : '';
+        // Rreturn an obbject description this group
         return {
           name,
           id,
@@ -160,7 +175,8 @@ export default class ChartComponent {
           color: '#666',
           values: this.columnValues(name)
         };
-      }.bind(this));
+      // Order the groups according to a fixed order
+      })
     } else {
       if(values.length = 0) {
         return [];
