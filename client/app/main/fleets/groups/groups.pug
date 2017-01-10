@@ -28,7 +28,7 @@
                 .row.main__fleets__groups__input(ng-if=":: !input.meta.hasslider")
                   .col-form-label.col-lg-4
                     label(for="input-{{ input.meta.id }}")
-                      | {{ input.meta.label | translate }}
+                      | {{ input.meta.name | translate }}
                   .col-lg-8
                     input.form-control(type="number",
                       name="{{ input.meta.name }}",
@@ -40,7 +40,7 @@
                     span.input-group-addon(ng-show="input.meta.unit")
                       | {{ input.meta.unit | translate }}
                 .main__fleets__groups__input.main__fleets__groups__input--slider(ng-if=":: input.meta.hasslider")
-                  legend.main__fleets__groups__input__title {{ input.meta.label | translate  }}
+                  legend.main__fleets__groups__input__title {{ input.meta.name | translate  }}
                   div(ng-init="$ctrl.group[input.meta.name] = $ctrl.getInputValues(input).value")
                     rzslider(rz-slider-model="$ctrl.group[input.meta.name]", rz-slider-options="$ctrl.getInputValues(input)")
           .row
