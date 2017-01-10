@@ -23,7 +23,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
-	this.share_electric = 55
+	this.share_electric = 50
 	this.second_charge = false
 	this.residual_value_method = "Methode 2"
 	this.second_user_holding_time = 6
@@ -252,10 +252,10 @@ var VehicleGroup = function(fleet_params, params) {
 			this.maintenance_costs_tires = fleet_params.reperaturkosten["diesel"][this.car_type]["reifen"];
 			this.maintenance_costs_inspection = fleet_params.reperaturkosten["diesel"][this.car_type]["inspektion"];
 			this.maintenance_costs_repairs = fleet_params.reperaturkosten["diesel"][this.car_type]["reparatur"] * fleet_params.faktor_BEV;
-		} else if (this.energy_type.indexOf("hybrid") > -1) { // Takes the same value of the non-hybrid of same type
+		} else if (this.energy_type.indexOf("hybrid") > -1) { // Takes the same value of the non-hybrid of same type 
 			this.maintenance_costs_tires = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["reifen"];
 			this.maintenance_costs_inspection = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["inspektion"];
-			this.maintenance_costs_repairs = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["reparatur"]
+			this.maintenance_costs_repairs = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["reparatur"] * fleet_params.faktor_HEV
 		}
 		else {
 			this.maintenance_costs_tires = fleet_params.reperaturkosten[this.energy_type][this.car_type]["reifen"];
