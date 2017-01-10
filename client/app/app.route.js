@@ -15,7 +15,7 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
     // Are we allowed to access this state?
     $transitions.onSuccess({}, function(transition) {
       // Restrict to fleet with groups left
-      if( $state.is('main.fleets.groups') && !transition.getResolveValue('fleet').moreGroups() ) {
+      if( $state.is('main.fleets.groups') && !transition.injector().get('fleet').moreGroups() ) {
         return $state.go('main.fleets');
       }
     });
@@ -92,7 +92,7 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
         };
       }
       // Resolve title.
-      $rootScope.$title = getTitleResolvable(transition) ? transition.getResolveValue('$title') : undefined;
+      $rootScope.$title = getTitleResolvable(transition) ? transition.injector().get('$title') : undefined;
       // Build breadcrumbs
       $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
   	});
