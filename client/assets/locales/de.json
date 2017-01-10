@@ -291,11 +291,11 @@
     "vehicles": " Fahrzeuge",
     "fleet_num_of_vehicles": "Anzahl Fahrzeuge",
     "download": {
-        "preparing": "Preparing download...",
-        "description": "It will start automatically.",
-        "ready": "Download ready",
-        "click": "Click here",
-        "fail": "if the download didn't start.",
-        "close": "Close"
+        "preparing": "Ihre PDF wird vorbereitet...",
+        "description": "Der Download wird automatisch starten.",
+        "ready": "Download fertig",
+        "click": "Bitte Klicken Sie hier",
+        "fail": "wenn der Download nicht selbst startet.",
+        "close": "Schließen"
     }
 }
