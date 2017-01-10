@@ -9,7 +9,9 @@ export default class ChartCo2Component {
     // Dependancies available in instance
     angular.extend(this, { fleets, $translate, $filter });
     // Filter settings to only keep the one visualized in this chart
-    this.settings = _.filter(this.settings, { co2chart: true });
+    this.settings = _.filter(this.settings, { co2chart: true }).sort( (a, b)=> {
+      return this.valueByEnergyType(a) - this.valueByEnergyType(b);
+    });
     // Initialize rendering count
     this.rendered = 0;
     // Bind to instance
@@ -28,8 +30,7 @@ export default class ChartCo2Component {
   }
   get values() {
     return this.settings.map( (meta)=> {
-      let group = this.findByEnergyType(meta.energytype)
-      return group.vars[meta.name] || group.insights[meta.name];
+      return this.valueByEnergyType(meta);
     });
   }
   get valuesStr() {
@@ -52,8 +53,9 @@ export default class ChartCo2Component {
   get groups() {
     return this.fleet.groups.filter({ special: true })
   }
-  findByEnergyType(energyType) {
-    return _.find(this.groups, g=> g.vars.energy_type === energyType);
+  valueByEnergyType(meta) {
+    let group = _.find(this.groups, g=> g.vars.energy_type === meta.energytype);
+    return  group.vars[meta.name] || group.insights[meta.name];
   }
   bindChart(chart) {
     this.addUnitTo(chart);
