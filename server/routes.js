@@ -12,6 +12,7 @@ export default function(app) {
   // Insert routes below
   app.use('/api/fleets', authenticate(), require('./api/fleet'));
   app.use('/api/users',  authenticate(), require('./api/user'));
+  app.use('/api/pages',  authenticate(), require('./api/page'));
 
   app.use('/auth', require('./auth').default);
 

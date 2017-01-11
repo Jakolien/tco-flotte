@@ -26,6 +26,7 @@ import fleets          from './main/fleets/fleets.component';
 import fleetsChartCo2  from './main/fleets/chart-co2/chart-co2.component';
 import roups           from './main/fleets/groups/groups.component';
 import edit            from './main/fleets/groups/edit/edit.component';
+import page            from './main/page/page.component';
 import visualization   from './main/visualization/visualization.component';
 import chart           from './main/visualization/chart/chart.component';
 import chartGrouped    from './main/visualization/chart-grouped/chart-grouped.component';
@@ -58,6 +59,7 @@ angular.module('oekoFlotteApp', [
   fleetsChartCo2,
   roups,
   edit,
+  page,
   visualization,
   chart,
   chartGrouped,
