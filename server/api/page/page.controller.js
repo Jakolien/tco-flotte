@@ -14,14 +14,14 @@ function handleEntityNotFound(res) {
 export function show(req, res) {
   // Build filename path
   const filename = path.format({
-    root: path.join(__dirname, '../../components/pages', req.params.id, '/'),
+    root: path.join('server/components/pages', req.params.id, '/'),
     name: req.params.language,
     ext: '.md'
   });
   // Open the file
   fs.readFile(filename, 'utf8', (err, data) => {
     if (err) {
-      return res.status(404).send({ error: 'Not found' }).end();
+      return res.status(404).send({status: 404}).end();
     }
     res.json({
       id: req.params.id,
