@@ -158,6 +158,7 @@
     "groß": "Large",
     "holding_time": "Holding time",
     "home_link": "Home",
+    "about_link": "About",
     "how_optimise_btn": "How to optimise this fleet?",
     "how_to_optimise_body": "As a first step, it should be checked if certain mileages could also be shifted to other means of transport that have lower costs and/or lower CO₂ emissions per kilometer (e.g. train or e-bike). Secondly, it should be checked whether the number of vehicles in the fleet can be reduced or if certain vehicles can be replaced by electric vehicles.",
     "how_to_optimise_title": "How to optimise a fleet of vehicles",

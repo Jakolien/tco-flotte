@@ -13,6 +13,9 @@ nav.navbar.navbar-dark.bg-primary.navbar-full
       li.nav-item(ui-sref-active-eq='active')
         a.nav-link(ui-sref='main.visualization')
           | {{ 'visualization_link' | translate }}
+      li.nav-item(ui-sref-active-eq='active')
+        a.nav-link(ui-sref='main.page({id: "about"})')
+          | {{ 'about_link' | translate }}
       li.nav-item(ng-hide='$ctrl.isLoggedIn()', ui-sref-active='active')
         a.nav-link(ui-sref='signup')
           | {{ 'signup_link' | translate }}
