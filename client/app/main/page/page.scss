@@ -1,0 +1,13 @@
+.main__page {
+  &__content {
+    margin:$spacer * 2 auto;
+    max-width: 660px;
+
+    h1:first-child {
+      font-weight: bolder;
+      margin-bottom: $spacer;
+      padding-bottom: $spacer;
+      border-bottom: 3px solid lighten($body-color, 50);
+    }
+  }
+}

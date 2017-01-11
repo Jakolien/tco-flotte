@@ -9,6 +9,9 @@ export default angular.module('oekoFlotteApp.main.page', [uiRouter])
   .component('page', {
     controller,
     controllerAs: '$ctrl',
-    template: require('./page.pug')
+    template: require('./page.pug'),
+    bindings: {
+      page: '<'
+    }
   })
   .name;
