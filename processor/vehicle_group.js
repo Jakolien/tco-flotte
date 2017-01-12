@@ -355,7 +355,7 @@ var VehicleGroup = function(fleet_params, params) {
 		}
 
 		this.reichweite = 100*this.battery_size/this.electricity_consumption
-		this.reichweite_NEFZ = this.reichweite * 1.4
+		this.reichweite_NEFZ = this.reichweite * 1.5
 	}
 
 	this.getFixedCosts = function() {
