@@ -46,6 +46,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.leasing_includes_tax = false
 	this.leasing_includes_service = false
 	this.leasing_residual_value = 0
+	this.leasing_extras = {insurance: 0, tax: 0, service: 0}
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
 	this.praemie_bev = 4000
 	this.praemie_hybrid = 3000
@@ -82,6 +83,8 @@ var VehicleGroup = function(fleet_params, params) {
 	this.fixed_costs = {}
 	this.energy_costs = {}
 	this.amortization = {}
+	// Computes the leasing duration in months
+	this.leasing_duration = this.holding_time * 12
 
 	this.TCO = {}
 	this.TCO_simplified = {}
@@ -396,17 +399,27 @@ var VehicleGroup = function(fleet_params, params) {
 		this.fixed_costs.insurance = this.fixed_costs_insurance
 
 		// Special case for leasing, which can include insurance etc.
+		// Leasing is /12 because monthly costs, not yearly
 		if (this.leasing_includes_insurance) {
+			this.leasing_extras.insurance = this.fixed_costs.insurance / 12
 			this.fixed_costs.insurance = 0
 			this.fixed_costs_insurance = 0
+		} else {
+			this.leasing_extras.insurance = 0
 		}
 		if (this.leasing_includes_tax) {
+			this.leasing_extras.tax = this.fixed_costs.car_tax / 12
 			this.fixed_costs.car_tax = 0
 			this.fixed_costs_car_tax = 0
+		} else {
+			this.leasing_extras.tax = 0
 		}
 		if (this.leasing_includes_service) {
+			this.leasing_extras.service = this.fixed_costs.check_up / 12
 			this.fixed_costs.check_up = 0
 			this.fixed_costs_check_up = 0
+		} else {
+			this.leasing_extras.service = 0
 		}
 
 		// Adds up all fixed costs
@@ -554,8 +567,27 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getLeasingRate = function() {
-		this.leasing_residual_value = this.residual_value["mittel"]
-		return Math.round((this.acquisition_price + this.residual_value["mittel"] - this.leasing_downpayment - this.leasing_endpayment) / (this.holding_time * 12))
+		if (this.leasing == true) {
+			this.leasing_residual_value = this.residual_value["mittel"]
+			if (params.hasOwnProperty("leasing_rate")) {
+				this.leasing_rate = params["leasing_rate"]
+				this.price.basis_price = this.leasing_rate * this.leasing_duration
+				return this.leasing_rate 
+			} else {
+				var leasing_rate = (this.acquisition_price + this.residual_value["mittel"] - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
+				leasing_rate += this.leasing_extras.insurance
+				leasing_rate += this.leasing_extras.tax
+				leasing_rate += this.leasing_extras.service
+				return leasing_rate
+			}
+		} else {
+			//recomputes acquisition prices to overwrite the effects of leasing
+			this.getAcquisitionPrice()
+			this.leasing_includes_insurance = false
+			this.leasing_includes_tax = false
+			this.leasing_includes_service = false
+			return 0
+		}
 	}
 
 	this.getYearlyCosts = function(scenario, year){
@@ -614,19 +646,19 @@ var VehicleGroup = function(fleet_params, params) {
 
 		if (this.energy_type == "BEV") {
 			if (this.energy_source == "strom_mix") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year]
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000
 			}
 			else if (this.energy_source == "strom_erneubar") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source]
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000
 			}
 		}
 
 		else if (this.energy_type.indexOf("hybrid") > -1) {
 
 			if (this.energy_source == "strom_mix") {
-				co2 = (this.mileage / 100) * (this.share_electric /100) *  this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year]
+				co2 = (this.mileage / 100) * (this.share_electric /100) *  this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000
 			} else if (this.energy_source == "strom_erneubar") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source]
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000
 			}
 
 			co2 += (this.mileage / 100) * (1-this.share_electric /100) *  this.fuel_consumption * fleet_params.co2_emissions[this.energy_type.split("-")[1]]
@@ -788,18 +820,6 @@ var VehicleGroup = function(fleet_params, params) {
 		this.getAmortization()
 		this.getResidualValue(this.residual_value_method)
 		this.leasing_rate = this.getLeasingRate()
-
-		//Rounds all visible values to 2 decimal places
-		this.fuel_consumption = this.fuel_consumption
-		this.electricity_consumption = Math.round(this.electricity_consumption * 100)/100
-		this.maintenance_costs_total = Math.round(this.maintenance_costs_total)
-		this.maintenance_costs_repairs = Math.round(this.maintenance_costs_repairs * 100)/100
-		this.maintenance_costs_inspection = Math.round(this.maintenance_costs_inspection * 100)/100
-		this.maintenance_costs_tires = Math.round(this.maintenance_costs_tires * 100)/100
-		this.lubricant_costs = Math.round(this.lubricant_costs * 100)/100
-		this.residual_value_fixed = Math.round(this.residual_value_fixed * 100)/100
-		this.fuel_consumption = Math.round(this.fuel_consumption * 100)/100
-		this.acquisition_price = Math.round(this.acquisition_price)
 
 	}
 

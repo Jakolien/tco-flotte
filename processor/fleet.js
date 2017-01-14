@@ -318,7 +318,7 @@ var Fleet = function(params) {
 		}
 	}
 
-	// CO2 emission variables in kg per L or kg per kWh
+	// CO2 emission variables in g per L or kg per kWh
 	this.fleet_presets.CO2_from_electricity_mix = {}
 	this.fleet_presets.co2_emissions = {
 		"strom_mix": {
