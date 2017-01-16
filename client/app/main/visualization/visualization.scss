@@ -18,13 +18,57 @@
       }
     }
 
+    .main__visualization__summary__fleet__heading {
+      text-align: left;
+    }
+
     .table-responsive {
       overflow: visible;
       width:auto;
       height:auto;
       display: block;
-      background: $view-border;
+      background: transparent;
       font-size:.7em;
+      float:left;
+
+      table {
+        display: flex;
+        min-width: auto;
+        overflow: hidden;
+        background: $view-border;
+        background: transparent;
+        page-break-inside:avoid;
+
+        thead {
+          display: flex;
+          flex-shrink: 0;
+          min-width: min-content;
+          float:left;
+        }
+
+        tbody {
+          display: flex;
+          position: relative;
+          overflow-x: auto;
+          overflow-y: hidden;
+          float:right;
+        }
+
+        tr {
+          display: flex;
+          flex-direction: column;
+          min-width: min-content;
+          flex-shrink: 0;
+          float:left;
+        }
+
+        td, th {
+          display: block;
+          border-bottom: 0;
+        }
+      }
+
+
     }
   }
 
@@ -84,6 +128,7 @@
       page-break-inside:avoid;
 
       &__heading {
+        text-align: center;
         font-weight:bold;
         text-transform: uppercase;
         color: rgba(white, .5);
@@ -223,6 +268,7 @@
         }
 
         &__heading {
+          text-align: center;
           font-weight:bold;
           text-transform: uppercase;
           color: $text-muted;

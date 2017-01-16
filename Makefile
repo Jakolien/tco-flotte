@@ -2,7 +2,7 @@ DOCKER_NAME := oeko-flotte
 APP := oeko-flotte
 
 run:
-	gulp serve
+	./node_modules/.bin/webpack-dashboard -p 3030 -- gulp serve
 
 build:
 	gulp build
