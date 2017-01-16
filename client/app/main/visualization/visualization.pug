@@ -8,36 +8,10 @@
   .main__visualization__introduction
     h2 {{ 'pdf_title' | translate }}
     p.lead(ng-bind-html="'pdf_description' | translate:{ fleets: $ctrl.fleetNamesStr(), now: ($ctrl.now | date:('date_format' | translate)) }")
-  .main__visualization__summary(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
+  .main__visualization__summary
     .container
       h4 {{ 'summary_title' | translate }}
-      .main__visualization__summary__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
-        h5.main__visualization__summary__fleet__heading {{ fleet.name }}
-        .table-responsive
-          table.table.table-inverse
-            thead
-              tr
-                th(style="min-width: 5em")
-                  span.tag(style="visibility: hidden;") / <!-- Placeholder -->
-                  span.sr-only {{ 'group' | translate }}
-                th(ng-repeat="input in $ctrl.summaries")
-                  | {{ input.meta.name | translate }}
-            tbody
-              tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
-                th
-                  span.tag(ng-style="{ background: group.vars.group_color  }")
-                    | {{ group.name }}
-                td(ng-repeat="input in $ctrl.summaries")
-                  span(ng-if=":: input.isVisible(group.insights)")
-                    span(ng-if=":: input.meta.type === 'number'")
-                      | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
-                    span(ng-if=":: input.meta.type === 'year'")
-                      | {{ group.insights[input.meta.name] }}
-                    span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
-                      | {{ group.insights[input.meta.name] | translate }}
-                  span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
-                    | {{ 'na' | translate }}
-        .clearfix
+      summary-table(fleets="$ctrl.fleets", summaries="$ctrl.summaries")
   .container(ng-if="$ctrl.fleets.isActive()")
     .row
       .col-md-3.push-md-9
@@ -58,33 +32,7 @@
           .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
             chart(meta="meta", ng-if="!meta.bygroup")
             chart-grouped(meta="meta", ng-if=" meta.bygroup")
-
-          .card.main__visualization__view__raw(id="raw-basic")
+          .main__visualization__view__raw.card
             .card-block
               h3 {{ 'basic_information_title' | translate }}
-            .main__visualization__view__raw__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
-              h5.main__visualization__view__raw__fleet__heading {{ fleet.name }}
-              .table-responsive
-                table.table
-                  thead
-                    tr
-                      th
-                        span.tag(style="visibility: hidden;") / <!-- Placeholder -->
-                        span.sr-only {{ 'group' | translate }}
-                      th(ng-repeat="input in $ctrl.basics")
-                        | {{ input.meta.name | translate }}
-                  tbody
-                    tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
-                      td
-                        span.tag(ng-style="{ background: group.vars.group_color  }") {{ group.name }}
-                      td(ng-repeat="input in $ctrl.basics")
-                        span(ng-if=":: input.isVisible(group.insights)")
-                          span(ng-if=":: input.meta.type === 'number'")
-                            | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
-                          span(ng-if=":: input.meta.type === 'year'")
-                            | {{ group.insights[input.meta.name] }}
-                          span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
-                            | {{ group.insights[input.meta.name] | translate }}
-                        span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
-                          | {{ 'na' | translate }}
-              .clearfix
+            summary-table(fleets="$ctrl.fleets", summaries="$ctrl.basics", id="raw-basic")

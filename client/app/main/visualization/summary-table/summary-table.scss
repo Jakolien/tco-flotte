@@ -1,0 +1,48 @@
+.summary-table {
+  font-size: .8em;
+
+  @media print {
+
+    border:0;
+
+    .summary-table__fleet {
+      page-break-inside: avoid;
+      &:not(:last-child) {
+        page-break-after: always;
+      }
+    }
+
+    .summary-table__fleet__heading {
+      text-align: left;
+    }
+
+    table {
+      font-size: .6rem;
+      border:1px solid $table-border-color;
+
+      tr th .tag {
+        white-space: normal;
+      }
+
+      td {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__fleet {
+
+    &__heading {
+      text-align: center;
+      font-weight:bold;
+      text-transform: uppercase;
+      color: $text-muted;
+      font-size:1em;
+      padding-top:$spacer;
+    }
+
+    table {
+      white-space: nowrap;
+    }
+  }
+}

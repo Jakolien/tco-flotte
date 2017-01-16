@@ -17,59 +17,6 @@
         margin:0;
       }
     }
-
-    .main__visualization__summary__fleet__heading {
-      text-align: left;
-    }
-
-    .table-responsive {
-      overflow: visible;
-      width:auto;
-      height:auto;
-      display: block;
-      background: transparent;
-      font-size:.7em;
-      float:left;
-
-      table {
-        display: flex;
-        min-width: auto;
-        overflow: hidden;
-        background: $view-border;
-        background: transparent;
-        page-break-inside:avoid;
-
-        thead {
-          display: flex;
-          flex-shrink: 0;
-          min-width: min-content;
-          float:left;
-        }
-
-        tbody {
-          display: flex;
-          position: relative;
-          overflow-x: auto;
-          overflow-y: hidden;
-          float:right;
-        }
-
-        tr {
-          display: flex;
-          flex-direction: column;
-          min-width: min-content;
-          flex-shrink: 0;
-          float:left;
-        }
-
-        td, th {
-          display: block;
-          border-bottom: 0;
-        }
-      }
-
-
-    }
   }
 
   &__introduction {
@@ -77,6 +24,7 @@
     page-break-inside:avoid;
     page-break-after: always;
     display: none;
+
     @media print {
       display: block;
     }
@@ -103,10 +51,7 @@
     color:white;
     background: $brand-inverse;
     border-bottom:darken($brand-inverse, 25) 1px solid;
-
     margin-bottom:$spacer * 2;
-
-    font-size: .8em;
     white-space: nowrap;
     margin-bottom: 4 * $spacer;
     padding: 2 * $spacer;
@@ -125,7 +70,6 @@
     }
 
     &__fleet {
-      page-break-inside:avoid;
 
       &__heading {
         text-align: center;
@@ -140,14 +84,9 @@
       }
     }
 
-    .table {
+    .summary-table {
 
-      @media print {
-        border:1px solid $table-border-color;
-      }
-
-      th,
-      td,
+      th, td,
       thead th {
         border-color: lighten($brand-inverse, 5);
         background: darken($brand-inverse, 5);
@@ -242,7 +181,7 @@
     &__raw {
       font-size: .8em;
       white-space: nowrap;
-      padding-bottom: 4 * $spacer;
+      margin-bottom: 4 * $spacer;
 
       @media print {
         page-break-before: always;
@@ -258,40 +197,16 @@
         h3 {
           margin:0 10mm;
         }
-      }
 
-      &__fleet {
-        page-break-inside: avoid;
-
-        @media print {
+        .summary-table__fleet {
           padding:0 10mm;
         }
-
-        &__heading {
-          text-align: center;
-          font-weight:bold;
-          text-transform: uppercase;
-          color: $text-muted;
-          font-size:1em;
-          padding-top:$spacer;
-        }
       }
 
-      .table {
+      .summary-table .table {
         max-width: 100%;
-        overflow: hidden;
         margin:0;
-        background: mix($card-border-color, $card-bg, 15);
-
-        @media print {
-          border:1px solid $table-border-color;
-        }
-
-        th, td, thead th {
-          @media print {
-            background: $view-bg !important;
-          }
-        }
+        background:  mix($card-border-color, $card-bg, 15);
       }
     }
   }

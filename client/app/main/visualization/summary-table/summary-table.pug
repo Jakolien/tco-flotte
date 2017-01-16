@@ -1,0 +1,50 @@
+.summary-table(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
+  .summary-table__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
+    h5.summary-table__fleet__heading {{ fleet.name }}
+    .table-responsive.hidden-print
+      table.table(ng-class="{ 'table-inverse': $ctrl.inverse }")
+        thead
+          tr
+            th(style="min-width: 5em")
+              span.tag(style="visibility: hidden;") / <!-- Placeholder -->
+              span.sr-only {{ 'group' | translate }}
+            th(ng-repeat="input in $ctrl.summaries")
+              | {{ input.meta.name | translate }}
+        tbody
+          tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+            th
+              span.tag(ng-style="{ background: group.vars.group_color  }")
+                | {{ group.name }}
+            td(ng-repeat="input in $ctrl.summaries")
+              span(ng-if=":: input.isVisible(group.insights)")
+                span(ng-if=":: input.meta.type === 'number'")
+                  | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
+                span(ng-if=":: input.meta.type === 'year'")
+                  | {{ group.insights[input.meta.name] }}
+                span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
+                  | {{ group.insights[input.meta.name] | translate }}
+              span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
+                | {{ 'na' | translate }}
+    .visible-print-block
+      table.table
+        thead
+          tr
+            th
+              span.tag(style="visibility: hidden;") / <!-- Placeholder -->
+            th(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+              span.tag(ng-style="{ background: group.vars.group_color  }")
+                | {{ group.name }}
+        tbody
+          tr(ng-repeat="input in $ctrl.summaries")
+            th
+              | {{ input.meta.name | translate }}
+            td(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+              span(ng-if=":: input.isVisible(group.insights)")
+                span(ng-if=":: input.meta.type === 'number'")
+                  | {{ group.insights[input.meta.name] | number:0 }}{{ input.meta.unit | translate }}
+                span(ng-if=":: input.meta.type === 'year'")
+                  | {{ group.insights[input.meta.name] }}
+                span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
+                  | {{ group.insights[input.meta.name] | translate }}
+              span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
+                | {{ 'na' | translate }}
