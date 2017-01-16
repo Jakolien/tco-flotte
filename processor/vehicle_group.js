@@ -633,7 +633,7 @@ var VehicleGroup = function(fleet_params, params) {
 			costs["fixed_costs"]["car_tax"] = 0
 		}
 
-		costs["total_cost"] = Math.round(costs["fixed_costs"]["check_up"] + costs["maintenance_charger"] + costs["fixed_costs"]["insurance"] + costs["fixed_costs"]["car_tax"] + costs["energy_costs"] + costs["variable_costs"]["lubricant_costs"] + costs["variable_costs"]["maintenance_costs"] + costs["variable_costs"]["amortization"] - this.amortization[scenario][year])
+		costs["total_cost"] = Math.round(costs["fixed_costs"]["check_up"] + costs["maintenance_charger"] + costs["fixed_costs"]["insurance"] + costs["fixed_costs"]["car_tax"] + costs["energy_costs"] + costs["variable_costs"] + costs["variable_costs"]["maintenance_costs"] + costs["variable_costs"]["amortization"] - this.amortization[scenario][year])
 
 		costs = this.discountCosts(costs, year - this.acquisition_year)
 
@@ -689,7 +689,6 @@ var VehicleGroup = function(fleet_params, params) {
 		costs["variable_costs"] = {}
 		costs["fixed_costs"] = {}
 		costs["energy_costs"] = 0
-		costs["variable_costs"]["lubricant_costs"] = 0
 		costs["variable_costs"]["maintenance_costs"] = 0
 		costs["variable_costs"]["amortization"] = 0
 		costs["amortization_vehicle"] = 0
@@ -702,7 +701,6 @@ var VehicleGroup = function(fleet_params, params) {
 
 	this.incrementCosts = function(costs, yearly_costs) {
 		costs["energy_costs"] += yearly_costs["energy_costs"]
-		costs["variable_costs"]["lubricant_costs"] += yearly_costs["variable_costs"]["lubricant_costs"]
 		costs["variable_costs"]["maintenance_costs"] += yearly_costs["variable_costs"]["maintenance_costs"]
 		costs["variable_costs"]["amortization"] += yearly_costs["variable_costs"]["amortization"]
 		costs["amortization_vehicle"] += yearly_costs["amortization_vehicle"]
@@ -751,7 +749,7 @@ var VehicleGroup = function(fleet_params, params) {
 		this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost + this.TCO.residual_value + this.TCO.amortization_vehicle - this.cash_bonus_amount
 		this.TCO_simplified["charging_infrastructure"] = this.TCO.charging_infrastructure
 		this.TCO_simplified["fixed_costs"] = this.TCO.fixed_costs.check_up + this.TCO.fixed_costs.insurance + this.TCO.fixed_costs.car_tax
-		this.TCO_simplified["variable_costs"] = this.TCO.variable_costs.lubricant_costs + this.TCO.variable_costs.maintenance_costs + this.TCO.variable_costs.amortization
+		this.TCO_simplified["variable_costs"] =  this.TCO.variable_costs.maintenance_costs + this.TCO.variable_costs.amortization
 		this.TCO_simplified["energy_costs"] = this.TCO.energy_costs
 	}
 
