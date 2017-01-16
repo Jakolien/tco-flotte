@@ -99,6 +99,8 @@ export default class EditComponent {
         context._values[name] = value;
         // Enum input trigger a saving
         this.getInput(name).isEnum() && this.save('.');
+        // Booleans input too
+        this.getInput(name).isBoolean() && this.save('.');
       }
       // Use existing value to populate param
       value = context._values[name]

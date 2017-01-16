@@ -87,5 +87,5 @@
                             ng-model="$ctrl.gs(context, input.meta.name)",
                             ng-model-options="{ getterSetter: true }")
                         div(ng-switch-default)
-                          strong {{ context.values[input.meta.name] | number:2 }}
+                          strong {{ $ctrl.gs(context, input.meta.name)() }}
                           span &nbsp;{{ input.meta.unit | translate | trim }}
