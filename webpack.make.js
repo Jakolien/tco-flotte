@@ -252,7 +252,6 @@ module.exports = function makeWebpackConfig(options) {
      * List: http://webpack.github.io/docs/list-of-plugins.html
      */
     config.plugins = [
-        new DashboardPlugin({ port: 3030 }),
 
         /*
          * Plugin: ForkCheckerPlugin
@@ -335,6 +334,7 @@ module.exports = function makeWebpackConfig(options) {
     }
 
     if(DEV) {
+        config.plugins.push(new DashboardPlugin({ port: 3030 }));
         config.plugins.push(
             // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
             // Define free global variables
