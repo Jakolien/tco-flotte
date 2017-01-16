@@ -221,8 +221,8 @@ var Fleet = function(params) {
 	// Consumption in kWh/km
 	this.fleet_presets.electro_verbrauch = {
 		"BEV":    {"klein": .1755, "mittel": .1943,"groß": .2079, "LNF1": .25, "LNF2": .30},
-		"hybrid-diesel": {"groß": .2363},
-		"hybrid-benzin": {"mittel": .1612 , "groß": .2057}
+		"hybrid-diesel": {"groß": .21},
+		"hybrid-benzin": {"mittel": .155 , "groß": .19}
 	}
 
 	// Hybrid lubricant consumption discount

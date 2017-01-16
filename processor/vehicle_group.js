@@ -266,9 +266,10 @@ var VehicleGroup = function(fleet_params, params) {
 			this.maintenance_costs_repairs = fleet_params.reperaturkosten[this.energy_type][this.car_type]["reparatur"];
 		}
 
-		this.maintenance_costs_tires = ((this.maintenance_costs_tires * 12) / 20000) * this.mileage * this.traffic_multiplicator;
-		this.maintenance_costs_inspection = ((this.maintenance_costs_inspection * 12) / 20000) * this.mileage * this.traffic_multiplicator;
-		this.maintenance_costs_repairs = ((this.maintenance_costs_repairs * 12) / 20000) * this.mileage * this.traffic_multiplicator
+		this.maintenance_costs_tires = (this.maintenance_costs_tires / 20000) * this.mileage * this.traffic_multiplicator;
+		this.maintenance_costs_inspection = (this.maintenance_costs_inspection / 20000) * this.mileage * this.traffic_multiplicator;
+		this.maintenance_costs_inspection += this.lubricant_costs
+		this.maintenance_costs_repairs = (this.maintenance_costs_repairs / 20000) * this.mileage * this.traffic_multiplicator
 
 
 		if (params.hasOwnProperty("maintenance_costs_tires")) {
@@ -612,9 +613,8 @@ var VehicleGroup = function(fleet_params, params) {
 		costs["energy_costs"] = this.getInflatedPrice(this.energy_costs[year][scenario], year - this.acquisition_year, this.inflationsrate/100, true)
 
 		costs["variable_costs"] = {
-			"lubricant_costs": this.getInflatedPrice(this.lubricant_costs, year - this.acquisition_year, this.inflationsrate/100, true),
 			"maintenance_costs": this.getInflatedPrice(this.maintenance_costs_total, year - this.acquisition_year, this.inflationsrate/100, true),
-			"amortization": - this.getInflatedPrice((this.maintenance_costs_total + this.lubricant_costs) * (this.unternehmenssteuersatz / 100), year - this.acquisition_year, this.inflationsrate/100, true)
+			"amortization": - this.getInflatedPrice((this.maintenance_costs_total) * (this.unternehmenssteuersatz / 100), year - this.acquisition_year, this.inflationsrate/100, true)
 		}
 
 		costs["maintenance_charger"] =  this.getInflatedPrice(this.maintenance_costs_charger, this.inflationsrate/100, true)
@@ -813,8 +813,8 @@ var VehicleGroup = function(fleet_params, params) {
 
 		this.getNeededBatterySize()
 		this.getAcquisitionPrice()
-		this.getMaintenanceCosts()
 		this.getLubricantCosts()
+		this.getMaintenanceCosts()
 		this.getConsumption(this.energy_type)
 		this.getEnergyCosts()
 		this.getAmortization()
