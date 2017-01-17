@@ -19,7 +19,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.energy_source = fleet_params.energy_source
 	this.electro_fleet_size = fleet_params.electro_fleet_size
 	this.charging_option_cost = fleet_params.charging_option_cost / this.electro_fleet_size
-	this.maintenance_costs_charger = fleet_params.maintenance_costs_charger / this.electro_fleet_size
+	this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs + fleet_params.charging_option2_maintenance_costs) / this.electro_fleet_size
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
@@ -280,9 +280,6 @@ var VehicleGroup = function(fleet_params, params) {
 		}
 		if (params.hasOwnProperty("maintenance_costs_repairs")) {
 			this.maintenance_costs_repairs = params["maintenance_costs_repairs"]
-		}
-		if (params.hasOwnProperty("maintenance_costs_charger")) {
-			this.maintenance_costs_charger = (params["maintenance_costs_charger"] * (fleet_params.charging_option_num + fleet_params.charging_option2_num)) / this.electro_fleet_size
 		}
 
 		this.maintenance_costs_total = this.maintenance_costs_tires + this.maintenance_costs_inspection + this.maintenance_costs_repairs;

@@ -295,6 +295,8 @@
     "leasing_duration": "Laufzeit Leasingvertrag",
     "desc45": "Die Laufzeit des Leasingvertrags ist von der Haltedauer berechnet.",
     "months": "Monate",
+    "charging_option_maintenance_costs": "Erste Lademöglichkeit: Instandhaltungskosten",
+    "charging_option2_maintenance_costs": "Zweite Lademöglichkeit: Instandhaltungskosten",
     "download": {
         "preparing": "Ihre PDF wird vorbereitet...",
         "description": "Der Download wird automatisch starten.",

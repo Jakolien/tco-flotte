@@ -180,7 +180,8 @@ var Fleet = function(params) {
 	// Charging options costs in EUR
 	this.fleet_presets.charging_option = "Keine"
 	this.fleet_presets.charging_option2 = "Keine"
-	this.fleet_presets.maintenance_costs_charger = ""
+	this.fleet_presets.charging_option_maintenance_costs = ""
+	this.fleet_presets.charging_option2_maintenance_costs = ""
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
 	this.fleet_presets.charging_option_num = 0
@@ -518,12 +519,32 @@ var Fleet = function(params) {
 			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
 		}
 
-		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_option_unitary_cost  * this.fleet_presets.charging_option_num + this.fleet_presets.charging_option2_unitary_cost  * this.fleet_presets.charging_option2_num + this.fleet_presets.maintenance_costs_charger;
+		// To avoid nonsensical presentation to user, charging_option_num = 0 if "keine", 1 if not keine and not specified
+		if (this.fleet_presets.charging_option == "Keine") {
+			this.charging_option_num = 0
+		} else if (this.charging_option_num == 0) {
+			console.log("HEY")
+			this.charging_option_num = 1
+		}
+		if (this.fleet_presets.charging_option2 == "Keine") {
+			this.charging_option2_num = 0
+		} else if (this.charging_option2_num == 0) {
+			this.charging_option2_num = 1
+		}
+
+		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_option_unitary_cost  * this.fleet_presets.charging_option_num + this.fleet_presets.charging_option2_unitary_cost  * this.fleet_presets.charging_option2_num + this.fleet_presets.charging_option_maintenance_costs + this.fleet_presets.charging_option2_maintenance_costs;
 	}
 
 	this.setChargingOptionMaintenance = function() {
-		this.fleet_presets.maintenance_costs_charger = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"] * this.fleet_presets.charging_option_num;
-		this.fleet_presets.maintenance_costs_charger += this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"] * this.fleet_presets.charging_option2_num;
+		this.fleet_presets.charging_option_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"] * this.fleet_presets.charging_option_num;
+		this.fleet_presets.charging_option2_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"] * this.fleet_presets.charging_option2_num;
+	
+		if (params.vars.hasOwnProperty("charging_option_maintenance_costs")) {
+			this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
+		}
+		if (params.vars.hasOwnProperty("charging_option2_maintenance_costs")) {
+			this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
+		}
 	}
 
 	// Returns the price of the battery in E/kwh
