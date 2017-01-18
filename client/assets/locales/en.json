@@ -32,7 +32,7 @@
     "charging_infrastructure": "Charging Infrastructure",
     "charging_option": "Charging option",
     "charging_option2": "Second charging option",
-    "charging_option_cost": "Charging infrastructure cost",
+    "charging_option_cost": "Charging infrastructure cost over the whole holding time",
     "charging_option_num": "Number of charging devices (first option)",
     "chart_leasing_alert": "Acquisition costs include services that are part to the leasing contract.",
     "CO2": "CO₂ emissions",
@@ -291,6 +291,9 @@
     "leasing_duration": "Duration of leasing contract",
     "desc45": "The duration of the leasing contract is calculated from the vehicle holding time.",
     "months": "months",
+    "leasing_includes_tires":"Leasing contract includes tire costs",
+    "leasing_includes_inspection": "Leasing contract includes inspection costs",
+    "leasing_includes_repairs":"Leasing contract includes includes repairs",
     "download": {
         "preparing": "Preparing download...",
         "description": "It will start automatically.",

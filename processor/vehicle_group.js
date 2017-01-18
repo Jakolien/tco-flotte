@@ -17,9 +17,9 @@ var VehicleGroup = function(fleet_params, params) {
 	this.holding_time = 4
 	this.reichweite = 150
 	this.energy_source = fleet_params.energy_source
-	this.electro_fleet_size = fleet_params.electro_fleet_size
-	this.charging_option_cost = fleet_params.charging_option_cost / this.electro_fleet_size
-	this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs + fleet_params.charging_option2_maintenance_costs) / this.electro_fleet_size
+	this.fleet_size = fleet_params.fleet_size
+	this.charging_option_cost = (fleet_params.charging_option_unitary_cost * fleet_params.charging_option_num + fleet_params.charging_option2_unitary_cost * fleet_params.charging_option2_num) / this.fleet_size
+	this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / this.fleet_size
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
@@ -45,8 +45,11 @@ var VehicleGroup = function(fleet_params, params) {
 	this.leasing_includes_insurance = false
 	this.leasing_includes_tax = false
 	this.leasing_includes_service = false
+	this.leasing_includes_inspection = false
+	this.leasing_includes_tires = false
+	this.leasing_includes_repairs = false
 	this.leasing_residual_value = 0
-	this.leasing_extras = {insurance: 0, tax: 0, service: 0}
+	this.leasing_extras = {insurance: 0, tax: 0, service: 0, tires: 0, inspection: 0, repairs: 0}
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
 	this.praemie_bev = 4000
 	this.praemie_hybrid = 3000
@@ -57,9 +60,9 @@ var VehicleGroup = function(fleet_params, params) {
 	this.short_distance_train_CO2_per_km = 69
 	this.short_distance_train_cost_per_km = .7
 	this.rental_bev_CO2_per_km = 77
-	this.rental_bev_cost_per_km = 0.2
+	this.rental_bev_cost_per_km = 0.3
 	this.rental_gas_CO2_per_km = 181
-	this.rental_gas_cost_per_km = 2
+	this.rental_gas_cost_per_km = 0.3
 	this.bike_CO2_per_km = 4.2
 	this.bike_cost_per_km = 0
 	this.plane_CO2_per_km = 196
@@ -244,9 +247,6 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getMaintenanceCosts = function(){
-		if (!(this.energy_type =="BEV" || this.energy_type.indexOf("hybrid") > -1)) {
-			this.maintenance_costs_charger = 0
-		}
 		if (this.energy_type == "BEV" && this.car_type.indexOf("LNF") == -1) {
 			this.maintenance_costs_tires = fleet_params.reperaturkosten["benzin"][this.car_type]["reifen"] ;
 			this.maintenance_costs_inspection = fleet_params.reperaturkosten["benzin"][this.car_type]["inspektion"];
@@ -282,6 +282,27 @@ var VehicleGroup = function(fleet_params, params) {
 			this.maintenance_costs_repairs = params["maintenance_costs_repairs"]
 		}
 
+		// Special case for leasing, which can include insurance etc.
+		// Leasing is /12 because monthly costs, not yearly
+		if (this.leasing_includes_tires) {
+			this.leasing_extras.tires = this.maintenance_costs_tires / 12
+			this.maintenance_costs_tires = 0
+		} else {
+			this.leasing_extras.tires = 0
+		}
+		if (this.leasing_includes_inspection) {
+			this.leasing_extras.inspection = this.maintenance_costs_inspection / 12
+			this.maintenance_costs_inspection = 0
+		} else {
+			this.leasing_extras.inspection = 0
+		}
+		if (this.leasing_includes_repairs) {
+			this.leasing_extras.repairs = this.maintenance_costs_repairs / 12
+			this.maintenance_costs_repairs = 0
+		} else {
+			this.leasing_extras.service = 0
+		}
+
 		this.maintenance_costs_total = this.maintenance_costs_tires + this.maintenance_costs_inspection + this.maintenance_costs_repairs;
 
 	}
@@ -294,7 +315,6 @@ var VehicleGroup = function(fleet_params, params) {
 			if (this.energy_type == "benzin" || this.energy_type == "diesel") {
 				this.price.basis_price = fleet_params.raw_acquisition_price[this.energy_type][this.car_type][this.acquisition_year]
 				this.acquisition_price = this.price.basis_price
-				this.charging_option_cost = 0
 				if (params.hasOwnProperty("acquisition_price")) {
 					this.acquisition_price = params["acquisition_price"]
 					this.price.basis_price = params["acquisition_price"]
@@ -576,6 +596,9 @@ var VehicleGroup = function(fleet_params, params) {
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
 				leasing_rate += this.leasing_extras.service
+				leasing_rate += this.leasing_extras.tires
+				leasing_rate += this.leasing_extras.repairs
+				leasing_rate += this.leasing_extras.inspection
 				return leasing_rate
 			}
 		} else {
@@ -584,6 +607,9 @@ var VehicleGroup = function(fleet_params, params) {
 			this.leasing_includes_insurance = false
 			this.leasing_includes_tax = false
 			this.leasing_includes_service = false
+			this.leasing_includes_tires = false
+			this.leasing_includes_repairs = false
+			this.leasing_includes_inspection = false
 			return 0
 		}
 	}

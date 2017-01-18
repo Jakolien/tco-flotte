@@ -14,23 +14,19 @@ const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
 
 var Fleet = function(params) {
 	this.fleet_presets = {}
-	this.fleet_presets.electro_fleet_size = 0
+	this.fleet_presets.fleet_size = 0
 
-	// Calculates the number of electric vehicles
+	// Calculates the number of vehicles
 	params.groups.forEach(function(group, i) {
 		// For better compatibility with Mongoose nested object
 		if( group.hasOwnProperty("toObject") ) {
 			group = params.groups[i] = group.toObject();
 		}
-
-		if( group.vars.energy_type == "BEV" ||
-			group.vars.energy_type == "hybrid-benzin" ||
-			group.vars.energy_type == "hybrid-diesel") {
-			this.fleet_presets.electro_fleet_size += group.vars.num_of_vehicles
+		if( SG_ENERGY_TYPES.indexOf(group.vars.energy_type) == -1 ) {
+			this.fleet_presets.fleet_size += group.vars.num_of_vehicles
 		}
 	}, this);
-
-
+	
 	// Financial variables
 	this.fleet_presets.inflationsrate   = 1.5		// That's 1.5% per year
 	this.fleet_presets.exchange_rate    = 1.25 		// How many $ for 1 €
@@ -81,12 +77,12 @@ var Fleet = function(params) {
 			{
 				"start_year": 2021,
 				"end_year": 2035,
-				"rate": -.0028
+				"rate": -.003
 			},
 			{
 				"start_year": 2036,
 				"end_year": 2050,
-				"rate": -.0058
+				"rate": -.003
 			},
 		]
 	}
@@ -100,8 +96,8 @@ var Fleet = function(params) {
 			"groß":{"2016": 30047}
 		},
 		"diesel": {
-			"LNF1":{"2016": 20346},
-			"LNF2":{"2016": 34069}
+			"LNF1":{"2016": 20376},
+			"LNF2":{"2016": 34120}
 		}
 	}
 
@@ -127,8 +123,8 @@ var Fleet = function(params) {
 			"klein": 3912,
 			"mittel": 1738,
 			"groß": 4561,
-			"LNF1": 2000,
-			"LNF2": 2500
+			"LNF1": 0,
+			"LNF2": 0
 		},
 		"hybrid-benzin": {
 			"mittel": 11482,
@@ -162,31 +158,30 @@ var Fleet = function(params) {
 
 	this.fleet_presets.battery_capacity = {
 		"BEV" : {
-			"klein": 18,
-			"mittel": 25,
+			"klein": 20,
+			"mittel": 30,
 			"groß": 60,
-			"LNF1": 100,
-			"LNF2": 160
+			"LNF1": 25,
+			"LNF2": 45
 		},
 		"hybrid-benzin": {
-			"mittel": 15,
+			"mittel": 8,
 			"groß": 10
 		},
 		"hybrid-diesel": {
-			"groß": 10
+			"groß": 16
 		}
 	}
 
 	// Charging options costs in EUR
 	this.fleet_presets.charging_option = "Keine"
 	this.fleet_presets.charging_option2 = "Keine"
-	this.fleet_presets.charging_option_maintenance_costs = ""
-	this.fleet_presets.charging_option2_maintenance_costs = ""
+	this.fleet_presets.charging_option_maintenance_costs = 0
+	this.fleet_presets.charging_option2_maintenance_costs = 0
 	this.fleet_presets.energy_source = "strom_mix"
 	this.fleet_presets.charging_option_cost = 0
 	this.fleet_presets.charging_option_num = 0
 	this.fleet_presets.charging_option2_num = 0
-	this.fleet_presets.charging_option_price = {}
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
 		"Wallbox 3,7kW": { "acquisition": 350, "maintenance": 15},
@@ -215,9 +210,9 @@ var Fleet = function(params) {
 	// Consumption in liters 
 	this.fleet_presets.verbrauch = {
 		"benzin": {"klein": 6.72, "mittel": 7.69,"groß": 8.53},
-		"diesel": {"klein": 5.16, "mittel": 5.61,"groß": 6.22, "LNF1": 8.4, "LNF2": 9.8},
-		"hybrid-benzin": {"mittel": 2.4, "groß": 3.49},
-		"hybrid-diesel": {"groß": 2.52}
+		"diesel": {"klein": 5.16, "mittel": 5.61,"groß": 6.22, "LNF1": 7.67, "LNF2": 8.95},
+		"hybrid-benzin": {"mittel": 6.574, "groß": 7.7},
+		"hybrid-diesel": {"groß": 7.762}
 		}
 	// Consumption in kWh/km
 	this.fleet_presets.electro_verbrauch = {
@@ -235,14 +230,14 @@ var Fleet = function(params) {
 	// Insurance in €/year
 	this.fleet_presets.versicherung = {
 		"benzin": {"klein": 617, "mittel": 665,"groß": 689},
-		"diesel": {"klein": 694, "mittel": 686,"groß": 753, "LNF1": 903, "LNF2": 1209},
-		"BEV":    {"klein": 613, "mittel": 693,"groß": 784, "LNF1": 903, "LNF2": 1209}
+		"diesel": {"klein": 694, "mittel": 686,"groß": 753, "LNF1": 700, "LNF2": 870},
+		"BEV":    {"klein": 613, "mittel": 693,"groß": 784, "LNF1": 700, "LNF2": 870}
 					}
 
 	// Yearly tax in €
 	this.fleet_presets.kfzsteuer = {
 		"benzin": {"klein": 45.88, "mittel": 79.24,"groß": 107.48},
-		"diesel": {"klein": 126.26, "mittel": 152.73,"groß": 210.59, "LNF1": 293.63, "LNF2": 390.59},
+		"diesel": {"klein": 126.26, "mittel": 152.73,"groß": 210.59, "LNF1": 173.63, "LNF2": 260.59},
 		"hybrid-benzin": {"klein": 23, "mittel": 24.09,"groß": 37.65},
 		"hybrid-diesel": {"klein": 37, "mittel": 68,"groß": 215.55},
 		"BEV":    {"klein": 0, "mittel": 0,"groß": 0, "LNF1": 0, "LNF2": 0}
@@ -305,15 +300,15 @@ var Fleet = function(params) {
 				"sonstige": 0
 			},
 			"LNF1": {
-				"inspektion": 23,
-				"reparatur": 32,
-				"reifen": 18,
+				"inspektion": 232,
+				"reparatur": 210,
+				"reifen": 182,
 				"sonstige": 0
 			},
 			"LNF2": {
-				"inspektion": 25,
-				"reparatur": 41,
-				"reifen": 26,
+				"inspektion": 252,
+				"reparatur": 280,
+				"reifen": 262,
 				"sonstige": 0
 			}
 		}
@@ -347,10 +342,10 @@ var Fleet = function(params) {
 	// Values here are temporary
 	this.fleet_presets.CO2_from_manufacturing = {
 		"benzin": {"klein": 4605, "mittel": 5880,"groß": 6782},
-		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 7094, "LNF2": 7094},
+		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 7200, "LNF2": 9500},
 		"hybrid-benzin": {"mittel": 8400,"groß": 10711},
 		"hybrid-diesel": {"groß": 11648},
-		"BEV":    {"klein": 7851, "mittel": 9341,"groß": 13376, "LNF1": 13376, "LNF2": 13376}
+		"BEV":    {"klein": 7851, "mittel": 9341,"groß": 13376, "LNF1": 13376, "LNF2": 18058}
 	};
 
 	// Add special groups
@@ -521,30 +516,36 @@ var Fleet = function(params) {
 
 		// To avoid nonsensical presentation to user, charging_option_num = 0 if "keine", 1 if not keine and not specified
 		if (this.fleet_presets.charging_option == "Keine") {
-			this.charging_option_num = 0
-		} else if (this.charging_option_num == 0) {
-			console.log("HEY")
-			this.charging_option_num = 1
+			this.fleet_presets.charging_option_num = 0
+			this.fleet_presets.charging_option_unitary_cost = 0
+			this.fleet_presets.charging_option_maintenance_costs = 0
+		} else if (this.fleet_presets.charging_option_num == 0) {
+			this.fleet_presets.charging_option_num = 1
 		}
 		if (this.fleet_presets.charging_option2 == "Keine") {
-			this.charging_option2_num = 0
-		} else if (this.charging_option2_num == 0) {
-			this.charging_option2_num = 1
+			this.fleet_presets.charging_option2_num = 0
+			this.fleet_presets.charging_option2_unitary_cost = 0
+			this.fleet_presets.charging_option2_maintenance_costs = 0
+		} else if (this.fleet_presets.charging_option2_num == 0) {
+			this.fleet_presets.charging_option2_num = 1
 		}
 
-		this.fleet_presets.charging_option_cost = this.fleet_presets.charging_option_unitary_cost  * this.fleet_presets.charging_option_num + this.fleet_presets.charging_option2_unitary_cost  * this.fleet_presets.charging_option2_num + this.fleet_presets.charging_option_maintenance_costs + this.fleet_presets.charging_option2_maintenance_costs;
 	}
 
 	this.setChargingOptionMaintenance = function() {
-		this.fleet_presets.charging_option_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"] * this.fleet_presets.charging_option_num;
-		this.fleet_presets.charging_option2_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"] * this.fleet_presets.charging_option2_num;
-	
+		this.fleet_presets.charging_option_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"];
+		this.fleet_presets.charging_option2_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"];
 		if (params.vars.hasOwnProperty("charging_option_maintenance_costs")) {
-			this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
+			if (params.vars["charging_option_maintenance_costs"] > 0){
+				this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
+			}
 		}
 		if (params.vars.hasOwnProperty("charging_option2_maintenance_costs")) {
-			this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
+			if (params.vars["charging_option2_maintenance_costs"] > 0){
+				this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
+			}
 		}
+
 	}
 
 	// Returns the price of the battery in E/kwh
@@ -570,7 +571,7 @@ var Fleet = function(params) {
 	// Updates the variables in case the Fleet receives user-input variables
 	// The list of charging options and number of elec vehicles cannot be modified
 	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "electro_fleet_size" ) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "fleet_size" ) {
 			this.fleet_presets[prop] = params.vars[prop]
 		}
 	}
@@ -762,12 +763,14 @@ var Fleet = function(params) {
 			this.TCO.cost_by_energy_type[group_insights.energy_type] = group_insights.TCO.total_costs
 		}
 
+
 	}, this);
-	// CO2 per km in grams
+	// CO2 per km in grams, converted to tons
 	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / this.TCO.mileage_overall
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
 
+	this.fleet_presets.charging_option_cost = this.TCO.cost_by_position.charging_infrastructure
 
 }
 
