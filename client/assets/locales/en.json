@@ -291,6 +291,8 @@
     "leasing_duration": "Duration of leasing contract",
     "desc45": "The duration of the leasing contract is calculated from the vehicle holding time.",
     "months": "months",
+    "charging_option_maintenance_costs": "First charging option: Maintenance cost per device",
+    "charging_option2_maintenance_costs": "Second charging option: Maintenance cost per device",
     "leasing_includes_tires":"Leasing contract includes tire costs",
     "leasing_includes_inspection": "Leasing contract includes inspection costs",
     "leasing_includes_repairs":"Leasing contract includes includes repairs",
