@@ -28,6 +28,47 @@
     @media print {
       display: block;
     }
+
+    h2 {
+      font-weight: bolder;
+      position: relative;
+      padding-bottom:$spacer;
+      margin-bottom:$spacer;
+
+      &:after {
+        content:"";
+        position: absolute;
+        top:100%;
+        left:0;
+        right:0;
+        height:4px;
+        @include gradient-directional($brand-primary, $brand-success);
+      }
+    }
+
+    &__logos {
+      max-width: 100mm;
+      margin:0 auto;
+      margin-top:30mm;
+      position: relative;
+      align-items: center;
+      overflow: hidden;
+
+      .col-xs-3 {
+        position: relative;
+        float:left;
+
+        &:not(:last-child):after {
+          content:"";
+          position: absolute;
+          top:-1000%;
+          bottom:-1000%;
+          left:100%;
+          width:1px;
+          background:rgba($brand-primary, 0.2);
+        }
+      }
+    }
   }
 
   &__inactive {

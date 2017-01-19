@@ -8,6 +8,16 @@
   .main__visualization__introduction
     h2 {{ 'pdf_title' | translate }}
     p.lead(ng-bind-html="'pdf_description' | translate:{ fleets: $ctrl.fleetNamesStr(), now: ($ctrl.now | date:('date_format' | translate)) }")
+    .container.main__visualization__introduction__logos
+      .row.text-center
+        .col-xs-3
+          img.img-fluid(src='/assets/images/epfh.png')
+        .col-xs-3
+          img.img-fluid(src='/assets/images/oeko.png')
+        .col-xs-3
+          img.img-fluid(src='/assets/images/neu.png')
+        .col-xs-3
+          img.img-fluid(src='/assets/images/wbz.png')
   .main__visualization__summary
     .container
       h4 {{ 'summary_title' | translate }}
