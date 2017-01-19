@@ -828,9 +828,11 @@ var VehicleGroup = function(fleet_params, params) {
 		this.traffic_multiplicator = fleet_params.traffic_multiplicator[this.traffic];
 		this.getFixedCosts();
 
-		if (this.energy_type.indexOf("hybrid") > -1 ) {
-			this.checkMaxElecShare();
-		}
+		/* Uncomment to reimplement the limitations on the share of elec driving 
+		 a hybrid vehicle can make */ 
+		// if (this.energy_type.indexOf("hybrid") > -1 ) {
+		// 	this.checkMaxElecShare();
+		// }
 
 		this.getNeededBatterySize()
 		this.getAcquisitionPrice()

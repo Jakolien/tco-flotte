@@ -53,9 +53,9 @@
     "confirm_deletion_message": "Sind Sie sicher?",
     "confirm_deletion_no": "Nein",
     "confirm_deletion_yes": "Ja",
-    "cost_by_car_type": "Kosten nach Größenklassen",
-    "cost_by_energy_type": "Kosten nach Antrieben",
-    "cost_by_group": "Kosten nach Fahrzeugtyp",
+    "cost_by_car_type": "Gesamtkosten (TCO) nach Antrieben",
+    "cost_by_energy_type": "Gesamtkosten (TCO) nach Antrieben",
+    "cost_by_group": "Gesamtkosten (TCO) nach Antrieben",
     "cost_by_position": "Gesamtkosten (TCO) nach Kostenkategorien",
     "cost_per_km": "Kosten pro km",
     "create_a_fleet": "Neue Flotte",
@@ -301,11 +301,11 @@
     "leasing_includes_inspection": "Leasingvertrag enthält Wartung und Inspektion",
     "leasing_includes_repairs":"Leasingvertrag enthält Reparaturen",
     "download": {
-        "preparing": "Ihre PDF wird vorbereitet...",
+        "preparing": "Ihr PDF wird vorbereitet...",
         "description": "Der Download wird automatisch starten.",
         "ready": "Download fertig",
-        "click": "Bitte Klicken Sie hier",
-        "fail": "wenn der Download nicht selbst startet.",
+        "click": "Bitte klicken Sie hier,",
+        "fail": "falls der Download nicht automatisch startet.",
         "close": "Schließen"
     }
 }
