@@ -2012,7 +2012,7 @@
     "interval": 1,
     "hasslider": false,
     "canbeonxaxis": false,
-    "shownonthelist": false,
+    "shownonthelist": true,
     "importancerank": 7,
     "energytype": "hybrid-benzin, hybrid-diesel",
     "preliminary": false,
