@@ -180,6 +180,25 @@
     }
   }
 
+  &__overview {
+    @media print {
+      border:0;
+    }
+
+    table.table {
+      font-size:0.8rem;
+      page-break-inside:avoid;
+
+      td:first-child {
+        width:40%;
+      }
+
+      caption {
+        caption-side: top;
+      }
+    }
+  }
+
   &__view {
     @media print {
       padding:0;

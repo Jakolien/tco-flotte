@@ -21,6 +21,7 @@ import navbar          from '../components/navbar/navbar.component';
 import footer          from '../components/footer/footer.component';
 import sticky          from '../components/sticky/sticky.module';
 import trim            from '../components/trim/trim.filter';
+import metaDisplay     from '../components/meta-display/meta-display.component';
 import main            from './main/main.component';
 import fleets          from './main/fleets/fleets.component';
 import fleetsChartCo2  from './main/fleets/chart-co2/chart-co2.component';
@@ -55,6 +56,7 @@ angular.module('oekoFlotteApp', [
   footer,
   sticky,
   trim,
+  metaDisplay,
   main,
   fleets,
   fleetsChartCo2,

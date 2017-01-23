@@ -38,6 +38,24 @@
               | &nbsp;{{ 'download_as_pdf' | translate }}
 
       .col-md-9.pull-md-3
+        .main__visualization__overview.card.mb-2
+          h3.card-title.mx-2.my-2 {{ 'overview_title' | translate }}
+          .mb-2(ng-repeat="meta in $ctrl.display | filter:{overviewoffindings: true} | orderBy:'overviewoffindingsrank'")
+            h5.card-subtitle.mx-2.mb-1 {{ :: meta.name | translate }}
+            div(ng-if="meta.type === 'stacked_bar'")
+              table.table.table-sm(ng-repeat="fleet in $ctrl.fleets.all()")
+                caption.px-2.pt-0 {{ :: fleet.name }}
+                tbody
+                  tr(ng-repeat="(key, value) in fleet.TCO[meta.name]", ng-if="value !== 0")
+                    td.px-2 {{ :: key | translate }}
+                    td {{ :: value | number:2 }}{{ :: meta.unit | translate }}
+            div(ng-if="meta.type === 'bar'")
+              table.table.table-sm
+                tbody
+                  tr(ng-repeat="fleet in $ctrl.fleets.all()")
+                    td.px-2 {{ :: fleet.name }}
+                    td {{ :: fleet.TCO[meta.name] | number }}{{ :: meta.unit | translate }}
+
         .main__visualization__view
           .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
             chart(meta="meta", ng-if="!meta.bygroup")

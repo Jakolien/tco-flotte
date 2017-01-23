@@ -9,20 +9,15 @@
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
               span.sr-only {{ 'group' | translate }}
             th(ng-repeat="input in $ctrl.summaries")
-              | {{ input.meta.name | translate }}
+              | {{ :: input.meta.name | translate }}
         tbody
           tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
             th
               span.tag(ng-style="{ background: group.vars.group_color  }")
-                | {{ group.name }}
+                | {{ :: group.name }}
             td(ng-repeat="input in $ctrl.summaries")
               span(ng-if=":: input.isVisible(group.insights)")
-                span(ng-if=":: input.meta.type === 'number'")
-                  | {{ group.insights[input.meta.name] | number:input.meta.rounded }}{{ input.meta.unit | translate }}
-                span(ng-if=":: input.meta.type === 'year'")
-                  | {{ group.insights[input.meta.name] }}
-                span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
-                  | {{ group.insights[input.meta.name] | translate }}
+                meta-display(meta="input.meta", value="group.insights[input.meta.name]")
               span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
                 | {{ 'na' | translate }}
     .visible-print-block
@@ -40,11 +35,6 @@
               | {{ input.meta.name | translate }}
             td(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
               span(ng-if=":: input.isVisible(group.insights)")
-                span(ng-if=":: input.meta.type === 'number'")
-                  | {{ group.insights[input.meta.name] | number:input.meta.rounded }}{{ input.meta.unit | translate }}
-                span(ng-if=":: input.meta.type === 'year'")
-                  | {{ group.insights[input.meta.name] }}
-                span(ng-if=":: input.meta.type === 'string' || input.meta.type === 'enum'")
-                  | {{ group.insights[input.meta.name] | translate }}
+                meta-display(meta="input.meta", value="group.insights[input.meta.name]")
               span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
                 | {{ 'na' | translate }}

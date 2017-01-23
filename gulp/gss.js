@@ -8,12 +8,13 @@ import Gss  from 'google-spreadsheet';
 import {paths, clientPath, serverPath} from './paths';
 
 let GSSID = '1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc';
-let NUMBER_FIELDS = ['importancerank', 'interval', 'rounded']
+let NUMBER_FIELDS = ['importancerank', 'interval', 'rounded',
+                     'overviewoffindingsrank']
 let UNWANTED_FIELDS = ['_xml', '_links'];
 let BOOL_FIELDS = ['hasslider', 'hashelp', 'canbeonxaxis', 'shownonthelist',
                    'preliminary', 'editable', 'relative', 'leasingconditions',
                    'bygroup', 'special', 'enable', 'co2chart',
-                   'fleetdata', 'visualization'];
+                   'fleetdata', 'visualization', 'overviewoffindings'];
 
 var prepareRows = function(rows) {
   return _.map(rows, function(row) {
