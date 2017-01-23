@@ -299,6 +299,7 @@
     "leasing_includes_tires":"Leasingvertrag enthält Reifenkosten",
     "leasing_includes_inspection": "Leasingvertrag enthält Wartung und Inspektion",
     "leasing_includes_repairs":"Leasingvertrag enthält Reparaturen",
+    "overview_title": "Übersicht der Ergebnisse",
     "download": {
         "preparing": "Ihr PDF wird vorbereitet...",
         "description": "Der Download wird automatisch starten.",
