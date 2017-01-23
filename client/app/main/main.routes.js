@@ -37,7 +37,13 @@ export default function routes($stateProvider) {
         // Init and get user session
         return Auth.getCurrentUser().then(function(user) {
           // Get all keys stored locally
-          return $q(resolve => fleets.store.keys(resolve)).then(function(keys) {
+          return $q(resolve => fleets.store.all(resolve)).then(function(all) {
+            if (!Auth.isLoggedInSync()) {
+              // Remove expired record
+              all = all.filter(r => !r.expire || r.expire >= Date.now());
+            }
+            // Collect keys
+            const keys = _.map(all, 'key');
             // Get all fleets for this user or the stored keys
             let mine = Restangular.all('fleets').getList({ids: keys.join(',')});
             // Return the promise

@@ -139,6 +139,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       // Bind methods
       this.initialize = this.initialize.bind(this);
       this.update     = this.update.bind(this);
+      this.renew      = this.renew.bind(this);
       this.rename     = this.rename.bind(this);
       this.clean      = this.clean.bind(this);
       this.empty      = this.empty.bind(this);
@@ -169,8 +170,10 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     initSecret() {
       // This fleet has a secret and no owner
       if(this.secret && !this.owner) {
+        // Expire in one hour
+        const expire =  Date.now() + 60 * 60e6;
         // Save the fleet secret for later
-        store.save({ key: this._id, secret: this.secret });
+        store.save({expire, key: this._id, secret: this.secret});
       // This fleet has an owner
       } else if (this.owner) {
         // Remove any existing record
@@ -195,8 +198,22 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     empty() {
       return !this.groups || !this.groups.length || !this.groups.length();
     }
+    renew() {
+      return store.get(this._id, record => {
+        // The fleet has now an owner!
+        if(record && record.secret && !record.owner) {
+          // Increase the expiration date
+          record.expire = Date.now() + 60 * 60e6;
+          // Save again from the store
+          store.save(record);
+        }
+      });
+    }
     update() {
       this.$promise = this.save({ secret: this.secret }).then(function(vars) {
+        // Renew expire time
+        this.renew();
+        // Return a reinitialized fleet
         return this.initialize(vars);
       }.bind(this));
       // Return the instance
