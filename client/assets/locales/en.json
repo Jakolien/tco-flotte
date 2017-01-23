@@ -154,7 +154,7 @@
     "group_variables_all_vehicles_title": "Parameters for this vehicle type",
     "group_variables_all_vehicles_title_special": "Parameters for this mode of transport",
     "group_variables_fleet_title": "Parameters for the entire fleet",
-    "groups_count": "{groups, plural, =0{no vehicles} one{1 vehicle} other{# vehicles}}",
+    "groups_count": "{groups, plural, =0{no vehicle types} one{1 vehicle type} other{# vehicle types}}",
     "groß": "Car large",
     "holding_time": "Holding period",
     "home_link": "Home",

@@ -152,7 +152,7 @@
     "group_variables_all_vehicles_title": "Parameter für diesen Fahrzeugtyp",
     "group_variables_all_vehicles_title_special": "Parameter für dieses Verkehrsmittel",
     "group_variables_fleet_title": "Parameter für die gesamte Flotte",
-    "groups_count": "{groups, plural, =0{kein Fahrzeug} one{1 Fahrzeugtyp} other{# Fahrzeugtypen}}",
+    "groups_count": "{groups, plural, =0{kein Fahrzeugtyp} one{1 Fahrzeugtyp} other{# Fahrzeugtypen}}",
     "groß": "Pkw – Groß",
     "holding_time": "Haltedauer",
     "home_link": "Startseite",
