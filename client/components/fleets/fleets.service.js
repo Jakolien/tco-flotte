@@ -171,7 +171,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       // This fleet has a secret and no owner
       if(this.secret && !this.owner) {
         // Expire in one hour
-        const expire =  Date.now() + 60 * 60e6;
+        const expire =  Date.now() + 60 * 60e3;
         // Save the fleet secret for later
         store.save({expire, key: this._id, secret: this.secret});
       // This fleet has an owner
@@ -203,7 +203,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
         // The fleet has now an owner!
         if(record && record.secret && !record.owner) {
           // Increase the expiration date
-          record.expire = Date.now() + 60 * 60e6;
+          record.expire = Date.now() + 60 * 60e3;
           // Save again from the store
           store.save(record);
         }
