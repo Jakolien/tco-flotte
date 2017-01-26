@@ -59,7 +59,7 @@ router.all('/forgot', function(req, res) {
       // Send the email and continue
       mailer.sendMail({
         to: user.email,
-        from: 'contact@jplusplus.org',
+        from: 'info@oeko.de',
         subject: res.__mf('reset_your_password_subject'),
         text: res.__mf('reset_your_password_body', { url: url, home: home })
       }, done);
