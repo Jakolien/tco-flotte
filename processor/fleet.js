@@ -342,7 +342,7 @@ var Fleet = function(params) {
 	// Values here are temporary
 	this.fleet_presets.CO2_from_manufacturing = {
 		"benzin": {"klein": 4605, "mittel": 5880,"groß": 6782},
-		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 7200, "LNF2": 9500},
+		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 7000, "LNF2": 9500},
 		"hybrid-benzin": {"mittel": 8400,"groß": 10711},
 		"hybrid-diesel": {"groß": 11648},
 		"BEV":    {"klein": 7851, "mittel": 9341,"groß": 13376, "LNF1": 13376, "LNF2": 18058}
@@ -674,7 +674,8 @@ var Fleet = function(params) {
 			"charging_infrastructure":0,
 			"energy_costs": 0, 
 			"fixed_costs": 0, 
-			"variable_costs": 0
+			"variable_costs": 0,
+			"special_groups": 0
 			},
 		"mileage_by_group": {},
 		"cost_by_car_type": {},
@@ -727,6 +728,9 @@ var Fleet = function(params) {
 		this.TCO.cost_by_position.variable_costs += group_insights.TCO.variable_costs
 		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
 		this.TCO.cost_by_position.charging_infrastructure += group_insights.TCO.charging_infrastructure
+		if (group_insights.car_type == "single_size") {
+			this.TCO.cost_by_position.special_groups += group_insights.TCO_simplified.net_cost
+		}
 
 		// CO2 by phase
 		this.TCO.CO2_by_phase["CO2_from_driving"] += group_insights.TCO.CO2_from_driving / 1000000

@@ -481,10 +481,10 @@ var VehicleGroup = function(fleet_params, params) {
 			
 			// Need to take into account the rate of improvement of the previous decade
 			if (this.acquisition_year > 2020) {
-				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2017);
 				this.electricity_consumption *= Math.pow(1+yearly_improvement_second_decade, this.acquisition_year - 2020);
 			} else {
-				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+				this.electricity_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2017);
 			}
 
 			// Just in case
@@ -495,10 +495,10 @@ var VehicleGroup = function(fleet_params, params) {
 
 			// Need to take into account the rate of improvement of the previous decade
 			if (this.acquisition_year > 2020) {
-				this.fuel_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+				this.fuel_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2017);
 				this.fuel_consumption *= Math.pow(1+yearly_improvement_second_decade, this.acquisition_year - 2020);
 			} else {
-				this.fuel_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2014);
+				this.fuel_consumption *= Math.pow(1+yearly_improvement_first_decade, this.acquisition_year - 2017);
 			}
 		}
 
@@ -858,12 +858,12 @@ var VehicleGroup = function(fleet_params, params) {
 		// Cleans some of the properties of this special group
 		this.car_type = "single_size"
 		this.num_of_vehicles = 1
-		this.TCO_simplified.net_cost = this.mileage * eval("this."+ this.energy_type +"_cost_per_km")
+		this.TCO_simplified.net_cost = this.mileage * eval("this."+ this.energy_type +"_cost_per_km") * this.holding_time
 		this.TCO_simplified.charging_infrastructure = 0
 		this.TCO_simplified.energy_costs = 0
 		this.TCO_simplified.variable_costs = 0
 		this.TCO_simplified.fixed_costs = 0
-		this.CO2 = this.mileage * eval("this."+ this.energy_type +"_CO2_per_km")
+		this.CO2 = this.mileage * eval("this."+ this.energy_type +"_CO2_per_km") * this.holding_time
 		// Special case for the Savings group
 		if (this.energy_type == "savings") {
 			this.TCO_simplified.net_cost = 0
