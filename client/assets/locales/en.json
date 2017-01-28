@@ -99,7 +99,7 @@
     "desc40": "The default setting assumes that the electricity price for household customers will continue to rise moderately until 2020. It is expected that the increase of the EEG apportionment (grant for the feed-in of renewable energy within the German Renewable Energy Law) can only be partly compensated by the falling wholesale prices for electricity. After 2020 it is assumed that the EEG apportionment will slowly decline and, thus, electricity prices will drop slightly. For details please see the documentation of this TCO calculator for vehicle fleets (available only in German).",
     "desc41": "The default setting assumes a slow decline of the EEG apportionment (grant for the feed-in of renewable energy within the German Renewable Energy Law) in the years after 2020, resulting in slightly dropping electricity prices. For details please see the documentation of this TCO calculator for vehicle fleets (available only in German).",
     "desc42": "For details see the online calculator documentation (available only in German).",
-    "desc44": "Gross costs. ",
+    "desc44": "Net costs. ",
     "desc5": "Passenger car – small (A: mini, B: small; e.g. smart fortwo, VW Polo)<br>Passenger car  – medium (C: medium, M: multi-purpose; e.g. VW Golf, Mercedes B-Class)<br>Passenger car  – large (D: large, F: luxury, J: sport utility; e.g. VW Passat, Mercedes C-Class, Mercedes S-Class, VW Tiguan, Tesla Model S)<br>Light duty vehicle – small (e.g. VW Caddy, Mercedes Vito)<br>Light duty vehicle – large (e.g. VW Crafter, Mercedes Sprinter)",
     "desc6": "Option to choose the type of battery charging infrastructure.",
     "desc7": "For plug-in-hybrid vehicles, this value represents the fuel consumption in full combustion engine mode.",
@@ -297,6 +297,7 @@
     "leasing_includes_tires":"Leasing contract includes tire costs",
     "leasing_includes_inspection": "Leasing contract includes inspection costs",
     "leasing_includes_repairs":"Leasing contract includes includes repairs",
+    "special_groups": "Alternative modes of transporation",
     "download": {
         "preparing": "Preparing download...",
         "description": "It will start automatically.",
