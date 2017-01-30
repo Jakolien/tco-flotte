@@ -40,22 +40,28 @@
               | &nbsp;{{ 'download_as_pdf' | translate }}
       .col-md-9.pull-md-3
         #overview.main__visualization__overview.card.mb-2
-          h3.card-title.mx-2.my-2 {{ 'overview_title' | translate }}
-          .mb-2(ng-repeat="meta in $ctrl.display | filter:{overviewoffindings: true} | orderBy:'overviewoffindingsrank'")
-            h5.card-subtitle.mx-2.mb-1 {{ :: meta.name | translate }}
-            div(ng-if="meta.type === 'stacked_bar'")
-              table.table.table-sm(ng-repeat="fleet in $ctrl.fleets.all()")
-                caption.px-2.pt-0 {{ :: fleet.name }}
-                tbody
-                  tr(ng-repeat="(key, value) in fleet.TCO[meta.name]", ng-if="value !== 0")
-                    td.px-2 {{ :: key | translate }}
-                    td {{ :: value | number:meta.rounded }}{{ :: meta.unit | translate }}
-            div(ng-if="meta.type === 'bar'")
-              table.table.table-sm
-                tbody
-                  tr(ng-repeat="fleet in $ctrl.fleets.all()")
-                    td.px-2 {{ :: fleet.name }}
-                    td {{ :: fleet.TCO[meta.name] | number:meta.rounded }}{{ :: meta.unit | translate }}
+          h3.card-title.mx-2.my-2.main__visualization__overview__heading {{ 'overview_title' | translate }}
+          table.table.table-sm
+            thead
+              tr
+                th <!-- Empty cell -->
+                th <!-- Empty cell -->
+                th(ng-repeat="fleet in $ctrl.fleets.all()")
+                  | {{ :: fleet.name }}
+            tbody
+              tr(ng-repeat="row in $ctrl.findings")
+                td(ng-if="!row.key", colspan="2")
+                  | {{:: row.name | translate}}
+                td(ng-if="row.key && row.first")
+                  | {{:: row.name | translate}}
+                td(ng-if="row.key && !row.first")
+                  | <!-- Empty cell -->
+                td(ng-if="row.key")
+                  | {{:: row.key | translate}}
+                td(ng-if="!row.key", ng-repeat="fleet in $ctrl.fleets.all()")
+                  | {{ :: fleet.TCO[row.name] | number:row.rounded }}{{ :: row.unit | translate }}
+                td(ng-if="row.key", ng-repeat="fleet in $ctrl.fleets.all()")
+                  | {{ :: fleet.TCO[row.name][row.key] | number:row.rounded }}{{ :: row.unit | translate }}
 
         .main__visualization__view
           .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta")

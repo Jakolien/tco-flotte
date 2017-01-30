@@ -181,13 +181,29 @@
   }
 
   &__overview {
+
     @media print {
       border:0;
+      padding:0;
+      page-break-before:always;
+      page-break-inside:avoid;
+    }
+
+    &__heading {
+
+      @media print {
+        padding:0;
+        margin-left:10mm !important;
+        margin-right:10mm !important;
+      }
     }
 
     table.table {
-      font-size:0.8rem;
-      page-break-inside:avoid;
+      font-size:0.8em;
+      background: $view-bg;
+      border-color: $table-border-color;
+      color: $body-color;
+      margin:0;
 
       td:first-child {
         width:40%;
@@ -195,6 +211,21 @@
 
       caption {
         caption-side: top;
+      }
+
+      @media print {
+        border: $table-border-color 1px solid !important;
+        font-size: .6rem;
+        margin:0 10mm;
+        width:auto;
+
+        td, th {
+          background: $view-bg !important;
+        }
+      }
+
+      td, th {
+        padding:0.5em 0.75em;
       }
     }
   }

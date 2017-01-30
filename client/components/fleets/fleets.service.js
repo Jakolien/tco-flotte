@@ -66,6 +66,12 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       var length = this.push(vars);
       return this.get(length - 1);
     }
+    get first() {
+      return _.first(this.all());
+    }
+    get last() {
+      return _.last(this.all());
+    }
   }
 
   class FleetGroups extends LikeArray {
