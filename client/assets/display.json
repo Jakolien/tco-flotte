@@ -9,7 +9,8 @@
     "bygroup": false,
     "unit": "km_per_year",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "2",
@@ -21,7 +22,8 @@
     "bygroup": false,
     "unit": "km_per_year",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 2
+    "overviewoffindingsrank": 2,
+    "rounded": 0
   },
   {
     "id": "3",
@@ -33,7 +35,8 @@
     "bygroup": false,
     "unit": "tons",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 7
+    "overviewoffindingsrank": 7,
+    "rounded": 0
   },
   {
     "id": "4",
@@ -45,7 +48,8 @@
     "bygroup": false,
     "unit": "€",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 3
+    "overviewoffindingsrank": 3,
+    "rounded": 0
   },
   {
     "id": "5",
@@ -57,7 +61,8 @@
     "bygroup": false,
     "unit": "vehicles",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 1
+    "overviewoffindingsrank": 1,
+    "rounded": 0
   },
   {
     "id": "6",
@@ -69,7 +74,8 @@
     "bygroup": false,
     "unit": "g_per_km",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 8
+    "overviewoffindingsrank": 8,
+    "rounded": 2
   },
   {
     "id": "7",
@@ -81,7 +87,8 @@
     "bygroup": false,
     "unit": "euro_per_km",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 6
+    "overviewoffindingsrank": 6,
+    "rounded": 2
   },
   {
     "id": "8",
@@ -93,7 +100,8 @@
     "bygroup": true,
     "unit": "€",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "9",
@@ -105,7 +113,8 @@
     "bygroup": true,
     "unit": "tons",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "10",
@@ -117,7 +126,8 @@
     "bygroup": false,
     "unit": "€",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 4
+    "overviewoffindingsrank": 4,
+    "rounded": 0
   },
   {
     "id": "11",
@@ -129,7 +139,8 @@
     "bygroup": true,
     "unit": "km_per_year",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "12",
@@ -141,7 +152,8 @@
     "bygroup": false,
     "unit": "€",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "13",
@@ -153,7 +165,8 @@
     "bygroup": false,
     "unit": "€",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 5
+    "overviewoffindingsrank": 5,
+    "rounded": 0
   },
   {
     "id": "14",
@@ -165,7 +178,8 @@
     "bygroup": false,
     "unit": "tons",
     "overviewoffindings": false,
-    "overviewoffindingsrank": null
+    "overviewoffindingsrank": null,
+    "rounded": 0
   },
   {
     "id": "15",
@@ -177,7 +191,8 @@
     "bygroup": false,
     "unit": "tons",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 9
+    "overviewoffindingsrank": 9,
+    "rounded": 0
   },
   {
     "id": "16",
@@ -189,6 +204,7 @@
     "bygroup": false,
     "unit": "tons",
     "overviewoffindings": true,
-    "overviewoffindingsrank": 10
+    "overviewoffindingsrank": 10,
+    "rounded": 0
   }
 ]
