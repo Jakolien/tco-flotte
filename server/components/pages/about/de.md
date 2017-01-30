@@ -6,7 +6,6 @@
 
 ## Datenschutz
 
-Die eingegebenen Daten werden auf Servern von [mLab](https://mlab.com/) gespeichert und auf Servern von [Heroku](http://heroku.com/) bearbeitet. Die Schnittstellen zwischen Ihrem Browser, Heroku und mLab sind alle mit TLS (Transport Layer Security) verschlüsselt.
+Die eingegebenen Daten werden auf Servern von <a href="https://mlab.com/" target="_blank">mLab</a> gespeichert und auf Servern von <a href="http://heroku.com" target="_blank">Heroku</a> bearbeitet. Alle Schnittstellen zwischen Ihrem Browser und diesen Servern sind mit dem TLS-Protokoll (Transport Layer Security) verschlüsselt.
 
-
-Sogennante Session-Cookies wurden im Tool benutzt, um die Sessions zu verwalten. Solchen Cookies entsprechen die Kriterien unter Criterion B im "[Opinion 04/2012 on Cookie Consent Exemption](http://ec.europa.eu/justice/data-protection/article-29/documentation/opinion-recommendation/files/2012/wp194_en.pdf)".
+Zum Verwalten der Sitzungen werden sogenannte „Sitzungs-Cookies“ verwendet. Diese Cookies entsprechen den Kriterien, die in der EU-Cookie-Richtlinie <a href="http://ec.europa.eu/justice/data-protection/article-29/documentation/opinion-recommendation/files/2012/wp194_en.pdf" target="_blank">"Opinion 04/2012 on Cookie Consent Exemption"</a> unter Criterion B aufgeführt sind.
