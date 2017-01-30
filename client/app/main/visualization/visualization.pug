@@ -29,6 +29,8 @@
           ul.list-unstyled
             li(du-scrollspy="raw-summary")
               a(href="#raw-summary", du-smooth-scroll="") {{ 'summary_title' | translate }}
+            li(du-scrollspy="overview")
+              a(href="#overview", du-smooth-scroll="") {{ 'overview_title' | translate }}
             li(ng-repeat="meta in $ctrl.display", du-scrollspy="{{ meta.name }}")
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
             li(du-scrollspy="raw-basic")
@@ -37,7 +39,7 @@
               i.fa.fa-file-pdf-o.fa-fw
               | &nbsp;{{ 'download_as_pdf' | translate }}
       .col-md-9.pull-md-3
-        .main__visualization__overview.card.mb-2
+        #overview.main__visualization__overview.card.mb-2
           h3.card-title.mx-2.my-2 {{ 'overview_title' | translate }}
           .mb-2(ng-repeat="meta in $ctrl.display | filter:{overviewoffindings: true} | orderBy:'overviewoffindingsrank'")
             h5.card-subtitle.mx-2.mb-1 {{ :: meta.name | translate }}
