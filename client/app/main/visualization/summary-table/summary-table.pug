@@ -1,5 +1,5 @@
-.summary-table(id="raw-summary", ng-if="$ctrl.fleets.isActive()")
-  .summary-table__fleet(ng-repeat="fleet in $ctrl.fleets.all()")
+.summary-table(id="raw-summary", ng-if="::$ctrl.fleets.isActive()")
+  .summary-table__fleet(ng-repeat="fleet in :: $ctrl.fleets.all()")
     h5.summary-table__fleet__heading {{ fleet.name }}
     .table-responsive.hidden-print
       table.table(ng-class="{ 'table-inverse': $ctrl.inverse }")
@@ -8,10 +8,10 @@
             th(style="min-width: 5em")
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
               span.sr-only {{ 'group' | translate }}
-            th(ng-repeat="input in $ctrl.summaries")
+            th(ng-repeat="input in :: $ctrl.summaries")
               | {{ :: input.meta.name | translate }}
         tbody
-          tr(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+          tr(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
             th
               span.tag(ng-style="{ background: group.vars.group_color  }")
                 | {{ :: group.name }}
@@ -26,15 +26,15 @@
           tr
             th
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
-            th(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+            th(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
               span.tag(ng-style="{ background: group.vars.group_color  }")
-                | {{ group.name }}
+                | {{ :: group.name }}
         tbody
           tr(ng-repeat="input in $ctrl.summaries")
             th
-              | {{ input.meta.name | translate }}
-            td(ng-repeat="group in fleet.groups.all() | filter:{ special: false }")
+              | {{ :: input.meta.name | translate }}
+            td(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
               span(ng-if=":: input.isVisible(group.insights)")
                 meta-display(meta="input.meta", value="group.insights[input.meta.name]")
               span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
-                | {{ 'na' | translate }}
+                | {{ :: 'na' | translate }}

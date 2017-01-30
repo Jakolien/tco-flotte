@@ -6,7 +6,7 @@
       chart-size(chart-width="{{ :: $root.chartWidth }}")
       chart-column(column-id="x",
                    column-values="{{ :: $ctrl.columnNames() }}")
-      chart-column(ng-repeat="group in $ctrl.chart.groups",
+      chart-column(ng-repeat="group in ::$ctrl.chart.groups",
                    column-id="{{ :: group.id }}",
                    column-name="{{ :: group.label }}",
                    column-values="{{ :: group.values }}",

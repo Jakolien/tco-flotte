@@ -1,7 +1,7 @@
 .chart-grouped(id="{{ :: $ctrl.meta.name }}",
                       ng-class="{ 'chart--rendered': $ctrl.rendered >= $ctrl.fleetCharts.length }")
   h3.chart-grouped__heading.hidden-print(sticky="") {{ :: $ctrl.meta.name | translate }}
-  .chart-grouped__chart(ng-repeat="chart in $ctrl.fleetCharts")
+  .chart-grouped__chart(ng-repeat="chart in ::$ctrl.fleetCharts")
     h3.chart-grouped__heading.visible-print-block {{ :: $ctrl.meta.name | translate }}
     .card
       h4.chart-grouped__chart__heading.card-block {{ :: chart.fleet.name }}

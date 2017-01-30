@@ -46,10 +46,10 @@
               tr
                 th <!-- Empty cell -->
                 th <!-- Empty cell -->
-                th(ng-repeat="fleet in $ctrl.fleets.all()")
+                th(ng-repeat="fleet in ::$ctrl.fleets.all()")
                   | {{ :: fleet.name }}
             tbody
-              tr(ng-repeat="row in $ctrl.findings")
+              tr(ng-repeat="row in ::$ctrl.findings")
                 td(ng-if="!row.key", colspan="2")
                   | {{:: row.name | translate}}
                 td(ng-if="row.key && row.first")
