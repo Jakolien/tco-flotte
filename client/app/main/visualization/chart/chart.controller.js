@@ -15,6 +15,17 @@ export default class ChartComponent {
     $log.log('Rendering %s with %s fleet(s)', this.meta.name, fleets.length());
     // Dependancies available in instance
     angular.extend(this, { fleets, appConfig, $translate, $filter });
+    // Bind to instance
+    this.tco          = this.tco.bind(this);
+    this.bindChart    = this.bindChart.bind(this);
+    this.addUnitTo    = this.addUnitTo.bind(this);
+    this.colors       = this.colors.bind(this);
+    // Memoize some heavy methods
+    this.columnNames  = _.memoize(this.columnNames.bind(this));
+    this.columnValues = _.memoize(this.columnValues.bind(this));
+    this.groups       = _.memoize(this.groups.bind(this));
+    this.values       = _.memoize(this.values.bind(this));
+    this.yValues      = _.memoize(this.yValues.bind(this));
     // Create chart object
     this.chart = {
       meta: this.meta,
@@ -26,16 +37,6 @@ export default class ChartComponent {
         return _.map(this.groups, 'name')
       }
     };
-    // Bind to instance
-    this.colors       = this.colors.bind(this);
-    this.columnNames  = this.columnNames.bind(this);
-    this.columnValues = this.columnValues.bind(this);
-    this.tco          = this.tco.bind(this);
-    this.groups       = this.groups.bind(this);
-    this.bindChart    = this.bindChart.bind(this);
-    this.addUnitTo    = this.addUnitTo.bind(this);
-    this.values       = this.values.bind(this);
-    this.yValues      = this.yValues.bind(this);
     // Number of times the chart have been rendered
     this.rendered = 0;
     // Save the max value
