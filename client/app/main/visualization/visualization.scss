@@ -190,7 +190,6 @@
     }
 
     &__heading {
-
       @media print {
         padding:0;
         margin-left:10mm !important;
@@ -268,6 +267,10 @@
           }
         }
       }
+    }
+
+    &__chart {
+      min-height: 320px;
     }
 
     &__raw {

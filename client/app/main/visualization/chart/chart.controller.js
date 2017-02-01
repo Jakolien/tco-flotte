@@ -11,7 +11,8 @@ const LEASING_INCLUDES = [
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig, $translate, $filter) {
+  constructor(fleets, appConfig, $translate, $filter, $log) {
+    $log.log('Rendering %s with %s fleet(s)', this.meta.name, fleets.length());
     // Dependancies available in instance
     angular.extend(this, { fleets, appConfig, $translate, $filter });
     // Create chart object

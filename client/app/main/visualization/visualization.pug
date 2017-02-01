@@ -64,9 +64,9 @@
                   | {{ :: fleet.TCO[row.name][row.key] | number:row.rounded }}{{ :: row.unit | translate }}
 
         .main__visualization__view
-          .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta")
-            chart(meta="meta", ng-if="!meta.bygroup")
-            chart-grouped(meta="meta", ng-if=" meta.bygroup")
+          .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta", in-view="meta.render = true")
+            chart(meta="meta", ng-if="meta.render && !meta.bygroup")
+            chart-grouped(meta="meta", ng-if="meta.render && meta.bygroup")
           .main__visualization__view__raw.card
             .card-block
               h3 {{ 'basic_information_title' | translate }}

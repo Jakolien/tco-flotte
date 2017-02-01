@@ -8,6 +8,7 @@ import ngSlider      from 'angularjs-slider';
 import stickyfill    from 'Stickyfill/dist/stickyfill';
 import duScroll      from 'angular-scroll';
 import match         from 'angular-validation-match';
+import 'angular-inview'
 // C3 angular
 import c3 from 'c3';
 import 'c3-angular';
@@ -51,6 +52,7 @@ angular.module('oekoFlotteApp', [
   'colorpicker.module',
   'gridshore.c3js.chart',
   'mwl.confirm',
+  'angular-inview',
   account,
   navbar,
   footer,

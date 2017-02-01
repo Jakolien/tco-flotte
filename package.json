@@ -12,6 +12,7 @@
     "angular-cookies": "~1.5.5",
     "angular-dynamic-locale": "^0.1.32",
     "angular-growl-v2": "^0.7.5",
+    "angular-inview": "^2.1.0",
     "angular-loading-bar": "^0.9.0",
     "angular-minicolors": "0.0.9",
     "angular-resource": "~1.5.5",

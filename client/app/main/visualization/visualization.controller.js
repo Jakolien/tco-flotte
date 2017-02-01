@@ -5,7 +5,7 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate, DynamicInput) {
+  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate, DynamicInput, printMode) {
     angular.extend(this, { fleets, $uibModal, $scope, Restangular, $timeout });
     // Bind method context
     this.openDownload    = this.openDownload.bind(this);
@@ -14,6 +14,7 @@ export default class VisualizationComponent {
     this.fleetNamesStr   = this.fleetNamesStr.bind(this);
     // Filter enabled display
     this.display = _.filter(this.display, {visualization: true});
+    this.display = _.each(this.display, d => d.render = printMode);
     // Display overview
     this.findings = _.chain(this.display)
       .filter({overviewoffindings: true})
