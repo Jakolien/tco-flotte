@@ -6,13 +6,19 @@ import angular from 'angular';
 export default class ChartGroupedComponent {
   /*@ngInject*/
   constructor(fleets, $translate, $filter) {
+    // A symbol to create private property holding memos
+    const _memo = Symbol('memo');
+
     class FleetChart {
       constructor(fleet, meta) {
         angular.extend(this, { fleet, meta });
+        // Add memo hash to this instance
+        this[_memo] = {};
         // Number of times the charts have been rendered
         this.rendered = 0;
         this.bindChart = this.bindChart.bind(this);
         this.addUnitTo = this.addUnitTo.bind(this);
+        this.colors
       }
       bindChart(chart) {
         this.addUnitTo(chart)
@@ -27,12 +33,22 @@ export default class ChartGroupedComponent {
         // Add the
         last.html( last.html() + unit);
       }
+      memoize(name, fn, ...args) {
+        if(this[_memo].hasOwnProperty(name)) {
+          return this[_memo][name](...args);
+        }
+        this[_memo][name] = _.memoize(fn);
+        // Recurcive call
+        return this.memoize(name, fn, ...args);
+      }
       get unit() {
         return $translate.instant(this.meta.unit) || '';
       }
       get groups() {
-        return _.filter(this.fleet.groups.all(), (group) =>{
-          return this.fleet.TCO[this.meta.name][group.name] > 0;
+        return this.memoize('groups', () => {
+          return _.filter(this.fleet.groups.all(), (group) =>{
+            return this.fleet.TCO[this.meta.name][group.name] > 0;
+          });
         });
       }
       get columns() {
@@ -51,15 +67,19 @@ export default class ChartGroupedComponent {
         return `${this.fleet._id}-${this.meta.name}`;
       }
       get values() {
-        return this.groups.map( function(group) {
-          return this.fleet.TCO[this.meta.name][group.name]
-        }.bind(this));
+        return this.memoize('values', () => {
+          return this.groups.map( function(group) {
+            return this.fleet.TCO[this.meta.name][group.name]
+          }.bind(this));
+        });
       }
       get valuesStr() {
         return this.values.join(',');
       }
       get colors() {
-        return this.groups.map(g => g.vars.group_color);
+        return this.memoize('colors', () => {
+          return this.groups.map(g => g.vars.group_color)
+        });
       }
       get colorsFn() {
         return (color, value)=> this.colors[value.index];
