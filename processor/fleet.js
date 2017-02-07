@@ -4,7 +4,7 @@ var vehicle_group = require('./vehicle_group');
 var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
-var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW"];
+var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW","Ladesäule 50kW DC"];
 var year_min = 2017;
 var year_max = 2050;
 // Special groups energy type
@@ -104,12 +104,12 @@ var Fleet = function(params) {
 	// Increase in acquisition prices
 	this.fleet_presets.kostensteigerung20102030 = {
 		"benzin":{
-			"klein": 0.13769970166402,
-			"mittel": 0.06650397416879,
-			"groß": 0.03657428879589
+			"klein": 0.1376997017,
+			"mittel": 0.06650397417,
+			"groß": 0.0365742888
 		},
 		"diesel":{
-			"klein": 0.08550544026416,
+			"klein": 0.08550544026,
 			"mittel": 0.03211188878158,
 			"groß": 0.02215547961983,
 			"LNF1": .01,
@@ -127,16 +127,16 @@ var Fleet = function(params) {
 			"LNF2": 0
 		},
 		"hybrid-benzin": {
-			"mittel": 11482,
-			"groß": 17231
+			"mittel": 5728,
+			"groß": 4917
 		},
 		"hybrid-diesel": {
-			"groß": 29598
+			"groß": 15078
 		},
 		"BEV":{
-			"klein":{"2016": 3696},
-			"mittel":{"2016": 4083},
-			"groß":{"2016": 21153},
+			"klein":{"2016": 4096},
+			"mittel":{"2016": 4333},
+			"groß":{"2016": 21753},
 			"LNF1":{"2016": 2000},
 			"LNF2":{"2016": 2500}
 		}
@@ -150,7 +150,7 @@ var Fleet = function(params) {
 		"2014": 400.0,
 		"2015": 380.0,
 		"2016": 200.0,
-		"2017": 200.0,
+		"2017": 190.0,
 		"2018": 170.0,
 		"2019": 155.0,
 		"2020": 145.0
@@ -184,9 +184,11 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option2_num = 0
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3,7kW": { "acquisition": 350, "maintenance": 15},
-		"Wallbox bis 22kW": { "acquisition": 800, "maintenance": 50},
-		"Ladesäule 22kW": { "acquisition": 2600, "maintenance": 330}
+		"Wallbox 3,7kW": { "acquisition": 840, "maintenance": 12.61},
+		"Wallbox 22kW": { "acquisition": 1092, "maintenance": 42.02},
+		"Ladesäule 22kW": { "acquisition": 2100, "maintenance": 277},
+		"Ladesäule 43kW": { "acquisition": 2250, "maintenance": 277},
+		"Ladesäule 50kW DC": {"acquisition": 29412, "maintenance": 1681}
 	}
 
 	// Variables for evolution of energy consumption in % of reduction per decade
@@ -209,20 +211,20 @@ var Fleet = function(params) {
 
 	// Consumption in liters 
 	this.fleet_presets.verbrauch = {
-		"benzin": {"klein": 6.72, "mittel": 7.69,"groß": 8.53},
-		"diesel": {"klein": 5.16, "mittel": 5.61,"groß": 6.22, "LNF1": 7.67, "LNF2": 8.95},
+		"benzin": {"klein": 6.48, "mittel": 7.576,"groß": 8.777},
+		"diesel": {"klein": 5.159, "mittel": 5.767,"groß": 6.623, "LNF1": 7.67, "LNF2": 8.95},
 		"hybrid-benzin": {"mittel": 6.574, "groß": 7.7},
 		"hybrid-diesel": {"groß": 7.762}
 		}
 	// Consumption in kWh/km
 	this.fleet_presets.electro_verbrauch = {
 		"BEV":    {"klein": 0.133, "mittel": 0.15,"groß": .2, "LNF1": .2, "LNF2": .28},
-		"hybrid-diesel": {"groß": .21},
-		"hybrid-benzin": {"mittel": .155 , "groß": .19}
+		"hybrid-diesel": {"groß": 0.2363},
+		"hybrid-benzin": {"mittel": 0.1612 , "groß": 0.2057}
 	}
 
 	// Hybrid lubricant consumption discount
-	this.fleet_presets.hybrid_minderverbrauch_schmierstoff = .45
+	this.fleet_presets.hybrid_minderverbrauch_schmierstoff = .2
 
 	//Number of days in the year when the vehicle is in use
 	this.fleet_presets.einsatztage_pro_jahr = 250

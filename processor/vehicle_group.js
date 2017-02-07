@@ -56,19 +56,19 @@ var VehicleGroup = function(fleet_params, params) {
 
 	// Variables of the special groups
 	this.long_distance_train_CO2_per_km = 41
-	this.long_distance_train_cost_per_km = .9
+	this.long_distance_train_cost_per_km = 0.1168
 	this.short_distance_train_CO2_per_km = 69
-	this.short_distance_train_cost_per_km = .7
+	this.short_distance_train_cost_per_km = 0.288
 	this.rental_bev_CO2_per_km = 77
 	this.rental_bev_cost_per_km = 0.3
 	this.rental_gas_CO2_per_km = 181
 	this.rental_gas_cost_per_km = 0.3
 	this.bike_CO2_per_km = 4.2
-	this.bike_cost_per_km = 0
+	this.bike_cost_per_km = 0.00168
 	this.plane_CO2_per_km = 196
-	this.plane_cost_per_km = 1.5 
+	this.plane_cost_per_km = 0.2798 
 	this.businessplane_CO2_per_km = 366
-	this.businessplane_cost_per_km = 3.5
+	this.businessplane_cost_per_km = 0.6
 
 	for(var prop in params) {
     if( params.hasOwnProperty(prop) && this.hasOwnProperty(prop) ) {
