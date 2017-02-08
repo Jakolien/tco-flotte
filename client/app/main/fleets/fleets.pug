@@ -27,6 +27,16 @@
                   input.form-control(type="text", ng-model="$ctrl.fleet.name", ng-blur="$ctrl.fleet.rename()", id="name-input", ng-disabled="$ctrl.fleet.loading")
                   label.input-group-addon(for="name-input")
                     i.fa.fa-edit
+                  button.btn.input-group-addon(type="button",
+                    mwl-confirm,
+                    message="{{ 'confirm_deletion_message' | translate }}",
+                    confirm-button-type="danger",
+                    placement="bottom",
+                    confirm-text="{{ 'confirm_deletion_yes' | translate }}",
+                    cancel-text="{{ 'confirm_deletion_no' | translate }}",
+                    on-confirm="$ctrl.delete()")
+                    i.fa.fa-fw.fa-trash
+                    span.sr-only {{ 'delete' | translate }}
               h5.main__fleets__view__groups__heading
                 | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row
@@ -88,16 +98,6 @@
                 button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                   i.fa.fa-fw.fa-files-o
                   | &nbsp;{{ 'duplicate' | translate }}
-                =" | "
-                button.btn.btn-link(type="button",
-                  mwl-confirm,
-                  message="{{ 'confirm_deletion_message' | translate }}",
-                  confirm-button-type="danger",
-                  confirm-text="{{ 'confirm_deletion_yes' | translate }}",
-                  cancel-text="{{ 'confirm_deletion_no' | translate }}",
-                  on-confirm="$ctrl.delete()")
-                  i.fa.fa-fw.fa-trash
-                  span.sr-only {{ 'delete' | translate }}
 
             .col-md.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
               h4.main__fleets__view__compare__heading {{ 'fleet_data_title' | translate }}
