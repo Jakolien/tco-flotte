@@ -52,6 +52,11 @@
                       | {{ 'add_vehicles_group' | translate }}
 
               .float-xs-right
+                a.btn.btn-info(ng-attr-href="{{ 'how_optimise_link' | translate }}", target="_blank")
+                  | <i class="fa fa-external-link fa-fw small"></i>
+                  | {{ 'how_optimise_btn' | translate }}
+
+              .float-xs-right
                 button.btn.btn-secondary.btn-sm(ng-class="{ 'active': $ctrl.displayCo2 }", ng-click="$ctrl.displayCo2 = !$ctrl.displayCo2")
                   i.fa.fa-bar-chart
                   | &nbsp;{{ 'see_co2_emissions' | translate }}
@@ -79,10 +84,6 @@
 
 
               .main__fleets__view__groups__footer
-                .float-xs-right
-                  a.btn.btn-info(ng-attr-href="{{ 'how_optimise_link' | translate }}", target="_blank")
-                    | <i class="fa fa-external-link fa-fw small"></i>
-                    | {{ 'how_optimise_btn' | translate }}
 
                 button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
                   i.fa.fa-fw.fa-files-o
