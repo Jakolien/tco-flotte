@@ -32,7 +32,8 @@
     "charging_infrastructure": "Charging Infrastructure",
     "charging_option": "Charging device type",
     "charging_option2": "Second charging option",
-    "charging_option_cost": "Charging infrastructure cost over the whole holding time",
+    "charging_option_cost": "Charging infrastructure operating cost",
+    "maintenance_costs_charger_display": "Charging infrastructure operating cost",
     "charging_option_num": "Number of charging devices (first option)",
     "chart_leasing_alert": "Acquisition costs include services that are part to the leasing contract.",
     "CO2": "CO₂ emissions",
@@ -300,6 +301,7 @@
     "leasing_includes_repairs":"Leasing contract includes repairs",
     "special_groups": "Alternative modes of transporation",
     "desc_haltedauer": "The TCO are calculated for the entire holding period.",
+    "single_size": "n/a",
     "download": {
         "preparing": "Preparing download ...",
         "description": "Download will start automatically.",
