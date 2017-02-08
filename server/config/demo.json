@@ -36,7 +36,7 @@
     {
       "name": "Optimierte Flotte",
       "vars": {
-        "charging_option": "Wallbox bis 22kW",
+        "charging_option": "Wallbox 22kW",
         "charging_option_num": 1
       },
       "groups": [
@@ -123,7 +123,7 @@
     {
       "name": "Optimized fleet Acme Ltd.",
       "vars": {
-        "charging_option": "Wallbox bis 22kW",
+        "charging_option": "Wallbox 22kW",
         "charging_option_num": 1
       },
       "groups": [
