@@ -51,11 +51,11 @@
                     .main__fleets__view__groups__item__add-group
                       | {{ 'add_vehicles_group' | translate }}
 
-              .float-xs-right
-                a.btn.btn-info(ng-attr-href="{{ 'how_optimise_link' | translate }}", target="_blank")
+              .text-xs-right.mb-1.main__fleets__view__how-to-optimise
+                a.btn.btn-info.btn-sm(ng-attr-href="{{ 'how_optimise_link' | translate }}", target="_blank")
                   | <i class="fa fa-external-link fa-fw small"></i>
                   | {{ 'how_optimise_btn' | translate }}
-
+              .clearfix
               .float-xs-right
                 button.btn.btn-secondary.btn-sm(ng-class="{ 'active': $ctrl.displayCo2 }", ng-click="$ctrl.displayCo2 = !$ctrl.displayCo2")
                   i.fa.fa-bar-chart
