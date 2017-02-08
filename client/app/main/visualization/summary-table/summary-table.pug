@@ -11,7 +11,7 @@
             th(ng-repeat="input in :: $ctrl.summaries")
               | {{ :: input.meta.name | translate }}
         tbody
-          tr(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
+          tr(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
             th
               span.tag(ng-style="{ background: group.vars.group_color  }")
                 | {{ :: group.name }}
@@ -26,14 +26,14 @@
           tr
             th
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
-            th(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
+            th(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
               span.tag(ng-style="{ background: group.vars.group_color  }")
                 | {{ :: group.name }}
         tbody
           tr(ng-repeat="input in $ctrl.summaries")
             th
               | {{ :: input.meta.name | translate }}
-            td(ng-repeat="group in :: fleet.groups.all() | filter:{ special: false }")
+            td(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
               span(ng-if=":: input.isVisible(group.insights)")
                 meta-display(meta="input.meta", value="group.insights[input.meta.name]")
               span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")

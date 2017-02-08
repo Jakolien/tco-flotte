@@ -21,7 +21,7 @@
   .main__visualization__summary(ng-if="$ctrl.fleets.isActive()")
     .container
       h4 {{ 'summary_title' | translate }}
-      summary-table(fleets="$ctrl.fleets", summaries="$ctrl.summaries")
+      summary-table(fleets="$ctrl.fleets", summaries="$ctrl.summaries", special="true")
   .container(ng-if="$ctrl.fleets.isActive()")
     .row
       .col-md-3.push-md-9
