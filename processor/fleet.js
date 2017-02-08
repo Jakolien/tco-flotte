@@ -5,7 +5,7 @@ var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
 var energy_types_electro = ["hybrid-benzin", "hybrid-diesel", "BEV"]
-var charging_options = ["Keine","Wallbox 3,7kW","Wallbox bis 22kW","Ladesäule 22kW","Ladesäule 50kW DC"];
+var charging_options = ["Keine","Wallbox 3,7kW","Wallbox 22kW","Ladesäule 22kW","Ladesäule 50kW DC"];
 var year_min = 2017;
 var year_max = 2050;
 // Special groups energy type
@@ -16,7 +16,7 @@ const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
 var Fleet = function(params) {
 	this.fleet_presets = {}
 	this.fleet_presets.fleet_size = 0
-	this.fleet_presets.fleet_size_electro = 0
+	this.fleet_presets.groups_electro = 0
 
 	// Calculates the number of vehicles
 	params.groups.forEach(function(group, i) {
@@ -26,8 +26,8 @@ var Fleet = function(params) {
 		}
 		if( SG_ENERGY_TYPES.indexOf(group.vars.energy_type) == -1 ) {
 			this.fleet_presets.fleet_size += group.vars.num_of_vehicles
-			if (group.vars.energy_type.indexOf(energy_types_electro)) {
-				this.fleet_presets.fleet_size_electro += group.vars.num_of_vehicles
+			if (energy_types_electro.indexOf(group.vars.energy_type) > -1) {
+				this.fleet_presets.groups_electro += 1
 			}
 		}
 	}, this);
@@ -578,7 +578,7 @@ var Fleet = function(params) {
 	// Updates the variables in case the Fleet receives user-input variables
 	// The list of charging options and number of elec vehicles cannot be modified
 	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "fleet_size" && prop != "fleet_size_electro" ) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "fleet_size" && prop != "groups_electro" ) {
 			this.fleet_presets[prop] = params.vars[prop]
 		}
 	}
@@ -790,7 +790,10 @@ module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
 
 // var myFleet = new Fleet({
-//   vars: "",
+//   vars: {
+// 	"charging_option": "Wallbox 22kW",
+//         "charging_option_num": 1
+// },
 //   groups: [
 //     {
 //       "name": "Small Elec",
@@ -842,4 +845,4 @@ module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
 //   ]
 // })
 
-// console.log(myFleet.TCO)
+// console.log(myFleet.groups[1])

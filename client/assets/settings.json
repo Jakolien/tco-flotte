@@ -159,7 +159,7 @@
     "editable": true,
     "context": "VehicleGroup",
     "special": false,
-    "report": "Summary"
+    "report": "Basic information for the calculation"
   },
   {
     "id": "74",
@@ -186,7 +186,7 @@
     "editable": true,
     "context": "VehicleGroup",
     "special": false,
-    "report": "Basic information for the calculation"
+    "report": "Summary"
   },
   {
     "id": "65",
@@ -402,7 +402,7 @@
     "editable": false,
     "context": "Fleet",
     "special": false,
-    "report": "Basic information for the calculation"
+    "report": null
   },
   {
     "id": "16",
@@ -430,6 +430,33 @@
     "context": "Fleet",
     "special": false,
     "report": null
+  },
+  {
+    "id": "70",
+    "label": "maintenance_costs_charger_display",
+    "name": "maintenance_costs_charger_display",
+    "description": null,
+    "unit": "euro_per_year",
+    "rounded": 0,
+    "type": "number",
+    "section": "Charging option",
+    "values": "0..100000",
+    "default": null,
+    "hashelp": false,
+    "interval": 1,
+    "hasslider": false,
+    "canbeonxaxis": false,
+    "shownonthelist": false,
+    "importancerank": 50,
+    "energytype": null,
+    "preliminary": false,
+    "co2chart": null,
+    "hiddenby": null,
+    "parentname": null,
+    "editable": false,
+    "context": "VehicleGroup",
+    "special": false,
+    "report": "Basic information for the calculation"
   },
   {
     "id": "59",

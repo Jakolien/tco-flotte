@@ -19,6 +19,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.reichweite = 150
 	this.energy_source = fleet_params.energy_source
 	this.fleet_size = fleet_params.fleet_size
+	this.maintenance_costs_charger_display = 0
 	this.charging_option_cost = (fleet_params.charging_option_unitary_cost * fleet_params.charging_option_num + fleet_params.charging_option2_unitary_cost * fleet_params.charging_option2_num) / this.fleet_size
 	this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / this.fleet_size
 	this.energy_prices = fleet_params.energy_prices
@@ -76,11 +77,6 @@ var VehicleGroup = function(fleet_params, params) {
 			this[prop] = params[prop]
 			
 		}
-	}
-
-	// No maintenance_costs_charger for non-electro vehicles
-	if (this.energy_type.indexOf(energy_types_electro)) {
-		this.maintenance_costs_charger_display = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / this.fleet_size_electro
 	}
 
 	this.share_electric_temp = this.share_electric
@@ -834,6 +830,13 @@ var VehicleGroup = function(fleet_params, params) {
 		this.traffic_multiplicator = fleet_params.traffic_multiplicator[this.traffic];
 		this.getFixedCosts();
 
+		// No maintenance_costs_charger for non-electro vehicles
+		if (energy_types_electro.indexOf(this.energy_type) > -1) {
+			this.maintenance_costs_charger_display = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / fleet_params.groups_electro
+		} else {
+			this.maintenance_costs_charger_display = 0
+		}
+		
 		/* Uncomment to reimplement the limitations on the share of elec driving 
 		 a hybrid vehicle can make */ 
 		// if (this.energy_type.indexOf("hybrid") > -1 ) {
