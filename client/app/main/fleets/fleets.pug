@@ -80,7 +80,8 @@
 
               .main__fleets__view__groups__footer
                 .float-xs-right
-                  button.btn.btn-info(ng-click="$ctrl.optimise()")
+                  a.btn.btn-info(ng-attr-href="{{ 'how_optimise_link' | translate }}", target="_blank")
+                    | <i class="fa fa-external-link fa-fw small"></i>
                     | {{ 'how_optimise_btn' | translate }}
 
                 button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")

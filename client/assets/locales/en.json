@@ -160,6 +160,7 @@
     "home_link": "Home",
     "about_link": "About",
     "how_optimise_btn": "How to optimize a fleet of vehicles?",
+    "how_optimise_link": "http://www.epowered-fleets-hamburg.de/fleet-calculator-e-mobility/",
     "how_to_optimise_body": "As a first step, you should check if certain mileages can be shifted to other means of transport that have lower costs and/or lower CO₂ emissions per kilometer (e.g. train or e-bike). Secondly, you should check if certain vehicles can be replaced by electric vehicles or if the number of vehicles can generally be reduced in the fleet.",
     "how_to_optimise_title": "How to optimize a fleet of vehicles",
     "hybrid-benzin": "Plug-in hybrid or Range extender (gasoline)",
