@@ -16,10 +16,10 @@
               span.tag(ng-style="{ background: group.vars.group_color  }")
                 | {{ :: group.name }}
             td(ng-repeat="input in $ctrl.summaries")
-              span(ng-if=":: input.isVisible(group.insights)")
+              span(ng-if=":: group.insights[input.meta.name] !== undefined")
                 meta-display(meta="input.meta", value="group.insights[input.meta.name]")
-              span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
-                | {{ 'na' | translate }}
+              span(ng-if=":: group.insights[input.meta.name] === undefined ")
+                | {{ :: 'na' | translate }}
     .visible-print-block
       table.table
         thead
@@ -34,7 +34,7 @@
             th
               | {{ :: input.meta.name | translate }}
             td(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
-              span(ng-if=":: input.isVisible(group.insights)")
+              span(ng-if=":: group.insights[input.meta.name] !== undefined")
                 meta-display(meta="input.meta", value="group.insights[input.meta.name]")
-              span(ng-if=":: !input.isVisible(group.insights) || group.insights[input.meta.name] === undefined")
+              span(ng-if=":: group.insights[input.meta.name] === undefined ")
                 | {{ :: 'na' | translate }}
