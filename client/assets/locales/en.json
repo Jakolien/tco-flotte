@@ -187,7 +187,7 @@
     "long_distance_train": "Train (Long Distance)",
     "long_distance_train_CO2_per_km": "CO₂ emissions",
     "long_distance_train_cost_per_km": "Cost",
-    "main_intro": "Simulate the impact of electric vehicles on costs and CO₂ emissions of your fleet.",
+    "main_intro": "Simulate the impact of electric vehicles on costs and CO₂ emissions of your fleet.<br><br>Please register to save your data. All data from non-registered user will be destroyed after one hour of inactivity.",
     "main_note": "The Total Cost of Ownership (TCO) calculator for vehicle fleets was created by Öko-Institut as part of the project \"ePowered Fleets Hamburg\".",
     "main_purpose": "for vehicle fleets",
     "main_title": "TCO Calculator",

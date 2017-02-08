@@ -187,7 +187,7 @@
     "long_distance_train": "Bahn (Fernverkehr)",
     "long_distance_train_CO2_per_km": "CO₂-Ausstoß",
     "long_distance_train_cost_per_km": "Kosten",
-    "main_intro": "Simulieren Sie, welchen Einfluss der Einsatz von Elektrofahrzeugen auf die Kosten und den CO₂-Ausstoß Ihrer Flotte hat.",
+    "main_intro": "Simulieren Sie, welchen Einfluss der Einsatz von Elektrofahrzeugen auf die Kosten und den CO₂-Ausstoß Ihrer Flotte hat.<br><br>Bitte registrieren, um Ihre Daten zu speichern. Alle Daten von nicht angemeldeten Nutzern werden nach einer Stunden ohne Tätigkeit auf dem Tool gelöscht.",
     "main_note": "Der TCO-Rechner für Fahrzeugflotten wurde vom Öko-Institut im Rahmen des Projekts \"ePowered Fleets Hamburg\" entwickelt.",
     "main_purpose": "für gewerbliche Fahrzeugflotten",
     "main_title": "Elektromobilitätsrechner",
