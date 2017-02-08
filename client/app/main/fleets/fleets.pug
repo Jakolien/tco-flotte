@@ -102,12 +102,6 @@
                         i.fa.fa-edit
                         | &nbsp;{{ 'edit' | translate }}
 
-              .main__fleets__view__groups__footer
-
-                button.btn.btn-link(type="button", ng-click="$ctrl.duplicate()")
-                  i.fa.fa-fw.fa-files-o
-                  | &nbsp;{{ 'duplicate' | translate }}
-
             .col-md.main__fleets__view__compare(ng-class=":: { 'main__fleets__view__compare--disabled': !$ctrl.compareWith }")
               h4.main__fleets__view__compare__heading {{ 'fleet_data_title' | translate }}
               form
