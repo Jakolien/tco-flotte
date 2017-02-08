@@ -95,7 +95,7 @@
       .col {
         width: 100%;
         max-width: 240px;
-        margin-right:$spacer;
+        margin-right:$spacer * 2;
       }
 
       &__fleet-name {

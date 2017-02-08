@@ -50,11 +50,21 @@
                       img.main__fleets__view__groups__item__image(ng-src="{{ group.image() }}")
                     .main__fleets__view__groups__item__footer
                       a.float-xs-right(uib-tooltip="{{ 'edit' | translate }}", ui-sref="main.fleets.groups.edit({group: $ctrl.groupIndex(group) })")
-                        i.fa.fa-edit
+                        i.fa.fa-edit.fa-fw
                         span.hidden-xl-down &nbsp;{{ 'edit' | translate }}
                       a.float-xs-right.mr-1(uib-tooltip="{{ 'duplicate' | translate }}", ng-click="$ctrl.duplicateGroup(group)", ng-if="$ctrl.canAddGroup()")
-                        i.fa.fa-copy
-                          span.hidden-xl-down &nbsp;{{ 'duplicate' | translate }}
+                        i.fa.fa-copy.fa-fw
+                        span.hidden-xl-down &nbsp;{{ 'duplicate' | translate }}
+                      a.float-xs-right.mr-1(uib-tooltip="{{ 'delete' | translate }}",
+                        mwl-confirm,
+                        message="{{ 'confirm_deletion_message' | translate }}",
+                        confirm-button-type="danger",
+                        placement="bottom",
+                        confirm-text="{{ 'confirm_deletion_yes' | translate }}",
+                        cancel-text="{{ 'confirm_deletion_no' | translate }}",
+                        on-confirm="$ctrl.deleteGroup(group)")
+                        i.fa.fa-trash.fa-fw
+                        span.hidden-xl-down &nbsp;{{ 'delete' | translate }}
                       strong {{ 'vehicles_count' | translate:{ vehicles: group.vars.num_of_vehicles } }}
                 li.col(ng-if="$ctrl.canAddGroup()")
                   a.main__fleets__view__groups__item.main__fleets__view__groups__item--link(ui-sref=".groups")
@@ -91,7 +101,6 @@
                       span.float-xs-right
                         i.fa.fa-edit
                         | &nbsp;{{ 'edit' | translate }}
-
 
               .main__fleets__view__groups__footer
 

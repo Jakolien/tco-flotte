@@ -126,6 +126,11 @@ export default class FleetsComponent {
     });
   }
 
+
+  deleteGroup(group) {
+    this.fleet.groups.delete(group);
+  }
+
   groupIndex(group) {
     return this.fleet.groups.indexOf(group);
   }
