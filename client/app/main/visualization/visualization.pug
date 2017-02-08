@@ -59,9 +59,9 @@
                 td(ng-if="row.key")
                   | {{:: row.key | translate}}
                 td(ng-if="!row.key", ng-repeat="fleet in $ctrl.fleets.all()")
-                  | {{ :: fleet.TCO[row.name] | number:row.rounded }}{{ :: row.unit | translate }}
+                  | {{ :: (fleet.TCO[row.name] || 0) | number:row.rounded }}{{ :: row.unit | translate }}
                 td(ng-if="row.key", ng-repeat="fleet in $ctrl.fleets.all()")
-                  | {{ :: fleet.TCO[row.name][row.key] | number:row.rounded }}{{ :: row.unit | translate }}
+                  | {{ :: (fleet.TCO[row.name][row.key] || 0) | number:row.rounded }}{{ :: row.unit | translate }}
 
         .main__visualization__view
           .main__visualization__view__chart(ng-repeat="meta in :: $ctrl.display", meta="meta", in-view="meta.render = true", id="{{::meta.name}}")

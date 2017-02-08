@@ -28,8 +28,9 @@ export default class VisualizationComponent {
           }
         // We must have at least one fleet to
         } else if (fleets.length()) {
+          const keys = _.chain(fleets.all()).map(f => _.keys(f.TCO[meta.name])).flatten().uniq().value();
           // Create an new line for each key
-          let metas = _.chain(fleets.first.TCO[meta.name]).keys()
+          const metas = _.chain(keys)
             // Only key with value
             .filter((key, n) => {
               // At least one fleet must have non-zero value for this key
