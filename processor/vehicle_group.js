@@ -7,6 +7,7 @@ const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
 
 var VehicleGroup = function(fleet_params, params) {
 	var scenarios = ["mittel"]
+	var energy_types_electro = ["hybrid-benzin", "hybrid-diesel", "BEV"]
 	var additional_energy_types = ["long_distance_train","short_distance_train","rental_bev","rental_gas","bike","plane", "businessplane"]
 	this.energy_type = "BEV"
 	this.car_type = "klein"
@@ -75,6 +76,11 @@ var VehicleGroup = function(fleet_params, params) {
 			this[prop] = params[prop]
 			
 		}
+	}
+
+	// No maintenance_costs_charger for non-electro vehicles
+	if (this.energy_type.indexOf(energy_types_electro)) {
+		this.maintenance_costs_charger_display = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / this.fleet_size_electro
 	}
 
 	this.share_electric_temp = this.share_electric
