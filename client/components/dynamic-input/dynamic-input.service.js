@@ -143,10 +143,13 @@ export default function DynamicInputService(DYNAMIC_INPUT, $translate) {
       let types = (this.meta.energytype || '').split(',');
       return _.map(types, type=> _.trim(type, ' "\''));
     }
-    isVisible(subset = this.subset) {
+    isActive(subset = this.subset) {
       // Those functions must all return true with the same parameter
       const every = _.overEvery([this.isParentActive, this.isntHiddenby, this.matchEnergyType]);
-      return this.meta.shownonthelist && every(subset);
+      return every(subset);
+    }
+    isVisible(subset = this.subset) {
+      return this.meta.shownonthelist && this.isActive(subset);
     }
   }
 

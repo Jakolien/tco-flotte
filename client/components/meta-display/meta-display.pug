@@ -1,7 +1,9 @@
-span.meta-display
+span.meta-display(ng-if="::$ctrl.isVisible")
   span.meta-display__value(ng-if=":: $ctrl.input.meta.type === 'number'")
     | {{ :: $ctrl.value | number:$ctrl.input.meta.rounded }}{{ :: $ctrl.input.meta.unit | translate }}
   span.meta-display__value(ng-if=":: $ctrl.input.meta.type === 'year'")
     | {{ :: $ctrl.value }}
   span.meta-display__value(ng-if=":: $ctrl.input.meta.type === 'string' || $ctrl.input.meta.type === 'enum'")
     | {{ :: $ctrl.value | translate }}
+span.meta-display(ng-if="::!$ctrl.isVisible")
+  span.meta-display__value {{ :: 'na' | translate }}
