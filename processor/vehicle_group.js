@@ -539,18 +539,19 @@ var VehicleGroup = function(fleet_params, params) {
 		for (var i in scenarios) {
 			this.amortization[scenarios[i]] = {}
 			var scenario = scenarios[i]
+			var amount_to_amortize = this.price.basis_price + this.price.battery_price[scenario] - this.cash_bonus_amount
 
 			for (var year = this.acquisition_year; year <= 2035; year++) {
 
 				// Computes the amortization of the vehicle
 				if (year < this.acquisition_year + this.abschreibungszeitraum){
 					if (year == this.acquisition_year && this.sonder_afa == true && this.energy_type=="BEV"){
-						this.amortization[scenario][year] = (this.price.basis_price + this.price.battery_price[scenario]) * .5 * (this.unternehmenssteuersatz / 100)
+						this.amortization[scenario][year] = amount_to_amortize * .5 * (this.unternehmenssteuersatz / 100)
 					} else if (this.sonder_afa == true && this.energy_type=="BEV") {
-						this.amortization[scenario][year] = (1 / this.abschreibungszeitraum) * (this.unternehmenssteuersatz / 100) * (this.price.basis_price + this.price.battery_price[scenario]) * .5
+						this.amortization[scenario][year] = (1 / this.abschreibungszeitraum) * (this.unternehmenssteuersatz / 100) * amount_to_amortize * .5
 					} else {
 						//Normal amortization
-						this.amortization[scenario][year] = (1 / this.abschreibungszeitraum) * (this.unternehmenssteuersatz / 100) * (this.price.basis_price + this.price.battery_price[scenario])
+						this.amortization[scenario][year] = (1 / this.abschreibungszeitraum) * (this.unternehmenssteuersatz / 100) * amount_to_amortize
 					}
 				} else {
 					this.amortization[scenario][year] = 0
@@ -836,7 +837,7 @@ var VehicleGroup = function(fleet_params, params) {
 		} else {
 			this.maintenance_costs_charger_display = 0
 		}
-		
+
 		/* Uncomment to reimplement the limitations on the share of elec driving 
 		 a hybrid vehicle can make */ 
 		// if (this.energy_type.indexOf("hybrid") > -1 ) {
