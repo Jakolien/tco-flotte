@@ -130,13 +130,21 @@ var VehicleGroup = function(fleet_params, params) {
 
             // As per client request Feb 9 2017, the residual value of all vehicles is calculated using
             // the methodology of benzin and diesel vehicles.
-            
+
 			//if (this.energy_type == "diesel" || this.energy_type == "benzin"){
+
+			var price_for_restwert = this.price.total[scenario] - this.charging_option_cost
+
+			if (this.energy_type == "BEV" && this.acquisition_price < 60000) {
+				price_for_restwert -= 4000
+			} else if ((this.energy_type == "hybrid-benzin" || this.energy_type == "hybrid-diesel") && this.acquisition_price < 60000) {
+				price_for_restwert -= 3000
+			}
 			
 			this.residual_value[scenario] = Math.exp(fleet_params.restwert_constants["a"]) 										  // Constant
 			this.residual_value[scenario] *= Math.exp(12 * fleet_params.restwert_constants["b1"] * (this.holding_time)) 			  // Age
 			this.residual_value[scenario] *= Math.exp(fleet_params.restwert_constants["b2"] * this.mileage / 12)					 // Yearly mileage
-			this.residual_value[scenario] *= Math.pow(this.price.total[scenario] - this.charging_option_cost, fleet_params.restwert_constants["b3"])				  // Initial price
+			this.residual_value[scenario] *= Math.pow(price_for_restwert, fleet_params.restwert_constants["b3"])				  // Initial price
 		
 			// }else if (method == "Methode 2"){
 
