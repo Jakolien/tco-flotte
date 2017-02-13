@@ -11,6 +11,7 @@
 'use strict';
 
 import _         from 'lodash';
+import path      from 'path';
 import mongoose  from 'mongoose';
 import jsonpatch from 'fast-json-patch';
 import Fleet     from './fleet.model';
@@ -266,8 +267,16 @@ export function download(req, res) {
   // The queue is done and the file exists!
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
     delete printQueue[req.params.key];
+    try {
+      // Find the locale
+      const locale  = require(path.join('../../../client/assets/locales', req.locale.concat('.json')));
+      // Find the filname
+      const download = locale.download.filename;
+    } catch {
+      const download = 'fleets.pdf';
+    }
     // Change content disposition to download the file with a custom name
-    res.setHeader('Content-disposition', 'attachment; filename=fleets.pdf');
+    res.setHeader('Content-disposition', 'attachment; filename='.concat(download));
     res.setHeader('Content-type', 'application/pdf');
     // Then send the file
     res.sendFile(filename);

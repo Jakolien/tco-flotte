@@ -308,6 +308,7 @@
         "ready": "Download ready.",
         "click": "Click here",
         "fail": "if the download didn't start.",
-        "close": "Close"
+        "close": "Close",
+        "filename": "Fleets.pdf"
     }
 }
