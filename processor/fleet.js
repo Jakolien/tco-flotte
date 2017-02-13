@@ -16,6 +16,7 @@ const SG_ENERGY_TYPES = ['long_distance_train', 'short_distance_train',
 var Fleet = function(params) {
 	this.fleet_presets = {}
 	this.fleet_presets.fleet_size = 0
+	this.fleet_presets.fleet_size_electro = 0
 	this.fleet_presets.groups_electro = 0
 
 	// Calculates the number of vehicles
@@ -28,6 +29,7 @@ var Fleet = function(params) {
 			this.fleet_presets.fleet_size += group.vars.num_of_vehicles
 			if (energy_types_electro.indexOf(group.vars.energy_type) > -1) {
 				this.fleet_presets.groups_electro += 1
+				this.fleet_presets.fleet_size_electro += group.vars.num_of_vehicles
 			}
 		}
 	}, this);
@@ -789,60 +791,49 @@ var Fleet = function(params) {
 module.exports = Fleet;
 module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES; 
 
-// var myFleet = new Fleet({
-//   vars: {
-// 	"charging_option": "Wallbox 22kW",
+//  var myFleet = new Fleet(
+// {
+//       "name": "Optimierte Flotte",
+//       "vars": {
+//         "charging_option": "Wallbox 22kW",
 //         "charging_option_num": 1
-// },
-//   groups: [
-//     {
-//       "name": "Small Elec",
-//       "vars": {
-//         "car_type": "klein",
-//         "energy_type": "BEV",
-//         "num_of_vehicles": 2
-//       }
-//     },
-//     {
-//       "name": "Small Elec 3",
-//       "vars": {
-//         "car_type": "klein",
-//         "energy_type": "BEV",
-//         "num_of_vehicles": 2
-//       }
-//     },
-//     {
-//       "name": "Small Gas",
-//       "vars": {
-//         "car_type": "klein",
-//         "energy_type": "benzin",
-//         "num_of_vehicles": 2
-//       }
-//     },
-//     {
-//       "name": "Small Elec 2",
-//       "vars": {
-//         "car_type": "klein",
-//         "energy_type": "BEV",
-//         "num_of_vehicles": 2
-//       }
-//     },
-//     {
-//       "name": "Mid Hybrid",
-//       "vars": {
-//         "car_type": "mittel",
-//         "energy_type": "hybrid-benzin",
-//         "num_of_vehicles": 2
-//       }
-//     },{
-//       "name": "5",
-//       "vars": {
-//         "car_type": "groß",
-//         "energy_type": "hybrid-diesel",
-//         "num_of_vehicles": 2
-//       }
-//     }
-//   ]
-// })
+//       },
+//       "groups": [
+//         {
+//           "vars": {
+//             "group_name": "Lieferwagen Handwerker",
+//             "num_of_vehicles": 2,
+//             "energy_type": "diesel",
+//             "car_type": "LNF1",
+//             "mileage": 20000
+//           }
+//         },
+//         {
+//           "vars": {
+//             "group_name": "Dienstwagen Geschäftsführerin",
+//             "num_of_vehicles": 1,
+//             "energy_type": "diesel",
+//             "car_type": "groß",
+//             "mileage": 14000
+//           }
+//         },
+//         {
+//           "vars": {
+//             "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
+//             "num_of_vehicles": 3,
+//             "energy_type": "BEV",
+//             "car_type": "klein",
+//             "mileage": 12000
+//           }
+//         },
+//         {
+//           "name": "e-Bike",
+//           "vars": {
+//             "energy_type": "bike",
+//             "mileage_special": 1000
+//           }
+//         }
+//       ]
+//     })
 
-// console.log(myFleet.groups[1])
+//  console.log(myFleet.groups[0])

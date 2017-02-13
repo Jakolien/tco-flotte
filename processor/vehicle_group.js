@@ -20,8 +20,8 @@ var VehicleGroup = function(fleet_params, params) {
 	this.energy_source = fleet_params.energy_source
 	this.fleet_size = fleet_params.fleet_size
 	this.maintenance_costs_charger_display = 0
-	this.charging_option_cost = (fleet_params.charging_option_unitary_cost * fleet_params.charging_option_num + fleet_params.charging_option2_unitary_cost * fleet_params.charging_option2_num) / this.fleet_size
-	this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / this.fleet_size
+	this.charging_option_cost = 0
+	this.maintenance_costs_charger = 0
 	this.energy_prices = fleet_params.energy_prices
 	this.traffic = "normaler Verkehr"
 	this.training_option = "keine Schulung"
@@ -78,6 +78,12 @@ var VehicleGroup = function(fleet_params, params) {
 			
 		}
 	}
+
+	// Charger cost for electro groups
+	if (energy_types_electro.indexOf(this.energy_type) > -1) {
+		this.charging_option_cost = (fleet_params.charging_option_unitary_cost * fleet_params.charging_option_num + fleet_params.charging_option2_unitary_cost * fleet_params.charging_option2_num) / fleet_params.fleet_size_electro
+		this.maintenance_costs_charger = (fleet_params.charging_option_maintenance_costs * fleet_params.charging_option_num + fleet_params.charging_option2_maintenance_costs * fleet_params.charging_option2_num) / fleet_params.fleet_size_electro
+	} 
 
 	this.share_electric_temp = this.share_electric
 	this.charges_per_year = this.mileage / this.reichweite
