@@ -13,8 +13,10 @@
         tbody
           tr(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
             th
-              span.tag(ng-style="{ background: group.vars.group_color  }")
+              span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="!group.special")
                 | {{ :: group.name }}
+              span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="group.special")
+                | {{ :: group.name | translate }}
             td(ng-repeat="input in $ctrl.summaries")
               meta-display(meta="input.meta", value="group.insights[input.meta.name]", subset="group.insights")
     .visible-print-block
@@ -24,8 +26,10 @@
             th
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
             th(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
-              span.tag(ng-style="{ background: group.vars.group_color  }")
+              span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="!group.special")
                 | {{ :: group.name }}
+              span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="group.special")
+                | {{ :: group.name | translate }}
         tbody
           tr(ng-repeat="input in $ctrl.summaries")
             th
