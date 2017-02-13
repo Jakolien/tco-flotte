@@ -28,7 +28,8 @@ export default function(app) {
 
   i18n.configure({
     locales:['en', 'de'],
-    directory: config.locales
+    directory: config.locales,
+    queryParameter: 'locale'
   });
 
   // Middleware to colorize SVG

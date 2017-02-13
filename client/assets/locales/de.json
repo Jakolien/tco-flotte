@@ -311,7 +311,7 @@
         "ready": "Download abgeschlossen.",
         "click": "Bitte klicken Sie hier",
         "fail": "falls der Download nicht automatisch startet.",
-        "close": "Schließen",
-        "filename": "Fahrzeugflotten.pdf"
-    }
+        "close": "Schließen"
+    },
+    "download.filename": "Fahrzeugflotten.pdf"
 }

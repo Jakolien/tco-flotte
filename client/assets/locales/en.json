@@ -310,5 +310,6 @@
         "fail": "if the download didn't start.",
         "close": "Close",
         "filename": "Fleets.pdf"
-    }
+    },
+  	"download.filename": "Fleets.pdf"
 }

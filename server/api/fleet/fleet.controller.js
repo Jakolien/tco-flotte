@@ -222,7 +222,7 @@ export function print(req, res) {
     // The queue is done and the file exists!
     if(printQueue[key] === QUEUE_DONE && fs.existsSync(filename) ) {
       // Send the result to the user
-      res.json({ status: 'done', key: key, url: `${url}/api/fleets/print/${key}` });
+      res.json({ status: 'done', key: key, url: `${url}/api/fleets/print/${key}?locale=${req.locale}` });
     // The file is not pending
     } else if(printQueue[key] !== QUEUE_PENDING) {
       // Mark the queue as undone
@@ -267,14 +267,8 @@ export function download(req, res) {
   // The queue is done and the file exists!
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
     delete printQueue[req.params.key];
-    try {
-      // Find the locale
-      const locale  = require(path.join('../../../client/assets/locales', req.locale.concat('.json')));
-      // Find the filname
-      const download = locale.download.filename;
-    } catch {
-      const download = 'fleets.pdf';
-    }
+    // Find the filname
+    const download = res.__mf('download.filename');
     // Change content disposition to download the file with a custom name
     res.setHeader('Content-disposition', 'attachment; filename='.concat(download));
     res.setHeader('Content-type', 'application/pdf');
