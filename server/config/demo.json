@@ -17,9 +17,9 @@
           "vars": {
             "group_name": "Dienstwagen Geschäftsführerin",
             "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "mittel",
-            "mileage": 10000
+            "energy_type": "diesel",
+            "car_type": "groß",
+            "mileage": 15000
           }
         },
         {
@@ -28,7 +28,7 @@
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
-            "mileage": 8000
+            "mileage": 12000
           }
         }
       ]
@@ -53,9 +53,18 @@
           "vars": {
             "group_name": "Dienstwagen Geschäftsführerin",
             "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "mittel",
-            "mileage": 9000
+            "energy_type": "diesel",
+            "car_type": "groß",
+            "mileage": 14000
+          }
+        },
+        {
+          "vars": {
+            "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
+            "num_of_vehicles": 3,
+            "energy_type": "BEV",
+            "car_type": "klein",
+            "mileage": 12000
           }
         },
         {
@@ -63,24 +72,6 @@
           "vars": {
             "energy_type": "bike",
             "mileage_special": 1000
-          }
-        },
-        {
-          "vars": {
-            "group_name": "Poolfahrzeuge Verwaltung",
-            "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "mileage": 10000
-          }
-        },
-        {
-          "vars": {
-            "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
-            "num_of_vehicles": 2,
-            "energy_type": "BEV",
-            "car_type": "klein",
-            "mileage": 7000
           }
         }
       ]
@@ -104,9 +95,9 @@
           "vars": {
             "group_name": "Company car of the director",
             "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "mittel",
-            "mileage": 10000
+            "energy_type": "diesel",
+            "car_type": "groß",
+            "mileage": 15000
           }
         },
         {
@@ -115,7 +106,7 @@
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
-            "mileage": 8000
+            "mileage": 12000
           }
         }
       ]
@@ -140,9 +131,18 @@
           "vars": {
             "group_name": "Company car of the director",
             "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "mittel",
-            "mileage": 9000
+            "energy_type": "diesel",
+            "car_type": "groß",
+            "mileage": 14000
+          }
+        },
+        {
+          "vars": {
+            "group_name": "Pool of electric cars for the administration",
+            "num_of_vehicles": 3,
+            "energy_type": "BEV",
+            "car_type": "klein",
+            "mileage": 12000
           }
         },
         {
@@ -150,24 +150,6 @@
           "vars": {
             "energy_type": "bike",
             "mileage_special": 1000
-          }
-        },
-        {
-          "vars": {
-            "group_name": "Pool of cars for the administration",
-            "num_of_vehicles": 1,
-            "energy_type": "benzin",
-            "car_type": "klein",
-            "mileage": 10000
-          }
-        },
-        {
-          "vars": {
-            "group_name": "Pool of electric cars for the administration",
-            "num_of_vehicles": 2,
-            "energy_type": "BEV",
-            "car_type": "klein",
-            "mileage": 7000
           }
         }
       ]

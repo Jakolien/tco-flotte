@@ -892,6 +892,10 @@ var VehicleGroup = function(fleet_params, params) {
 			this.TCO_simplified.net_cost = 0
 			this.CO2 = 0
 		}
+		// e bikes have an electro consumption
+		if (this.energy_type == "bike") {
+			this.electricity_consumption = 0.8
+		}
 	} else {
 	// Proceeds to the regular calculations
 		this.computeCosts()
