@@ -5,7 +5,7 @@ import angular from 'angular';
 
 export default class VisualizationComponent {
   /*@ngInject*/
-  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate, DynamicInput, printMode) {
+  constructor(fleets, $uibModal, $scope, Restangular, $timeout, $translate, DynamicInput, printMode, valueOrders) {
     angular.extend(this, { fleets, $uibModal, $scope, Restangular, $timeout });
     // Bind method context
     this.openDownload    = this.openDownload.bind(this);
@@ -37,6 +37,10 @@ export default class VisualizationComponent {
               return _.some(this.fleets.all(), fleet=>{
                 return fleet.TCO[meta.name][key] > 0;
               });
+            })
+            .sortBy((key) => {
+              const target = meta.name.indexOf('energy_type') > -1 ? 'energy_type' : meta.name;
+              return (valueOrders[target] || []).indexOf(key);
             })
             .map((key, n) => {
               return angular.extend({key, first: n === 0}, meta);
