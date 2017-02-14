@@ -1628,7 +1628,7 @@
     "rounded": 0,
     "type": "number",
     "section": "General information",
-    "values": "0..100",
+    "values": "0..1000",
     "default": null,
     "hashelp": false,
     "interval": 1,
