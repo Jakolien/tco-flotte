@@ -580,7 +580,7 @@ var Fleet = function(params) {
 	// Updates the variables in case the Fleet receives user-input variables
 	// The list of charging options and number of elec vehicles cannot be modified
 	for(var prop in params.vars) {
-    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "fleet_size" && prop != "groups_electro" ) {
+    if( params.vars.hasOwnProperty(prop) && this.fleet_presets.hasOwnProperty(prop) && prop != "charging_options" && prop != "fleet_size" && prop != "groups_electro" && prop != "fleet_size_electro" ) {
 			this.fleet_presets[prop] = params.vars[prop]
 		}
 	}
