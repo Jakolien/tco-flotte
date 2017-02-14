@@ -165,7 +165,7 @@ export default class ChartComponent {
     // Is the value an object?
     if( this.hasGroups() ) {
       // Returns its keys
-      return _.map(values, (name, id)=> {
+      return _.chain(values).map((name, id)=> {
         // Add a asterix symbol to "net_acquisition_cost" if some fleets have
         // leasing options included.
         let suffix = name === 'net_acquisition_cost' && this.someLeasingIncluded ? '*' : '';
@@ -178,7 +178,14 @@ export default class ChartComponent {
           values: this.columnValues(name)
         };
       // Order the groups according to a fixed order
-      })
+      }).sortBy(group => {
+        const frozen = this.appConfig.frozenGroups.indexOf(group.name);
+        if(frozen === -1) {
+          // Use the first value
+          return Number(_.first(group.values.split(',')));
+        }
+        return frozen;
+      }).value();
     } else {
       if(values.length = 0) {
         return [];
