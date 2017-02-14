@@ -219,7 +219,7 @@
     "password_reset_confirm": "Your password has been changed.",
     "password_reset_sent": "Check your email for a link to reset your password. If it doesn't appear within a few minutes, please check your spam folder.",
     "pc_per_year": "% per year",
-    "pdf_description": "This report compares the following vehicle fleets: { fleets }. The report was created on { now } by the TCO Online Calculator of Oeko-Institut. Further details on the input parameters and the methodology you can find here: <a href=\"http://oeko.de/flotte-kostenrechner\">oeko.de/flotte-kostenrechner</a>.",
+    "pdf_description": "This report compares the following vehicle fleets: { fleets }. The report was created on { now } by the TCO Online Calculator of Oeko-Institut. Further details on the input parameters and the methodology you can find here: <a href=\"http://emob-flottenrechner.oeko.de/#/\">emob-flottenrechner.oeko.de</a>.",
     "pdf_title": "Report: Total Cost of Ownership (TCO) and CO₂ emissions (Beta-Version)",
     "plane": "Plane (economy class)",
     "plane_CO2_per_km": "CO₂ emissions",

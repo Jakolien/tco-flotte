@@ -219,7 +219,7 @@
     "password_reset_confirm": "Ihr Kennwort wurde zurückgesetzt.",
     "password_reset_sent": "Schauen Sie in Ihren E-Mails nach, um das Kennwort zurückzusetzen. Wenn Sie nicht innerhalb von wenigen Minuten eine E-Mail erhalten haben, überprüfen Sie bitte Ihren Spam-Ordner.",
     "pc_per_year": "% pro Jahr",
-    "pdf_description": "Dieser Bericht vergleicht die folgenden Fahrzeugflotten: { fleets }. Der Bericht wurde mit dem Online-TCO-Rechner für Fahrzeugflotten des Öko-Instituts am { now } erstellt. Weitere Informationen über die Berechnungsgrundlagen und -methodik können Sie hier finden: <a href=\"http://oeko.de/flotte-kostenrechner\">oeko.de/flotte-kostenrechner</a>",
+    "pdf_description": "Dieser Bericht vergleicht die folgenden Fahrzeugflotten: { fleets }. Der Bericht wurde mit dem Online-TCO-Rechner für Fahrzeugflotten des Öko-Instituts am { now } erstellt. Weitere Informationen über die Berechnungsgrundlagen und -methodik können Sie hier finden: <a href=\"http://emob-flottenrechner.oeko.de/\">emob-flottenrechner.oeko.de</a>",
     "pdf_title": "Bericht: Gesamtkosten (TCO) und CO₂-Emissionen (Beta-Version)",
     "plane": "Flugzeug (Economy Class)",
     "plane_CO2_per_km": "CO₂-Ausstoß",
