@@ -46,7 +46,7 @@ export default class ChartGroupedComponent {
       }
       get groups() {
         return this.memoize('groups', () => {
-          return _.filter(this.fleet.groups.all(), (group) =>{
+          return _.filter(this.fleet.groups.sorted(), (group) =>{
             return this.fleet.TCO[this.meta.name][group.name] > 0;
           });
         });
