@@ -117,6 +117,12 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       }
       return this.length();
     }
+    // Sorting method to move special groups to the end
+    sorted() {
+      const groups = _.filter(this.all(), {special: false});
+      const specials = _.filter(this.all(), {special: true});
+      return groups.concat(specials);
+    }
   }
 
   class Fleet {

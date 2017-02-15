@@ -11,7 +11,7 @@
             th(ng-repeat="input in :: $ctrl.summaries")
               | {{ :: input.meta.name | translate }}
         tbody
-          tr(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
+          tr(ng-repeat="group in :: fleet.groups.sorted() | filter:$ctrl.withSpecial | orderBy:$ctrl.orderGroups")
             th
               span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="!group.special")
                 | {{ :: group.name }}
@@ -25,7 +25,7 @@
           tr
             th
               span.tag(style="visibility: hidden;") / <!-- Placeholder -->
-            th(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
+            th(ng-repeat="group in :: fleet.groups.sorted() | filter:$ctrl.withSpecial | orderBy:$ctrl.orderGroups")
               span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="!group.special")
                 | {{ :: group.name }}
               span.tag(ng-style="{ background: group.vars.group_color  }", ng-if="group.special")
@@ -34,5 +34,5 @@
           tr(ng-repeat="input in $ctrl.summaries")
             th
               | {{ :: input.meta.name | translate }}
-            td(ng-repeat="group in :: fleet.groups.all() | filter:$ctrl.withSpecial")
+            td(ng-repeat="group in :: fleet.groups.sorted() | filter:$ctrl.withSpecial")
               meta-display(meta="input.meta", value="group.insights[input.meta.name]", subset="group.insights")
