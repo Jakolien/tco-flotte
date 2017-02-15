@@ -14,16 +14,22 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      (function(p,i,r,h,o,O){p.GoogleAnalyticsObject=h;p[h]||(p[h]=
-      function(){(p[h].q=p[h].q||[]).push(arguments)});p[h].h=+new Date;
-      o=i.createElement(r);O=i.getElementsByTagName(r)[0];
-      o.src='//www.google-analytics.com/analytics.js';
-      O.parentNode.insertBefore(o,O)}(window,document,'script','ga'));
-      ga('create','UA-35984661-11');
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      // tracker methods like "setCustomDimension" should be called before "trackPageView"
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//www.oeko.de/pwstat/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '5']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
     </script>
-
+    <!-- End Piwik Code -->
+    
     <div ui-view=""></div>
     <div growl></div>
 </body>
