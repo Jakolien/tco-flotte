@@ -25,7 +25,6 @@
 
       margin-left:$spacer;
       font-weight: bold;
-      white-space: nowrap;
 
       &:not(:last-child):not(&--active) {
         border-bottom:0;

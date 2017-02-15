@@ -8,11 +8,8 @@ export default angular.module('oekoFlotteApp.sticky', [])
     return {
       restrict: 'AC',
       link: function(scope, el) {
-        // Internet Explorer 11
-        if(!document.documentMode) {
-          Stickyfill.add(el[0]);
-          angular.element(el).addClass('sticky');
-        }
+        Stickyfill.add(el[0]);
+        angular.element(el).addClass('sticky');
       }
     }
   }).name;
