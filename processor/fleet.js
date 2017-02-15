@@ -5,7 +5,7 @@ var _ = require("lodash");
 var car_types = ["klein", "mittel", "groß", "LNF1", "LNF2"];
 var energy_types = ["benzin", "diesel", "hybrid-benzin", "hybrid-diesel", "BEV"];
 var energy_types_electro = ["hybrid-benzin", "hybrid-diesel", "BEV"]
-var charging_options = ["Keine","Wallbox 3,7kW","Wallbox 22kW","Ladesäule 22kW","Ladesäule 50kW DC"];
+var charging_options = ["Keine","Wallbox 3,7kW","Wallbox 22kW","Ladesäule 22kW","Ladesäule 43kW","Ladesäule 50kW DC"];
 var year_min = 2017;
 var year_max = 2050;
 // Special groups energy type
@@ -144,8 +144,8 @@ var Fleet = function(params) {
 			"klein":{"2016": 4096},
 			"mittel":{"2016": 4333},
 			"groß":{"2016": 21753},
-			"LNF1":{"2016": 2000},
-			"LNF2":{"2016": 2500}
+			"LNF1":{"2016": 6000},
+			"LNF2":{"2016": 20000}
 		}
 	}
 
@@ -225,9 +225,9 @@ var Fleet = function(params) {
 		}
 	// Consumption in kWh/km
 	this.fleet_presets.electro_verbrauch = {
-		"BEV":    {"klein": 0.133, "mittel": 0.15,"groß": .2, "LNF1": .2, "LNF2": .28},
-		"hybrid-diesel": {"groß": 0.2363},
-		"hybrid-benzin": {"mittel": 0.1612 , "groß": 0.2057}
+		"BEV":    {"klein": 0.133, "mittel": 0.15,"groß": .2, "LNF1": .2, "LNF2": .31},
+		"hybrid-diesel": {"groß": 0.19},
+		"hybrid-benzin": {"mittel": 0.1550 , "groß": 0.21}
 	}
 
 	// Hybrid lubricant consumption discount
@@ -512,21 +512,32 @@ var Fleet = function(params) {
 	}
 
 	this.setChargingOptionPrice = function(year) {		
-		if (params.vars.hasOwnProperty("charging_option_unitary_cost") && params.vars["charging_option_unitary_cost"] > 0) {
+
+		// Hack: Goes through all default values for charging devices. If the params.var (user defined) value
+		// Is in the list, it's ignored
+		var default_prices_charging_options = []
+		for (var i=0 ; i< charging_options.length; i++) {
+			var default_price = this.fleet_presets.charging_options[charging_options[i]]["acquisition"] * Math.pow(1 - 0.05, year - 2017)
+			default_prices_charging_options.push(default_price)
+		}
+
+		// The user-input price has to exist, to be positive AND not to be in the list of default prices 
+		if (params.vars.hasOwnProperty("charging_option_unitary_cost") && params.vars["charging_option_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option_unitary_cost"]) == -1) {
 			this.fleet_presets.charging_option_unitary_cost = params.vars["charging_option_unitary_cost"];
 		} else {
-			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
+			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2017);
 		}
-		if (params.vars.hasOwnProperty("charging_option2_unitary_cost") && params.vars["charging_option2_unitary_cost"] > 0) {
+		if (params.vars.hasOwnProperty("charging_option2_unitary_cost") && params.vars["charging_option2_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option2_unitary_cost"]) == -1) {
 			this.fleet_presets.charging_option2_unitary_cost = params.vars["charging_option2_unitary_cost"];
 		} else {
-			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2016);
+			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2017);
 		}
 
 		// To avoid nonsensical presentation to user, charging_option_num = 0 if "keine", 1 if not keine and not specified
 		if (this.fleet_presets.charging_option == "Keine") {
 			this.fleet_presets.charging_option_num = 0
 			this.fleet_presets.charging_option_unitary_cost = 0
+			params.vars["charging_option_unitary_cost"] = 0
 			this.fleet_presets.charging_option_maintenance_costs = 0
 		} else if (this.fleet_presets.charging_option_num == 0) {
 			this.fleet_presets.charging_option_num = 1
@@ -542,15 +553,23 @@ var Fleet = function(params) {
 	}
 
 	this.setChargingOptionMaintenance = function() {
+
+		// Same hack as above for acquisition costs
+		var default_maintenance_charging_options = []
+		for (var i=0 ; i< charging_options.length; i++) {
+			var default_price = this.fleet_presets.charging_options[charging_options[i]]["maintenance"]
+			default_maintenance_charging_options.push(default_price)
+		}
+
 		this.fleet_presets.charging_option_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"];
 		this.fleet_presets.charging_option2_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"];
 		if (params.vars.hasOwnProperty("charging_option_maintenance_costs")) {
-			if (params.vars["charging_option_maintenance_costs"] > 0){
+			if (params.vars["charging_option_maintenance_costs"] > 0  && default_maintenance_charging_options.indexOf(params.vars["charging_option_maintenance_costs"]) == -1){
 				this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
 			}
 		}
 		if (params.vars.hasOwnProperty("charging_option2_maintenance_costs")) {
-			if (params.vars["charging_option2_maintenance_costs"] > 0){
+			if (params.vars["charging_option2_maintenance_costs"] > 0 && default_maintenance_charging_options.indexOf(params.vars["charging_option2_maintenance_costs"]) == -1){
 				this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
 			}
 		}
