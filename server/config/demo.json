@@ -84,7 +84,7 @@
       "groups": [
         {
           "vars": {
-            "group_name": "Delivery vans",
+            "group_name": "Delivery van (Craftsmen)",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -93,7 +93,7 @@
         },
         {
           "vars": {
-            "group_name": "Company car of the director",
+            "group_name": "Company car (Executive)",
             "num_of_vehicles": 1,
             "energy_type": "diesel",
             "car_type": "groß",
@@ -102,7 +102,7 @@
         },
         {
           "vars": {
-            "group_name": "Pool of cars for the administration",
+            "group_name": "Car pool (Administration)",
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
@@ -120,7 +120,7 @@
       "groups": [
         {
           "vars": {
-            "group_name": "Delivery vans",
+            "group_name": "Delivery van (Craftsmen)",
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
@@ -129,7 +129,7 @@
         },
         {
           "vars": {
-            "group_name": "Company car of the director",
+            "group_name": "Company car (Executive)",
             "num_of_vehicles": 1,
             "energy_type": "diesel",
             "car_type": "groß",
@@ -138,7 +138,7 @@
         },
         {
           "vars": {
-            "group_name": "Pool of electric cars for the administration",
+            "group_name": "Car pool (Administration)",
             "num_of_vehicles": 3,
             "energy_type": "BEV",
             "car_type": "klein",
