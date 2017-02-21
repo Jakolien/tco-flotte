@@ -134,11 +134,6 @@ var VehicleGroup = function(fleet_params, params) {
 			var scenario = scenarios[i], advantage_2d_user, fuel_consumption,
                      temp_vehicle_diesel, temp_vehicle_benzin;
 
-            // As per client request Feb 9 2017, the residual value of all vehicles is calculated using
-            // the methodology of benzin and diesel vehicles.
-
-			//if (this.energy_type == "diesel" || this.energy_type == "benzin"){
-
 			var price_for_restwert = this.price.total[scenario] - this.charging_option_cost
 
 			if (this.energy_type == "BEV" && this.acquisition_price < 60000) {
@@ -152,112 +147,6 @@ var VehicleGroup = function(fleet_params, params) {
 			this.residual_value[scenario] *= Math.exp(fleet_params.restwert_constants["b2"] * this.mileage / 12)					 // Yearly mileage
 			this.residual_value[scenario] *= Math.pow(price_for_restwert, fleet_params.restwert_constants["b3"])				  // Initial price
 		
-			// }else if (method == "Methode 2"){
-
-			// 	// Computes the advantage of the 2d user
-			// 	var my_consumption = fuel_consumption = advantage_2d_user = 0
-
-			// 	for (var year2 = this.acquisition_year + this.holding_time; year2 < this.acquisition_year + this.holding_time + this.second_user_holding_time; year2++) {
-
-			// 		// Hybrid vehicles
-			// 		if (this.energy_type == "hybrid-benzin" || this.energy_type == "hybrid-diesel"){
-			// 			var energy_type = this.energy_type.split("-")[1]
-			// 			this.getConsumption(this.energy_type)
-			// 			my_consumption += (this.second_user_yearly_mileage / 100) * .55 * this.electricity_consumption * this.energy_prices["BEV"][year2]["mittel"];
-			// 			my_consumption += (this.second_user_yearly_mileage / 100) * .45 * this.fuel_consumption * this.energy_prices[energy_type][year2]["mittel"];
-
-			// 		} else {
-			// 			//computes consumption
-			// 			my_consumption += this.second_user_yearly_mileage * (this.electricity_consumption/100) * this.energy_prices["BEV"][year2][scenario]
-			// 		}
-			// 		//computes consumption of equivalent diesel vehicle
-			// 		this.getConsumption("diesel")
-			// 		fuel_consumption += this.second_user_yearly_mileage * (this.fuel_consumption/100) * this.energy_prices["diesel"][year2][scenario]
-			// 	}
-
-			// 	// Not for LNF
-			// 	if (this.car_type.indexOf("LNF") < 0){
-
-			// 		this.getConsumption("benzin")
-
-			// 		for (var year2 = this.acquisition_year + this.holding_time; year2 < this.acquisition_year + this.holding_time + this.second_user_holding_time; year2++) {
-			// 			//computes consumption of equivalent benzin vehicle
-			// 			fuel_consumption += this.second_user_yearly_mileage * (this.fuel_consumption/100) * this.energy_prices["benzin"][year2][scenario]
-			// 		}
-
-			// 		fuel_consumption = fuel_consumption/2
-			// 	}
-
-			// 	// Resets consumption for PHEV
-			// 	if (this.energy_type == "hybrid-benzin" || this.energy_type == "hybrid-diesel"){
-			// 		this.getConsumption(this.energy_type)
-			// 	}
-
-			// 	//computes difference
-			// 	advantage_2d_user = fuel_consumption - my_consumption
-
-			// 	temp_vehicle_diesel = new VehicleGroup(
-			// 							fleet_params,
-			// 							{
-			// 								energy_type: "diesel",
-			// 								car_type: this.car_type,
-			// 								acquisition_price: this.acquisition_price,
-			// 								mileage: this.mileage,
-			// 								acquisition_year: this.acquisition_year,
-			// 								holding_time: this.holding_time,
-			// 								traffic: this.traffic,
-			// 								second_user_holding_time: this.second_user_holding_time,
-			// 								second_user_yearly_mileage: this.second_user_yearly_mileage,
-			// 								unternehmenssteuersatz: this.unternehmenssteuersatz,
-			// 								abschreibungszeitraum: this.abschreibungszeitraum,
-			// 								inflationsrate: this.inflationsrate,
-			// 								discount_rate: this.discount_rate,
-			// 								energy_known_prices: this.energy_known_prices,
-			// 								energy_prices: this.energy_prices,
-			// 								limited: true
-			// 							})
-
-			// 	// Adds residual value of a Benzin vehicle if not LNF
-
-			// 	if (this.car_type != "LNF1" && this.car_type != "LNF2") {
-			// 		temp_vehicle_benzin = new VehicleGroup(
-			// 							fleet_params,
-			// 							{
-			// 								energy_type: "benzin",
-			// 								car_type: this.car_type,
-			// 								acquisition_price: this.acquisition_price,
-			// 								mileage: this.mileage,
-			// 								acquisition_year: this.acquisition_year,
-			// 								holding_time: this.holding_time,
-			// 								traffic: this.traffic,
-			// 								second_user_holding_time: this.second_user_holding_time,
-			// 								second_user_yearly_mileage: this.second_user_yearly_mileage,
-			// 								unternehmenssteuersatz: this.unternehmenssteuersatz,
-			// 								abschreibungszeitraum: this.abschreibungszeitraum,
-			// 								inflationsrate: this.inflationsrate,
-			// 								discount_rate: this.discount_rate,
-			// 								energy_known_prices: this.energy_known_prices,
-			// 								energy_prices: this.energy_prices,
-			// 								limited: true
-			// 							})
-
-			// 	}
-
-			// 	if (this.car_type == "LNF1" || this.car_type == "LNF2" || this.car_type == "groß"){
-			// 		this.residual_value[scenario] = temp_vehicle_diesel.residual_value["mittel"] + advantage_2d_user
-			// 	}
-			// 	else if (this.car_type == "mittel") {
-			// 		this.residual_value[scenario] = (temp_vehicle_diesel.residual_value["mittel"] + temp_vehicle_benzin.residual_value["mittel"]) / 2 + advantage_2d_user
-			// 	} else if (this.car_type == "klein") {
-			// 		this.residual_value[scenario] = temp_vehicle_benzin.residual_value["mittel"] + advantage_2d_user
-			// 	}
-
-			// 	// delete temp_vehicle_benzin  // Deleting variable is forbidden in strict mode!
-   //      temp_vehicle_benzin = null;
-			// 	// delete temp_vehicle_diesel  // Deleting variable is forbidden in strict mode!
-   //      temp_vehicle_diesel = null;
-
-			// }
 		}
 
 		this.residual_value_fixed = this.residual_value["mittel"]
