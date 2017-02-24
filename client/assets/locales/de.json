@@ -305,6 +305,7 @@
     "special_groups": "Alternative Verkehrsmittel",
     "desc_haltedauer": "Die Gesamtkosten (TCO) werden für den Zeitraum der Haltedauer berechnet.",
     "single_size": "-",
+    "Keine": "Keine",
     "download": {
         "preparing": "Ihr PDF wird vorbereitet ...",
         "description": "Der Download startet automatisch.",
