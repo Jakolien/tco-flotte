@@ -252,9 +252,9 @@ var Fleet = function(params) {
 
 	// Yearly check up in €
 	this.fleet_presets.untersuchung = {
-		"benzin": {"HU": 47.5, "AU": 38.32},
-		"diesel": {"HU": 47.5, "AU": 38.32},
-		"BEV":    {"HU": 47.5, "AU": 0}
+		"benzin": {"HU": 23.74, "AU": 19.16},
+		"diesel": {"HU": 23.74, "AU": 19.16},
+		"BEV":    {"HU": 23.74, "AU": 0}
 					}
 
 	// Variables for repairs
