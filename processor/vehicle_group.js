@@ -266,6 +266,8 @@ var VehicleGroup = function(fleet_params, params) {
 			} else {
 				this.cash_bonus_amount = 0
 			}
+
+			this.acquisition_price = this.price.basis_price + this.price.battery_price[scenario]
 		}
 	}
 
@@ -447,7 +449,7 @@ var VehicleGroup = function(fleet_params, params) {
 		for (var i in scenarios) {
 			this.amortization[scenarios[i]] = {}
 			var scenario = scenarios[i]
-			var amount_to_amortize = this.price.basis_price + this.price.battery_price[scenario] - this.cash_bonus_amount
+			var amount_to_amortize = this.acquisition_price - this.cash_bonus_amount
 
 			for (var year = this.acquisition_year; year <= 2035; year++) {
 
@@ -500,10 +502,15 @@ var VehicleGroup = function(fleet_params, params) {
 			this.leasing_residual_value = this.residual_value["mittel"]
 			if (params.hasOwnProperty("leasing_rate")) {
 				this.leasing_rate = params["leasing_rate"]
-				this.price.basis_price = this.leasing_rate * this.leasing_duration
+				this.acquisition_price = this.leasing_rate * this.leasing_duration
+				this.residual_value["mittel"] = 0
+				this.cash_bonus_amount = 0
+				for (var year = this.acquisition_year; year <= 2035; year++) {
+					this.amortization["mittel"][year] = 0
+				}
 				return this.leasing_rate 
 			} else {
-				var leasing_rate = (this.acquisition_price + this.residual_value["mittel"] - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
+				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
 				leasing_rate += this.leasing_extras.service
@@ -515,6 +522,8 @@ var VehicleGroup = function(fleet_params, params) {
 		} else {
 			//recomputes acquisition prices to overwrite the effects of leasing
 			this.getAcquisitionPrice()
+			this.getAmortization()
+			this.getResidualValue(this.residual_value_method)
 			this.leasing_includes_insurance = false
 			this.leasing_includes_tax = false
 			this.leasing_includes_service = false
@@ -607,7 +616,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.initCosts = function(scenario){
 		// Acquisition and one-off costs
 		var costs = {}
-		costs["vehicle_basis_cost"] = Math.round(this.price.basis_price + this.price.battery_price[scenario])
+		costs["vehicle_basis_cost"] = Math.round(this.acquisition_price)
 
 		costs["charging_infrastructure"] = Math.round(this.charging_option_cost)
 
