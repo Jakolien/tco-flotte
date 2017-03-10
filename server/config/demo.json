@@ -79,7 +79,7 @@
   ],
   "en": [
     {
-      "name": "Current fleet Acme Ltd.",
+      "name": "Current fleet",
       "vars": {},
       "groups": [
         {
@@ -112,7 +112,7 @@
       ]
     },
     {
-      "name": "Optimized fleet Acme Ltd.",
+      "name": "Optimized fleet",
       "vars": {
         "charging_option": "Wallbox 22kW",
         "charging_option_num": 1
