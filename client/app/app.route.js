@@ -70,8 +70,6 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
     $transitions.onSuccess({}, function(transition) {
       // Go up
       $window.scrollTo(0, 0);
-      // Send 'pageview' to Google Analytics
-      $window.ga('send', 'pageview', {page: $location.url() });
       // Helper to find the title within the state's resolve
       function getTitleResolvable(comp) {
         // comp is a Transition
@@ -95,6 +93,10 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
       $rootScope.$title = getTitleResolvable(transition) ? transition.injector().get('$title') : undefined;
       // Build breadcrumbs
       $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
+      // Send 'pageview' to Google Analytics
+      $window['_paq'].push(['setCustomUrl', $location.url()]);
+      $window['_paq'].push(['setDocumentTitle', $rootScope.$title]);
+      $window['_paq'].push(['trackPageView']);
   	});
   })
   .name;
