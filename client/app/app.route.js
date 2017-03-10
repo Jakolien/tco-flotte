@@ -93,7 +93,7 @@ export default angular.module('oekoFlotteApp.route', [uiRouter, auth])
       $rootScope.$title = getTitleResolvable(transition) ? transition.injector().get('$title') : undefined;
       // Build breadcrumbs
       $rootScope.$breadcrumbs = transition.treeChanges().to.map(bc).filter(angular.identity);
-      // Send 'pageview' to Google Analytics
+      // Send 'pageview' to Piwik
       $window['_paq'].push(['setCustomUrl', $location.url()]);
       $window['_paq'].push(['setDocumentTitle', $rootScope.$title]);
       $window['_paq'].push(['trackPageView']);
