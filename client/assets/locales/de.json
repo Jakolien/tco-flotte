@@ -314,5 +314,8 @@
         "fail": "falls der Download nicht automatisch startet.",
         "close": "Schließen"
     },
-    "download.filename": "Fahrzeugflotten.pdf"
+    "download.filename": "Fahrzeugflotten.pdf",
+    "fleets_intro": "Jabba chewbacca zabrak mace lars maul yoda calrissian. Windu darth chewbacca ackbar grievous darth gonk. Mara boba windu maul hutt leia boba leia. Mace fett mon k-3po moff leia. Yoda solo skywalker jawa. Leia organa organa jinn lars leia leia tusken raider. Darth ben fett fett darth moff moff. Han solo organa skywalker skywalker darth moff moff greedo.",
+    "fleets_intro_close": "Close",
+    "duplicate_fleet_help": "duplicate_fleet_help"
 }
