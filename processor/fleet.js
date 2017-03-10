@@ -633,6 +633,7 @@ var Fleet = function(params) {
 		var current_group = this.groups[group_id]["insights"] = new vehicle_group.VehicleGroup(this.fleet_presets, group.vars);
 		// CO2 from manufacturing, updates kg to grams 
 		var current_CO2_from_manufacturing = this.fleet_presets.CO2_from_manufacturing[group.vars.energy_type][group.vars.car_type] * 1000;
+		current_CO2_from_manufacturing *= current_group.holding_time * current_group.mileage / 180000
 
 		this.groups[group_id]["insights"].num_of_vehicles = num_of_vehicles;
 		this.groups[group_id]["insights"].TCO = {
@@ -821,5 +822,3 @@ module.exports.SG_ENERGY_TYPES = SG_ENERGY_TYPES;
 //         }
 //       ]
 //     })
-
-//  console.log(myFleet.groups[0])
