@@ -4,7 +4,7 @@ import angular from 'angular';
 
 export default class FleetsComponent {
   /*@ngInject*/
-  constructor($translate, $state, $stateParams, $uibModal, fleets, $scope) {
+  constructor($translate, $state, $stateParams, $uibModal, fleets, $scope, $cookies) {
     // Bind method to this instance
     this.get               = this.get.bind(this);
     this.createFleet       = this.createFleet.bind(this);
@@ -22,9 +22,11 @@ export default class FleetsComponent {
     this.groupIndex        = this.groupIndex.bind(this);
     this.optimise          = this.optimise.bind(this);
     // Dependancies available in instance
-    angular.extend(this, { $translate, fleets, $state, $uibModal });
+    angular.extend(this, { $translate, $cookies, fleets, $state, $uibModal });
     // Compare with another fleet
     fleets.compared = this.compareWith = this.anotherFleet();
+    // Default state of the intro
+    this.showFleetsIntro = $cookies.get('hideFleetIntro') !== 'true';
     // List of variables visualized in "fleet data"
     this.fleetdata = _.filter(this.display, { fleetdata: true });
     // No group yet
@@ -32,6 +34,11 @@ export default class FleetsComponent {
       // Redirect to the child state to create group
       $state.go('main.fleets.groups', { fleet: this.fleet._id });
     }
+  }
+
+  hideFleetsIntro() {
+    this.$cookies.put('hideFleetIntro', true);
+    this.showFleetsIntro = false;
   }
 
   createFleet() {

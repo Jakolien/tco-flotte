@@ -38,6 +38,12 @@
                     on-confirm="$ctrl.delete()")
                     i.fa.fa-fw.fa-trash
                     span.sr-only {{ 'delete' | translate }}
+              .main__fleets__view__groups__info(ng-if="$ctrl.showFleetsIntro")
+                p.lead
+                  | {{ 'fleets_intro' | translate }}
+                  button.btn.btn-sm.btn-link(ng-click="$ctrl.hideFleetsIntro()")
+                    i.fa.fa-times
+                    | &nbsp;{{ 'fleets_intro_close' | translate }}
               h5.main__fleets__view__groups__heading
                 | {{ 'your_groups_title' | translate }}
               ul.list-unstyled.row

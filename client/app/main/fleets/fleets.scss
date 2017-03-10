@@ -105,6 +105,21 @@
         margin-right:$spacer;
       }
 
+      &__info {
+        border-bottom:1px solid $view-border;
+        margin-bottom:$spacer;
+        position: relative;
+
+        &__close {
+          position: absolute;
+          bottom:0;
+          right:0;
+          background:$view-border;
+          display: block;
+          padding:0 0.5em;
+        }
+      }
+
       &__fleet-name {
         padding-top: $spacer * 2;
         padding-bottom: $spacer;
