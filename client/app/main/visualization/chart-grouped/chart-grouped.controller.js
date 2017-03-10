@@ -5,7 +5,7 @@ import angular from 'angular';
 
 export default class ChartGroupedComponent {
   /*@ngInject*/
-  constructor(fleets, $translate, $filter) {
+  constructor(fleets, $translate, $filter, $element) {
     // A symbol to create private property holding memos
     const _memo = Symbol('memo');
 
@@ -40,6 +40,11 @@ export default class ChartGroupedComponent {
         this[_memo][name] = _.memoize(fn);
         // Recurcive call
         return this.memoize(name, fn, ...args);
+      }
+      get barWidth() {
+        const chartWidth = $($element).width();
+        const maxWidth = chartWidth / this.groups.length;
+        return Math.min(maxWidth * 0.8, chartWidth * 0.2);
       }
       get unit() {
         return $translate.instant(this.meta.unit) || '';

@@ -11,7 +11,7 @@
                    column-name="{{ :: group.label }}",
                    column-values="{{ :: group.values }}",
                    column-type="bar")
-      chart-bar(ratio="0.8")
+      chart-bar(width="{{ $ctrl.barWidth }}")
       selection(enabled="false")
       chart-group(group-values="{{ :: $ctrl.chart.groupsIds().join(',') }}")
       chart-legend(show-legend="{{ :: $ctrl.hasGroups() }}")

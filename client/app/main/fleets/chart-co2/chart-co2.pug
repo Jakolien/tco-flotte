@@ -6,7 +6,7 @@
       chart-column(column-id="{{ :: $ctrl.id }}",
                    column-values="{{ :: $ctrl.valuesStr }}",
                    column-type="bar")
-      chart-bar(ratio="0.8")
+      chart-bar(width="{{ $ctrl.barWidth }}")
       chart-colors(color-function="$ctrl.colorsFn")
       selection(enabled="false")
       chart-legend(show-legend="false")

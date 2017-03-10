@@ -12,7 +12,7 @@
           chart-column(column-id="{{ :: chart.id }}",
                        column-values="{{ :: chart.valuesStr }}",
                        column-type="bar")
-          chart-bar(ratio="0.8")
+          chart-bar(width="{{ chart.barWidth }}")
           chart-colors(color-function="chart.colorsFn")
           selection(enabled="false")
           chart-legend(show-legend="false")

@@ -11,10 +11,10 @@ const LEASING_INCLUDES = [
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig, $translate, $filter, $log) {
+  constructor(fleets, appConfig, $translate, $filter, $log, $element) {
     $log.log('Rendering %s with %s fleet(s)', this.meta.name, fleets.length());
     // Dependancies available in instance
-    angular.extend(this, { fleets, appConfig, $translate, $filter });
+    angular.extend(this, { fleets, appConfig, $translate, $filter, $element });
     // Bind to instance
     this.tco          = this.tco.bind(this);
     this.bindChart    = this.bindChart.bind(this);
@@ -43,6 +43,11 @@ export default class ChartComponent {
     this.max = _.sum(this.groups().map( g =>{
       return _.max(_.map(g.values.split(','), Number));
     }));
+  }
+  get barWidth() {
+    const chartWidth = $(this.$element).width();
+    const maxWidth = chartWidth / this.chart.groups.length;
+    return Math.min(maxWidth * 0.8, chartWidth * 0.2);
   }
   get unit() {
     return this.$translate.instant(this.meta.unit) || '';

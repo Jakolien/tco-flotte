@@ -5,9 +5,9 @@ import angular from 'angular';
 
 export default class ChartCo2Component {
   /*@ngInject*/
-  constructor(fleets, $translate, $filter) {
+  constructor(fleets, $translate, $filter, $element) {
     // Dependancies available in instance
-    angular.extend(this, { fleets, $translate, $filter });
+    angular.extend(this, { fleets, $translate, $filter, $element });
     // Filter settings to only keep the one visualized in this chart
     this.settings = _.filter(this.settings, { co2chart: true }).sort( (a, b)=> {
       return this.valueByEnergyType(a) - this.valueByEnergyType(b);
@@ -35,6 +35,11 @@ export default class ChartCo2Component {
   }
   get valuesStr() {
     return this.values.join(',');
+  }
+  get barWidth() {
+    const chartWidth = $(this.$element).width();
+    const maxWidth = chartWidth / this.groups.length;
+    return Math.min(maxWidth * 0.8, chartWidth * 0.2);
   }
   get colorsFn() {
     return function(color, d) {
