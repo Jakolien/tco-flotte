@@ -40,9 +40,13 @@ V.i.S.d.P.
 
 Michael Sailer, Sprecher der Geschäftsführung
 
-## Webadministration
+## Ansprechpartner
 
 Lukas Minnich
+
++49 30 405085-312
+
+L.Minnich<span style="display:none">foo</span>@oeko.de
 
 ## Programmierung
 
