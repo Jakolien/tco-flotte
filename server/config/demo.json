@@ -10,7 +10,7 @@
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
-            "mileage": 20000
+            "mileage": 18000
           }
         },
         {
@@ -28,7 +28,7 @@
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
-            "mileage": 12000
+            "mileage": 10000
           }
         }
       ]
@@ -43,10 +43,19 @@
         {
           "vars": {
             "group_name": "Lieferwagen Handwerker",
-            "num_of_vehicles": 2,
+            "num_of_vehicles": 1,
             "energy_type": "diesel",
             "car_type": "LNF1",
-            "mileage": 20000
+            "mileage": 18000
+          }
+        },
+        {
+          "vars": {
+            "group_name": "Elektro-Lieferwagen",
+            "num_of_vehicles": 1,
+            "energy_type": "BEV",
+            "car_type": "LNF1",
+            "mileage": 18000
           }
         },
         {
@@ -61,7 +70,7 @@
         {
           "vars": {
             "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
-            "num_of_vehicles": 3,
+            "num_of_vehicles": 2,
             "energy_type": "BEV",
             "car_type": "klein",
             "mileage": 12000
@@ -71,7 +80,7 @@
           "name": "bike",
           "vars": {
             "energy_type": "bike",
-            "mileage_special": 1000
+            "mileage_special": 7000
           }
         }
       ]
@@ -88,7 +97,7 @@
             "num_of_vehicles": 2,
             "energy_type": "diesel",
             "car_type": "LNF1",
-            "mileage": 20000
+            "mileage": 18000
           }
         },
         {
@@ -106,7 +115,7 @@
             "num_of_vehicles": 3,
             "energy_type": "benzin",
             "car_type": "klein",
-            "mileage": 12000
+            "mileage": 10000
           }
         }
       ]
@@ -121,10 +130,19 @@
         {
           "vars": {
             "group_name": "Delivery van (Craftsmen)",
-            "num_of_vehicles": 2,
+            "num_of_vehicles": 1,
             "energy_type": "diesel",
             "car_type": "LNF1",
-            "mileage": 20000
+            "mileage": 18000
+          }
+        },
+        {
+          "vars": {
+            "group_name": "Electric delivery van",
+            "num_of_vehicles": 1,
+            "energy_type": "BEV",
+            "car_type": "LNF1",
+            "mileage": 18000
           }
         },
         {
@@ -139,7 +157,7 @@
         {
           "vars": {
             "group_name": "Car pool (Administration)",
-            "num_of_vehicles": 3,
+            "num_of_vehicles": 2,
             "energy_type": "BEV",
             "car_type": "klein",
             "mileage": 12000
@@ -149,7 +167,7 @@
           "name": "bike",
           "vars": {
             "energy_type": "bike",
-            "mileage_special": 1000
+            "mileage_special": 7000
           }
         }
       ]
