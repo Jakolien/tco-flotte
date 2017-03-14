@@ -52,7 +52,7 @@
                     a(ui-sref="main.fleets.groups.edit({group: $ctrl.groupIndex(group) })")
                       h4.main__fleets__view__groups__item__heading
                         | {{ group.vars.group_name || group.name }}
-                        .small.text-muted {{ group.insights.mileage | number }} {{ 'km_per_year' | translate }}
+                        .small {{ group.insights.mileage | number }} {{ 'km_per_year' | translate }}
                         .main__fleets__view__groups__item__heading__color(ng-style="{ background: group.vars.group_color }")
                       img.main__fleets__view__groups__item__image(ng-src="{{ group.image() }}")
                     .main__fleets__view__groups__item__footer
