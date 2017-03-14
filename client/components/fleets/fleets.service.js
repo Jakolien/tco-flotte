@@ -266,7 +266,11 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       return !!this.groups.filter({ special: false }).length;
     }
     static uniqueName() {
-      return $translate.instant('fleet_n', { n: fleetNameCounter });
+      if (fleetNameCounter === 0) {
+        return $translate.instant('fleet_first');
+      } else {
+        return $translate.instant('fleet_n', { n: fleetNameCounter });
+      }
     }
     static defaults() {
       return {
