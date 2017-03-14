@@ -22,7 +22,7 @@
           chart-events(on-rendered="$ctrl.rendered = $ctrl.rendered + 1")
           chart-axis
             chart-axis-y
-              chart-axis-y-tick(tick-format-function="$ctrl.$filter('number')")
+              chart-axis-y-tick(tick-format-function="chart.yFormat")
             chart-axis-x-tick(tick-outer="false")
             chart-axis-x(axis-position="outer-center",
                          axis-type="category")

@@ -11,15 +11,16 @@ const LEASING_INCLUDES = [
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig, $translate, $filter, $log, $element) {
+  constructor(fleets, appConfig, printMode, $translate, $filter, $log, $element) {
     $log.log('Rendering %s with %s fleet(s)', this.meta.name, fleets.length());
     // Dependancies available in instance
-    angular.extend(this, { fleets, appConfig, $translate, $filter, $element });
+    angular.extend(this, { fleets, appConfig, $translate, $filter, $element, printMode });
     // Bind to instance
     this.tco          = this.tco.bind(this);
     this.bindChart    = this.bindChart.bind(this);
     this.addUnitTo    = this.addUnitTo.bind(this);
     this.colors       = this.colors.bind(this);
+    this.yFormat      = this.yFormat.bind(this);
     // Memoize some heavy methods
     this.columnNames  = _.memoize(this.columnNames.bind(this));
     this.columnValues = _.memoize(this.columnValues.bind(this));
@@ -79,7 +80,9 @@ export default class ChartComponent {
       .value();
   }
   bindChart(chart) {
-    this.addUnitTo(chart);
+    if (!this.printMode) {
+      this.addUnitTo(chart);
+    }
   }
   addUnitTo(chart) {
     // Remove y axis clipping
@@ -90,6 +93,13 @@ export default class ChartComponent {
     let unit = `<text style="text-anchor: start" y="3" x="-4">${this.unit}</text>`;
     // Add the
     last.html(last.html() + unit);
+  }
+  yFormat(value) {
+    value = this.$filter('number')(value);
+    if (this.printMode) {
+      return `${value} ${this.unit}`;
+    }
+    return value;
   }
   columnNames() {
     return this.fleets.all().map(g=> g.name).join(",");

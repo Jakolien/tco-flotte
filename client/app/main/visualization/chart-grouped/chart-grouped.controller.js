@@ -5,7 +5,7 @@ import angular from 'angular';
 
 export default class ChartGroupedComponent {
   /*@ngInject*/
-  constructor(fleets, $translate, $filter, $element) {
+  constructor(fleets, $translate, $filter, $element, printMode) {
     // A symbol to create private property holding memos
     const _memo = Symbol('memo');
 
@@ -18,10 +18,13 @@ export default class ChartGroupedComponent {
         this.rendered = 0;
         this.bindChart = this.bindChart.bind(this);
         this.addUnitTo = this.addUnitTo.bind(this);
+        this.yFormat = this.yFormat.bind(this);
         this.colors
       }
       bindChart(chart) {
-        this.addUnitTo(chart)
+        if (!printMode) {
+          this.addUnitTo(chart)
+        }
       }
       addUnitTo(chart) {
         // Remove y axis clipping
@@ -30,8 +33,8 @@ export default class ChartGroupedComponent {
         let last = $('.c3-axis-y g.tick:last', chart.element);
         // Build a unit element
         let unit = `<text style="text-anchor: start" y="3" x="-2">${this.unit}</text>`;
-        // Add the
-        last.html( last.html() + unit);
+        // Add the unit
+        last.html(last.html() + unit);
       }
       memoize(name, fn, ...args) {
         if(this[_memo].hasOwnProperty(name)) {
@@ -40,6 +43,13 @@ export default class ChartGroupedComponent {
         this[_memo][name] = _.memoize(fn);
         // Recurcive call
         return this.memoize(name, fn, ...args);
+      }
+      yFormat(value) {
+        value = $filter('number')(value);
+        if (printMode) {
+          return `${value} ${this.unit}`;
+        }
+        return value;
       }
       get barWidth() {
         const chartWidth = $($element).width();
