@@ -189,7 +189,7 @@
     "long_distance_train": "Train (Long Distance)",
     "long_distance_train_CO2_per_km": "CO₂ emissions",
     "long_distance_train_cost_per_km": "Cost",
-    "main_intro": "Simulate the impact of electric vehicles on costs and CO₂ emissions of your fleet.<br><br>Please sign up to save your data. All data from non-registered user will be destroyed after one hour of inactivity.",
+    "main_intro": "Simulate the impact of electric vehicles on the costs and CO₂ emissions of your fleet.<br><br>Please sign up to save your data. All data from non-registered user will be destroyed after one hour of inactivity.",
     "main_note": "The Total Cost of Ownership (TCO) calculator for vehicle fleets was created by Öko-Institut as part of the project \"ePowered Fleets Hamburg\".",
     "main_purpose": "for vehicle fleets",
     "main_title": "TCO Calculator",
@@ -322,7 +322,7 @@
         "filename": "Fleets.pdf"
     },
   	"download.filename": "Fleets.pdf",
-    "fleets_intro": "Jabba chewbacca zabrak mace lars maul yoda calrissian. Windu darth chewbacca ackbar grievous darth gonk. Mara boba windu maul hutt leia boba leia. Mace fett mon k-3po moff leia. Yoda solo skywalker jawa. Leia organa organa jinn lars leia leia tusken raider. Darth ben fett fett darth moff moff. Han solo organa skywalker skywalker darth moff moff greedo.",
+    "fleets_intro": "You are now in the fleet overview. You can add new vehicles to your fleet by clicking 'Add a vehicle type'. When your fleet is complete, you can click on 'Duplicate fleet' to create a variant of the fleet in which you can replace conventional vehicles with their electrical equivalents or replace them with alternative means of transportation or savings.",
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help"
 }

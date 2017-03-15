@@ -6,7 +6,7 @@
     "abschreibungszeitraum": "Abschreibungszeitraum",
     "acquisition_price": "Netto-Listenpreis",
     "acquisition_year": "Anschaffungsjahr",
-    "add_fleet": "Neue Variante",
+    "add_fleet": "Neue Flottenvariante",
     "add_vehicles_group": "Neuer Fahrzeugtyp",
     "already_account": "Haben Sie schon ein Konto?",
     "alternative_transporations_chart-co2_description": "Das Diagramm zeigt die CO₂-Emissionen pro Kilometer für die alternativen Verkehrsmittel.",
@@ -106,7 +106,7 @@
     "discount_rate": "Kalkulationszinssatz",
     "download_as_pdf": "Als PDF herunterladen",
     "duplicate": "Kopie erstellen",
-    "duplicate_fleet": "Neue Variante zu dieser Flotte erstellen",
+    "duplicate_fleet": "Flotte kopieren",
     "edit": "Bearbeiten",
     "edit_group_help": "Sie können die voreingestellten Werte anpassen und die Änderungen mit einem Klick auf Speichern (oder durch Drücken der Enter-Taste) übernehmen.<br><br>Es wird grundsätzlich mit Nettokosten (ohne Mehrwertsteuer) gerechnet!",
     "elec_unit": " kWh/100km",
@@ -189,7 +189,7 @@
     "long_distance_train": "Bahn (Fernverkehr)",
     "long_distance_train_CO2_per_km": "CO₂-Ausstoß",
     "long_distance_train_cost_per_km": "Kosten",
-    "main_intro": "Sie können simulieren, wie sich der Einsatz von Elektrofahrzeugen auf die Kosten und den CO₂-Ausstoß Ihrer Flotte auswirkt.<br><br>Bitte registrieren Sie sich, wenn Sie Ihre Eingabedaten speichern möchten. Alle Daten, die von nicht angemeldeten Nutzern eingegeben werden, werden nach einer Stunde ohne Aktivität automatisch gelöscht.",
+    "main_intro": "Sie können simulieren, wie sich der Einsatz von Elektrofahrzeugen auf die Kosten und den CO₂-Ausstoß Ihrer Flotte auswirkt.<br><br>Aus Datenschutzgründen werden alle eingegebenen Daten nach einer Stunde ohne Aktivität automatisch gelöscht. Ihre Berechnungsergebnisse können Sie in einer PDF-Datei speichern und ausdrucken. Wenn Sie auch Ihre Eingabedaten speichern möchten, ist eine Registrierung erforderlich.",
     "main_note": "Der Elektromobilitäts-Rechner für Fahrzeugflotten wurde vom Öko-Institut im Rahmen des Projekts \"ePowered Fleets Hamburg\" entwickelt.",
     "main_purpose": "für gewerbliche Fahrzeugflotten",
     "main_title": "Elektromobilitätsrechner",
@@ -317,7 +317,7 @@
         "close": "Schließen"
     },
     "download.filename": "Fahrzeugflotten.pdf",
-    "fleets_intro": "Jabba chewbacca zabrak mace lars maul yoda calrissian. Windu darth chewbacca ackbar grievous darth gonk. Mara boba windu maul hutt leia boba leia. Mace fett mon k-3po moff leia. Yoda solo skywalker jawa. Leia organa organa jinn lars leia leia tusken raider. Darth ben fett fett darth moff moff. Han solo organa skywalker skywalker darth moff moff greedo.",
+    "fleets_intro": "Sie sind jetzt in der Flottenübersicht. Hier können Sie neue Fahrzeuge zu Ihrer Flotte hinzufügen, indem Sie auf „Neuer Fahrzeugtyp“ klicken. Wenn die Flotte vollständig ist, können Sie mit einem Klick auf „Flotte kopieren“ eine Vergleichsflotte anlegen, in der Sie z.B. konventionelle Fahrzeuge durch Elektrofahrzeuge ersetzen oder Wegstrecken auf alternative Verkehrsmittel verlagern können.",
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help"
 }
