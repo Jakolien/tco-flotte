@@ -18,6 +18,9 @@
         button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()", ng-if="$ctrl.fleets.length() < 5")
           i.fa.fa-plus-circle
           | &nbsp;{{ 'add_fleet' | translate }}
+        a.btn.btn-link.btn-block(ui-sref='main.visualization', ng-if="$ctrl.fleets.isActive()")
+          i.fa.fa-bar-chart
+          | &nbsp;{{ 'visualization_link' | translate }}
     .col-xs.main__fleets__view.card
       ui-view
         .container-fluid
