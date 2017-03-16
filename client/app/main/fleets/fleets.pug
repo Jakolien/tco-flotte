@@ -13,7 +13,6 @@
                 | {{ 'groups_count' | translate:{ groups: fleet.groups.length({ special: false }) } }}
             a.main__fleets__list__item__duplicate(ng-click="$ctrl.duplicate()", ng-if="fleet === $ctrl.fleet")
               i.fa.fa-fw.fa-files-o
-              i.fa.fa-fw.fa-info-circle.main__fleets__list__item__duplicate__info(uib-tooltip="{{ 'duplicate_fleet_help' | translate }}")
               | &nbsp;{{ 'duplicate_fleet' | translate }}
         button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()", ng-if="$ctrl.fleets.length() < 5")
           i.fa.fa-plus-circle
