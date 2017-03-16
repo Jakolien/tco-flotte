@@ -14,6 +14,9 @@ navbar
             | {{ 'create_your_fleets' | translate }}
         a.btn.btn-link.btn-lg(ng-hide="$ctrl.fleets.isActive()", ng-click="$ctrl.demo()")
           | {{ 'see_demo' | translate }}
+        =" | "
+        a.btn.btn-link.btn-lg(translate-attr="{ href: 'tutorial_href' }", target="_blank")
+          | {{ 'tutorial_link' | translate }}
     .main__welcome__context
       .row.text-center.main__welcome__context__logos
         .col-xs-3
