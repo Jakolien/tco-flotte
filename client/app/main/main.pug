@@ -12,9 +12,11 @@ navbar
             | {{ 'see_your_fleets' | translate }}
           span(ng-hide="$ctrl.fleets.isActive()")
             | {{ 'create_your_fleets' | translate }}
-        a.btn.btn-link.btn-lg(ng-hide="$ctrl.fleets.isActive()", ng-click="$ctrl.demo()")
-          | {{ 'see_demo' | translate }}
-        =" | "
+        span(ng-if="$ctrl.fleets.length() < 4")
+          a.btn.btn-link.btn-lg(ng-click="$ctrl.demo()")
+            span(translate="", ng-show="$ctrl.fleets.isEmpty()") see_demo
+            span(translate="", ng-hide="$ctrl.fleets.isEmpty()") see_demo_again
+          =" | "
         a.btn.btn-link.btn-lg(translate-attr="{ href: 'tutorial_href' }", target="_blank")
           | {{ 'tutorial_link' | translate }}
     .main__welcome__context

@@ -4,6 +4,7 @@ export default class MainController {
     angular.extend(this, { fleets, $state });
   }
   demo() {
-    return this.fleets.demo().then( ()=> this.$state.go('main.fleets') );
+    this.fleets.demo()
+    this.$state.go('main.fleets');
   }
 }

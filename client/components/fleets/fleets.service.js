@@ -28,6 +28,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       this.create  = this.create.bind(this);
       this.indexOf = this.indexOf.bind(this);
       this.length  = this.length.bind(this);
+      this.isEmpty = this.isEmpty.bind(this);
     }
     all() {
       return this[_array];
@@ -49,6 +50,9 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     }
     empty() {
       this[_array] = [];
+    }
+    isEmpty() {
+      return this.length() === 0;
     }
     get(idOrIndex) {
       if( isNaN(idOrIndex) ) {
