@@ -20,6 +20,8 @@ What happens, if the model offering, the battery and vehicle costs, the energy p
 
 These and many other questions will be answered by the electromobility fleet calculator of the Öko-Institut. The user can use plausible default-settings for the leasing rate / acquisition price and residual value as well as the costs for charging infrastructure, fuels and electricity, workshop visits, taxes and insurances etc. On the other hand, you can modify the input parameters manually so that they suit your own requirements.
 
+[Here](http://www.epowered-fleets-hamburg.de/documentation/) you can learn more about underlying data sources, assumptions and calculation methods.
+
 ## Limitation of liability
 
 The content of this website has been created with a maximum of accuracy. Nevertheless, the provider does not give any guarantee that the contents provided are correct, complete and up-to-date. The use of contents made available on this website is at the sole risk of the user. Namely characterized articles express the opinion of the author and do not always reflect the views of the provider. The use of this website does not establish any legal contract between the user and the provider of this website.

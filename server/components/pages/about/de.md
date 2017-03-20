@@ -20,6 +20,8 @@ Was passiert, wenn sich Modellangebot, Batterie- und Fahrzeugkosten, Energieprei
 
 Diese und weitere Fragen beantwortet der Elektromobilitäts-Flottenrechner des Öko-Instituts. Der / die NutzerIn kann bei Leasingrate bzw. Anschaffungspreis und Restwert sowie bei Kosten für Ladeinfrastruktur, Kraftstoffe und Strom, Werkstattbesuche, Steuern und Versicherungen usw. auf plausible Voreinstellungen zurückgreifen oder die einzelnen Eingangsgrößen manuell an die eigenen Vorstellungen anpassen.
 
+Weitere Hintergrundinformationen zu Datenquellen, Annahmen und Rechenmethodik finden Sie hier: [http://www.epowered-fleets-hamburg.de/dokumentation/](http://www.epowered-fleets-hamburg.de/dokumentation/).
+
 ## Impressum
 
 Öko-Institut e.V.
