@@ -327,5 +327,7 @@
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help",
     "tutorial_href": "http://www.epowered-fleets-hamburg.de/tutorial/",
-    "tutorial_link": "Tutorial"
+    "tutorial_link": "Tutorial",
+    "visualization_link_left": "To the visualization",
+    "mileage_fleet": "Yearly mileage of the fleet"
 }
