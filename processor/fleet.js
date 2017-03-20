@@ -189,11 +189,11 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option2_num = 0
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3,7kW": { "acquisition": 840, "maintenance": 12.61},
-		"Wallbox 22kW": { "acquisition": 1092, "maintenance": 42.02},
-		"Ladesäule 22kW": { "acquisition": 2100, "maintenance": 277},
-		"Ladesäule 43kW": { "acquisition": 2250, "maintenance": 277},
-		"Ladesäule 50kW DC": {"acquisition": 29412, "maintenance": 1681}
+		"Wallbox 3,7kW": { "acquisition": 850, "maintenance": 15},
+		"Wallbox 22kW": { "acquisition": 1300, "maintenance": 50},
+		"Ladesäule 22kW": { "acquisition": 3500, "maintenance": 280},
+		"Ladesäule 43kW": { "acquisition": 4000, "maintenance": 280},
+		"Ladesäule 50kW DC": {"acquisition": 28000, "maintenance": 1700}
 	}
 
 	// Variables for evolution of energy consumption in % of reduction per decade
@@ -656,6 +656,7 @@ var Fleet = function(params) {
 	// Initializes the TCO values for the whole fleet
 	this.TCO = {
 		"mileage": 0,
+		"mileage_fleet": 0,
 		"mileage_with_savings": 0,
 		"mileage_overall": 0,
 		"CO2": 0,
@@ -770,6 +771,8 @@ var Fleet = function(params) {
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
 
+	// Just to obtain the mileage_fleet var
+	this.TCO.mileage_fleet = this.TCO.mileage
 	this.fleet_presets.charging_option_cost = this.TCO.cost_by_position.charging_infrastructure
 
 }
