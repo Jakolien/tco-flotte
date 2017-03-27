@@ -662,7 +662,10 @@ var Fleet = function(params) {
 		"CO2": 0,
 		"total_costs": 0,
 		"fleet_num_of_vehicles": 0,
-		"CO2_per_km": 0,
+		"CO2_per_km": {
+			"CO2_from_driving": 0,
+			"CO2_from_manufacturing": 0
+		},
 		"cost_per_km": 0,
 		"cost_by_group": {},
 		"CO2_by_group": {},
@@ -767,7 +770,9 @@ var Fleet = function(params) {
 
 	}, this);
 	// CO2 per km in grams, converted to tons
-	this.TCO.CO2_per_km = (this.TCO.CO2 * 1000000) / this.TCO.mileage_overall
+	this.TCO.CO2_per_km["CO2_from_driving"] = (this.TCO.CO2_by_phase["CO2_from_driving"] * 1000000) / this.TCO.mileage_overall
+	this.TCO.CO2_per_km["CO2_from_manufacturing"] = (this.TCO.CO2_by_phase["CO2_from_manufacturing"] * 1000000) / this.TCO.mileage_overall
+	
 	// cost per km
 	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
 

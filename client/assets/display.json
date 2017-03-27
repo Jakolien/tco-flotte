@@ -132,7 +132,7 @@
   {
     "id": "12",
     "name": "CO2_per_km",
-    "type": "bar",
+    "type": "stacked_bar",
     "fleetdata": false,
     "visualization": true,
     "leasingconditions": false,
