@@ -263,7 +263,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       return this.groupsLeft() > 0;
     }
     groupsLeft() {
-      return 5 - this.groups.filter({ special: false }).length;
+      return 15 - this.groups.filter({ special: false }).length;
     }
     isActive() {
       // Is active if we have at least one regular groups

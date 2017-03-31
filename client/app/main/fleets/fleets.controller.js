@@ -143,7 +143,7 @@ export default class FleetsComponent {
   }
 
   canAddGroup() {
-    return this.fleet.groups.filter({ special: false }).length < 5
+    return this.fleet.groupsLeft() > 0;
   }
 
   delete() {
