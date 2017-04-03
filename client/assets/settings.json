@@ -16,7 +16,7 @@
     "canbeonxaxis": false,
     "shownonthelist": true,
     "importancerank": 45,
-    "energytype": null,
+    "energytype": "benzin",
     "preliminary": false,
     "co2chart": null,
     "hiddenby": null,
@@ -24,7 +24,7 @@
     "editable": true,
     "context": "Fleet",
     "special": false,
-    "report": null
+    "report": "Basic information for the calculation"
   },
   {
     "id": "37",
@@ -43,7 +43,7 @@
     "canbeonxaxis": false,
     "shownonthelist": true,
     "importancerank": 46,
-    "energytype": null,
+    "energytype": "diesel",
     "preliminary": false,
     "co2chart": null,
     "hiddenby": null,
@@ -51,7 +51,7 @@
     "editable": true,
     "context": "Fleet",
     "special": false,
-    "report": null
+    "report": "Basic information for the calculation"
   },
   {
     "id": "38",
@@ -70,7 +70,7 @@
     "canbeonxaxis": false,
     "shownonthelist": true,
     "importancerank": 47,
-    "energytype": null,
+    "energytype": "BEV, hybrid-benzin, hybrid-diesel",
     "preliminary": false,
     "co2chart": null,
     "hiddenby": null,
@@ -78,7 +78,7 @@
     "editable": true,
     "context": "Fleet",
     "special": false,
-    "report": null
+    "report": "Basic information for the calculation"
   },
   {
     "id": "9",
