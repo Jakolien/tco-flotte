@@ -478,13 +478,13 @@ var Fleet = function(params) {
 		}
 	}
 
-	this.setChargingOptionPrice = function(year) {		
+	this.setChargingOptionPrice = function() {		
 
 		// Hack: Goes through all default values for charging devices. If the params.var (user defined) value
 		// Is in the list, it's ignored
 		var default_prices_charging_options = []
 		for (var i=0 ; i< charging_options.length; i++) {
-			var default_price = this.fleet_presets.charging_options[charging_options[i]]["acquisition"] * Math.pow(1 - 0.05, year - 2017)
+			var default_price = this.fleet_presets.charging_options[charging_options[i]]["acquisition"]
 			default_prices_charging_options.push(default_price)
 		}
 
@@ -600,7 +600,7 @@ var Fleet = function(params) {
 
 	// Initializes the prices of all charging options for all years
 	this.setChargingOptionMaintenance()
-	this.setChargingOptionPrice(2016)
+	this.setChargingOptionPrice()
 
 	// Initializes the CO2 from the electricity mix
 	this.setCO2FromElectricityMix()
