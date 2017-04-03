@@ -403,9 +403,9 @@ var Fleet = function(params) {
 		}
 
 		this.fleet_presets.energy_prices = estimates
-		this.fleet_presets._2017_elec_price = this.fleet_presets.energy_prices["BEV"][2017]["mittel"]
-		this.fleet_presets._2017_diesel_price = this.fleet_presets.energy_prices["diesel"][2017]["mittel"]
-		this.fleet_presets._2017_benzin_price = this.fleet_presets.energy_prices["benzin"][2017]["mittel"]
+		this.fleet_presets.elec_price_2017 = this.fleet_presets.energy_prices["BEV"][2017]["mittel"]
+		this.fleet_presets.diesel_price_2017 = this.fleet_presets.energy_prices["diesel"][2017]["mittel"]
+		this.fleet_presets.benzin_price_2017 = this.fleet_presets.energy_prices["benzin"][2017]["mittel"]
 
 	}
 
@@ -492,12 +492,12 @@ var Fleet = function(params) {
 		if (params.vars.hasOwnProperty("charging_option_unitary_cost") && params.vars["charging_option_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option_unitary_cost"]) == -1) {
 			this.fleet_presets.charging_option_unitary_cost = params.vars["charging_option_unitary_cost"];
 		} else {
-			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"] * Math.pow(1 - 0.05, year - 2017);
+			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"];
 		}
 		if (params.vars.hasOwnProperty("charging_option2_unitary_cost") && params.vars["charging_option2_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option2_unitary_cost"]) == -1) {
 			this.fleet_presets.charging_option2_unitary_cost = params.vars["charging_option2_unitary_cost"];
 		} else {
-			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"] * Math.pow(1 - 0.05, year - 2017);
+			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"];
 		}
 
 		// To avoid nonsensical presentation to user, charging_option_num = 0 if "keine", 1 if not keine and not specified

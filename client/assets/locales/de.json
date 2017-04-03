@@ -1,8 +1,8 @@
 {
     "%": "%",
-    "_2017_benzin_price": "Benzinpreis 2017",
-    "_2017_diesel_price": "Dieselpreis 2017",
-    "_2017_elec_price": "Strompreis 2017",
+    "benzin_price_2017": "Benzinpreis 2017",
+    "diesel_price_2017": "Dieselpreis 2017",
+    "elec_price_2017": "Strompreis 2017",
     "abschreibungszeitraum": "Abschreibungszeitraum",
     "acquisition_price": "Netto-Listenpreis",
     "acquisition_year": "Anschaffungsjahr",

@@ -2,7 +2,7 @@
   {
     "id": "36",
     "label": "2017 benzin price",
-    "name": "_2017_benzin_price",
+    "name": "benzin_price_2017",
     "description": "desc36",
     "unit": "€_per_liter",
     "rounded": 2,
@@ -29,7 +29,7 @@
   {
     "id": "37",
     "label": "2017 diesel price",
-    "name": "_2017_diesel_price",
+    "name": "diesel_price_2017",
     "description": "desc37",
     "unit": "€_per_liter",
     "rounded": 2,
@@ -56,7 +56,7 @@
   {
     "id": "38",
     "label": "2017 electricity price",
-    "name": "_2017_elec_price",
+    "name": "elec_price_2017",
     "description": "desc38",
     "unit": "€_per_kwh",
     "rounded": 2,
