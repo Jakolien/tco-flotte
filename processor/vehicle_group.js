@@ -507,14 +507,9 @@ var VehicleGroup = function(fleet_params, params) {
 				var leasing_rate = params["leasing_rate"]
 				this.acquisition_price = leasing_rate * this.leasing_duration
 				this.cash_bonus_amount = 0
-				for (var year = this.acquisition_year; year <= 2035; year++) {
-					this.amortization["mittel"][year] = 0
-				}
+
 				return leasing_rate 
 			} else {
-				for (var year = this.acquisition_year; year <= 2035; year++) {
-					this.amortization["mittel"][year] = 0
-				}
 
 				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
 				leasing_rate += this.leasing_extras.insurance
