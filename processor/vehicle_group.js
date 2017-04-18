@@ -505,12 +505,10 @@ var VehicleGroup = function(fleet_params, params) {
 			this.leasing_residual_value = this.residual_value["mittel"]
 			if (params.hasOwnProperty("leasing_rate")) {
 				var leasing_rate = params["leasing_rate"]
-				this.acquisition_price = leasing_rate * this.leasing_duration
-				this.cash_bonus_amount = 0
+				this.acquisition_price = leasing_rate * this.leasing_duration + this.leasing_downpayment + this.leasing_endpayment
 
 				return leasing_rate 
 			} else {
-
 				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
@@ -518,10 +516,12 @@ var VehicleGroup = function(fleet_params, params) {
 				leasing_rate += this.leasing_extras.tires
 				leasing_rate += this.leasing_extras.repairs
 				leasing_rate += this.leasing_extras.inspection
+				
 				return leasing_rate
 			}
 		} else {
 			//recomputes acquisition prices to overwrite the effects of leasing
+			this.cash_bonus_amount = fleet_params.praemie_bev
 			this.getAcquisitionPrice()
 			this.getAmortization()
 			this.getResidualValue(this.residual_value_method)
