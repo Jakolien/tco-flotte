@@ -137,7 +137,7 @@ var VehicleGroup = function(fleet_params, params) {
 			var scenario = scenarios[i], advantage_2d_user, fuel_consumption,
                      temp_vehicle_diesel, temp_vehicle_benzin;
 
-			var price_for_restwert = this.price.total[scenario] - this.charging_option_cost
+			var price_for_restwert = this.price.total[scenario] - this.charging_option_cost + this.cash_bonus_amount
 
 			if (this.energy_type == "BEV" && this.acquisition_price < 60000) {
 				price_for_restwert -= 4000
