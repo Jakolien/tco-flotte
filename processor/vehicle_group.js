@@ -506,11 +506,11 @@ var VehicleGroup = function(fleet_params, params) {
 			if (params.hasOwnProperty("leasing_rate")) {
 				var leasing_rate = params["leasing_rate"]
 				this.acquisition_price = leasing_rate * this.leasing_duration
-				this.acquisition_price += this.leasing_downpayment + this.leasing_endpayment
+				this.acquisition_price += this.leasing_downpayment
 				return leasing_rate 
 			} else {
-				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.leasing_endpayment) / (this.leasing_duration)
-				this.acquisition_price += this.leasing_downpayment + this.leasing_endpayment
+				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.cash_bonus_amount) / (this.leasing_duration)
+				this.acquisition_price += this.leasing_downpayment
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
 				leasing_rate += this.leasing_extras.service
@@ -618,7 +618,6 @@ var VehicleGroup = function(fleet_params, params) {
 	this.initCosts = function(scenario){
 		// Acquisition and one-off costs
 		var costs = {}
-		console.log(this.leasing_downpayment, this.acquisition_price)
 		costs["vehicle_basis_cost"] = Math.round(this.acquisition_price)
 
 		costs["charging_infrastructure"] = Math.round(this.charging_option_cost)
