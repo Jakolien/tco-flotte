@@ -509,7 +509,7 @@ var VehicleGroup = function(fleet_params, params) {
 				this.acquisition_price += this.leasing_downpayment
 				return leasing_rate 
 			} else {
-				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.cash_bonus_amount) / (this.leasing_duration)
+				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.residual_value["mittel"] - this.cash_bonus_amount) / (this.leasing_duration)
 				this.acquisition_price += this.leasing_downpayment
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
