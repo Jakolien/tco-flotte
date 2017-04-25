@@ -3,7 +3,7 @@ import angular from 'angular';
 
 export default class EditComponent {
   /*@ngInject*/
-  constructor(DynamicInput, $state, $translate, growl) {
+  constructor(DynamicInput, $state, $translate, growl, reset) {
     // Bind methods with this instance
     this.init = this.init.bind(this);
     this.getInputValues = this.getInputValues.bind(this);
@@ -16,7 +16,7 @@ export default class EditComponent {
     this.getMeta = this.getMeta.bind(this);
     this.gs = this.gs.bind(this);
     // Dependancies injected in the instance
-    angular.extend(this, { $state, $translate, growl, DynamicInput });
+    angular.extend(this, { $state, $translate, growl, DynamicInput, reset });
     // Init this controller
     this.init();
   }
@@ -97,10 +97,22 @@ export default class EditComponent {
         context._changed[name] = context._dump[name] !== value;
         // Input values
         context._values[name] = value;
-        // Enum input trigger a saving
-        this.getInput(name).isEnum() && this.save('.');
-        // Booleans input too
-        this.getInput(name).isBoolean() && this.save('.');
+        // Reset some fields
+        if (this.reset[name]) {
+          // Iterates over fields to reset
+          angular.forEach(this.reset[name], field => {
+            // Delete the value
+            delete context._changed[field];
+            delete context.destination[field];
+          });
+          // And trigger saving
+          this.save('.');
+        } else {
+          // Enum input trigger a saving
+          this.getInput(name).isEnum() && this.save('.');
+          // Booleans input too
+          this.getInput(name).isBoolean() && this.save('.');
+        }
       }
       // Use existing value to populate param
       value = context._values[name]
