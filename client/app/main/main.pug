@@ -12,7 +12,7 @@ navbar
             | {{ 'see_your_fleets' | translate }}
           span(ng-hide="$ctrl.fleets.isActive()")
             | {{ 'create_your_fleets' | translate }}
-        span(ng-if="$ctrl.fleets.length() < 4")
+        span(ng-if="$ctrl.fleets.fleetsLeft() >= 2")
           a.btn.btn-link.btn-lg(ng-click="$ctrl.demo()")
             span(translate="", ng-show="$ctrl.fleets.isEmpty()") see_demo
             span(translate="", ng-hide="$ctrl.fleets.isEmpty()") see_demo_again

@@ -15,6 +15,9 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
   const _fleet     = Symbol('_fleet');
   const _vars      = Symbol('_vars');
   const _compared  = Symbol('_compared');
+
+  const GROUPS_LIMIT = 15;
+  const FLEETS_LIMIT = 6;
   const KEYS_BLACKLIST = ['fleet_presets', 'energy_known_prices',
                           'insights', 'TCO', 'energy_prices_evolution'];
   class LikeArray {
@@ -263,7 +266,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       return this.groupsLeft() > 0;
     }
     groupsLeft() {
-      return 15 - this.groups.filter({ special: false }).length;
+      return GROUPS_LIMIT - this.groups.filter({ special: false }).length;
     }
     isActive() {
       // Is active if we have at least one regular groups
@@ -338,7 +341,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       }
     }
     create(vars = Fleet.defaults()) {
-      if(this.length() < 5) {
+      if(this.fleetsLeft() > 0) {
         return super.create(vars);
       } else {
         let defered = $q.defer();
@@ -387,6 +390,12 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       // Return a race of promises
       // (resolved as soon as one promise is resolved)
       return $q.race(promises);
+    }
+    moreFleets() {
+      return this.fleetsLeft() > 0;
+    }
+    fleetsLeft() {
+      return FLEETS_LIMIT - this.length();
     }
     set compared(fleet = null) {
       this[_compared] = fleet;

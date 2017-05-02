@@ -14,7 +14,7 @@
             a.main__fleets__list__item__duplicate(ng-click="$ctrl.duplicate()", ng-if="fleet === $ctrl.fleet")
               i.fa.fa-fw.fa-files-o
               | &nbsp;{{ 'duplicate_fleet' | translate }}
-        button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()", ng-if="$ctrl.fleets.length() < 5")
+        button.btn.btn-link.btn-block(ng-click="$ctrl.createFleet()", ng-if="$ctrl.fleets.moreFleets()")
           i.fa.fa-plus-circle
           | &nbsp;{{ 'add_fleet' | translate }}
         a.btn.btn-link.btn-block(ui-sref='main.visualization', ng-if="$ctrl.fleets.isActive()")
