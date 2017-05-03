@@ -162,15 +162,15 @@ var VehicleGroup = function(fleet_params, params) {
 	this.getMaintenanceCosts = function(){
 		if (this.energy_type == "BEV" && this.car_type.indexOf("LNF") == -1) {
 			this.maintenance_costs_tires = fleet_params.reperaturkosten["benzin"][this.car_type]["reifen"] ;
-			this.maintenance_costs_inspection = fleet_params.reperaturkosten["benzin"][this.car_type]["inspektion"];
+			this.maintenance_costs_inspection = fleet_params.reperaturkosten["benzin"][this.car_type]["inspektion"] * fleet_params.faktor_BEV;
 			this.maintenance_costs_repairs = fleet_params.reperaturkosten["benzin"][this.car_type]["reparatur"] * fleet_params.faktor_BEV;
 		} else if (this.energy_type == "BEV" && this.car_type.indexOf("LNF") >= 0) {
 			this.maintenance_costs_tires = fleet_params.reperaturkosten["diesel"][this.car_type]["reifen"];
-			this.maintenance_costs_inspection = fleet_params.reperaturkosten["diesel"][this.car_type]["inspektion"];
+			this.maintenance_costs_inspection = fleet_params.reperaturkosten["diesel"][this.car_type]["inspektion"] * fleet_params.faktor_BEV;
 			this.maintenance_costs_repairs = fleet_params.reperaturkosten["diesel"][this.car_type]["reparatur"] * fleet_params.faktor_BEV;
 		} else if (this.energy_type.indexOf("hybrid") > -1) { // Takes the same value of the non-hybrid of same type 
 			this.maintenance_costs_tires = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["reifen"];
-			this.maintenance_costs_inspection = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["inspektion"];
+			this.maintenance_costs_inspection = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["inspektion"] * fleet_params.faktor_HEV
 			this.maintenance_costs_repairs = fleet_params.reperaturkosten[this.energy_type.split("-")[1]][this.car_type]["reparatur"] * fleet_params.faktor_HEV
 		}
 		else {
@@ -507,6 +507,7 @@ var VehicleGroup = function(fleet_params, params) {
 				var leasing_rate = params["leasing_rate"]
 				this.acquisition_price = leasing_rate * this.leasing_duration
 				this.acquisition_price += this.leasing_downpayment
+				this.getAmortization()
 				return leasing_rate 
 			} else {
 				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.residual_value["mittel"] - this.cash_bonus_amount) / (this.leasing_duration)
@@ -688,10 +689,24 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getTCO = function() {
+		//console.log(this.leasing, this.leasing_rate, this.amortization["mittel"][2017])
 		this.TCO = this.TCO_by_holding_time["mittel"][this.holding_time]
 		this.CO2 = this.CO2_by_holding_time[this.holding_time]
 
-		this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost + this.TCO.residual_value + this.TCO.amortization_vehicle - this.cash_bonus_amount
+		if (params.hasOwnProperty("leasing_rate") && this.leasing == true) {
+			this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost
+
+			//And now subtract the amortization by year:
+			for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
+				var amortization = 0
+				amortization = this.amortization["mittel"][current_year]
+				amortization = this.discountCosts(amortization, current_year - this.acquisition_year)
+				this.TCO_simplified["net_cost"] -= amortization
+			}
+
+		} else {
+			this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost + this.TCO.residual_value + this.TCO.amortization_vehicle - this.cash_bonus_amount
+		}
 		this.TCO_simplified["charging_infrastructure"] = this.TCO.charging_infrastructure
 		this.TCO_simplified["fixed_costs"] = this.TCO.fixed_costs.check_up + this.TCO.fixed_costs.insurance + this.TCO.fixed_costs.car_tax
 		this.TCO_simplified["variable_costs"] =  this.TCO.variable_costs.maintenance_costs + this.TCO.variable_costs.amortization

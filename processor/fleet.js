@@ -189,8 +189,8 @@ var Fleet = function(params) {
 	this.fleet_presets.charging_option2_num = 0
 	this.fleet_presets.charging_options = {
 		"Keine": { "acquisition": 0, "maintenance": 0},
-		"Wallbox 3,7kW": { "acquisition": 850, "maintenance": 15},
-		"Wallbox 22kW": { "acquisition": 1300, "maintenance": 50},
+		"Wallbox 3,7kW": { "acquisition": 850, "maintenance": 0},
+		"Wallbox 22kW": { "acquisition": 1300, "maintenance": 0},
 		"Ladesäule 22kW": { "acquisition": 3500, "maintenance": 280},
 		"Ladesäule 43kW": { "acquisition": 4000, "maintenance": 280},
 		"Ladesäule 50kW DC": {"acquisition": 28000, "maintenance": 1700}
@@ -258,7 +258,7 @@ var Fleet = function(params) {
 					}
 
 	// Variables for repairs
-	this.fleet_presets.faktor_BEV = 0.82 	// Discount for repairs of electro vehicles
+	this.fleet_presets.faktor_BEV = 0.5 	// Discount for repairs of electro vehicles
 	this.fleet_presets.faktor_HEV = 0.96 	// Discount for repairs of hybrid vehicles
 	this.fleet_presets.traffic_multiplicator = {
 		"normaler Verkehr" : 1,
