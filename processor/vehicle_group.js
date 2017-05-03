@@ -505,8 +505,12 @@ var VehicleGroup = function(fleet_params, params) {
 			this.leasing_residual_value = this.residual_value["mittel"]
 			if (params.hasOwnProperty("leasing_rate")) {
 				var leasing_rate = params["leasing_rate"]
-				this.acquisition_price = leasing_rate * this.leasing_duration
-				this.acquisition_price += this.leasing_downpayment
+				this.acquisition_price = this.leasing_downpayment
+				// Now discounts all costs related to the leasing payments
+				for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
+					this.acquisition_price += this.discountCosts(leasing_rate * 12, current_year - this.acquisition_year)
+				}
+				// Computes the amount to amortize
 				this.getAmortization()
 				return leasing_rate 
 			} else {
