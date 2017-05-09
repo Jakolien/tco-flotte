@@ -376,6 +376,26 @@ var Fleet = function(params) {
 		this.fleet_presets.evolution_elec_price_until_2050 = this.energy_prices_evolution["strom"][2]["rate"] * 100.0
 		this.fleet_presets.evolution_hydrocarbon_price_until_2050 = this.energy_prices_evolution["hydrocarbon"][0]["rate"] * 100.0
 
+		if (params.vars.hasOwnProperty("evolution_hydrocarbon_price_until_2050")) {
+			this.fleet_presets.evolution_hydrocarbon_price_until_2050 = params.vars["evolution_hydrocarbon_price_until_2050"]
+			this.energy_prices_evolution["hydrocarbon"][0]["rate"] = params.vars["evolution_hydrocarbon_price_until_2050"] / 100
+		}
+
+		if (params.vars.hasOwnProperty("evolution_elec_price_until_2020")) {
+			this.fleet_presets.evolution_elec_price_until_2020 = params.vars["evolution_elec_price_until_2020"]
+			this.energy_prices_evolution["strom"][0]["rate"] = params.vars["evolution_elec_price_until_2020"] / 100
+		}
+
+		if (params.vars.hasOwnProperty("elec_price_2017")) {
+			this.energy_known_prices["BEV"]["2017"] = params.vars["elec_price_2017"]
+		}
+		if (params.vars.hasOwnProperty("benzin_price_2017")) {
+			this.energy_known_prices["benzin"]["2017"] = params.vars["benzin_price_2017"]
+		}
+		if (params.vars.hasOwnProperty("diesel_price_2017")) {
+			this.energy_known_prices["diesel"]["2017"] = params.vars["diesel_price_2017"]
+		}
+
 		for (var i in energy_types) {
 			var energy_type = energy_types[i]["name"]
 			var energy_source = energy_types[i]["source"]
@@ -403,7 +423,21 @@ var Fleet = function(params) {
 		}
 
 		this.fleet_presets.energy_prices = estimates
-		this.fleet_presets.elec_price_2017 = this.fleet_presets.energy_prices["BEV"][2017]["mittel"]
+		if (!(params.vars.hasOwnProperty("elec_price_2017"))) {
+			this.fleet_presets.elec_price_2017 = this.fleet_presets.energy_prices["BEV"][2017]["mittel"]
+		} else {
+			this.fleet_presets.elec_price_2017 = params.vars["elec_price_2017"]
+		}
+		if (!(params.vars.hasOwnProperty("benzin_price_2017"))) {
+			this.fleet_presets.benzin_price_2017 = this.fleet_presets.energy_prices["benzin"][2017]["mittel"]
+		} else {
+			this.fleet_presets.benzin_price_2017 = params.vars["benzin_price_2017"]
+		}
+		if (!(params.vars.hasOwnProperty("diesel_price_2017"))) {
+			this.fleet_presets.diesel_price_2017 = this.fleet_presets.energy_prices["diesel"][2017]["mittel"]
+		} else {
+			this.fleet_presets.diesel_price_2017 = params.vars["diesel_price_2017"]
+		}
 		this.fleet_presets.diesel_price_2017 = this.fleet_presets.energy_prices["diesel"][2017]["mittel"]
 		this.fleet_presets.benzin_price_2017 = this.fleet_presets.energy_prices["benzin"][2017]["mittel"]
 
