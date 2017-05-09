@@ -47,8 +47,8 @@ export default class ChartComponent {
   }
   get barWidth() {
     const chartWidth = $(this.$element).width();
-    const maxWidth = chartWidth / this.chart.groups.length;
-    return Math.min(maxWidth * 0.8, chartWidth * 0.2);
+    const maxWidth = chartWidth / this.columnNames().length;
+    return maxWidth * 0.8;
   }
   get unit() {
     return this.$translate.instant(this.meta.unit) || '';
@@ -102,7 +102,26 @@ export default class ChartComponent {
     return value;
   }
   columnNames() {
-    return this.fleets.all().map(g=> g.name).join(",");
+    let values = this.fleets.all().map(g => g.name);
+    // Copy the value to be able to edit it
+    let valuesWithId = angular.copy(values);
+    // Add an number to duplicated names
+    angular.forEach(values, (value, i) => {
+      // Count similar value
+      let count = _.filter(values, v => v === value).length;
+      // If there is more than one element with the same value
+      if(count > 1) {
+        // Count previous element
+        let previous = _.filter(values.slice(0, i), v => v === value).length + 1;
+        // Add the number of previous element to the value
+        valuesWithId[i] = String.concat(value, ' (', previous, ')');
+      }
+    });
+    return valuesWithId;
+  }
+  columnNamesStr() {
+    // To strings
+    return this.columnNames().join(",")
   }
   colors() {
     return function(color, d) {
@@ -111,6 +130,9 @@ export default class ChartComponent {
       // Get the id from the color array
       return this.appConfig.colors[id];
     }.bind(this);
+  }
+  columnValuesStr(groupName){
+    return this.columnValues(groupName).join(",");
   }
   columnValues(groupName){
     return this.tco().map(function(value) {
@@ -121,7 +143,7 @@ export default class ChartComponent {
       } else {
         return value[this.meta.name][groupName];
       }
-    }.bind(this)).join(",");
+    }.bind(this));
   }
   tco() {
     return _.map(this.fleets.all(), 'TCO');
@@ -190,7 +212,7 @@ export default class ChartComponent {
           id,
           label: this.$translate.instant(name) + suffix,
           color: '#666',
-          values: this.columnValues(name)
+          values: this.columnValuesStr(name)
         };
       // Order the groups according to a fixed order
       }).sortBy(group => {
@@ -211,7 +233,7 @@ export default class ChartComponent {
             name: '^',
             label: this.meta.name,
             color: '#666',
-            values: this.columnValues('^')
+            values: this.columnValuesStr('^')
           }
         ];
       }
