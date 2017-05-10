@@ -629,7 +629,7 @@
     "rounded": null,
     "type": "year",
     "section": "Vehicle details",
-    "values": "2017..2020",
+    "values": "2017..2025",
     "default": "2017",
     "hashelp": false,
     "interval": 1,
