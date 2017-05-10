@@ -232,7 +232,7 @@
     "rental_gas": "Carsharing/Mietwagen (Benzin/Diesel)",
     "rental_gas_CO2_per_km": "CO₂-Ausstoß",
     "rental_gas_cost_per_km": "Kosten",
-    "reset_your_password_body": "Sehr geehrte Damen und Herren,\n\nSie erhalten diese E-Mail, weil Sie (oder jemand anderes) das Zurücksetzen des Passworts für Ihr Benutzerkonto auf {url2} angefordert haben.\n\nBitte klicken Sie auf den folgenden Link oder kopieren Sie den Link in Ihren Browser, um den Vorgang abzuschließen:\n\n{url}\n\nWenn Sie das Zurücksetzen des Passworts nicht beantragt haben, ignorieren Sie bitte diese E-Mail.\n",
+    "reset_your_password_body": "Sehr geehrte Damen und Herren,\n\nSie erhalten diese E-Mail, weil Sie (oder jemand anderes) das Zurücksetzen des Passworts für Ihr Benutzerkonto auf emob-flottenrechner.oeko.de angefordert haben.\n\nBitte klicken Sie auf den folgenden Link oder kopieren Sie den Link in Ihren Browser, um den Vorgang abzuschließen:\n\n{url}\n\nWenn Sie das Zurücksetzen des Passworts nicht beantragt haben, ignorieren Sie bitte diese E-Mail.\n",
     "reset_your_password_email": "Bitte geben Sie Ihre E-Mail-Adresse ein und wir werden Ihnen einen Link zum Zurücksetzen des Kennworts schicken.",
     "reset_your_password_email_valid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
     "reset_your_password_subject": "Kennwort zurückzusetzen",
