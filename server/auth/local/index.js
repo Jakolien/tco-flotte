@@ -36,7 +36,7 @@ router.all('/forgot', function(req, res) {
     // Set user token
     }, function(buff, done) {
       // Gets email from body or query
-      let email = req.body.email || req.query.email
+      let email = (req.body.email || req.query.email).toLowerCase()
       // Find the user using the provided email
       User.findOne({ email: email }, function(err, user) {
         // User not found
