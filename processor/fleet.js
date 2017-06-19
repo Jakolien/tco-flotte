@@ -170,16 +170,16 @@ var Fleet = function(params) {
 		"BEV" : {
 			"klein": 20,
 			"mittel": 30,
-			"groß": 60,
-			"LNF1": 25,
-			"LNF2": 45
+			"groß": 70,
+			"LNF1": 35,
+			"LNF2": 50
 		},
 		"hybrid-benzin": {
-			"mittel": 8,
-			"groß": 10
+			"mittel": 6,
+			"groß": 8
 		},
 		"hybrid-diesel": {
-			"groß": 16
+			"groß": 12
 		}
 	}
 
@@ -228,7 +228,7 @@ var Fleet = function(params) {
 		}
 	// Consumption in kWh/km
 	this.fleet_presets.electro_verbrauch = {
-		"BEV":    {"klein": 0.133, "mittel": 0.15,"groß": .2, "LNF1": .2, "LNF2": .31},
+		"BEV":    {"klein": 0.133, "mittel": 0.15,"groß": .2, "LNF1": .175, "LNF2": .25},
 		"hybrid-diesel": {"groß": 0.21},
 		"hybrid-benzin": {"mittel": 0.1550 , "groß": 0.19}
 	}

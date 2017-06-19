@@ -37,7 +37,7 @@
       "name": "Optimierte Flotte",
       "vars": {
         "charging_option": "Wallbox 22kW",
-        "charging_option_num": 1
+        "charging_option_num": 2
       },
       "groups": [
         {
@@ -69,7 +69,7 @@
         },
         {
           "vars": {
-            "group_name": "Poolfahrzeuge Verwaltung (Elekro-Fahrzeuge)",
+            "group_name": "Poolfahrzeuge Verwaltung (Elektro-Fahrzeuge)",
             "num_of_vehicles": 2,
             "energy_type": "BEV",
             "car_type": "klein",
@@ -124,7 +124,7 @@
       "name": "Optimized fleet",
       "vars": {
         "charging_option": "Wallbox 22kW",
-        "charging_option_num": 1
+        "charging_option_num": 2
       },
       "groups": [
         {

@@ -58,6 +58,7 @@ var VehicleGroup = function(fleet_params, params) {
 	this.residual_value_fixed = 0 // the residual value to be displayed and input by the user
 	this.praemie_bev = 4000
 	this.praemie_hybrid = 3000
+	this.factor_batterie_loss = 1.1
 
 	// Variables of the special groups
 	this.long_distance_train_CO2_per_km = 41
@@ -435,7 +436,7 @@ var VehicleGroup = function(fleet_params, params) {
 		} else if (this.energy_type == "BEV") {
 			for (var year = this.acquisition_year; year <= 2049; year++) {
 				this.energy_costs[year] = {}
-				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.electricity_consumption * this.energy_prices[this.energy_type][year]["mittel"];
+				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.electricity_consumption * this.energy_prices[this.energy_type][year]["mittel"] * this.factor_batterie_loss;
 			}
 		} else { //Hybrid vehicles
 			var energy_type = this.energy_type.split("-")[1];
@@ -443,7 +444,7 @@ var VehicleGroup = function(fleet_params, params) {
 			for (var year = this.acquisition_year; year <= 2049; year++) {
 				this.energy_costs[year] = {}
 				this.energy_costs[year]["mittel"] = (this.mileage / 100) * this.share_electric / 100 * this.electricity_consumption * this.energy_prices["BEV"][year]["mittel"];
-				this.energy_costs[year]["mittel"] += (this.mileage / 100) * (1 - this.share_electric / 100) * this.fuel_consumption * this.energy_prices[energy_type][year]["mittel"];
+				this.energy_costs[year]["mittel"] += (this.mileage / 100) * (1 - this.share_electric / 100) * this.fuel_consumption * this.energy_prices[energy_type][year]["mittel"] * this.factor_batterie_loss;
 			}
 		}
 	}
@@ -512,10 +513,10 @@ var VehicleGroup = function(fleet_params, params) {
 				}
 				// Computes the amount to amortize
 				this.getAmortization()
+				console.log("Leasing fixed", this.acquisition_price, leasing_rate)
 				return leasing_rate 
 			} else {
 				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.residual_value["mittel"] - this.cash_bonus_amount) / (this.leasing_duration)
-				this.acquisition_price += this.leasing_downpayment
 				leasing_rate += this.leasing_extras.insurance
 				leasing_rate += this.leasing_extras.tax
 				leasing_rate += this.leasing_extras.service
@@ -523,6 +524,16 @@ var VehicleGroup = function(fleet_params, params) {
 				leasing_rate += this.leasing_extras.repairs
 				leasing_rate += this.leasing_extras.inspection
 				
+				this.acquisition_price = this.leasing_downpayment
+				// Now discounts all costs related to the leasing payments
+				for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
+					this.acquisition_price += this.discountCosts(leasing_rate * 12, current_year - this.acquisition_year)
+				}
+				// Computes the amount to amortize
+				this.getAmortization()
+
+				console.log("Leasing tick", this.acquisition_price, leasing_rate)
+
 				return leasing_rate
 			}
 		} else {
@@ -596,19 +607,19 @@ var VehicleGroup = function(fleet_params, params) {
 
 		if (this.energy_type == "BEV") {
 			if (this.energy_source == "strom_mix") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000  * this.factor_batterie_loss
 			}
 			else if (this.energy_source == "strom_erneubar") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000 * this.factor_batterie_loss
 			}
 		}
 
 		else if (this.energy_type.indexOf("hybrid") > -1) {
 
 			if (this.energy_source == "strom_mix") {
-				co2 = (this.mileage / 100) * (this.share_electric /100) *  this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000
+				co2 = (this.mileage / 100) * (this.share_electric /100) *  this.electricity_consumption * fleet_params.CO2_from_electricity_mix[year] * 1000 * this.factor_batterie_loss
 			} else if (this.energy_source == "strom_erneubar") {
-				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000
+				co2 = (this.mileage / 100) * this.electricity_consumption * fleet_params.co2_emissions[this.energy_source] * 1000 * this.factor_batterie_loss
 			}
 
 			co2 += (this.mileage / 100) * (1-this.share_electric /100) *  this.fuel_consumption * fleet_params.co2_emissions[this.energy_type.split("-")[1]]
@@ -693,11 +704,10 @@ var VehicleGroup = function(fleet_params, params) {
 	}
 
 	this.getTCO = function() {
-		//console.log(this.leasing, this.leasing_rate, this.amortization["mittel"][2017])
 		this.TCO = this.TCO_by_holding_time["mittel"][this.holding_time]
 		this.CO2 = this.CO2_by_holding_time[this.holding_time]
 
-		if (params.hasOwnProperty("leasing_rate") && this.leasing == true) {
+		if (this.leasing == true) {
 			this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost
 
 			//And now subtract the amortization by year:
