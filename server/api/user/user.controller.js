@@ -35,6 +35,7 @@ export function index(req, res) {
  */
 export function create(req, res) {
   var newUser = new User(req.body);
+  newUser.email = newUser.email.toLowerCase();
   newUser.provider = 'local';
   newUser.role = 'user';
   newUser.save()
