@@ -456,9 +456,12 @@ var VehicleGroup = function(fleet_params, params) {
 			var amount_to_amortize = this.acquisition_price - this.cash_bonus_amount
 
 			for (var year = this.acquisition_year; year <= 2035; year++) {
-
+				// For leasing, amortization is computed in getLeasingRate
+				if (this.leasing == true) {
+					this.amortization[scenario][year] = 0
+				}
 				// Computes the amortization of the vehicle
-				if (year < this.acquisition_year + this.abschreibungszeitraum){
+				else if (year < this.acquisition_year + this.abschreibungszeitraum){
 					if (year == this.acquisition_year && this.sonder_afa == true && this.energy_type=="BEV"){
 						this.amortization[scenario][year] = amount_to_amortize * .5 * (this.unternehmenssteuersatz / 100)
 					} else if (this.sonder_afa == true && this.energy_type=="BEV") {
@@ -509,11 +512,8 @@ var VehicleGroup = function(fleet_params, params) {
 				this.acquisition_price = this.leasing_downpayment
 				// Now discounts all costs related to the leasing payments
 				for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
-					this.acquisition_price += this.discountCosts(leasing_rate * 12, current_year - this.acquisition_year)
+					this.acquisition_price += this.discountCosts(leasing_rate * (1 - this.unternehmenssteuersatz/100), current_year - this.acquisition_year) * 12
 				}
-				// Computes the amount to amortize
-				this.getAmortization()
-				console.log("Leasing fixed", this.acquisition_price, leasing_rate)
 				return leasing_rate 
 			} else {
 				var leasing_rate = (this.acquisition_price - this.leasing_downpayment - this.residual_value["mittel"] - this.cash_bonus_amount) / (this.leasing_duration)
@@ -527,13 +527,8 @@ var VehicleGroup = function(fleet_params, params) {
 				this.acquisition_price = this.leasing_downpayment
 				// Now discounts all costs related to the leasing payments
 				for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
-					this.acquisition_price += this.discountCosts(leasing_rate * 12, current_year - this.acquisition_year)
+					this.acquisition_price += this.discountCosts(leasing_rate * (1 - this.unternehmenssteuersatz/100), current_year - this.acquisition_year) * 12
 				}
-				// Computes the amount to amortize
-				this.getAmortization()
-
-				console.log("Leasing tick", this.acquisition_price, leasing_rate)
-
 				return leasing_rate
 			}
 		} else {
@@ -685,6 +680,8 @@ var VehicleGroup = function(fleet_params, params) {
 
 		return keys;
 	}
+	
+	this.isNumber = function(obj) { return !isNaN(parseFloat(obj)) }
 
 	this.discountCosts = function(costs, period) {
 
@@ -693,11 +690,15 @@ var VehicleGroup = function(fleet_params, params) {
 			if (this.keys(costs[i] || {}).length > 0){
 
 				for (var j in costs[i]) {
-					costs[i][j] = Math.round(costs[i][j] / Math.pow(1 + this.discount_rate/100, period))
+					costs[i][j] = costs[i][j] / Math.pow(1 + this.discount_rate/100, period)
 				}
 			} else {
-				costs[i] = Math.round(costs[i] / Math.pow(1 + this.discount_rate/100, period))
+				costs[i] = costs[i] / Math.pow(1 + this.discount_rate/100, period)
 			}
+		}
+
+		if (this.isNumber(costs)){
+			costs = costs / Math.pow(1 + this.discount_rate/100, period)
 		}
 
 		return costs
@@ -709,15 +710,6 @@ var VehicleGroup = function(fleet_params, params) {
 
 		if (this.leasing == true) {
 			this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost
-
-			//And now subtract the amortization by year:
-			for (var current_year = this.acquisition_year; current_year < this.holding_time + this.acquisition_year; current_year++){
-				var amortization = 0
-				amortization = this.amortization["mittel"][current_year]
-				amortization = this.discountCosts(amortization, current_year - this.acquisition_year)
-				this.TCO_simplified["net_cost"] -= amortization
-			}
-
 		} else {
 			this.TCO_simplified["net_cost"] = this.TCO.vehicle_basis_cost + this.TCO.residual_value + this.TCO.amortization_vehicle - this.cash_bonus_amount
 		}
