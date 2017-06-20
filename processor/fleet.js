@@ -762,7 +762,9 @@ var Fleet = function(params) {
 		this.TCO.mileage_by_group[group_name] = group_insights.TCO.mileage
 
 		// Costs by position
-		this.TCO.cost_by_position.net_acquisition_cost += group_insights.TCO.net_acquisition_cost
+		if (group_insights.car_type != "single_size") { // not for special groups
+			this.TCO.cost_by_position.net_acquisition_cost += group_insights.TCO.net_acquisition_cost
+		}
 		this.TCO.cost_by_position.fixed_costs += group_insights.TCO.fixed_costs
 		this.TCO.cost_by_position.variable_costs += group_insights.TCO.variable_costs
 		this.TCO.cost_by_position.energy_costs += group_insights.TCO.energy_costs
