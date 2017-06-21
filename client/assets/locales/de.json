@@ -161,7 +161,7 @@
     "home_link": "Startseite",
     "about_link": "Über das Projekt",
     "how_optimise_btn": "Optimierung der Fahrzeugflotte",
-    "how_optimise_link": "http://www.epowered-fleets-hamburg.de/optimierung-der-fahrzeugflotte/",
+    "how_optimise_link": "http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/optimierung-der-fahrzeugflotte/",
     "how_to_optimise_body": "Prüfen Sie zunächst, ob Fahrleistungen auch auf andere Verkehrsmittel übertragen werden können, die günstigere Kilometerkosten und/oder einen geringeren CO₂-Ausstoß pro Kilometer aufweisen (z.B. Bahn oder E-Bike). Anschließend können Sie prüfen, ob bestimmte Fahrzeuge im Fuhrpark durch Elektrofahrzeuge ersetzt oder ganz eingespart werden können.",
     "how_to_optimise_title": "Wie man eine Fahrzeugflotte optimiert",
     "hybrid-benzin": "Plug-in Hybrid oder Range Extender (Benzin)",
@@ -321,7 +321,7 @@
     "fleets_intro": "Sie sind jetzt in der Flottenübersicht. Hier können Sie neue Fahrzeuge zu Ihrer Flotte hinzufügen, indem Sie auf „Neuer Fahrzeugtyp“ klicken. Wenn die Flotte vollständig ist, können Sie mit einem Klick auf „Flotte kopieren“ eine Vergleichsflotte anlegen, in der Sie z.B. konventionelle Fahrzeuge durch Elektrofahrzeuge ersetzen oder Wegstrecken auf alternative Verkehrsmittel verlagern können.",
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help",
-    "tutorial_href": "http://www.epowered-fleets-hamburg.de/anleitung/",
+    "tutorial_href": "http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/anleitung/",
     "tutorial_link": " Anleitung",
     "visualization_link_left": "Zur Auswertung",
     "mileage_fleet": "Jahresfahrleistung Gesamtflotte"
