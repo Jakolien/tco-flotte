@@ -519,21 +519,12 @@ var Fleet = function(params) {
 
 	this.setChargingOptionPrice = function() {		
 
-		// Hack: Goes through all default values for charging devices. If the params.var (user defined) value
-		// Is in the list, it's ignored
-		var default_prices_charging_options = []
-		for (var i=0 ; i< charging_options.length; i++) {
-			var default_price = this.fleet_presets.charging_options[charging_options[i]]["acquisition"]
-			default_prices_charging_options.push(default_price)
-		}
-
-		// The user-input price has to exist, to be positive AND not to be in the list of default prices 
-		if (params.vars.hasOwnProperty("charging_option_unitary_cost") && params.vars["charging_option_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option_unitary_cost"]) == -1) {
+		if (params.vars.hasOwnProperty("charging_option_unitary_cost")) {
 			this.fleet_presets.charging_option_unitary_cost = params.vars["charging_option_unitary_cost"];
 		} else {
 			this.fleet_presets.charging_option_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["acquisition"];
 		}
-		if (params.vars.hasOwnProperty("charging_option2_unitary_cost") && params.vars["charging_option2_unitary_cost"] > 0 && default_prices_charging_options.indexOf(params.vars["charging_option2_unitary_cost"]) == -1) {
+		if (params.vars.hasOwnProperty("charging_option2_unitary_cost")) {
 			this.fleet_presets.charging_option2_unitary_cost = params.vars["charging_option2_unitary_cost"];
 		} else {
 			this.fleet_presets.charging_option2_unitary_cost = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["acquisition"];
@@ -560,24 +551,15 @@ var Fleet = function(params) {
 
 	this.setChargingOptionMaintenance = function() {
 
-		// Same hack as above for acquisition costs
-		var default_maintenance_charging_options = []
-		for (var i=0 ; i< charging_options.length; i++) {
-			var default_price = this.fleet_presets.charging_options[charging_options[i]]["maintenance"]
-			default_maintenance_charging_options.push(default_price)
-		}
-
 		this.fleet_presets.charging_option_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option]["maintenance"];
 		this.fleet_presets.charging_option2_maintenance_costs = this.fleet_presets.charging_options[this.fleet_presets.charging_option2]["maintenance"];
 		if (params.vars.hasOwnProperty("charging_option_maintenance_costs")) {
-			if (params.vars["charging_option_maintenance_costs"] > 0  && default_maintenance_charging_options.indexOf(params.vars["charging_option_maintenance_costs"]) == -1){
-				this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
-			}
+			this.fleet_presets.charging_option_maintenance_costs = params.vars["charging_option_maintenance_costs"]
+			
 		}
 		if (params.vars.hasOwnProperty("charging_option2_maintenance_costs")) {
-			if (params.vars["charging_option2_maintenance_costs"] > 0 && default_maintenance_charging_options.indexOf(params.vars["charging_option2_maintenance_costs"]) == -1){
-				this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
-			}
+			this.fleet_presets.charging_option2_maintenance_costs = params.vars["charging_option2_maintenance_costs"]
+			
 		}
 
 	}
