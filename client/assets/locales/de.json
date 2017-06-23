@@ -68,7 +68,7 @@
     "create_your_fleets": "Fahrzeugflotte anlegen",
     "date_format": "dd.MM.yyyy",
     "delete": "Löschen",
-    "desc1": "Wenn ein in der Zukunft liegendes Anschaffungsjahr ausgewählt wird, verringern sich die voreingestellten Werte für den Kraftstoff- bzw. Stromverbrauch; auch die Anschaffungskosten werden angepasst. Bei Bestandsfahrzeugen, die in der Vergangenheit angeschafft wurden, hat die Option Anschaffungsjahr keine Auswirkung und kann bei 2017 belassen werden.",
+    "desc1": "Zulässige Anschaffungsjahre: 2017-2025. Wenn ein in der Zukunft liegendes Anschaffungsjahr ausgewählt wird, verringern sich die voreingestellten Werte für den Kraftstoff- bzw. Stromverbrauch; auch die Fahrzeugpreise werden angepasst. Bei Bestandsfahrzeugen, die in der Vergangenheit angeschafft wurden, hat die Option Anschaffungsjahr keine Auswirkung und kann bei 2017 belassen werden.",
     "desc10": "A German law proposes to change accounting rules for electrical vehicles.",
     "desc11": "Nettokosten.<br>Grundlage der Berechnung ist die ADAC-Autokostendatenbank. <br>Details können der Dokumentation zum TCO-Rechner für Fahrzeugflotten entnommen werden.",
     "desc15": "Der Einsatz eines Fahrzeuges unter schweren Verkehrsverhältnissen mit einem hohen Stop&Go-Anteil kann sich auf die Wartungs- und Instandhaltungskosten auswirken.<br>Gegenüber der Auswahl 'normaler Verkehr' wird bei der Auswahl der Option 'schwerer Verkehr' um 20% und bei der Option 'sehr schwerer Verkehr' 100% höhere Kosten für Wartung und Instandhaltung veranschlagt.",
