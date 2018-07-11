@@ -1,11 +1,11 @@
 import nodemailer from 'nodemailer';
-// Create
+// TODO: create account?
 export default nodemailer.createTransport({
-  host: 'smtp.sendgrid.net',
+  host: process.env.FLOTTENRECHNER_MAIL_HOST || 'localhost',
   secure: true,
-  post: 465,
+  post: process.env.FLOTTENRECHNER_MAIL_PORT || 465,
   auth: {
-    user: process.env.SENDGRID_USERNAME,
-    pass: process.env.SENDGRID_PASSWORD
+    user: process.env.FLOTTENRECHNER_MAIL_USERNAME,
+    pass: process.env.FLOTTENRECHNER_MAIL_PASSWORD
   }
 });

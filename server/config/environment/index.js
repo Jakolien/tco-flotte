@@ -23,10 +23,10 @@ var all = {
   locales: path.normalize(`${__dirname}/../../../client/assets/locales`),
 
   // Browser-sync port
-  browserSyncPort: process.env.BROWSER_SYNC_PORT || 3000,
+  browserSyncPort: process.env.BROWSER_SYNC_PORT || 30020,
 
   // Server port
-  port: process.env.PORT || 9000,
+  port: process.env.PORT || 30022,
 
   // Server IP
   ip: process.env.IP || '0.0.0.0',

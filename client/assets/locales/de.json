@@ -311,7 +311,7 @@
     "Keine": "Keine",
     "download": {
         "preparing": "Ihr PDF wird vorbereitet ...",
-        "description": "Der Download startet automatisch.",
+        "description": "Der Download startet automatisch (Dies kann eine Weile dauern).",
         "ready": "Download abgeschlossen.",
         "click": "Bitte klicken Sie hier",
         "fail": "falls der Download nicht automatisch startet.",

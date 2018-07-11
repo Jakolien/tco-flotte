@@ -11,3 +11,5 @@ npm-debug.log
 coverage
 done
 todo
+tmp_pdf
+tmp/*.pdf

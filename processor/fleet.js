@@ -353,10 +353,10 @@ var Fleet = function(params) {
 	// CO2 produced when the vehicle is produced
 	this.fleet_presets.CO2_from_manufacturing = {
 		"benzin": {"klein": 4605, "mittel": 5880,"groß": 6782},
-		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 7000, "LNF2": 9500},
+		"diesel": {"klein": 5098, "mittel": 5880,"groß": 7094, "LNF1": 6452, "LNF2": 8567},
 		"hybrid-benzin": {"mittel": 8400,"groß": 10711},
-		"hybrid-diesel": {"groß": 11648},
-		"BEV":    {"klein": 7851, "mittel": 9341,"groß": 13376, "LNF1": 13376, "LNF2": 18058}
+		"hybrid-diesel": {"groß": 12348},
+		"BEV":    {"klein": 8000, "mittel": 10668,"groß": 17533, "LNF1": 12332, "LNF2": 16967}
 	};
 
 	// Add special groups

@@ -104,7 +104,7 @@ export default function(app) {
       open: false,
       logFileChanges: false,
       proxy: `localhost:${config.port}`,
-      ws: true,
+      ws: false,
       middleware: [
         webpackDevMiddleware(compiler, {
           noInfo: false,
@@ -115,7 +115,10 @@ export default function(app) {
           }
         })
       ],
-      port: config.browserSyncPort,
+      port: 30010,
+		ui: {
+		port: 30011
+	},
       plugins: ['bs-fullscreen-message']
     });
 

@@ -315,7 +315,7 @@
     "General information": "General information",
     "download": {
         "preparing": "Preparing download ...",
-        "description": "Download will start automatically.",
+        "description": "Download will start automatically (This might take a while).",
         "ready": "Download ready.",
         "click": "Click here",
         "fail": "if the download didn't start.",

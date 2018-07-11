@@ -65,12 +65,13 @@ A new Fleet object accepts a single parameter, which is a Javascript object form
 }
 ```
 
-For each vehicle group, `num_of_vehicles`, `car_type` and `energy_type` are mandatory. Other keys can be added ; they are the variables listed [in this spreadsheet](https://docs.google.com/spreadsheets/d/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/edit#gid=0) whose value for the column "Context" is "VehicleGroup".
+For each vehicle group, `num_of_vehicles`, `car_type` and `energy_type` are mandatory. Other keys can be added ; they are the variables listed [in this spreadsheet](
+https://docs.google.com/spreadsheets/d/1jscqGDz5K1avuHvOCP6jOyogmBMlX0oAZhTG7saSFqU/edit#gid=0) whose value for the column "Context" is "VehicleGroup".
 
 For the `vars` object, the key-value pairs that can be added are the variables listed in the same spreadsheet whose value for the column "Context" is "Fleet".
 
 #### Visualizations
 
-The Fleet object computes the values needed for the visualizations, both in the "Fleet data" module and in the final visualizations. The list of possible visualizations can be found [in this spreadsheet](https://docs.google.com/spreadsheets/d/1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc/edit#gid=1491344505).
+The Fleet object computes the values needed for the visualizations, both in the "Fleet data" module and in the final visualizations. The list of possible visualizations can be found [in this spreadsheet](https://docs.google.com/spreadsheets/d/1jscqGDz5K1avuHvOCP6jOyogmBMlX0oAZhTG7saSFqU/edit#gid=1491344505).
 
 The "usage" column indicates whether a graph shall be displayed in the "Fleet Data" module, in the final visualizations or at both places.

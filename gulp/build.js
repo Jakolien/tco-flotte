@@ -27,11 +27,11 @@ var config;
  * Helper functions
  ********************/
 
-function onServerLog(log) {
+function onServerLog(log) {	
     console.log(plugins.util.colors.white('[') +
         plugins.util.colors.yellow('nodemon') +
         plugins.util.colors.white('] ') +
-        log.message);
+        log.message);	
 }
 
 function checkAppReady(cb) {
@@ -272,8 +272,8 @@ gulp.task('start:server', () => {
 
 gulp.task('start:server:prod', () => {
     process.env.NODE_ENV = process.env.NODE_ENV || 'production';
-    config = require(`../${paths.dist}/${serverPath}/config/environment`);
-    nodemon(`-w ${paths.dist}/${serverPath} ${paths.dist}/${serverPath}`)
+    config = require(`../${paths.dist}/${serverPath}/config/environment`);    
+	nodemon(`-w ${paths.dist}/${serverPath} ${paths.dist}/${serverPath}`)
         .on('log', onServerLog);
 });
 
@@ -330,7 +330,7 @@ gulp.task('serve:debug', cb => {
         ],
         'webpack:dev',
         'start:inspector',
-        ['start:server:debug', 'start:client'],
+        ['start:server:debug'],
         'watch',
         cb
     );
@@ -341,7 +341,7 @@ gulp.task('serve:dist', cb => {
         'build',
         'env:all',
         'env:prod',
-        ['start:server:prod', 'start:client'],
+        ['start:server:prod'],
         cb);
 });
 

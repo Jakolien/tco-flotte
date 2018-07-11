@@ -24,6 +24,7 @@ import fs from 'fs';
 // An object holding the current promise to print a screen
 var printQueue = {};
 // Queue state
+var PHANTOM_WAIT_MS = 15000; // 15s waiting. FIXME: there has to be a better way
 const QUEUE_DONE = 'done', QUEUE_PENDING = 'pending';
 // Print's paper size properties
 const PAPER_SIZE = {
@@ -213,43 +214,48 @@ export function print(req, res) {
     // Obfuscate the key for better anonymity
     key = require('crypto').createHash('md5').update(key).digest('hex');
     // PDF temporary filename
-    let filename = `/tmp/${key}.pdf`;
-    // In development, assets are generated through a proxy on port 3000
-    let url = req.protocol + '://' + req.get('host').replace(':9000', ':3000');
+    let filename = `${process.env.EMOB_FLOTTE_PATH}/tmp/${key}.pdf`;
+    // get the domain name from environment    
+    let url = process.env.EMOB_FLOTTE_URL;
     // Will hold phantom page and instance
     let sitepage = null;
-    let phInstance = null
-    // The queue is done and the file exists!
-    if(printQueue[key] === QUEUE_DONE && fs.existsSync(filename) ) {
+    let phInstance = null;
+    // The queue is done and the file exists!	
+	if(printQueue[key] === QUEUE_DONE && fs.existsSync(filename) ) {
       // Send the result to the user
-      res.json({ status: 'done', key: key, url: `${url}/api/fleets/print/${key}?locale=${req.locale}` });
+	  var downloadUrl = `${url}/api/fleets/print/${key}?locale=${req.locale}`;	  
+      res.json({ status: 'done', key: key, url: downloadUrl});
     // The file is not pending
     } else if(printQueue[key] !== QUEUE_PENDING) {
       // Mark the queue as undone
       printQueue[key] = QUEUE_PENDING;
       // Send the result to the user with the queue key
       res.json({ status: 'pending', key: key });
+	  
+	  var printUrl = `${url}/#/visualization?language=${req.locale}&ids=${req.query.ids}`;
+	 
       // Start Phantom
       phantom.create()
         .then(instance => (phInstance = instance).createPage())
         .then(page     => sitepage = page)
-        .then(page     => sitepage.property('paperSize', PAPER_SIZE) )
-        .then(status   => sitepage.property('zoomFactor', 1) )
-        .then(page     => sitepage.open(`${url}/#/visualization?language=${req.locale}&ids=${req.query.ids}`))
+        .then(page     => sitepage.property('paperSize', PAPER_SIZE))
+        .then(page   => sitepage.property('zoomFactor', 1))
+        //.then(page   => sitepage.property('zoomFactor', 1))
+        //.then(page   => sitepage.property('onConsoleMessage', function(msg){process.stderr.write(msg, '\n');}))        
+        .then(page     => sitepage.open(printUrl))
         .then(function() {
           // Wait a short delay before rendering the page to PDF
           return setTimeout(function() {
             // Now we can render it !
             return sitepage.render(filename).then(function() {
               // Close the page
-              sitepage.close();
-              // Free Phantom memory
-              phInstance.exit();
+              sitepage.close()
+              .then(x => phInstance.exit()); // Free Phantom memory              
               // Mark the queue as done
               printQueue[key] = QUEUE_DONE;
             });
-          // We wait 4 seconds to ensure all chart are rendered
-          }, 4000);
+          // We wait X seconds to ensure all chart are rendered
+          }, PHANTOM_WAIT_MS);
         })
         // Cache errot to exit the Phantom instance
         .catch(e => phInstance.exit());
@@ -263,7 +269,9 @@ export function print(req, res) {
 
 export function download(req, res) {
   // PDF temporary filename
-  let filename = `/tmp/${req.params.key}.pdf`;
+  let filename = `${process.env.EMOB_FLOTTE_PATH}/tmp/${req.params.key}.pdf`;
+  
+  
   // The queue is done and the file exists!
   if(printQueue[req.params.key] === QUEUE_DONE && fs.existsSync(filename) ) {
     delete printQueue[req.params.key];
@@ -273,7 +281,12 @@ export function download(req, res) {
     res.setHeader('Content-disposition', 'attachment; filename='.concat(download));
     res.setHeader('Content-type', 'application/pdf');
     // Then send the file
-    res.sendFile(filename);
+		
+    res.sendFile(filename, function(){
+		fs.unlink(filename);
+	});
+	
+	
   } else {
     // Not ready!
     handleError(res)('The file you requested is not in queue or not ready.');
@@ -368,3 +381,4 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+

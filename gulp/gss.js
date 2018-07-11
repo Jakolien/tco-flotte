@@ -7,7 +7,7 @@ import gulp from 'gulp';
 import Gss  from 'google-spreadsheet';
 import {paths, clientPath, serverPath} from './paths';
 
-let GSSID = '1BDZ0IdPADc13aKokVZZ5VFbyUUqQdbRZJgqWGK6EEHc';
+let GSSID = '1jscqGDz5K1avuHvOCP6jOyogmBMlX0oAZhTG7saSFqU';
 let NUMBER_FIELDS = ['importancerank', 'interval', 'rounded',
                      'overviewoffindingsrank']
 let UNWANTED_FIELDS = ['_xml', '_links'];

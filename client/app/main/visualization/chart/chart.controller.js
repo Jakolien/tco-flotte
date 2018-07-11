@@ -11,8 +11,7 @@ const LEASING_INCLUDES = [
 
 export default class ChartComponent {
   /*@ngInject*/
-  constructor(fleets, appConfig, printMode, $translate, $filter, $log, $element) {
-    $log.log('Rendering %s with %s fleet(s)', this.meta.name, fleets.length());
+  constructor(fleets, appConfig, printMode, $translate, $filter, $log, $element) {    
     // Dependancies available in instance
     angular.extend(this, { fleets, appConfig, $translate, $filter, $element, printMode });
     // Bind to instance
@@ -45,11 +44,18 @@ export default class ChartComponent {
       return _.max(_.map(g.values.split(','), Number));
     }));
   }
+  /*
   get barWidth() {
     const chartWidth = $(this.$element).width();
-    const maxWidth = chartWidth / this.columnNames().length;
+    if (printMode) {
+            // FIXME: chartWidth / this.columnNames().length   does not work in orintmode 
+            const maxWidth = chartWidth;            
+        } else {
+            const maxWidth = chartWidth / this.columnNames().length;            
+        }     
     return maxWidth * 0.8;
   }
+  */
   get unit() {
     return this.$translate.instant(this.meta.unit) || '';
   }

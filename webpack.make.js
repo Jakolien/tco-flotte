@@ -72,7 +72,7 @@ module.exports = function makeWebpackConfig(options) {
 
             // Output path from the view of the page
             // Uses webpack-dev-server in development
-            publicPath: BUILD || DEV || E2E ? '/' : `http://localhost:${8080}/`,
+            publicPath: BUILD || DEV || E2E ? '/' : `http://localhost:30010/`,
             //publicPath: BUILD ? '/' : 'http://localhost:' + env.port + '/',
 
             // Filename for entry points
@@ -169,7 +169,7 @@ module.exports = function makeWebpackConfig(options) {
             // Reference: https://github.com/willyelm/pug-html-loader
             // Allow loading Pug throw js
             test: /\.(jade|pug)$/,
-            loaders: ['pug-html']
+            loaders: ['raw-loader', 'pug-html']
         }, {
 
             // HTML LOADER

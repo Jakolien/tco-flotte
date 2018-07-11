@@ -51,11 +51,19 @@ export default class ChartGroupedComponent {
         }
         return value;
       }
+      /*
       get barWidth() {
         const chartWidth = $($element).width();
-        const maxWidth = chartWidth / this.groups.length;
+        
+        if (printMode) {
+            // FIXME: chartWidth / this.groups.length  does not work in orintmode
+            const maxWidth = chartWidth;            
+        } else {
+            const maxWidth = chartWidth / this.groups.length;            
+        }                
         return Math.min(maxWidth * 0.8, chartWidth * 0.2);
       }
+      */
       get unit() {
         return $translate.instant(this.meta.unit) || '';
       }

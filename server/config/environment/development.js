@@ -10,7 +10,13 @@ module.exports = {
     uri: 'mongodb://localhost/oekoflotte-dev'
   },
 
+  
+  // Server port
+  //port: 30010,
+  
   // Seed database on startup
   seedDB: false
-
+  
+  
+  
 };
