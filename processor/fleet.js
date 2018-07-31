@@ -797,7 +797,8 @@ var Fleet = function(params) {
 	this.TCO.CO2_per_km["CO2_from_manufacturing"] = (this.TCO.CO2_by_phase["CO2_from_manufacturing"] * 1000000) / this.TCO.mileage_overall
 	
 	// cost per km
-	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage
+    // CHANGED:  Issue #7 
+	this.TCO.cost_per_km = this.TCO.total_costs / this.TCO.mileage_overall
 
 	// Just to obtain the mileage_fleet var
 	this.TCO.mileage_fleet = this.TCO.mileage
