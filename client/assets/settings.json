@@ -633,7 +633,7 @@
     "default": "2017",
     "hashelp": false,
     "interval": 1,
-    "hasslider": true,
+    "hasslider": false,
     "canbeonxaxis": true,
     "shownonthelist": true,
     "importancerank": 9,
