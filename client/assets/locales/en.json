@@ -91,7 +91,7 @@
     "desc3": "Average distance driven in a year.",
     "desc32": "Net costs. The calculation is based on the car cost database of ADAC (ADAC-Autokostendatenbank). For details please see the documentation of this TCO calculator for vehicle fleets (available only in German).",
     "desc33": "In Germany, the acquisition of electric vehicles and plug-in hybrid vehicles is subsidised until 2019 with a direct subsidy of 4,000€ (electric vehicles) or 3,000 € (plug-in hybrid vehicles), provided that the acquisition price (of the standard configuration) does not exceed 60,000€ (net) and that the manufacturer contributes financially as well.",
-    "desc34": "The default value refers to the average net list price in the respective car class (without discounts).",
+    "desc34": "The default value refers to the average net list price in the respective car class (without discounts). If you chose a certain vehicle model and you know the acquisition costs, please observe if you will also have to pay an additional battery rent. If this applies, add the battery rent at this point.",
     "desc35": "The inflation rate in Germany averaged 1.5% per year in the period from 2004 to 2015.",
     "desc36": "Average price (excl. VAT) of premium-grade gasoline (Super 95) in Germany in 2017. For future years, the respective gasoline price is calculated according to the fuel price development as specified below.",
     "desc37": "Average price of diesel (excl. VAT) in Germany in 2017. For future years, the respective diesel price is calculated according to the fuel price development as specified below.",

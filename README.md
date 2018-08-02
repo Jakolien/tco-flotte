@@ -26,3 +26,8 @@ Run `gulp build` for building and `gulp serve` for preview.
 ## Testing
 
 Running `npm test` will run the unit tests with karma.
+
+
+## Google docs
+
+https://docs.google.com/spreadsheets/d/1jscqGDz5K1avuHvOCP6jOyogmBMlX0oAZhTG7saSFqU/edit?usp=drive_web&ouid=104950385872297827675

@@ -88,7 +88,7 @@
     "desc3": "Durchschnittliche Jahresfahrleistung während der Haltedauer.",
     "desc32": "Nettokosten.<br>Grundlage der Berechnung ist die ADAC-Autokostendatenbank. <br>Details können der Dokumentation zum TCO-Rechner für Fahrzeugflotten entnommen werden.",
     "desc33": "In Deutschland werden Elektrofahrzeuge und Plug-In-Hybridfahrzeuge bis zum Jahr 2019 mit einer Kaufprämie in Höhe von 4.000 € (Elektrofahrzeuge) bzw. 3.000 € (Plug-In-Hybridfahrzeuge) bezuschusst, sofern der Kaufpreis der Standardkonfiguration 60.000 € (netto) nicht überschreitet und sich der Hersteller beteiligt.",
-    "desc34": "Der voreingestellte Wert bezieht sich auf den durchschnittlichen Netto-Listenpreis der jeweiligen Fahrzeugklasse (ohne Rabatte).",
+    "desc34": "Der voreingestellte Wert bezieht sich auf den durchschnittlichen Netto-Listenpreis der jeweiligen Fahrzeugklasse (ohne Rabatte). Falls Sie ein bestimmtes Fahrzeugmodell ins Auge gefasst haben und den Anschaffungspreis kennen, beachten Sie auch mögliche Kosten für eine Batteriemiete und rechnen Sie diese hier mit ein.",
     "desc35": "Die Inflationsrate betrug in Deutschland im Zeitraum von 2004 bis 2015 durchschnittlich 1,5% pro Jahr.",
     "desc36": "Durchschnittlicher Preis für Superbenzin im Jahr 2017 (exkl. MwSt). Für die Folgejahre wird der Benzinpreis entsprechend der unten hinterlegten Kraftstoffpreisentwicklung berechnet.",
     "desc37": "Durchschnittlicher Preis für Diesel im Jahr 2017 (exkl. MwSt). Für die Folgejahre wird der Dieselpreis entsprechend der unten hinterlegten Kraftstoffpreisentwicklung berechnet. ",
