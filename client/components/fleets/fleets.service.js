@@ -239,6 +239,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
       return this;
     }
     rename() {
+      // TODO wingechr: do not allow duplicate names
       if(this[_vars].name !== this.name && this.name !== '') {
         // Send the data !
         this[_vars].name = this.name;
@@ -306,7 +307,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
     push(...rest) {
       for(let fleet of rest) {
         if(fleet._id) {
-          // Avoid adding the fleet twice
+          // Avoid adding the fleet twice          
           if(! this.get(fleet._id) ) {
             super.push(new Fleet(fleet));
           }

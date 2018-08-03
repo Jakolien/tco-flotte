@@ -69,7 +69,7 @@
                             max="{{ $ctrl.getInputValues(input, context).ceil }}",
                             step="{{ $ctrl.getInputValues(input, context).step != 1 ? $ctrl.getInputValues(input, context).step : 'any' }}",
                             ng-model="$ctrl.gs(context, input.meta.name)",
-                            ng-model-options="{ getterSetter: true }")
+                            ng-model-options="{ getterSetter: true, updateOn: 'blur' }")
                           span.input-group-addon(ng-show="input.meta.unit")
                             | {{ input.meta.unit | translate | trim }}
                         div(ng-switch-when="string")
