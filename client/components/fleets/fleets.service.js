@@ -245,7 +245,7 @@ export default function fleetsService(Restangular, $q, demoScenario, $translate)
         this[_vars].name = this.name;
         this.update();
       } else {
-        // Restore the name in case we set an empty value
+        // Restore the name in case we set an empty value (or a duplicate)
         this.name = this[_vars].name;
       }
     }

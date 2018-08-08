@@ -71,16 +71,16 @@ export default class ChartComponent {
   get sortDataBy() {
     return this.hasFrozenGroupsOrder ? 'null' : 'asc';
   }
-  leasingIncluded(fleet) {
+  leasingIncluded(fleet) {    
     // Enter groups attribute
     return _.chain(fleet.groups.all())
       // Enter vars attribute
-      .map('vars')
-      // Pick leasing values as an array
-      .map(vars => _.chain(vars).pick(LEASING_INCLUDES).values().value() )
+      .map('vars')      
+      // Pick leasing values as an array, and main leasing option
+      .map(vars => [_.chain(vars).pick(LEASING_INCLUDES).values().value(), vars.leasing || false ])
       // Does any value in this array is true?
-      .map(includes => _.some(includes))
-      // Does any fleet has a leasing option to true?
+      .map(includes => _.some(includes[0]) && includes[1])
+      // Does any fleet has a leasing option to true?      
       .some()
       // Return the final boolean
       .value();
