@@ -233,6 +233,7 @@ export function print(req, res) {
       res.json({ status: 'pending', key: key });
 	  
 	  var printUrl = `${url}/#/visualization?language=${req.locale}&ids=${req.query.ids}`;
+      console.error(printUrl, filename);      
 	 
       // Start Phantom
       phantom.create()

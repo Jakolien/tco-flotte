@@ -35,6 +35,9 @@
               a(href="#{{ meta.name }}", du-smooth-scroll="") {{ meta.name | translate }}
             li(du-scrollspy="raw-basic")
               a(href="#raw-basic", du-smooth-scroll="") {{ 'basic_information_title' | translate }}          
+          a.btn.btn-link.btn-block(ng-click="$ctrl.openDownload()")
+              i.fa.fa-file-pdf-o.fa-fw
+              | &nbsp;{{ 'download_as_pdf' | translate }}     
       .col-md-9.pull-md-3
         #overview.main__visualization__overview.card.mb-2
           h3.card-title.mx-2.my-2.main__visualization__overview__heading {{ 'overview_title' | translate }}
