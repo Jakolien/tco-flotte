@@ -296,19 +296,19 @@ var Fleet = function(params) {
 			"klein": {
 				"inspektion": 198,
 				"reparatur": 199,
-				"reifen": 192,
+				"reifen": 124,
 				"sonstige": 0
 			},
 			"mittel": {
 				"inspektion": 197,
 				"reparatur": 217,
-				"reifen": 246,
+				"reifen": 194,
 				"sonstige": 0
 			},
 			"groß": {
 				"inspektion": 238,
 				"reparatur": 207,
-				"reifen": 338,
+				"reifen": 260,
 				"sonstige": 0
 			},
 			"LNF1": {
