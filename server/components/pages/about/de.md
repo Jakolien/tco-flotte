@@ -1,4 +1,4 @@
-## Hintergrund
+## Hintergrund TEST
 
 Von den 1,9 Millionen Pkw, die in Deutschland im Jahr durch gewerbliche Halter neu zugelassen werden, entfallen ungefähr 800.000 Pkw auf die deutschen Unternehmensflotten– hier liegt ein großes Potenzial für Elektromobilität. Im Vergleich zum privaten Einsatz von Elektrofahrzeugen bieten Unternehmensflotten Vorteile. Die beschränkte Reichweite ist weniger problematisch, wenn man auf andere Poolfahrzeuge ausweichen kann. Auch der Aufbau und eine hohe Auslastung von Lademöglichkeiten sind auf dem eigenen Betriebsgelände tendenziell leichter. Wenn die Fahrzeuge planbar und regelmäßig eingesetzt werden, kann dies Nutzungskonflikte vermeiden und die Wirtschaftlichkeit der Fahrzeuge erhöhen.
 
