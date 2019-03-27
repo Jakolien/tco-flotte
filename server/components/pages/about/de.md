@@ -1,4 +1,4 @@
-## Hintergrund TEST
+## Hintergrund
 
 Von den 1,9 Millionen Pkw, die in Deutschland im Jahr durch gewerbliche Halter neu zugelassen werden, entfallen ungefähr 800.000 Pkw auf die deutschen Unternehmensflotten– hier liegt ein großes Potenzial für Elektromobilität. Im Vergleich zum privaten Einsatz von Elektrofahrzeugen bieten Unternehmensflotten Vorteile. Die beschränkte Reichweite ist weniger problematisch, wenn man auf andere Poolfahrzeuge ausweichen kann. Auch der Aufbau und eine hohe Auslastung von Lademöglichkeiten sind auf dem eigenen Betriebsgelände tendenziell leichter. Wenn die Fahrzeuge planbar und regelmäßig eingesetzt werden, kann dies Nutzungskonflikte vermeiden und die Wirtschaftlichkeit der Fahrzeuge erhöhen.
 
@@ -20,7 +20,7 @@ Was passiert, wenn sich Modellangebot, Batterie- und Fahrzeugkosten, Energieprei
 
 Diese und weitere Fragen beantwortet der Elektromobilitäts-Flottenrechner des Öko-Instituts. Der / die NutzerIn kann bei Leasingrate bzw. Anschaffungspreis und Restwert sowie bei Kosten für Ladeinfrastruktur, Kraftstoffe und Strom, Werkstattbesuche, Steuern und Versicherungen usw. auf plausible Voreinstellungen zurückgreifen oder die einzelnen Eingangsgrößen manuell an die eigenen Vorstellungen anpassen.
 
-Weitere Hintergrundinformationen zu Datenquellen, Annahmen und Rechenmethodik finden Sie hier: [http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/dokumentation/](http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/dokumentation/).
+Weitere Hintergrundinformationen zu Datenquellen, Annahmen und Rechenmethodik finden Sie hier: [https://www.oeko.de/service/download/emob/epf_flottentool_dokumentation.pdf/](https://www.oeko.de/service/download/emob/epf_flottentool_dokumentation.pdf/).
 
 ## Impressum
 
