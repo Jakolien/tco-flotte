@@ -330,7 +330,7 @@
     "fleets_intro": "You are now in the fleet overview. You can add new vehicles to your fleet by clicking 'Add a vehicle type'. When your fleet is complete, you can click on 'Duplicate fleet' to create a variant of the fleet in which you can replace conventional vehicles with their electrical equivalents or replace them with alternative means of transportation or savings.",
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help",
-    "tutorial_href": "http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/tutorial/",
+    "tutorial_href": "http://www.oeko.de/service/download/emob/epf_fleet_tool_tutorial.pdf",
     "tutorial_link": "Tutorial",
     "visualization_link_left": "To the visualization",
     "mileage_fleet": "Yearly mileage of the fleet"
