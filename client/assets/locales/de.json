@@ -325,7 +325,7 @@
     "fleets_intro": "Sie sind jetzt in der Flottenübersicht. Hier können Sie neue Fahrzeuge zu Ihrer Flotte hinzufügen, indem Sie auf „Neuer Fahrzeugtyp“ klicken. Wenn die Flotte vollständig ist, können Sie mit einem Klick auf „Flotte kopieren“ eine Vergleichsflotte anlegen, in der Sie z.B. konventionelle Fahrzeuge durch Elektrofahrzeuge ersetzen oder Wegstrecken auf alternative Verkehrsmittel verlagern können.",
     "fleets_intro_close": "Close",
     "duplicate_fleet_help": "duplicate_fleet_help",
-    "tutorial_href": "http://elektromobilitaethamburg.de/laufende-projekte/flottenprojekte/epowered-fleets-hamburg/anleitung/",
+    "tutorial_href": "http://www.oeko.de/service/download/emob/epf_flottentool_anleitung.pdf",
     "tutorial_link": " Anleitung",
     "visualization_link_left": "Zur Auswertung",
     "mileage_fleet": "Jahresfahrleistung Gesamtflotte"
